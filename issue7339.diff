@@ -1,0 +1,9 @@
+diff -r f789f1e8d0e0 trytond/model/fields/reference.py
+--- a/trytond/trytond/model/fields/reference.py	Mon Apr 09 10:54:41 2018 +0200
++++ b/trytond/trytond/model/fields/reference.py	Tue Apr 10 10:41:06 2018 +0200
+@@ -176,4 +176,4 @@
+         return (Cast(Substring(column,
+                     Position(',', column) + Literal(1)),
+                 Model.id.sql_type().base).in_(query)
+-            & column.ilike(target + ',%'))
++            & column.like(target + ',%'))

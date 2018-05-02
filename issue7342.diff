@@ -1,0 +1,17 @@
+--- a/trytond/trytond/modules/stock/move.py
++++ b/trytond/trytond/modules/stock/move.py
+@@ -1270,8 +1270,11 @@
+             if periods:
+                 period, = periods
+                 state_date_clause = lambda: (
+-                    Coalesce(move.effective_date, move.planned_date,
+-                        datetime.date.max) > period.date)
++                    (move.effective_date > period.date)
++                    | ((move.effective_date == Null)
++                        & (move.planned_date > period.date))
++                    | ((move.effective_date == Null)
++                        & (move.planned_date == Null)))
+                 state_date_clause_in &= state_date_clause()
+                 state_date_clause_out &= state_date_clause()
+ 
+

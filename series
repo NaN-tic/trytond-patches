@@ -46,6 +46,9 @@ party_check_vies.diff
 remove_payable_receivable_filter.diff
 sepa_sequence_type.diff
 
+issue7339.diff
+issue7342.diff
+
 # Ignore next patches
 #incremental_wait_in_retries.diff
 # Uncomment in calfruitos and basidelta
@@ -74,5 +77,6 @@ issue5891.diff # [stock] - Allow using view locations in cancelled stock moves
 locale.diff
 improve_stock_by_locations_performance.diff
 issue6322_6501.diff
-issue33209.diff # [account_invoice] Forbid to create credit notes from nonposted invoices.
 issue7129.diff # [account_payment] Slow to list Lines to Pay
+issue7395.diff # [account_asset] Crash Depreciation Table repot when lines date is out of range asset start/end
+support_postgresql10_6789.patch
