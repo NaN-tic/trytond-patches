@@ -1,7 +1,7 @@
-Index: mifarma/trytond/trytond/model/modelstorage.py
+Index: b/trytond/trytond/model/modelstorage.py
 ===================================================================
---- mifarma.orig/trytond/trytond/model/modelstorage.py
-+++ mifarma/trytond/trytond/model/modelstorage.py
+--- a/trytond/trytond/model/modelstorage.py
++++ b/trytond/trytond/model/modelstorage.py
 @@ -967,8 +967,17 @@ class ModelStorage(Model):
                              domain,
                              ])
@@ -21,10 +21,10 @@ Index: mifarma/trytond/trytond/model/modelstorage.py
  
          field_names = set(field_names or [])
          function_fields = {name for name, field in cls._fields.iteritems()
-Index: mifarma/trytond/trytond/ir/locale/bg_BG.po
+Index: b/trytond/trytond/ir/locale/bg_BG.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/bg_BG.po
-+++ mifarma/trytond/trytond/ir/locale/bg_BG.po
+--- a/trytond/trytond/ir/locale/bg_BG.po
++++ b/trytond/trytond/ir/locale/bg_BG.po
 @@ -20,8 +20,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -36,10 +36,10 @@ Index: mifarma/trytond/trytond/ir/locale/bg_BG.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/ca_ES.po
+Index: b/trytond/trytond/ir/locale/ca_ES.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/ca_ES.po
-+++ mifarma/trytond/trytond/ir/locale/ca_ES.po
+--- a/trytond/trytond/ir/locale/ca_ES.po
++++ b/trytond/trytond/ir/locale/ca_ES.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -56,10 +56,10 @@ Index: mifarma/trytond/trytond/ir/locale/ca_ES.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/cs_CZ.po
+Index: b/trytond/trytond/ir/locale/cs_CZ.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/cs_CZ.po
-+++ mifarma/trytond/trytond/ir/locale/cs_CZ.po
+--- a/trytond/trytond/ir/locale/cs_CZ.po
++++ b/trytond/trytond/ir/locale/cs_CZ.po
 @@ -20,8 +20,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -71,10 +71,10 @@ Index: mifarma/trytond/trytond/ir/locale/cs_CZ.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/de_DE.po
+Index: b/trytond/trytond/ir/locale/de_DE.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/de_DE.po
-+++ mifarma/trytond/trytond/ir/locale/de_DE.po
+--- a/trytond/trytond/ir/locale/de_DE.po
++++ b/trytond/trytond/ir/locale/de_DE.po
 @@ -32,11 +32,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -91,10 +91,10 @@ Index: mifarma/trytond/trytond/ir/locale/de_DE.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/es_AR.po
+Index: b/trytond/trytond/ir/locale/es_AR.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/es_AR.po
-+++ mifarma/trytond/trytond/ir/locale/es_AR.po
+--- a/trytond/trytond/ir/locale/es_AR.po
++++ b/trytond/trytond/ir/locale/es_AR.po
 @@ -24,10 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -110,10 +110,10 @@ Index: mifarma/trytond/trytond/ir/locale/es_AR.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/es_CO.po
+Index: b/trytond/trytond/ir/locale/es_CO.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/es_CO.po
-+++ mifarma/trytond/trytond/ir/locale/es_CO.po
+--- a/trytond/trytond/ir/locale/es_CO.po
++++ b/trytond/trytond/ir/locale/es_CO.po
 @@ -22,11 +22,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -130,10 +130,10 @@ Index: mifarma/trytond/trytond/ir/locale/es_CO.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/es_EC.po
+Index: b/trytond/trytond/ir/locale/es_EC.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/es_EC.po
-+++ mifarma/trytond/trytond/ir/locale/es_EC.po
+--- a/trytond/trytond/ir/locale/es_EC.po
++++ b/trytond/trytond/ir/locale/es_EC.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -150,10 +150,10 @@ Index: mifarma/trytond/trytond/ir/locale/es_EC.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/es_ES.po
+Index: b/trytond/trytond/ir/locale/es_ES.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/es_ES.po
-+++ mifarma/trytond/trytond/ir/locale/es_ES.po
+--- a/trytond/trytond/ir/locale/es_ES.po
++++ b/trytond/trytond/ir/locale/es_ES.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -170,10 +170,10 @@ Index: mifarma/trytond/trytond/ir/locale/es_ES.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/es_MX.po
+Index: b/trytond/trytond/ir/locale/es_MX.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/es_MX.po
-+++ mifarma/trytond/trytond/ir/locale/es_MX.po
+--- a/trytond/trytond/ir/locale/es_MX.po
++++ b/trytond/trytond/ir/locale/es_MX.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -190,10 +190,10 @@ Index: mifarma/trytond/trytond/ir/locale/es_MX.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/fr_FR.po
+Index: b/trytond/trytond/ir/locale/fr_FR.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/fr_FR.po
-+++ mifarma/trytond/trytond/ir/locale/fr_FR.po
+--- a/trytond/trytond/ir/locale/fr_FR.po
++++ b/trytond/trytond/ir/locale/fr_FR.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -210,10 +210,10 @@ Index: mifarma/trytond/trytond/ir/locale/fr_FR.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/hu_HU.po
+Index: b/trytond/trytond/ir/locale/hu_HU.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/hu_HU.po
-+++ mifarma/trytond/trytond/ir/locale/hu_HU.po
+--- a/trytond/trytond/ir/locale/hu_HU.po
++++ b/trytond/trytond/ir/locale/hu_HU.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -230,10 +230,10 @@ Index: mifarma/trytond/trytond/ir/locale/hu_HU.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/it_IT.po
+Index: b/trytond/trytond/ir/locale/it_IT.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/it_IT.po
-+++ mifarma/trytond/trytond/ir/locale/it_IT.po
+--- a/trytond/trytond/ir/locale/it_IT.po
++++ b/trytond/trytond/ir/locale/it_IT.po
 @@ -23,11 +23,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -250,10 +250,10 @@ Index: mifarma/trytond/trytond/ir/locale/it_IT.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/ja_JP.po
+Index: b/trytond/trytond/ir/locale/ja_JP.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/ja_JP.po
-+++ mifarma/trytond/trytond/ir/locale/ja_JP.po
+--- a/trytond/trytond/ir/locale/ja_JP.po
++++ b/trytond/trytond/ir/locale/ja_JP.po
 @@ -20,8 +20,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -265,10 +265,10 @@ Index: mifarma/trytond/trytond/ir/locale/ja_JP.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/lt_LT.po
+Index: b/trytond/trytond/ir/locale/lt_LT.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/lt_LT.po
-+++ mifarma/trytond/trytond/ir/locale/lt_LT.po
+--- a/trytond/trytond/ir/locale/lt_LT.po
++++ b/trytond/trytond/ir/locale/lt_LT.po
 @@ -20,8 +20,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -280,10 +280,10 @@ Index: mifarma/trytond/trytond/ir/locale/lt_LT.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/nl_NL.po
+Index: b/trytond/trytond/ir/locale/nl_NL.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/nl_NL.po
-+++ mifarma/trytond/trytond/ir/locale/nl_NL.po
+--- a/trytond/trytond/ir/locale/nl_NL.po
++++ b/trytond/trytond/ir/locale/nl_NL.po
 @@ -20,8 +20,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -295,10 +295,10 @@ Index: mifarma/trytond/trytond/ir/locale/nl_NL.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/pt_BR.po
+Index: b/trytond/trytond/ir/locale/pt_BR.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/pt_BR.po
-+++ mifarma/trytond/trytond/ir/locale/pt_BR.po
+--- a/trytond/trytond/ir/locale/pt_BR.po
++++ b/trytond/trytond/ir/locale/pt_BR.po
 @@ -24,11 +24,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -315,10 +315,10 @@ Index: mifarma/trytond/trytond/ir/locale/pt_BR.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/locale/ru_RU.po
+Index: b/trytond/trytond/ir/locale/ru_RU.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/ru_RU.po
-+++ mifarma/trytond/trytond/ir/locale/ru_RU.po
+--- a/trytond/trytond/ir/locale/ru_RU.po
++++ b/trytond/trytond/ir/locale/ru_RU.po
 @@ -22,8 +22,8 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -330,10 +330,10 @@ Index: mifarma/trytond/trytond/ir/locale/ru_RU.po
  msgstr ""
  
  msgctxt "error:foreign_model_exist:"
-Index: mifarma/trytond/trytond/ir/locale/sl_SI.po
+Index: b/trytond/trytond/ir/locale/sl_SI.po
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/locale/sl_SI.po
-+++ mifarma/trytond/trytond/ir/locale/sl_SI.po
+--- a/trytond/trytond/ir/locale/sl_SI.po
++++ b/trytond/trytond/ir/locale/sl_SI.po
 @@ -32,11 +32,11 @@ msgstr ""
  
  msgctxt "error:domain_validation_record:"
@@ -350,10 +350,10 @@ Index: mifarma/trytond/trytond/ir/locale/sl_SI.po
  
  msgctxt "error:foreign_model_exist:"
  msgid ""
-Index: mifarma/trytond/trytond/ir/translation.xml
+Index: b/trytond/trytond/ir/translation.xml
 ===================================================================
---- mifarma.orig/trytond/trytond/ir/translation.xml
-+++ mifarma/trytond/trytond/ir/translation.xml
+--- a/trytond/trytond/ir/translation.xml
++++ b/trytond/trytond/ir/translation.xml
 @@ -100,8 +100,8 @@ this repository contains the full copyri
              <field name="name">domain_validation_record</field>
              <field name="lang">en_US</field>
