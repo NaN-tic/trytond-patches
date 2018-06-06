@@ -1,0 +1,414 @@
+Index: b/trytond/trytond/model/modelstorage.py
+===================================================================
+--- a/trytond/trytond/model/modelstorage.py
++++ b/trytond/trytond/model/modelstorage.py
+@@ -5,6 +5,7 @@ import datetime
+ import time
+ import csv
+ import warnings
++import logging
+ 
+ from decimal import Decimal
+ from itertools import islice, ifilter, chain, izip
+@@ -27,6 +28,7 @@ from .modelview import ModelView
+ from .descriptors import dualmethod
+ 
+ __all__ = ['ModelStorage', 'EvalEnvironment']
++logger = logging.getLogger(__name__)
+ 
+ 
+ def without_check_access(func):
+@@ -1009,8 +1011,27 @@ class ModelStorage(Model):
+                             domain,
+                             ])
+                     if sub_relations != set(finds):
++                        fail_field_value = sub_relations.difference(
++                            set(finds)).pop()
++                        error_args = cls._get_error_args(field.name)
++                        error_args.update({
++                                'value': fail_field_value.rec_name if
++                                    isinstance(fail_field_value, Model)
++                                    else fail_field_value,
++                                'domain': getattr(cls, field_name).domain
++                                })
++                        msg = cls.raise_user_error('domain_validation_record',
++                            error_args=error_args, raise_exception=False)
++                        msg += ' Records: ' + ', '.join(
++                            [str(r.id) for r in records])
++                        msg += ' Domain: %s' % (domain,)
++                        msg += ' Relations: ' + ', '.join(
++                            [str(r.id) for r in list(sub_relations)])
++                        msg += ' Finds: ' + ', '.join(
++                            [str(r.id) for r in finds])
++                        logger.warn(msg)
+                         cls.raise_user_error('domain_validation_record',
+-                            error_args=cls._get_error_args(field.name))
++                            error_args=error_args)
+ 
+         field_names = set(field_names or [])
+         function_fields = {name for name, field in cls._fields.iteritems()
+Index: b/trytond/trytond/ir/translation.xml
+===================================================================
+--- a/trytond/trytond/ir/translation.xml
++++ b/trytond/trytond/ir/translation.xml
+@@ -129,8 +129,8 @@ this repository contains the full copyri
+             <field name="name">domain_validation_record</field>
+             <field name="lang">en</field>
+             <field name="type">error</field>
+-            <field name="src">The value of the field "%(field)s" on "%(model)s" is not valid according to its domain.</field>
+-            <field name="value">The value of the field "%(field)s" on "%(model)s" is not valid according to its domain.</field>
++            <field name="src">The value "%(value)s" of the field "%(field)s" on "%(model)s" is not valid according to its domain "%(domain)s".</field>
++            <field name="value">The value "%(value)s" of the field "%(field)s" on "%(model)s" is not valid according to its domain "%(domain)s".</field>
+             <field name="module">ir</field>
+             <field name="fuzzy" eval="False"/>
+         </record>
+Index: b/trytond/trytond/ir/locale/bg.po
+===================================================================
+--- a/trytond/trytond/ir/locale/bg.po
++++ b/trytond/trytond/ir/locale/bg.po
+@@ -26,11 +26,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/ca.po
+===================================================================
+--- a/trytond/trytond/ir/locale/ca.po
++++ b/trytond/trytond/ir/locale/ca.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"El valor del camp \"%(field)s\" de \"%(model)s\" no és correcte segons "
+-"aquest domini."
++"El valor \"%(field)s\" del camp \"%(field)s\" de \"%(model)s\" no és correcte segons "
++"aquest domini \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/cs.po
+===================================================================
+--- a/trytond/trytond/ir/locale/cs.po
++++ b/trytond/trytond/ir/locale/cs.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/de.po
+===================================================================
+--- a/trytond/trytond/ir/locale/de.po
++++ b/trytond/trytond/ir/locale/de.po
+@@ -23,11 +23,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"Der Wert des Feldes \"%(field)s\" in \"%(model)s\" liegt nicht im gültigen "
+-"Wertebereich (Domain)."
++"Der Wert \"%(value)s\" des Feldes \"%(field)s\" in \"%(model)s\" liegt nicht im gültigen "
++"Wertebereich (Domain) \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/es.po
+===================================================================
+--- a/trytond/trytond/ir/locale/es.po
++++ b/trytond/trytond/ir/locale/es.po
+@@ -22,11 +22,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"El valor del campo \"%(field)s\" de \"%(model)s\" no es correcto según su "
+-"dominio."
++"El valor \"%(value)s\" del campo \"%(field)s\" de \"%(model)s\" no es correcto según su "
++"dominio \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/es_419.po
+===================================================================
+--- a/trytond/trytond/ir/locale/es_419.po
++++ b/trytond/trytond/ir/locale/es_419.po
+@@ -20,8 +20,8 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+ 
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/fa.po
+===================================================================
+--- a/trytond/trytond/ir/locale/fa.po
++++ b/trytond/trytond/ir/locale/fa.po
+@@ -24,8 +24,8 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr "مقدار فیلد: \"%s\" در مدل: \"%s\" باتوجه به دامنه آن معتبر نیست."
+ 
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/fr.po
+===================================================================
+--- a/trytond/trytond/ir/locale/fr.po
++++ b/trytond/trytond/ir/locale/fr.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"La valeur du champ « %(field)s » sur « %(model)s » n'est pas valide selon "
+-"son domaine."
++"La valeur \"%(value)s\" du champ « %(field)s » sur « %(model)s » n'est pas valide selon "
++"son domaine \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/hu_HU.po
+===================================================================
+--- a/trytond/trytond/ir/locale/hu_HU.po
++++ b/trytond/trytond/ir/locale/hu_HU.po
+@@ -27,11 +27,11 @@ msgstr ""
+ #, fuzzy
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ #, fuzzy
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/it_IT.po
+===================================================================
+--- a/trytond/trytond/ir/locale/it_IT.po
++++ b/trytond/trytond/ir/locale/it_IT.po
+@@ -27,11 +27,11 @@ msgstr ""
+ #, fuzzy
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ #, fuzzy
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/ja_JP.po
+===================================================================
+--- a/trytond/trytond/ir/locale/ja_JP.po
++++ b/trytond/trytond/ir/locale/ja_JP.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/lo.po
+===================================================================
+--- a/trytond/trytond/ir/locale/lo.po
++++ b/trytond/trytond/ir/locale/lo.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/nl.po
+===================================================================
+--- a/trytond/trytond/ir/locale/nl.po
++++ b/trytond/trytond/ir/locale/nl.po
+@@ -26,11 +26,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/pl.po
+===================================================================
+--- a/trytond/trytond/ir/locale/pl.po
++++ b/trytond/trytond/ir/locale/pl.po
+@@ -24,11 +24,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"Wartość w polu \"%(field)s\" dla \"%(model)s\" jest nieprawidłowa względem "
+-"swojej domeny."
++"Wartość \"%(value)s\" w polu \"%(field)s\" dla \"%(model)s\" jest "
++"nieprawidłowa względem swojej domeny\"%(domain)s\"."
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/pt_BR.po
+===================================================================
+--- a/trytond/trytond/ir/locale/pt_BR.po
++++ b/trytond/trytond/ir/locale/pt_BR.po
+@@ -27,11 +27,11 @@ msgstr ""
+ #, fuzzy
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ #, fuzzy
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/ru.po
+===================================================================
+--- a/trytond/trytond/ir/locale/ru.po
++++ b/trytond/trytond/ir/locale/ru.po
+@@ -26,11 +26,11 @@ msgstr ""
+ 
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\".""
+ 
+ msgctxt "error:foreign_model_exist:"
+ msgid ""
+Index: b/trytond/trytond/ir/locale/sl.po
+===================================================================
+--- a/trytond/trytond/ir/locale/sl.po
++++ b/trytond/trytond/ir/locale/sl.po
+@@ -27,11 +27,11 @@ msgstr ""
+ #, fuzzy
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ #, fuzzy
+ msgctxt "error:foreign_model_exist:"
+Index: b/trytond/trytond/ir/locale/zh_CN.po
+===================================================================
+--- a/trytond/trytond/ir/locale/zh_CN.po
++++ b/trytond/trytond/ir/locale/zh_CN.po
+@@ -27,11 +27,11 @@ msgstr ""
+ #, fuzzy
+ msgctxt "error:domain_validation_record:"
+ msgid ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ msgstr ""
+-"The value of the field \"%(field)s\" on \"%(model)s\" is not valid according"
+-" to its domain."
++"The value \"%(value)s\" of the field \"%(field)s\" on \"%(model)s\" is not "
++"valid according to its domain \"%(domain)s\"."
+ 
+ #, fuzzy
+ msgctxt "error:foreign_model_exist:"
