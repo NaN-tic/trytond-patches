@@ -1,0 +1,185 @@
+diff -r d1102046dce6 __init__.py
+--- a/trytond/trytond/modules/stock_lot/__init__.py	Mon Apr 23 17:32:23 2018 +0200
++++ b/trytond/trytond/modules/stock_lot/__init__.py	Thu Jun 14 14:59:26 2018 +0200
+@@ -2,24 +2,29 @@
+ # this repository contains the full copyright notices and license terms.
+
+ from trytond.pool import Pool
+-from .stock import *
+-from .product import *
++from . import stock
++from . import product
+
+
+ def register():
+     Pool.register(
+-        Lot,
+-        LotByLocationContext,
+-        LotType,
+-        Move,
+-        ShipmentIn,
+-        ShipmentOut,
+-        ShipmentOutReturn,
+-        Period,
+-        PeriodCacheLot,
+-        Inventory,
+-        InventoryLine,
+-        Template,
+-        Product,
+-        TemplateLotType,
++        stock.Lot,
++        stock.LotByLocationContext,
++        stock.LotType,
++        stock.Move,
++        stock.ShipmentIn,
++        stock.ShipmentOut,
++        stock.ShipmentOutReturn,
++        stock.Period,
++        stock.PeriodCacheLot,
++        stock.Inventory,
++        stock.InventoryLine,
++        product.Template,
++        product.Product,
++        product.TemplateLotType,
++        stock.Location,
++        stock.LotByLocationStart,
+         module='stock_lot', type_='model')
++    Pool.register(
++        stock.LotByLocation,
++        module='stock_lot', type_='wizard')
+diff -r d1102046dce6 stock.py
+--- a/trytond/trytond/modules/stock_lot/stock.py	Mon Apr 23 17:32:23 2018 +0200
++++ b/trytond/trytond/modules/stock_lot/stock.py	Thu Jun 14 14:59:26 2018 +0200
+@@ -4,16 +4,86 @@
+ from collections import defaultdict
+
+ from trytond.model import ModelView, ModelSQL, fields
+-from trytond.pyson import Eval
++from trytond.pyson import PYSONEncoder, Eval
+ from trytond.pool import Pool, PoolMeta
+ from trytond.transaction import Transaction
+ from trytond.modules.stock import StockMixin
++from trytond.wizard import Wizard, StateView, StateAction, Button
+
+-__all__ = ['Lot', 'LotType', 'Move', 'ShipmentIn', 'ShipmentOut',
++_all__ = ['Lot', 'LotType', 'Move', 'ShipmentIn', 'ShipmentOut',
+     'LotByLocationContext', 'ShipmentOutReturn',
+     'Period', 'PeriodCacheLot',
+-    'Inventory', 'InventoryLine', 'LotByLocationContext']
++    'Inventory', 'InventoryLine', 'LotByLocationContext',
++    'Location', 'LotByLocation', 'LotByLocationStart']
++
++
++class Location:
++    __name__ = 'stock.location'
++    __metaclass__ = PoolMeta
++
++    @classmethod
++    def _quantity_grouping_and_key(cls):
++        if Transaction().context.get('lot'):
++            lot_id = Transaction().context['lot']
++            product_id = Transaction().context['product']
++            return ('product', 'lot'), (product_id, lot_id)
++        return super(Location, cls)._quantity_grouping_and_key()
++
++
++class LotByLocationStart(ModelView):
++    'Lot by Location'
++    __name__ = 'stock.lot.by_location.start'
++    forecast_date = fields.Date(
++        'At Date', help=('Allow to compute expected '
++            'stock quantities for this date.\n'
++            '* An empty value is an infinite date in the future.\n'
++            '* A date in the past will provide historical values.'))
++
++    @staticmethod
++    def default_forecast_date():
++        Date = Pool().get('ir.date')
++        return Date.today()
++
+
++class LotByLocation(Wizard):
++    'Lot by Location'
++    __name__ = 'stock.lot.by_location'
++    start = StateView('stock.lot.by_location.start',
++        'stock_lot.lot_by_location_start_view_form', [
++            Button('Cancel', 'end', 'tryton-cancel'),
++            Button('Open', 'open', 'tryton-ok', default=True),
++            ])
++    open = StateAction('stock.act_location_quantity_tree')
++
++    def do_open(self, action):
++        pool = Pool()
++        Lot = pool.get('stock.lot')
++        Lang = pool.get('ir.lang')
++
++        context = {}
++        lot_id = Transaction().context['active_id']
++        context['lot'] = lot_id
++
++        lot = Lot(lot_id)
++        context['product'] = lot.product.id
++
++        if self.start.forecast_date:
++            context['stock_date_end'] = self.start.forecast_date
++        else:
++            context['stock_date_end'] = datetime.date.max
++        action['pyson_context'] = PYSONEncoder().encode(context)
++
++        for code in [Transaction().language, 'en_US']:
++            langs = Lang.search([
++                    ('code', '=', code),
++                    ])
++            if langs:
++                break
++        lang, = langs
++        date = lang.strftime(context['stock_date_end'])
++        action['name'] += ' - %s (%s) @ %s' % (lot.rec_name,
++            lot.product.default_uom.rec_name, date)
++        return action, {}
+
+ class Lot(ModelSQL, ModelView, StockMixin):
+     "Stock Lot"
+diff -r d1102046dce6 stock.xml
+--- a/trytond/trytond/modules/stock_lot/stock.xml	Mon Apr 23 17:32:23 2018 +0200
++++ b/trytond/trytond/modules/stock_lot/stock.xml	Thu Jun 14 14:59:26 2018 +0200
+@@ -112,6 +112,28 @@
+             <field name="action" ref="act_move_form_relate_lot"/>
+         </record>
+
++
++        <record model="ir.action.wizard" id="wizard_lot_by_location">
++            <field name="name">Lot by Locations</field>
++            <field name="wiz_name">stock.lot.by_location</field>
++            <field name="model">stock.lot</field>
++        </record>
++        <record model="ir.action.keyword" id="act_location_quantity_keyword1">
++            <field name="keyword">form_relate</field>
++            <field name="model">stock.lot,-1</field>
++            <field name="action" ref="wizard_lot_by_location"/>
++        </record>
++        <record model="ir.action-res.group"
++            id="wizard_lot_by_location-group_stock">
++            <field name="action" ref="wizard_lot_by_location"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
++          <record model="ir.ui.view" id="lot_by_location_start_view_form">
++            <field name="model">stock.lot.by_location.start</field>
++            <field name="type">form</field>
++            <field name="name">lot_by_location_start_form</field>
++        </record>
++
+         <record model="stock.lot.type" id="type_supplier">
+             <field name="code">supplier</field>
+             <field name="name">Supplier</field>
+diff -r d1102046dce6 view/lot_by_location_start_form.xml
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/trytond/trytond/modules/stock_lot/view/lot_by_location_start_form.xml	Thu Jun 14 14:59:26 2018 +0200
+@@ -0,0 +1,7 @@
++<?xml version="1.0"?>
++<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
++this repository contains the full copyright notices and license terms. -->
++<form>
++    <label name="forecast_date"/>
++    <field name="forecast_date"/>
++</form>
