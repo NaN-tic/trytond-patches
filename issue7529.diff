@@ -1,0 +1,31 @@
+diff -r d1e1e4252357 trytond/trytond/modules/account_product/product.xml
+--- a/trytond/trytond/modules/account_product/product.xml	Mon Apr 23 17:29:25 2018 +0200
++++ b/trytond/trytond/modules/account_product/product.xml	Thu Jun 21 15:26:33 2018 +0200
+@@ -70,5 +70,27 @@
+             <field name="rule_group" ref="rule_group_template_supplier_taxes"/>
+         </record>
+
++        <record model="ir.rule.group" id="rule_group_product_category_account">
++            <field name="model" search="[('model', '=', 'product.category.account')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_product_category_account1">
++            <field name="domain"
++                eval="[('company', '=', Eval('user', {}).get('company', None))]"
++                pyson="1"/>
++            <field name="rule_group" ref="rule_group_product_category_account"/>
++        </record>
++
++        <record model="ir.rule.group" id="rule_group_product_template_account">
++            <field name="model" search="[('model', '=', 'product.template.account')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_product_template_account1">
++            <field name="domain"
++                eval="[('company', '=', Eval('user', {}).get('company', None))]"
++                pyson="1"/>
++            <field name="rule_group" ref="rule_group_product_template_account"/>
++        </record>
++
+     </data>
+ </tryton>

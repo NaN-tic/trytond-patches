@@ -1,8 +1,10 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
+domain_validation_warning.diff # [trytond] Increase the verbosity of domain_validation_error message
 
 issue3932.diff # [account] rule account move and account move line by company
 issue4341.diff # [account] Add active invisible in tree/list views
+issue7529.diff # [account] Missing rules in product.category.account and product.template.account
 
 issue6253.diff # [account_invoice] add invoice type criteria
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
@@ -11,6 +13,7 @@ issue4030.diff # [analytic_account] Not selected root accounts in analytic accou
 
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff #[stock] search function for warehouse.
+
 stock_consignment_create_invoice_lines_on_move_done.diff # [stock_consignment] Task #034628: stock_consignment only create invoice lines on move done
-domain_validation_warning.diff # [trytond] Increase the verbosity of domain_validation_error message
-issue240_631.diff # from lot: stock_by_locations get all locations with that lot.
+
+issue240_631.diff # [stock_lot] stock_by_locations get all locations with that lot.
