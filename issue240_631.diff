@@ -183,3 +183,141 @@ diff -r d1102046dce6 view/lot_by_location_start_form.xml
 +    <label name="forecast_date"/>
 +    <field name="forecast_date"/>
 +</form>
+diff -r d1102046dce6 locale/ca.po
+--- a/trytond/trytond/modules/stock_lot/locale/ca.po	Mon Apr 23 17:32:23 2018 +0200
++++ b/trytond/trytond/modules/stock_lot/locale/ca.po	Wed Jun 27 12:46:43 2018 +0200
+@@ -90,6 +90,14 @@
+ msgid "Write User"
+ msgstr "Usuari de modificació"
+
++msgctxt "field:stock.lot.by_location.start,forecast_date:"
++msgid "At Date"
++msgstr "A data"
++
++msgctxt "field:stock.lot.by_location.start,id:"
++msgid "ID"
++msgstr "Identificador"
++
+ msgctxt "field:stock.lot.type,code:"
+ msgid "Code"
+ msgstr "Codi"
+@@ -194,6 +202,16 @@
+ msgid "The type of location for which lot is required"
+ msgstr "Tipus d'ubicació per la qual el lot és obligatori."
+
++msgctxt "help:stock.lot.by_location.start,forecast_date:"
++msgid ""
++"Allow to compute expected stock quantities for this date.\n"
++"* An empty value is an infinite date in the future.\n"
++"* A date in the past will provide historical values."
++msgstr ""
++"Permet calcular les quantitats previstes per a aquesta data.\n"
++"* Un valor buit és un data infinita en el futur.\n"
++"* Una data en el passat proporcionarà valors històrics. "
++
+ msgctxt "help:stock.lots_by_location.context,forecast_date:"
+ msgid ""
+ "Allow to compute expected stock quantities for this date.\n"
+@@ -216,6 +234,10 @@
+ msgid "Moves"
+ msgstr "Moviments"
+
++msgctxt "model:ir.action,name:wizard_lot_by_location"
++msgid "Lot by Locations"
++msgstr "Lot per Ubicació"
++
+ msgctxt "model:ir.ui.menu,name:menu_lot_form"
+ msgid "Lots"
+ msgstr "Lots"
+@@ -228,6 +250,10 @@
+ msgid "Stock Lot"
+ msgstr "Lot"
+
++msgctxt "model:stock.lot.by_location.start,name:"
++msgid "Lot by Location"
++msgstr "Lot per ubicació"
++
+ msgctxt "model:stock.lot.type,name:"
+ msgid "Stock Lot Type"
+ msgstr "Tipus de lot"
+@@ -279,3 +305,11 @@
+ msgctxt "view:stock.period.cache.lot:"
+ msgid "Period Lot Caches"
+ msgstr "Períodes d'existències precalculat"
++
++msgctxt "wizard_button:stock.lot.by_location,start,end:"
++msgid "Cancel"
++msgstr "Cancel·lat"
++
++msgctxt "wizard_button:stock.lot.by_location,start,open:"
++msgid "Open"
++msgstr "Pendent"
+diff -r d1102046dce6 locale/es.po
+--- a/trytond/trytond/modules/stock_lot/locale/es.po	Mon Apr 23 17:32:23 2018 +0200
++++ b/trytond/trytond/modules/stock_lot/locale/es.po	Wed Jun 27 12:46:43 2018 +0200
+@@ -90,6 +90,14 @@
+ msgid "Write User"
+ msgstr "Usuario de modificación"
+
++msgctxt "field:stock.lot.by_location.start,forecast_date:"
++msgid "At Date"
++msgstr "A la fecha"
++
++msgctxt "field:stock.lot.by_location.start,id:"
++msgid "ID"
++msgstr "Identificador"
++
+ msgctxt "field:stock.lot.type,code:"
+ msgid "Code"
+ msgstr "Código"
+@@ -194,6 +202,16 @@
+ msgid "The type of location for which lot is required"
+ msgstr "El tipo de ubicación en la que el lote es obligatorio."
+
++msgctxt "help:stock.lot.by_location.start,forecast_date:"
++msgid ""
++"Allow to compute expected stock quantities for this date.\n"
++"* An empty value is an infinite date in the future.\n"
++"* A date in the past will provide historical values."
++msgstr ""
++"Permite calcular las cantidades previstas para esta fecha.\n"
++"* Un valor vacío es una fecha infinita en el futuro.\n"
++"* Una fecha en el pasado proporcionará valores históricos. "
++
+ msgctxt "help:stock.lots_by_location.context,forecast_date:"
+ msgid ""
+ "Allow to compute expected stock quantities for this date.\n"
+@@ -216,6 +234,10 @@
+ msgid "Moves"
+ msgstr "Movimientos"
+
++msgctxt "model:ir.action,name:wizard_lot_by_location"
++msgid "Lot by Locations"
++msgstr "Lotes por Ubicaciones"
++
+ msgctxt "model:ir.ui.menu,name:menu_lot_form"
+ msgid "Lots"
+ msgstr "Lotes"
+@@ -228,6 +250,10 @@
+ msgid "Stock Lot"
+ msgstr "Lote"
+
++msgctxt "model:stock.lot.by_location.start,name:"
++msgid "Lot by Location"
++msgstr "Lote por ubicación"
++
+ msgctxt "model:stock.lot.type,name:"
+ msgid "Stock Lot Type"
+ msgstr "Tipo lote"
+@@ -279,3 +305,11 @@
+ msgctxt "view:stock.period.cache.lot:"
+ msgid "Period Lot Caches"
+ msgstr "Período lote precalculados"
++
++msgctxt "wizard_button:stock.lot.by_location,start,end:"
++msgid "Cancel"
++msgstr "Cancel·lar"
++
++msgctxt "wizard_button:stock.lot.by_location,start,open:"
++msgid "Open"
++msgstr "Pendiente"
