@@ -1,31 +1,16 @@
-diff -r d1e1e4252357 trytond/trytond/modules/account_product/product.xml
---- a/trytond/trytond/modules/account_product/product.xml	Mon Apr 23 17:29:25 2018 +0200
-+++ b/trytond/trytond/modules/account_product/product.xml	Thu Jun 21 15:26:33 2018 +0200
-@@ -70,5 +70,27 @@
-             <field name="rule_group" ref="rule_group_template_supplier_taxes"/>
-         </record>
+diff -r f91027954501 trytond/trytond/model/multivalue.py
+--- a/trytond/trytond/model/multivalue.py	Mon Jun 11 23:17:54 2018 +0200
++++ b/trytond/trytond/model/multivalue.py	Thu Jun 28 09:59:05 2018 +0200
+@@ -34,8 +34,10 @@
+         return Value(**pattern)
 
-+        <record model="ir.rule.group" id="rule_group_product_category_account">
-+            <field name="model" search="[('model', '=', 'product.category.account')]"/>
-+            <field name="global_p" eval="True"/>
-+        </record>
-+        <record model="ir.rule" id="rule_product_category_account1">
-+            <field name="domain"
-+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
-+                pyson="1"/>
-+            <field name="rule_group" ref="rule_group_product_category_account"/>
-+        </record>
-+
-+        <record model="ir.rule.group" id="rule_group_product_template_account">
-+            <field name="model" search="[('model', '=', 'product.template.account')]"/>
-+            <field name="global_p" eval="True"/>
-+        </record>
-+        <record model="ir.rule" id="rule_product_template_account1">
-+            <field name="domain"
-+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
-+                pyson="1"/>
-+            <field name="rule_group" ref="rule_group_product_template_account"/>
-+        </record>
-+
-     </data>
- </tryton>
+     def __values(self, field, pattern, match_none=True):
+-        return [v for v in self.multivalue_records(field)
+-            if v.match(pattern, match_none=match_none)]
++        Value = self.multivalue_model(field)
++        # Limit the cache to matching records
++        return Value.browse((v for v in self.multivalue_records(field)
++            if v.match(pattern, match_none=match_none)))
+
+     def get_multivalue(self, name, **pattern):
+         Value = self.multivalue_model(name)
