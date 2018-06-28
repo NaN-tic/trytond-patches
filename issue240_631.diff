@@ -196,7 +196,7 @@ diff -r d1102046dce6 locale/ca.po
 +
 +msgctxt "field:stock.lot.by_location.start,id:"
 +msgid "ID"
-+msgstr "Identificador"
++msgstr "ID"
 +
  msgctxt "field:stock.lot.type,code:"
  msgid "Code"
@@ -224,7 +224,7 @@ diff -r d1102046dce6 locale/ca.po
 
 +msgctxt "model:ir.action,name:wizard_lot_by_location"
 +msgid "Lot by Locations"
-+msgstr "Lot per Ubicació"
++msgstr "Lot per ubicació"
 +
  msgctxt "model:ir.ui.menu,name:menu_lot_form"
  msgid "Lots"
@@ -247,7 +247,7 @@ diff -r d1102046dce6 locale/ca.po
 +
 +msgctxt "wizard_button:stock.lot.by_location,start,end:"
 +msgid "Cancel"
-+msgstr "Cancel·lat"
++msgstr "Cancel·la"
 +
 +msgctxt "wizard_button:stock.lot.by_location,start,open:"
 +msgid "Open"
@@ -265,7 +265,7 @@ diff -r d1102046dce6 locale/es.po
 +
 +msgctxt "field:stock.lot.by_location.start,id:"
 +msgid "ID"
-+msgstr "Identificador"
++msgstr "ID"
 +
  msgctxt "field:stock.lot.type,code:"
  msgid "Code"
@@ -293,7 +293,7 @@ diff -r d1102046dce6 locale/es.po
 
 +msgctxt "model:ir.action,name:wizard_lot_by_location"
 +msgid "Lot by Locations"
-+msgstr "Lotes por Ubicaciones"
++msgstr "Lotes por ubicaciones"
 +
  msgctxt "model:ir.ui.menu,name:menu_lot_form"
  msgid "Lots"
@@ -316,7 +316,7 @@ diff -r d1102046dce6 locale/es.po
 +
 +msgctxt "wizard_button:stock.lot.by_location,start,end:"
 +msgid "Cancel"
-+msgstr "Cancel·lar"
++msgstr "Cancelar"
 +
 +msgctxt "wizard_button:stock.lot.by_location,start,open:"
 +msgid "Open"
