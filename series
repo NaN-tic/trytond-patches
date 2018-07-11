@@ -1,6 +1,7 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
 domain_validation_warning.diff # [trytond] Increase the verbosity of domain_validation_error message
+issue7555.diff # [trytond] Skip access rules when validating relation domain
 
 issue3932.diff # [account] rule account move and account move line by company
 issue4341.diff # [account] Add active invisible in tree/list views
