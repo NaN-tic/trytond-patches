@@ -1,0 +1,12 @@
+diff -r a4d9a0d5ca24 purchase_request.py
+--- a/trytond/trytond/modules/purchase_request/purchase_request.py	Mon May 21 20:13:25 2018 +0200
++++ b/trytond/trytond/modules/purchase_request/purchase_request.py	Tue Jul 24 15:56:01 2018 +0200
+@@ -276,6 +276,8 @@
+ 
+         supplier = None
+         today = Date.today()
++        if not date:
++            date = today
+         for product_supplier in product.product_suppliers:
+             supply_date = product_supplier.compute_supply_date(date=today)
+             timedelta = date - supply_date
