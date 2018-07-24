@@ -17,3 +17,4 @@ stock_consignment_create_invoice_lines_on_move_done.diff # [stock_consignment] T
 
 issue240_631.diff # [stock_lot] stock_by_locations get all locations with that lot.
 issue10467.diff # stock_lot: add lot to grouping if lot it's required on product
+purchase_request.diff # purchase_request: as shippment_date it's not required we need to ensure operation could be done
