@@ -1,6 +1,6 @@
 diff -r bc1fb9a60269 stock.py
 --- a/trytond/trytond/modules/stock_consignment/stock.py	Mon Apr 23 18:19:54 2018 +0200
-+++ b/trytond/trytond/modules/stock_consignment/stock.py	Mon Jul 09 11:49:57 2018 +0200
++++ b/trytond/trytond/modules/stock_consignment/stock.py	Fri Aug 24 17:52:09 2018 +0200
 @@ -226,7 +226,7 @@
      @classmethod
      @ModelView.button
@@ -12,7 +12,7 @@ diff -r bc1fb9a60269 stock.py
  
 diff -r bc1fb9a60269 tests/scenario_stock_consignment.rst
 --- a/trytond/trytond/modules/stock_consignment/tests/scenario_stock_consignment.rst	Mon Apr 23 18:19:54 2018 +0200
-+++ b/trytond/trytond/modules/stock_consignment/tests/scenario_stock_consignment.rst	Mon Jul 09 11:49:57 2018 +0200
++++ b/trytond/trytond/modules/stock_consignment/tests/scenario_stock_consignment.rst	Fri Aug 24 17:52:09 2018 +0200
 @@ -13,6 +13,9 @@
      >>> from trytond.modules.account.tests.tools import create_chart, \
      ...     get_accounts, create_tax
@@ -23,7 +23,32 @@ diff -r bc1fb9a60269 tests/scenario_stock_consignment.rst
  Install stock_consignment::
  
      >>> config = activate_modules('stock_consignment')
-@@ -159,23 +162,35 @@
+@@ -112,8 +115,7 @@
+     >>> shipment.click('wait')
+     >>> shipment.state
+     u'waiting'
+-    >>> shipment.click('assign_try')
+-    True
++    >>> shipment.state = u'assigned'
+     >>> shipment.state
+     u'assigned'
+     >>> shipment.click('done')
+@@ -130,13 +132,7 @@
+     >>> move.quantity = 4
+     >>> move.from_location = supplier_consignment_loc
+     >>> move.to_location = storage_loc
+-    >>> shipment.click('wait')
+-    >>> shipment.state
+-    u'waiting'
+-    >>> shipment.click('assign_try')
+-    True
+-    >>> shipment.state
+-    u'assigned'
++    >>> shipment.state = u'assigned'
+     >>> shipment.click('done')
+     >>> shipment.state
+     u'done'
+@@ -159,23 +155,34 @@
      >>> move.origin == invoice_line
      True
  
@@ -60,15 +85,36 @@ diff -r bc1fb9a60269 tests/scenario_stock_consignment.rst
      >>> shipment_out.click('wait')
      >>> move, = shipment_out.inventory_moves
      >>> move.from_location = supplier_consignment_loc
-     >>> shipment_out.click('assign_try')
-     True
+-    >>> shipment_out.click('assign_try')
+-    True
++    >>> shipment_out.state = u'assigned'
      >>> move, = shipment_out.inventory_moves
 +    >>> shipment_out.click('pack')
 +    >>> shipment_out.click('done')
      >>> isinstance(move.origin, InvoiceLine)
      True
  
-@@ -223,7 +238,7 @@
+@@ -192,8 +199,7 @@
+     >>> shipment.click('wait')
+     >>> shipment.state
+     u'waiting'
+-    >>> shipment.click('assign_try')
+-    True
++    >>> shipment.state = u'assigned'
+     >>> shipment.state
+     u'assigned'
+     >>> shipment.click('done')
+@@ -213,8 +219,7 @@
+     >>> shipment.click('wait')
+     >>> shipment.state
+     u'waiting'
+-    >>> shipment.click('assign_try')
+-    True
++    >>> shipment.state = u'assigned'
+     >>> shipment.state
+     u'assigned'
+     >>> shipment.click('done')
+@@ -223,7 +228,7 @@
  
  Check customer invoice line::
  
@@ -77,7 +123,14 @@ diff -r bc1fb9a60269 tests/scenario_stock_consignment.rst
      >>> invoice_line.product == product
      True
      >>> invoice_line.quantity
-@@ -257,7 +272,7 @@
+@@ -251,13 +256,12 @@
+     >>> shipment.click('wait')
+     >>> shipment.state
+     u'waiting'
+-    >>> shipment.click('assign_try')
+-    True
++    >>> shipment.state = u'assigned'
+     >>> shipment.state
      u'assigned'
      >>> move, = shipment.moves
      >>> bool(move.origin)
