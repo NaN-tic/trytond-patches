@@ -253,7 +253,7 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 
          res = []
          if self.type != 'line':
-@@ -1916,55 +1951,61 @@
+@@ -1916,55 +1951,57 @@
                          date=self.invoice.currency_date):
                      amount = Currency.compute(self.invoice.currency,
                          amount, self.invoice.company.currency)
@@ -309,18 +309,12 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 -                res['credit'] = - amount
 +                line.debit = Decimal('0.0')
 +                line.credit = -amount
-+                if line.amount_second_currency:
-+                    line.amount_second_currency = \
-+                        - line.amount_second_currency
          else:
              if amount >= Decimal('0.0'):
 -                res['debit'] = Decimal('0.0')
 -                res['credit'] = amount
 +                line.debit = Decimal('0.0')
 +                line.credit = amount
-+                if line.amount_second_currency:
-+                    line.amount_second_currency = \
-+                        - line.amount_second_currency
              else:
 -                res['debit'] = - amount
 -                res['credit'] = Decimal('0.0')
@@ -329,6 +323,8 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 -        res['account'] = self.account.id
 +                line.debit = -amount
 +                line.credit = Decimal('0.0')
++            if line.amount_second_currency:
++                line.amount_second_currency *= -1
 +        line.account = self.account.id
          if self.account.party_required:
 -            res['party'] = self.invoice.party.id
@@ -342,7 +338,7 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 
      def _credit(self):
          '''
-@@ -2179,49 +2220,56 @@
+@@ -2179,49 +2216,52 @@
 
      def get_move_line(self):
          '''
@@ -385,18 +381,12 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 -                res['credit'] = - amount
 +                line.debit = Decimal('0.0')
 +                line.credit = -amount
-+                if line.amount_second_currency:
-+                    line.amount_second_currency = \
-+                        - line.amount_second_currency
          else:
              if amount >= Decimal('0.0'):
 -                res['debit'] = Decimal('0.0')
 -                res['credit'] = amount
 +                line.debit = Decimal('0.0')
 +                line.credit = amount
-+                if line.amount_second_currency:
-+                    line.amount_second_currency = \
-+                        - line.amount_second_currency
              else:
 -                res['debit'] = - amount
 -                res['credit'] = Decimal('0.0')
@@ -405,6 +395,8 @@ diff -r 6e57e4efb58b trytond/trytond/modules/account_invoice/invoice.py
 -        res['account'] = self.account.id
 +                line.debit = -amount
 +                line.credit = Decimal('0.0')
++            if line.amount_second_currency:
++                line.amount_second_currency *= -1
 +        line.account = self.account.id
          if self.account.party_required:
 -            res['party'] = self.invoice.party.id
