@@ -45,6 +45,7 @@ issue5558.diff
 party_check_vies.diff
 remove_payable_receivable_filter.diff
 sepa_sequence_type.diff
+pay_second_currency.diff
 
 issue7339.diff
 issue7342.diff

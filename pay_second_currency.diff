@@ -1,0 +1,12 @@
+diff -r 2570649c9bbb invoice.py
+--- a/trytond/trytond/modules/account_invoice/invoice.py	Wed May 09 12:07:11 2018 +0200
++++ b/trytond/trytond/modules/account_invoice/invoice.py	Mon Aug 27 07:24:09 2018 +0200
+@@ -2555,7 +2555,7 @@
+             amount_second_currency = self.start.amount
+             second_currency = self.start.currency
+ 
+-        if amount > invoice.amount_to_pay and \
++        if self.start.amount > invoice.amount_to_pay and \
+                 self.ask.type != 'writeoff':
+             self.raise_user_error('amount_greater_amount_to_pay',
+                 (invoice.rec_name,))
