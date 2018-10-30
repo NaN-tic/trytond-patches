@@ -1,0 +1,93 @@
+diff -r 29eb0f164bcb move.py
+--- a/trytond/trytond/modules/stock/move.py	Tue Oct 30 12:37:21 2018 +0100
++++ b/trytond/trytond/modules/stock/move.py	Tue Oct 30 12:41:42 2018 +0100
+@@ -850,7 +850,6 @@
+                     ])
+         else:
+             locations = list(set((m.from_location for m in moves)))
+-
+         location_ids = [l.id for l in locations]
+         product_ids = list(set((m.product.id for m in moves)))
+         stock_date_end = Date.today()
+@@ -967,7 +966,8 @@
+
+     @classmethod
+     def compute_quantities_query(cls, location_ids, with_childs=False,
+-            grouping=('product',), grouping_filter=None):
++            grouping=('product',), grouping_filter=None,
++            quantity_field='internal_quantity'):
+         """
+         Prepare a query object to compute for each location and product the
+         stock quantity in the default uom of the product.
+@@ -985,6 +985,8 @@
+             stock_skip_warehouse: if set, quantities on a warehouse are no more
+                 quantities of all child locations but quantities of the storage
+                 zone.
++            quantity_field is the name of the field containing the quantity to be
++                aggregated
+         If with_childs, it computes also for child locations.
+         grouping is a tuple of Move (or Product if prefixed by 'product.')
+             field names and defines how stock moves are grouped.
+@@ -1037,7 +1039,7 @@
+         if use_product:
+             product = Product.__table__()
+             columns = ['id', 'state', 'effective_date', 'planned_date',
+-            'internal_quantity', 'from_location', 'to_location']
++            quantity_field, 'from_location', 'to_location']
+             columns += list(grouping)
+             columns = [get_column(c, move, product) for c in columns]
+             move = (move
+@@ -1050,7 +1052,7 @@
+             period_cache = PeriodCache.__table__()
+             if use_product:
+                 product_cache = Product.__table__()
+-                columns = ['internal_quantity', 'period', 'location']
++                columns = [quantity_field, 'period', 'location']
+                 columns += list(grouping)
+                 columns = [get_column(c, period_cache, product_cache)
+                     for c in columns]
+@@ -1067,7 +1069,7 @@
+             to_location = Location.__table__()
+             to_parent_location = Location.__table__()
+             columns = ['id', 'state', 'effective_date', 'planned_date',
+-                'internal_quantity'] + list(grouping)
++                quantity_field] + list(grouping)
+             columns = [Column(move, c).as_(c) for c in columns]
+
+             move_with_parent = (move
+@@ -1121,7 +1123,7 @@
+             if PeriodCache:
+                 location = Location.__table__()
+                 parent_location = Location.__table__()
+-                columns = ['internal_quantity', 'period'] + list(grouping)
++                columns = [quantity_field, 'period'] + list(grouping)
+                 columns = [Column(period_cache, c).as_(c) for c in columns]
+                 period_cache = Union(
+                     period_cache.select(
+@@ -1319,7 +1321,7 @@
+         move_keys_alias = [Column(move, key).as_(key) for key in grouping]
+         move_keys = [Column(move, key) for key in grouping]
+         query = move.select(move.to_location.as_('location'),
+-            Sum(move.internal_quantity).as_('quantity'),
++            Sum(getattr(move, quantity_field)).as_('quantity'),
+             *move_keys_alias,
+             where=state_date_clause_in
+             & where
+@@ -1329,7 +1331,7 @@
+             & dest_clause_from,
+             group_by=[move.to_location] + move_keys)
+         query = Union(query, move.select(move.from_location.as_('location'),
+-                (-Sum(move.internal_quantity)).as_('quantity'),
++                (-Sum(getattr(move, quantity_field))).as_('quantity'),
+                 *move_keys_alias,
+                 where=state_date_clause_out
+                 & where
+@@ -1344,7 +1346,7 @@
+                 for key in grouping]
+             query = Union(query, from_period.select(
+                     period_cache.location.as_('location'),
+-                    period_cache.internal_quantity.as_('quantity'),
++                    getattr(period_cache, quantity_field).as_('quantity'),
+                     *period_keys,
+                     where=(period_cache.period
+                         == (period.id if period else None))
