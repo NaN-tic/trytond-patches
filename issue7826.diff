@@ -1,0 +1,13 @@
+diff -r 4c5abccfccf2 trytond/trytond/modules/stock_package/stock.py
+--- a/trytond/trytond/modules/stock_package/stock.py	Mon Apr 23 17:36:31 2018 +0200
++++ b/trytond/trytond/modules/stock_package/stock.py	Tue Oct 30 12:45:02 2018 +0100
+@@ -212,7 +212,8 @@
+
+     @property
+     def packages_moves(self):
+-        return (m for m in self.outgoing_moves if m.state != 'cancel')
++        return (m for m in self.outgoing_moves
++            if m.state != 'cancel' and m.quantity != 0.0)
+
+
+ class ShipmentInReturn(PackageMixin, object):
