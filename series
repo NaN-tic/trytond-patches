@@ -1,6 +1,7 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
 domain_validation_warning.diff # [trytond] Increase the verbosity of domain_validation_error message
+match.diff # [trytond] Control when tje filed is a Char o Text and the value is not none but it's an empty string
 
 issue3932.diff # [account] rule account move and account move line by company
 issue7276.diff # [account] Allow to edit maturity date and tax lines

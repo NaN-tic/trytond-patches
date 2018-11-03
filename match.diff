@@ -1,0 +1,12 @@
+diff -r 5b4101d67bb7 trytond/model/match.py
+--- a/trytond/trytond/model/match.py	Mon Oct 15 22:49:51 2018 +0200
++++ b/trytond/trytond/model/match.py	Sat Nov 03 18:21:44 2018 +0100
+@@ -10,6 +10,8 @@
+         and matching value as value'''
+         for field, pattern_value in pattern.iteritems():
+             value = getattr(self, field)
++            if self._fields[field]._type in ('char', 'text') and value == "":
++                value = None
+             if not match_none and value is None:
+                 continue
+             if self._fields[field]._type == 'many2one':
