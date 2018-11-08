@@ -1,0 +1,24 @@
+diff -r c1860f118efd move.py
+--- a/trytond/trytond/modules/stock/move.py	Wed Nov 07 12:14:26 2018 +0100
++++ b/trytond/trytond/modules/stock/move.py	Wed Nov 07 12:18:14 2018 +0100
+@@ -823,6 +823,10 @@
+             return to_pick
+         return to_pick
+
++    @staticmethod
++    def lock_stock_move():
++        return True
++
+     @classmethod
+     def assign_try(cls, moves, with_childs=True, grouping=('product',)):
+         '''
+@@ -878,7 +882,8 @@
+             with connection.cursor() as cursor:
+                 cursor.execute(*query)
+         else:
+-            database.lock(connection, cls._table)
++            if cls.lock_stock_move():
++                database.lock(connection, cls._table)
+
+         with Transaction().set_context(
+                 stock_date_end=stock_date_end,
