@@ -81,3 +81,4 @@ issue6322_6501.diff
 issue7129.diff # [account_payment] Slow to list Lines to Pay
 issue7395.diff # [account_asset] Crash Depreciation Table repot when lines date is out of range asset start/end
 support_postgresql10_6789.patch
+issue7856.diff # [stock] Can't move qty from a parent location to child location

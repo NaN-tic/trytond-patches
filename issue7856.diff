@@ -1,0 +1,12 @@
+diff -r 52798eba8ca0 trytond/trytond/modules/stock/move.py
+--- a/trytond/trytond/modules/stock/move.py	Wed Nov 14 09:42:58 2018 +0100
++++ b/trytond/trytond/modules/stock/move.py	Wed Nov 14 09:44:58 2018 +0100
+@@ -812,6 +812,8 @@
+             else:
+                 childs = [move.from_location]
+             for location in childs:
++                if location.id == to_location.id:
++                    continue
+                 key = get_key(move, location)
+                 if key in pbl:
+                     location_qties[location] = Uom.compute_qty(
