@@ -1,0 +1,22 @@
+diff -r fb7f3b05e343 stock.py
+--- a/trytond/trytond/stock_lot_sled/stock.py	Mon Apr 23 17:44:40 2018 +0200
++++ b/trytond/trytond/stock_lot_sled/stock.py	Wed Nov 14 11:12:49 2018 +0100
+@@ -229,7 +229,8 @@
+
+     @classmethod
+     def compute_quantities_query(cls, location_ids, with_childs=False,
+-            grouping=('product',), grouping_filter=None):
++            grouping=('product',), grouping_filter=None,
++            quantity_field='internal_quantity'):
+         pool = Pool()
+         Date = pool.get('ir.date')
+         Lot = pool.get('stock.lot')
+@@ -237,7 +238,7 @@
+
+         query = super(Move, cls).compute_quantities_query(
+             location_ids, with_childs=with_childs, grouping=grouping,
+-            grouping_filter=grouping_filter)
++            grouping_filter=grouping_filter, quantity_field=quantity_field)
+
+         context = Transaction().context
+         today = Date.today()
