@@ -1,0 +1,20 @@
+diff -r 10d517bd46f1 trytond/trytond/modules/stock/move.py
+--- a/trytond/trytond/modules/stock/move.py	Wed Nov 14 09:54:25 2018 +0100
++++ b/trytond/trytond/modules/stock/move.py	Wed Nov 14 09:55:39 2018 +0100
+@@ -907,6 +907,7 @@
+                 if move.state == 'staging':
+                     success = False
+                 continue
++            to_location = move.to_location
+             # Keep location order for pick_product
+             location_qties = OrderedDict()
+             if with_childs:
+@@ -919,6 +920,8 @@
+             else:
+                 childs = [move.from_location]
+             for location in childs:
++                if location.id == to_location.id:
++                    continue
+                 key = get_key(move, location)
+                 if key in pbl:
+                     location_qties[location] = Uom.compute_qty(
