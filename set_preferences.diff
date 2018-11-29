@@ -1,0 +1,24 @@
+diff -r 399d0255a637 src/window.js
+--- a/public_data/sao/src/window.js	Wed Nov 28 10:01:32 2018 +0100
++++ b/public_data/sao/src/window.js	Thu Nov 29 11:56:22 2018 +0100
+@@ -765,9 +765,17 @@
+                 prm = this.screen.current_record.validate()
+                     .then(function(validate) {
+                         if (validate) {
+-                            var values = jQuery.extend({}, this.screen.get());
+-                            return this.screen.model.execute(
+-                                'set_preferences', [values], {});
++                          var values = jQuery.extend({}, this.screen.get());
++                          var context = jQuery.extend({},
++                                  Sao.Session.current_session.context);
++                          var func = function(parameters) {
++                              return {
++                                  'id': 0,
++                                  'method': 'model.res.user.set_preferences',
++                                  'params': [values, parameters, context]
++                              };
++                          };
++                          return new Sao.Login(func).run();
+                         }
+                     }.bind(this));
+             }

@@ -27,3 +27,4 @@ issue7856.diff # [stock] Can't move qty from a parent location to child location
 
 # sao
 old_icons.diff
+set_preferences.diff
