@@ -19,8 +19,13 @@ improve_performance_on_try_assign.diff # [stock] change browse of product to get
 
 issue240_631.diff # [stock_lot] stock_by_locations get all locations with that lot.
 issue10467.diff # stock_lot: add lot to grouping if lot it's required on product
-issue53451002_1_10001.diff #stock: Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
-stock_lot_sled.diff #stock_lot_sled: Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+
+issue53451002_1_10001.diff # [stock] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+sale_number_of_packages.diff # [sale_number_of_packages] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+stock_external_party.diff # [stock_external_party] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+stock_lot_deactivatable.diff # [stock_lot_deactivatable] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+stock_lot_sled.diff # [stock_lot_sled] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+
 issue7826.diff # [stock_package] Total packages moves are all
 lock_stock_move.diff # [stock] Function to overwrite if lock table or not
 issue7856.diff # [stock] Can't move qty from a parent location to child location

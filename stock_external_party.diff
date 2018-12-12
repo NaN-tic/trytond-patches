@@ -1,0 +1,22 @@
+diff -r f7f8e7da9dd8 trytond/trytond/modules/stock_external_party/stock.py
+--- a/trytond/trytond/modules/stock_external_party/stock.py	Tue Dec 04 13:36:33 2018 +0100
++++ b/trytond/trytond/modules/stock_external_party/stock.py	Wed Dec 05 16:24:09 2018 +0100
+@@ -155,7 +155,8 @@
+
+     @classmethod
+     def compute_quantities_query(cls, location_ids, with_childs=False,
+-            grouping=('product',), grouping_filter=None):
++            grouping=('product',), grouping_filter=None,
++            quantity_field='internal_quantity'):
+         context = Transaction().context
+
+         new_grouping = grouping[:]
+@@ -168,7 +169,7 @@
+
+         query = super(Move, cls).compute_quantities_query(
+             location_ids, with_childs=with_childs, grouping=new_grouping,
+-            grouping_filter=new_grouping_filter)
++            grouping_filter=new_grouping_filter, quantity_field=quantity_field)
+         return query
+
+     @classmethod
