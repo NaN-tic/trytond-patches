@@ -1,0 +1,12 @@
+diff -r 180bc5ee5698 locale/es.po
+--- a/trytond/trytond/modules/stock/locale/es.po	Fri Jan 11 09:11:59 2019 +0100
++++ b/trytond/trytond/modules/stock/locale/es.po	Fri Jan 11 09:13:49 2019 +0100
+@@ -1469,7 +1469,7 @@
+ 
+ msgctxt "model:ir.action,name:act_shipment_out_return_form"
+ msgid "Customer Return Shipments"
+-msgstr "Albaranes de devolución de proveedor"
++msgstr "Albaranes de devolución de cliente"
+ 
+ msgctxt "model:ir.action,name:act_stock_configuration_form"
+ msgid "Stock Configuration"
