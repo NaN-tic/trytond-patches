@@ -1,0 +1,35 @@
+diff -r 3b0313a104c2 trytond/trytond/modules/analytic_account/account.xml
+--- a/trytond/trytond/modules/analytic_account/account.xml	Mon May 21 20:06:30 2018 +0200
++++ b/trytond/trytond/modules/analytic_account/account.xml	Mon Jan 21 15:51:48 2019 +0100
+@@ -160,5 +160,14 @@
+             <field name="type">tree</field>
+             <field name="name">analytic_account_entry_tree</field>
+         </record>
++
++        <record model="ir.rule.group" id="rule_group_account">
++            <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_account1">
++            <field name="domain" eval="[('company', '=', Eval('user', {}).get('company', None))]" pyson="1"/>
++            <field name="rule_group" ref="rule_group_account"/>
++        </record>
+     </data>
+ </tryton>
+diff -r 3b0313a104c2 trytond/trytond/modules/analytic_account/line.xml
+--- a/trytond/trytond/modules/analytic_account/line.xml	Mon May 21 20:06:30 2018 +0200
++++ b/trytond/trytond/modules/analytic_account/line.xml	Mon Jan 21 15:51:48 2019 +0100
+@@ -95,5 +95,13 @@
+         <menuitem parent="account.menu_processing"
+             action="act_move_line_form_completion" id="menu_completion"/>
+
++        <record model="ir.rule.group" id="rule_group_account_line">
++            <field name="model" search="[('model', '=', 'analytic_account.line')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_account_line1">
++            <field name="domain" eval="[('company', '=', Eval('user', {}).get('company', None))]" pyson="1"/>
++            <field name="rule_group" ref="rule_group_account_line"/>
++        </record>
+     </data>
+ </tryton>

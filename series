@@ -9,6 +9,7 @@ issue7276.diff # [account] Allow to edit maturity date and tax lines
 issue6253.diff # [account_invoice] add invoice type criteria
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
 
+analytic_account.diff # [analytic_account] Add analytic_account rules by company
 issue4030.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 purchase_request.diff # [purchase_request] as shippment_date it's not required we need to ensure operation could be done
