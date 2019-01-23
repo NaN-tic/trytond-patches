@@ -35,3 +35,4 @@ stock_locales.diff # [stock] fix locales
 # sao
 old_icons.diff
 set_preferences.diff
+resize_modal_md.diff

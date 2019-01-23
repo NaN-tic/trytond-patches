@@ -1,0 +1,13 @@
+diff -r 399d0255a637 src/sao.less
+--- a/public_data/sao/src/sao.less	Wed Nov 28 10:01:32 2018 +0100
++++ b/public_data/sao/src/sao.less	Wed Jan 23 15:42:25 2019 +0100
+@@ -91,6 +91,9 @@
+     }
+ }
+
++.modal-md {
++  width: 60%;
++}
+ .modal-body {
+     overflow-x: auto;
+ }
