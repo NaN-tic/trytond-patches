@@ -30,6 +30,7 @@ stock_lot_sled.diff # [stock_lot_sled] Allow configuring which quantity is group
 issue7826.diff # [stock_package] Total packages moves are all
 lock_stock_move.diff # [stock] Function to overwrite if lock table or not
 issue7856.diff # [stock] Can't move qty from a parent location to child location
+issue8038.diff # [sale_supply_drop_shipment] Crash when process a purchase from purchase request created from a sale
 stock_locales.diff # [stock] fix locales
 
 # sao

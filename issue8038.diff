@@ -1,0 +1,15 @@
+diff -r cb4549f91f7b trytond/trytond/modules/sale_supply_drop_shipment/stock.py
+--- a/trytond/trytond/modules/sale_supply_drop_shipment/stock.py	Mon May 21 20:17:02 2018 +0200
++++ b/trytond/trytond/modules/sale_supply_drop_shipment/stock.py	Fri Jan 25 09:28:50 2019 +0100
+@@ -557,7 +557,10 @@
+             for move in shipment.supplier_moves:
+                 if not move.origin:
+                     continue
+-                sale_line = request2sline[pline2request[move.origin]]
++                purchase_request = pline2request.get(move.origin)
++                if not purchase_request:
++                    continue
++                sale_line = request2sline[purchase_request]
+                 for move in sale_line.moves:
+                     if (move.state not in ('cancel', 'done')
+                             and not move.shipment
