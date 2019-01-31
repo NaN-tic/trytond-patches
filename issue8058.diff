@@ -1,0 +1,11 @@
+diff -r 1eaabd4486d2 trytond/trytond/modules/stock_supply_production/production.py
+--- a/trytond/trytond/modules/stock_supply_production/production.py	Thu Jan 31 13:00:13 2019 +0100
++++ b/trytond/trytond/modules/stock_supply_production/production.py	Thu Jan 31 13:00:57 2019 +0100
+@@ -129,7 +129,7 @@
+             product=product,
+             bom=product.boms[0].bom if product.boms else None,
+             uom=product.default_uom,
+-            quantity=quantity,
++            quantity=float(Decimal(quantity).quantize(Decimal(str(10 ** -product.default_uom.digits)))),
+             state='request',
+             )

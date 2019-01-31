@@ -77,5 +77,6 @@ issue4958.diff # [account_payment] Remove account kind filter on Payable/Receiva
 filestore.diff # [trytond] changeset-06e955c4465e + changeset-a8d3c527a445
 issue7395.diff # [account_asset] Crash Depreciation Table repot when lines date is out of range asset start/end
 issue7856.diff # [stock] Can't move qty from a parent location to child location
+issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
 
 #issue7334.diff # [trytond] read history that created_date is before the requested create_date
