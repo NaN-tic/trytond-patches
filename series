@@ -33,6 +33,7 @@ issue7856.diff # [stock] Can't move qty from a parent location to child location
 issue8038.diff # [sale_supply_drop_shipment] Crash when process a purchase from purchase request created from a sale
 stock_locales.diff # [stock] fix locales
 issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
+backport_6fefd00369c1.diff # [trytond] Use recursive common table expression for child_of/parent_of operators
 
 # sao
 old_icons.diff
