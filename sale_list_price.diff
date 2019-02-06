@@ -1,0 +1,21 @@
+diff -r 656db55c90c0 trytond/trytond/modules/sale/product.py
+--- a/trytond/trytond/modules/sale/product.py	Sat Jan 26 01:12:51 2019 +0100
++++ b/trytond/trytond/modules/sale/product.py	Wed Feb 06 16:31:25 2019 +0100
+@@ -1,7 +1,7 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+ import datetime
+-
++from decimal import Decimal
+ from trytond.model import fields
+ from trytond.pyson import Eval
+ from trytond.pool import Pool, PoolMeta
+@@ -137,7 +137,7 @@
+         user = User(Transaction().user)
+
+         for product in products:
+-            prices[product.id] = product.list_price
++            prices[product.id] = product.list_price or Decimal(0)
+             if uom and product.default_uom.category == uom.category:
+                 prices[product.id] = Uom.compute_price(
+                     product.default_uom, prices[product.id], uom)
