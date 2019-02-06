@@ -1,6 +1,6 @@
-diff -r 3239605d105d move.py
---- a/trytond/trytond/modules/stock/move.py	Mon May 21 20:17:34 2018 +0200
-+++ b/trytond/trytond/modules/stock/move.py	Fri Jul 20 12:16:25 2018 +0200
+diff -r e8f62a19c157 move.py
+--- a/trytond/trytond/modules/stock/move.py	Wed Feb 06 18:07:58 2019 +0100
++++ b/trytond/trytond/modules/stock/move.py	Wed Feb 06 18:10:11 2019 +0100
 @@ -850,6 +850,7 @@
                      ])
          else:
@@ -9,10 +9,10 @@ diff -r 3239605d105d move.py
          location_ids = [l.id for l in locations]
          product_ids = list(set((m.product.id for m in moves)))
          stock_date_end = Date.today()
-@@ -1446,12 +1447,27 @@
+@@ -1447,13 +1448,28 @@
                  if location not in location_ids:
                      del quantities[key]
- 
+
 -        # Round quantities
 -        default_uom = dict((p.id, p.default_uom) for p in
 -            Model.browse(list(ids)))
@@ -22,8 +22,8 @@ diff -r 3239605d105d move.py
 +        cursor = Transaction().connection.cursor()
 +
 +        if Model == Template:
-+            cursor.execute(*ttemplate.select(ttemplate.id, 
-+                ttemplate.default_uom, 
++            cursor.execute(*ttemplate.select(ttemplate.id,
++                ttemplate.default_uom,
 +                where=reduce_ids(ttemplate.id, ids)))
 +        else:
 +            cursor.execute(*ttemplate.join(table,
@@ -37,7 +37,8 @@ diff -r 3239605d105d move.py
          for key, quantity in quantities.iteritems():
              location = key[0]
 -            uom = default_uom[id_getter(key)]
+-            quantities[key] = uom.round(quantity)
 +            uom = Uom(default_uom[id_getter(key)])
-             quantities[key] = uom.round(quantity)
- 
++            quantities[key] = uom.round(float(quantity))
+
          return quantities
