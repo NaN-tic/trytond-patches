@@ -35,7 +35,7 @@ issue8058.diff # [stock_supply_production] Can't create productions from request
 
 sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
 
-# backport_6fefd00369c1.diff # [trytond] Use recursive common table expression for child_of/parent_of operators
+backport_6fefd00369c1.diff # [trytond] Use recursive common table expression for child_of/parent_of operators + Fix: https://bugs.tryton.org/issue7405
 
 # sao
 old_icons.diff

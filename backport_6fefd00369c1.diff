@@ -1,6 +1,6 @@
 diff -r 5619f54a9d36 trytond/model/fields/many2one.py
 --- a/trytond/trytond/model/fields/many2one.py	Tue Jan 22 22:14:35 2019 +0100
-+++ b/trytond/trytond/model/fields/many2one.py	Thu Jan 31 17:25:34 2019 +0100
++++ b/trytond/trytond/model/fields/many2one.py	Fri Feb 08 09:49:22 2019 +0100
 @@ -1,6 +1,6 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -9,15 +9,24 @@ diff -r 5619f54a9d36 trytond/model/fields/many2one.py
  from sql.aggregate import Max
  from sql.conditionals import Coalesce
  from sql.operators import Or
-@@ -135,35 +135,28 @@
+@@ -116,7 +116,7 @@
+         cursor = Transaction().connection.cursor()
+         table, _ = tables[None]
+         name, operator, ids = domain
+-        red_sql = reduce_ids(table.id, ids)
++        red_sql = reduce_ids(table.id, (i for i in ids if i is not None))
+         Target = self.get_target()
+         left = getattr(Target, self.left).sql_column(table)
+         right = getattr(Target, self.right).sql_column(table)
+@@ -135,35 +135,27 @@
  
      def convert_domain_tree(self, domain, tables):
          Target = self.get_target()
 +        target = Target.__table__()
          table, _ = tables[None]
          name, operator, ids = domain
-         ids = set(ids)  # Ensure it is a set for concatenation
- 
+-        ids = set(ids)  # Ensure it is a set for concatenation
+-
 -        def get_child(ids):
 -            if not ids:
 -                return set()
@@ -34,7 +43,7 @@ diff -r 5619f54a9d36 trytond/model/fields/many2one.py
 -            parent_ids = set(getattr(p, name).id
 -                for p in Target.browse(ids) if getattr(p, name))
 -            return ids | get_parent(parent_ids)
-+        red_sql = reduce_ids(target.id, ids)
++        red_sql = reduce_ids(target.id, (i for i in ids if i is not None))
  
          if operator.endswith('child_of'):
 -            ids = list(get_child(ids))
@@ -57,6 +66,7 @@ diff -r 5619f54a9d36 trytond/model/fields/many2one.py
 +                .select(target.id, Column(target, name)))
 +
 +        expression = table.id.in_(tree.select(tree.id, with_=[tree]))
++
          if operator.startswith('not'):
              return ~expression
          return expression
