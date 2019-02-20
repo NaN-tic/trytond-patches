@@ -1,0 +1,26 @@
+diff -r b66fe349cd2a trytond/trytond/modules/analytic_account/line.py
+--- a/trytond/trytond/modules/analytic_account/line.py	Thu Feb 21 00:13:13 2019 +0100
++++ b/trytond/trytond/modules/analytic_account/line.py	Thu Feb 21 00:14:32 2019 +0100
+@@ -44,10 +44,8 @@
+         super(Line, cls).__setup__()
+         t = cls.__table__()
+         cls._sql_constraints += [
+-            ('credit_debit',
+-                Check(t,
+-                    (t.credit * t.debit == 0) & (t.credit + t.debit >= 0)),
+-                'Wrong credit/debit values.'),
++            ('credit_debit_',
++                Check(t, t.credit * t.debit == 0),
+             ]
+         cls._error_messages.update({
+                 'line_on_view_account': (
+@@ -71,6 +69,9 @@
+         for field_name in ['name', 'journal']:
+             table.not_null_action(field_name, action='remove')
+
++        # Migration from 5.0: replace credit_debit constraint by credit_debit_
++        table.drop_constraint('credit_debit')
++
+     @staticmethod
+     def default_date():
+         Date = Pool().get('ir.date')
