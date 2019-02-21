@@ -1,0 +1,14 @@
+diff -r 69417f174b64 tax.py
+--- a/trytond/trytond/modules/account/tax.py	Sat Jan 26 01:12:50 2019 +0100
++++ b/trytond/trytond/modules/account/tax.py	Thu Feb 21 15:02:02 2019 +0100
+@@ -1181,6 +1181,10 @@
+                 if tax_rounding == 'line':
+                     self._round_taxes(taxes)
+         if tax_rounding == 'document':
++            for taxline in taxes.itervalues():
++                tax_compute = Tax.compute(Tax.browse([taxline['tax']]),
++                    taxline['base'], 1)
++                taxline['amount'] = tax_compute[0]['amount']
+             self._round_taxes(taxes)
+         return taxes
+ 
