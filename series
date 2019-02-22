@@ -38,8 +38,6 @@ sale_list_price.diff # [sale] Can't convert to currency with list price is null 
 
 backport_6fefd00369c1.diff # [trytond] Use recursive common table expression for child_of/parent_of operators + Fix: https://bugs.tryton.org/issue7405
 
-tax_rounding_document.diff # [account] Change the way that tax are calculated when the tax roundig field are 'document'
-
 # sao
 old_icons.diff
 set_preferences.diff
