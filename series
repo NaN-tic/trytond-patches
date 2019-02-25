@@ -18,6 +18,7 @@ purchase_request.diff # [purchase_request] as shippment_date it's not required w
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff #[stock] search function for warehouse.
 improve_performance_on_try_assign.diff # [stock] change browse of product to get default_uom to pysql
+stock_sync_outgoing_unit_price.diff # [stock] set unit price 0 when product list price is null
 
 issue240_631.diff # [stock_lot] stock_by_locations get all locations with that lot.
 issue10467.diff # stock_lot: add lot to grouping if lot it's required on product

@@ -1,0 +1,20 @@
+diff -r 01ad0c7e627f trytond/trytond/modules/stock/shipment.py
+--- a/trytond/trytond/modules/stock/shipment.py	Mon Feb 25 15:12:20 2019 +0100
++++ b/trytond/trytond/modules/stock/shipment.py	Mon Feb 25 15:13:34 2019 +0100
+@@ -5,6 +5,7 @@
+ import functools
+ import datetime
+ from collections import defaultdict
++from decimal import Decimal
+
+ from sql import Table, Null
+ from sql.functions import Overlay, Position
+@@ -1329,7 +1330,7 @@
+                 if not out_quantity:
+                     continue
+                 unit_price = Uom.compute_price(move.product.default_uom,
+-                        move.product.list_price, move.uom)
++                        move.product.list_price or Decimal('0'), move.uom)
+                 to_create.append(shipment._get_outgoing_move(move))
+                 to_create[-1].quantity = out_quantity
+                 to_create[-1].unit_price = unit_price
