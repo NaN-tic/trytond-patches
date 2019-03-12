@@ -1,0 +1,24 @@
+diff -r 81b594e6ed18 trytond/trytond/modules/sale/locale/ca.po
+--- a/trytond/trytond/modules/sale/locale/ca.po	Tue Feb 19 22:57:14 2019 +0100
++++ b/trytond/trytond/modules/sale/locale/ca.po	Tue Mar 12 15:40:44 2019 +0100
+@@ -1423,7 +1423,7 @@
+
+ msgctxt "model:ir.action,name:act_reporting_product_time_series"
+ msgid "Sales per Product"
+-msgstr "Vendes per regió"
++msgstr "Vendes per producte"
+
+ msgctxt "model:ir.action,name:act_reporting_region"
+ msgid "Sales per Region"
+diff -r 81b594e6ed18 trytond/trytond/modules/sale/locale/es.po
+--- a/trytond/trytond/modules/sale/locale/es.po	Tue Feb 19 22:57:14 2019 +0100
++++ b/trytond/trytond/modules/sale/locale/es.po	Tue Mar 12 15:40:44 2019 +0100
+@@ -1423,7 +1423,7 @@
+
+ msgctxt "model:ir.action,name:act_reporting_product_time_series"
+ msgid "Sales per Product"
+-msgstr "Ventas por región"
++msgstr "Ventas por producto"
+
+ msgctxt "model:ir.action,name:act_reporting_region"
+ msgid "Sales per Region"

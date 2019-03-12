@@ -1,3 +1,4 @@
+locales.diff # [locales]
 babi_multiprocess.diff # [trytond] babi multiprocess
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
 domain_validation_warning.diff # [trytond] Increase the verbosity of domain_validation_error message
