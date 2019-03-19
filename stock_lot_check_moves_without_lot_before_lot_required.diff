@@ -1,0 +1,72 @@
+diff -r f62cd7f3690c trytond/trytond/modules/stock_lot/product.py
+--- a/trytond/trytond/modules/stock_lot/product.py	Sat Jan 26 01:12:51 2019 +0100
++++ b/trytond/trytond/modules/stock_lot/product.py	Tue Mar 19 11:33:51 2019 +0100
+@@ -1,8 +1,10 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
++from sql import Null
++from trytond.transaction import Transaction
+ from trytond.model import ModelSQL, fields
+ from trytond.pyson import Eval
+-from trytond.pool import PoolMeta
++from trytond.pool import Pool, PoolMeta
+
+ __all__ = ['Template', 'Product', 'TemplateLotType']
+
+@@ -20,6 +22,56 @@
+             },
+         depends=['type'])
+
++    @classmethod
++    def __setup__(cls):
++        super(Template, cls).__setup__()
++        cls._error_messages.update({
++                'move_without_lot': 'There is a move without lot: "%s"',
++                })
++
++    def check_moves_without_lot(self):
++        "Check if there are moves without lot"
++        pool = Pool()
++        Move = pool.get('stock.move')
++        Product = pool.get('product.product')
++        Template = pool.get('product.template')
++        Location = pool.get('stock.location')
++
++        move = Move.__table__()
++        product = Product.__table__()
++        template = Template.__table__()
++        location = Location.__table__()
++        location2 = Location.__table__()
++        lot_required_ubications = [t.code for t in self.lot_required]
++        if not lot_required_ubications:
++            return
++
++        cursor = Transaction().connection.cursor()
++
++        sql_where = ((move.lot == Null) & (template.id == self.id))
++        query = move.join(
++                product, condition=product.id == move.product).join(
++                template, condition=template.id == product.template).join(
++                location, condition=location.id == move.from_location).join(
++                location2, condition=location2.id == move.to_location).select(
++                location.type, location2.type, where=sql_where)
++
++        cursor.execute(*query)
++        for type1, type2 in cursor.fetchall():
++            move_without_lot = None
++            if (type1 in lot_required_ubications):
++                move_without_lot = type1
++            if (type2 in lot_required_ubications):
++                move_without_lot = type2
++            if move_without_lot:
++                self.raise_user_error('move_without_lot', move_without_lot)
++
++    @classmethod
++    def validate(cls, templates):
++        super(Template, cls).validate(templates)
++        for template in templates:
++            template.check_moves_without_lot()
++
+
+ class Product:
+     __metaclass__ = PoolMeta

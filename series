@@ -22,7 +22,8 @@ improve_performance_on_try_assign.diff # [stock] change browse of product to get
 stock_sync_outgoing_unit_price.diff # [stock] set unit price 0 when product list price is null
 
 issue240_631.diff # [stock_lot] stock_by_locations get all locations with that lot.
-issue10467.diff # stock_lot: add lot to grouping if lot it's required on product
+issue10467.diff # [stock_lot] add lot to grouping if lot it's required on product
+stock_lot_check_moves_without_lot_before_lot_required.diff # [stock_lot] Not allow change lot required that has moves without lot
 
 issue53451002_1_10001.diff # [stock] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
 stock_external_party.diff # [stock_external_party] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
