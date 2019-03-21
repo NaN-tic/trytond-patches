@@ -43,7 +43,7 @@ diff -r f62cd7f3690c trytond/trytond/modules/stock_lot/product.py
 +
 +        cursor = Transaction().connection.cursor()
 +
-+        sql_where = ((move.lot == Null) & (template.id == self.id))
++        sql_where = ((move.lot == Null) & (template.id == self.id) & (move.state == 'done'))
 +        query = move.join(
 +                product, condition=product.id == move.product).join(
 +                template, condition=template.id == product.template).join(
