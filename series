@@ -25,11 +25,6 @@ issue240_631.diff # [stock_lot] stock_by_locations get all locations with that l
 issue10467.diff # [stock_lot] add lot to grouping if lot it's required on product
 stock_lot_check_moves_without_lot_before_lot_required.diff # [stock_lot] Not allow change lot required that has moves without lot
 
-issue53451002_1_10001.diff # [stock] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
-stock_external_party.diff # [stock_external_party] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
-stock_lot_deactivatable.diff # [stock_lot_deactivatable] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
-stock_lot_sled.diff # [stock_lot_sled] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
-
 issue7826.diff # [stock_package] Total packages moves are all
 lock_stock_move.diff # [stock] Function to overwrite if lock table or not
 issue7856.diff # [stock] Can't move qty from a parent location to child location
@@ -38,6 +33,9 @@ stock_locales.diff # [stock] fix locales
 issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
 
 sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
+
+issue53451002_1_10001.diff # [stock] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
+stock_lot_sled.diff # [stock_lot_sled] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
 
 backport_6fefd00369c1.diff # [trytond] Use recursive common table expression for child_of/parent_of operators + Fix: https://bugs.tryton.org/issue7405
 
