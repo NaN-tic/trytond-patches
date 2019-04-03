@@ -80,3 +80,4 @@ issue7856.diff # [stock] Can't move qty from a parent location to child location
 issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
 
 #issue7334.diff # [trytond] read history that created_date is before the requested create_date
+issue8038.diff # [sale_supply_drop_shipment] Crash when process a purchase from purchase request created from a sale
