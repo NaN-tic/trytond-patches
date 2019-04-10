@@ -29,7 +29,6 @@ issue7826.diff # [stock_package] Total packages moves are all
 lock_stock_move.diff # [stock] Function to overwrite if lock table or not
 issue7856.diff # [stock] Can't move qty from a parent location to child location
 stock_locales.diff # [stock] fix locales
-issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
 
 sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
 
