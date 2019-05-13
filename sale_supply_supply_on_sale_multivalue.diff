@@ -1,0 +1,62 @@
+diff -r 3298822f724f trytond/trytond/modules/sale_supply/__init__.py
+--- a/trytond/trytond/modules/sale_supply/__init__.py	Mon Apr 23 18:10:25 2018 +0200
++++ b/trytond/trytond/modules/sale_supply/__init__.py	Tue Oct 09 13:56:40 2018 +0200
+@@ -16,6 +16,7 @@
+         Purchase,
+         ShipmentIn,
+         Template,
++        TemplateSupplyOnSale,
+         Product,
+         module='sale_supply', type_='model')
+     Pool.register(
+diff -r 3298822f724f trytond/trytond/modules/sale_supply/product.py
+--- a/trytond/trytond/modules/sale_supply/product.py	Mon Apr 23 18:10:25 2018 +0200
++++ b/trytond/trytond/modules/sale_supply/product.py	Tue Oct 09 13:56:40 2018 +0200
+@@ -1,21 +1,38 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+-from trytond.model import fields
+-from trytond.pool import PoolMeta
++from trytond.model import fields, ModelSQL
++from trytond.modules.company.model import (CompanyMultiValueMixin,
++    CompanyValueMixin)
++from trytond.pool import Pool, PoolMeta
+ from trytond.pyson import Eval
+ 
+-__all__ = ['Template', 'Product']
++__all__ = ['Template', 'Product', 'TemplateSupplyOnSale']
+ 
++supply_on_sale = fields.Boolean('Supply On Sale', states={
++        'invisible': ~Eval('purchasable') | ~Eval('salable'),
++        }, depends=['purchasable', 'salable'])
+ 
+-class Template:
++class Template(CompanyMultiValueMixin):
+     __metaclass__ = PoolMeta
+     __name__ = 'product.template'
+ 
+-    supply_on_sale = fields.Boolean('Supply On Sale',
+-        states={
+-            'invisible': ~Eval('purchasable') | ~Eval('salable'),
+-            },
+-        depends=['purchasable', 'salable'])
++    supply_on_sale = fields.MultiValue(supply_on_sale)
++    supply_on_sales = fields.One2Many(
++        'product.template.supply_on_sale', 'template', "Supply on sales")
++
++    @classmethod
++    def multivalue_model(cls, field):
++        pool = Pool()
++        if field == 'supply_on_sale':
++            return pool.get('product.template.supply_on_sale')
++        return super(Template, cls).multivalue_model(field)
++
++
++class TemplateSupplyOnSale(ModelSQL, CompanyValueMixin):
++    "Template Supply On Sale"
++    __name__ = 'product.template.supply_on_sale'
++    template = fields.Many2One('product.template', 'Product Template')
++    supply_on_sale = supply_on_sale
+ 
+ 
+ class Product:

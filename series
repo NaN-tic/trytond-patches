@@ -31,6 +31,7 @@ issue7856.diff # [stock] Can't move qty from a parent location to child location
 stock_locales.diff # [stock] fix locales
 
 sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
+sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
 issue53451002_1_10001.diff # [stock] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
 stock_lot_sled.diff # [stock_lot_sled] Allow configuring which quantity is grouped in compute_quantities_query() needed by stock_number_of_packages
