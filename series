@@ -83,3 +83,4 @@ issue7395.diff # [account_asset] Crash Depreciation Table repot when lines date 
 support_postgresql10_6789.patch
 issue7856.diff # [stock] Can't move qty from a parent location to child location
 issue8058.diff # [stock_supply_production] Can't create productions from request because exceeds digits limit
+issue8252.diff # [account_tax_rule_country] Add subdivisiions to match account tax rule

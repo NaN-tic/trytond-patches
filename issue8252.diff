@@ -1,0 +1,185 @@
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/account.py
+--- a/trytond/trytond/modules/account_tax_rule_country/account.py	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/account.py	Wed Jun 12 10:58:41 2019 +0200
+@@ -14,6 +14,10 @@
+         ondelete='RESTRICT')
+     to_country = fields.Many2One('country.country', 'To Country',
+         ondelete='RESTRICT')
++    from_subdivision = fields.Many2One('country.subdivision', 'From Subdivision',
++        ondelete='RESTRICT')
++    to_subdivision = fields.Many2One('country.subdivision', 'To Subdivision',
++        ondelete='RESTRICT')
+
+
+ class TaxRuleLine:
+@@ -22,6 +26,10 @@
+         ondelete='RESTRICT')
+     to_country = fields.Many2One('country.country', 'To Country',
+         ondelete='RESTRICT')
++    from_subdivision = fields.Many2One('country.subdivision', 'From Subdivision',
++        ondelete='RESTRICT')
++    to_subdivision = fields.Many2One('country.subdivision', 'To Subdivision',
++        ondelete='RESTRICT')
+
+
+ class InvoiceLine:
+@@ -35,17 +43,24 @@
+         pattern = super(InvoiceLine, self)._get_tax_rule_pattern()
+
+         from_country, to_country = None, None
++        from_subdivision, to_subdivision = None, None
+         if isinstance(self.origin, SaleLine):
+             if self.origin.warehouse.address:
+                 from_country = self.origin.warehouse.address.country
++                from_subdivision = self.origin.warehouse.address.subdivision
+             to_country = self.origin.sale.shipment_address.country
++            to_subdivision = self.origin.sale.shipment_address.subdivision
+         elif isinstance(self.origin, PurchaseLine):
+             from_country = self.origin.purchase.invoice_address.country
++            from_subdivision = self.origin.purchase.invoice_address.subdivision
+             if self.origin.purchase.warehouse.address:
+                 to_country = self.origin.purchase.warehouse.address.country
++                to_subdivision = self.origin.purchase.warehouse.address.subdivision
+
+         pattern['from_country'] = from_country.id if from_country else None
+         pattern['to_country'] = to_country.id if to_country else None
++        pattern['from_subdivision'] = from_subdivision.id if from_subdivision else None
++        pattern['to_subdivision'] = to_subdivision.id if to_subdivision else None
+         return pattern
+
+     @fields.depends('origin')
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/doc/index.rst
+--- a/trytond/trytond/modules/account_tax_rule_country/doc/index.rst	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/doc/index.rst	Wed Jun 12 10:58:41 2019 +0200
+@@ -2,24 +2,26 @@
+ ########################
+
+ The account_tax_rule module extends the tax rule to add origin and destination
+-countries as criteria.
++countries and subdivision as criteria.
+
+ Tax Rule Line
+ *************
+
+-Two criteria fields are added:
++Four criteria fields are added:
+
+ - From Country: The country of origin
+ - To Country: The country of destination
++- From Subdivision: The subdivision of origin
++- To Subdivision: The subdivision of origin
+
+ The countries are picked from the origin document:
+
+ - Sale:
+
+-  - The origin country comes from the address of the warehouse.
+-  - The destination country comes from the shipping address.
++  - The origin country and subdivision comes from the address of the warehouse.
++  - The destination country and subdivision comes from the shipping address.
+
+ - Purchase:
+
+-  - The origin country comes from the invoice address.
+-  - The destination country comes from the address of the warehouse.
++  - The origin country and subdivision comes from the invoice address.
++  - The destination country and subdivision comes from the address of the warehouse.
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/purchase.py
+--- a/trytond/trytond/modules/account_tax_rule_country/purchase.py	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/purchase.py	Wed Jun 12 10:58:41 2019 +0200
+@@ -28,15 +28,20 @@
+         pattern = super(PurchaseLine, self)._get_tax_rule_pattern()
+
+         from_country, to_country = None, None
++        from_subdivision, to_subdivision = None, None
+         if self.purchase:
+             if self.purchase.invoice_address:
+                 from_country = self.purchase.invoice_address.country
++                from_subdivision = self.purchase.invoice_address.subdivision
+             warehouse = self.purchase.warehouse
+             if warehouse and warehouse.address:
+                 to_country = warehouse.address.country
++                to_subdivision = warehouse.address.subdivision
+
+         pattern['from_country'] = from_country.id if from_country else None
+         pattern['to_country'] = to_country.id if to_country else None
++        pattern['from_subdivision'] = from_subdivision.id if from_subdivision else None
++        pattern['to_subdivision'] = to_subdivision.id if to_subdivision else None
+         return pattern
+
+     @fields.depends('_parent_purchase.warehouse',
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/sale.py
+--- a/trytond/trytond/modules/account_tax_rule_country/sale.py	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/sale.py	Wed Jun 12 10:58:41 2019 +0200
+@@ -31,6 +31,7 @@
+         pattern = super(SaleLine, self)._get_tax_rule_pattern()
+
+         from_country, to_country = None, None
++        from_subdivision, to_subdivision = None, None
+         if self.id < 0:
+             warehouse = self.get_warehouse('warehouse')
+             if warehouse:
+@@ -39,11 +40,15 @@
+             warehouse = self.warehouse
+         if warehouse and warehouse.address:
+             from_country = warehouse.address.country
++            from_subdivision = warehouse.address.subdivision
+         if self.sale and self.sale.shipment_address:
+             to_country = self.sale.shipment_address.country
++            to_subdivision = self.sale.shipment_address.subdivision
+
+         pattern['from_country'] = from_country.id if from_country else None
+         pattern['to_country'] = to_country.id if to_country else None
++        pattern['from_subdivision'] = from_subdivision.id if from_subdivision else None
++        pattern['to_subdivision'] = to_subdivision.id if to_subdivision else None
+         return pattern
+
+     @fields.depends('_parent_sale.warehouse', '_parent_sale.shipment_address')
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_form.xml
+--- a/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_form.xml	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_form.xml	Wed Jun 12 10:58:41 2019 +0200
+@@ -7,5 +7,9 @@
+         <field name="from_country"/>
+         <label name="to_country"/>
+         <field name="to_country"/>
++        <label name="from_subdivision"/>
++        <field name="from_subdivision"/>
++        <label name="to_subdivision"/>
++        <field name="to_subdivision"/>
+     </xpath>
+ </data>
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_template_form.xml
+--- a/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_template_form.xml	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_template_form.xml	Wed Jun 12 10:58:41 2019 +0200
+@@ -7,5 +7,9 @@
+         <field name="from_country"/>
+         <label name="to_country"/>
+         <field name="to_country"/>
++        <label name="from_subdivision"/>
++        <field name="from_subdivision"/>
++        <label name="to_subdivision"/>
++        <field name="to_subdivision"/>
+     </xpath>
+ </data>
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree.xml
+--- a/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree.xml	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree.xml	Wed Jun 12 10:58:41 2019 +0200
+@@ -5,5 +5,7 @@
+     <xpath expr="/tree/field[@name='origin_tax']" position="after">
+         <field name="from_country"/>
+         <field name="to_country"/>
++        <field name="from_subdivision"/>
++        <field name="to_subdivision"/>
+     </xpath>
+ </data>
+diff -r ec3a9ae2d7c4 trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree_sequence.xml
+--- a/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree_sequence.xml	Wed May 09 12:07:12 2018 +0200
++++ b/trytond/trytond/modules/account_tax_rule_country/view/tax_rule_line_tree_sequence.xml	Wed Jun 12 10:58:41 2019 +0200
+@@ -5,5 +5,7 @@
+     <xpath expr="/tree/field[@name='origin_tax']" position="after">
+         <field name="from_country"/>
+         <field name="to_country"/>
++        <field name="from_subdivision"/>
++        <field name="to_subdivision"/>
+     </xpath>
+ </data>
