@@ -1,0 +1,58 @@
+diff -r 392b0f79c93c tax.py
+--- a/trytond/trytond/modules/account/tax.py	Sat Nov 24 23:54:36 2018 +0100
++++ b/trytond/trytond/modules/account/tax.py	Thu Oct 10 11:24:56 2019 +0200
+@@ -1018,9 +1018,7 @@
+         self.update(kwargs)
+ 
+     def _key(self):
+-        return (self['base_code'], self['base_sign'],
+-            self['tax_code'], self['tax_sign'],
+-            self['account'], self['tax'])
++        return (self['account'], self['tax'])
+ 
+     def __eq__(self, other):
+         if isinstance(other, _TaxKey):
+diff -r ea7a255ffcbb invoice.py
+--- a/trytond/trytond/modules/account_invoice/invoice.py	Sat Nov 24 23:54:37 2018 +0100
++++ b/trytond/trytond/modules/account_invoice/invoice.py	Thu Oct 10 11:37:18 2019 +0200
+@@ -493,10 +493,8 @@
+             if tax.manual:
+                 self.tax_amount += tax.amount or Decimal('0.0')
+                 continue
+-            key = (tax.base_code.id if tax.base_code else None, tax.base_sign,
+-                tax.tax_code.id if tax.tax_code else None, tax.tax_sign,
+-                tax.account.id if tax.account else None,
+-                tax.tax.id if tax.tax else None)
++            tax_id = tax.tax.id if tax.tax else None
++            key = (tax.account.id, tax_id)
+             if (key not in computed_taxes) or (key in tax_keys):
+                 taxes.remove(tax)
+                 continue
+@@ -832,12 +830,8 @@
+                 for tax in invoice.taxes:
+                     if tax.manual:
+                         continue
+-                    base_code_id = tax.base_code.id if tax.base_code else None
+-                    tax_code_id = tax.tax_code.id if tax.tax_code else None
+                     tax_id = tax.tax.id if tax.tax else None
+-                    key = (base_code_id, tax.base_sign,
+-                        tax_code_id, tax.tax_sign,
+-                        tax.account.id, tax_id)
++                    key = (tax.account.id, tax_id)
+                     if (key not in computed_taxes) or (key in tax_keys):
+                         if exception:
+                             cls.raise_user_error('missing_tax_line',
+@@ -1678,12 +1672,8 @@
+         for tax in self.invoice.taxes:
+             if tax.manual:
+                 continue
+-            base_code_id = tax.base_code.id if tax.base_code else None
+-            tax_code_id = tax.tax_code.id if tax.tax_code else None
+             tax_id = tax.tax.id if tax.tax else None
+-            key = (base_code_id, tax.base_sign,
+-                tax_code_id, tax.tax_sign,
+-                tax.account.id, tax_id)
++            key = (tax.account.id, tax_id)
+             if key in taxes_keys:
+                 taxes.append(tax.id)
+         return taxes

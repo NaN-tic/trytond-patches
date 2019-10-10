@@ -81,3 +81,5 @@ issue8058.diff # [stock_supply_production] Can't create productions from request
 
 #issue7334.diff # [trytond] read history that created_date is before the requested create_date
 issue8038.diff # [sale_supply_drop_shipment] Crash when process a purchase from purchase request created from a sale
+
+change_key_tax.diff # Change the key tax use to not separrete refunds and invoiceds on the same invocie, as in v5.2 do
