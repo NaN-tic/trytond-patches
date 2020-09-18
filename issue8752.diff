@@ -1,8 +1,0 @@
-diff -r 65d02e2fa425 asset.py
---- a/trytond/trytond/modules/analytic_invoice/asset.py	Mon May 06 15:00:15 2019 +0200
-+++ b/trytond/trytond/modules/analytic_invoice/asset.py	Tue Oct 22 11:50:11 2019 +0200
-@@ -51,3 +51,4 @@
-                         analytic_lines.extend(
-                             entry.get_analytic_lines(line, move.date))
-                     line.analytic_lines = analytic_lines
-+        return move

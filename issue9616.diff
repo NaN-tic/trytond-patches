@@ -1,0 +1,12 @@
+--- a/trytond/trytond/modules/analytic_invoice/asset.py
++++ b/trytond/trytond/modules/analytic_invoice/asset.py
+@@ -53,7 +53,8 @@ class Asset(AnalyticMixin, metaclass=PoolMeta):
+         if self.analytic_accounts:
+             with Transaction().set_context(date=move.date):
+                 for line in move.lines:
+-                    if line.account != self.product.account_expense_used:
++                    if line.account not in (self.product.account_expense_used,
++                            self.product.account_revenue_used):
+                         continue
+                     analytic_lines = []
+                     for entry in self.analytic_accounts:
