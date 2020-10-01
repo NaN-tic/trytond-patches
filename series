@@ -46,3 +46,5 @@ issue9103.diff # [trytond] User-defined reports for custom template extensions
 lazy_loading.diff # [trytond] https://discuss.tryton.org/t/should-create-uid-write-uid-use-lazy-loading/2458/7
 
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
+
+fifo_quantity_round.diff # [product_cost_fifo] Round fifo_quantity before save, to avoid problems when compare with quantity

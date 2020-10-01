@@ -1,0 +1,13 @@
+diff --git a/move.py b/move.py
+index 94fa17d..7e4d733 100644
+--- a/move.py
++++ b/move.py
+@@ -63,7 +63,7 @@ class Move(metaclass=PoolMeta):
+             cost_price += move_unit_price * Decimal(str(move_qty))
+ 
+             move_qty = Uom.compute_qty(self.product.default_uom, move_qty,
+-                    move.uom, round=False)
++                    move.uom, round=True)
+             move.fifo_quantity = (move.fifo_quantity or 0.0) + move_qty
+             to_save.append(move)
+         if to_save:
