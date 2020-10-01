@@ -1,7 +1,7 @@
 diff --git a/move.py b/move.py
 index 94fa17d..7e4d733 100644
---- a/move.py
-+++ b/move.py
+--- a/trytond/trytond/modules/product_cost_fifo/move.py
++++ b/trytond/trytond/modules/product_cost_fifo/move.py
 @@ -63,7 +63,7 @@ class Move(metaclass=PoolMeta):
              cost_price += move_unit_price * Decimal(str(move_qty))
  
