@@ -48,3 +48,5 @@ lazy_loading.diff # [trytond] https://discuss.tryton.org/t/should-create-uid-wri
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
 
 fifo_quantity_round.diff # [product_cost_fifo] Round fifo_quantity before save, to avoid problems when compare with quantity
+
+account_payment_search_payment_amount.diff # [account_payment] Optimize searcher search_payment_amount

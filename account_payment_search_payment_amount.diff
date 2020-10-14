@@ -1,0 +1,21 @@
+diff --git a/account.py b/account.py
+--- a/trytond/trytond/modules/account_payment/account.py
++++ b/trytond/trytond/modules/account_payment/account.py
+@@ -116,7 +116,7 @@ class MoveLine(metaclass=PoolMeta):
+         account = Account.__table__()
+         account_type = AccountType.__table__()
+
+-        payment_amount = Sum(Coalesce(payment.amount, 0))
++        payment_amount = Coalesce(Sum(payment.amount), 0)
+         main_amount = Abs(table.credit - table.debit) - payment_amount
+         second_amount = Abs(table.amount_second_currency) - payment_amount
+         amount = Case((table.second_currency == Null, main_amount),
+@@ -130,7 +130,7 @@ class MoveLine(metaclass=PoolMeta):
+             .join(account_type, condition=account.type == account_type.id)
+             .select(table.id,
+                 where=(account_type.payable | account_type.receivable),
+-                group_by=(table.id, table.second_currency),
++                group_by=(table.id,),
+                 having=Operator(amount, value)
+                 ))
+         return [('id', 'in', query)]
