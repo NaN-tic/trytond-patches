@@ -1,40 +1,35 @@
-diff -r d5e2bdf73e16 account.xml
---- a/trytond/trytond/modules/account/account.xml	Sun Apr 07 19:50:02 2019 +0200
-+++ b/trytond/trytond/modules/account/account.xml	Fri Apr 12 21:43:14 2019 +0200
-@@ -747,5 +747,22 @@
-             <field name="model">account.aged_balance,-1</field>
-             <field name="action" ref="report_aged_balance"/>
+diff --git a/trytond/trytond/modules/account/move.xml b/trytond/trytond/modules/account/move.xml
+index 3ce79e1..820cee2 100644
+--- a/trytond/trytond/modules/account/move.xml
++++ b/trytond/trytond/modules/account/move.xml
+@@ -392,6 +392,19 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="perm_delete" eval="True"/>
          </record>
-+
-+
-+        <record model="ir.rule.group" id="rule_group_account_journal_period">
-+          <field name="name">Account Journal Period</field>
-+            <field name="model" search="[('model', '=', 'account.journal.period')]"/>
+
++        <!-- ir rule account move and account move line by company -->
++        <record model="ir.rule.group" id="rule_group_reconcile_writeoff">
++            <field name="name">User in company</field>
++            <field name="model" search="[('model', '=', 'account.move.reconcile.write_off')]"/>
 +            <field name="global_p" eval="True"/>
 +        </record>
-+        <record model="ir.rule" id="rule_account_journal_period">
++        <record model="ir.rule" id="rule_reconcile_writeoff1">
 +            <field name="domain"
-+                eval="[('period.company', '=', Eval('user', {}).get('company', None))]"
++                eval="[('company', '=', Eval('user', {}).get('company', None))]"
 +                pyson="1"/>
-+            <field name="rule_group" ref="rule_group_account_journal_period"/>
++            <field name="rule_group" ref="rule_group_reconcile_writeoff"/>
 +        </record>
 +
-+
-+
-+
-     </data>
- </tryton>
-diff -r d5e2bdf73e16 move.xml
---- a//trytond/trytond/modules/account/move.xml	Sun Apr 07 19:50:02 2019 +0200
-+++ b//trytond/trytond/modules/account/move.xml	Fri Apr 12 21:43:14 2019 +0200
-@@ -411,5 +411,30 @@
+         <record model="ir.action.wizard" id="act_group_lines_wizard">
+             <field name="name">Group Lines</field>
+             <field name="wiz_name">account.move.line.group</field>
+@@ -427,5 +440,30 @@ this repository contains the full copyright notices and license terms. -->
              <field name="report_name">account.move.general_journal</field>
              <field name="report">account/general_journal.fodt</field>
          </record>
 +
 +        <!-- ir rule account move and account move line by company -->
 +        <record model="ir.rule.group" id="rule_group_account_move">
-+            <field name="name">Account Move Grup</field>
++            <field name="name">User in company</field>
 +            <field name="model" search="[('model', '=', 'account.move')]"/>
 +            <field name="global_p" eval="True"/>
 +        </record>
@@ -46,7 +41,7 @@ diff -r d5e2bdf73e16 move.xml
 +        </record>
 +
 +        <record model="ir.rule.group" id="rule_group_account_move_line">
-+          <field name="name">Account Move Line Grup</field>
++          <field name="name">User in company</field>
 +            <field name="model" search="[('model', '=', 'account.move.line')]"/>
 +            <field name="global_p" eval="True"/>
 +        </record>
