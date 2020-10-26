@@ -1,0 +1,23 @@
+diff --git a/purchase.xml b/purchase.xml
+index d3ecb5b..aef771b 100644
+--- a/trytond/trytond/modules/purchase/purchase.xml
++++ b/trytond/trytond/modules/purchase/purchase.xml
+@@ -559,6 +559,18 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="rule_group" ref="rule_group_purchase"/>
+         </record>
+ 
++        <record model="ir.rule.group" id="rule_group_purchase_line">
++            <field name="name">User in company</field>
++            <field name="model" search="[('model', '=', 'purchase.line')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_purchase_line1">
++            <field name="domain"
++                eval="[('purchase.company', '=', Eval('user', {}).get('company', None))]"
++                pyson="1"/>
++            <field name="rule_group" ref="rule_group_purchase_line"/>
++        </record>
++
+         <record model="ir.model.access" id="access_invoice_purchase">
+             <field name="model" search="[('model', '=', 'account.invoice')]"/>
+             <field name="group" ref="group_purchase"/>
