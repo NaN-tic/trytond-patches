@@ -30,6 +30,7 @@ sale_allow_group_shipments_with_different_dates.diff # [sale_shipment_grouping] 
 
 issue8860.diff # [stock_forecast] stock_forecast does not spread all the quantities
 
+issue9766.diff # [account] fix error message non_posted_moves at closing period
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 issue9017.diff # [purchase] Doesn't copy product_suppliers when a template or a product is duplicated
 
