@@ -39,3 +39,5 @@ lazy_loading.diff # [trytond] https://discuss.tryton.org/t/should-create-uid-wri
 issue9103.diff # [trytond] User-defined reports for custom template extensions
 
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
+
+issue9797.diff # [account_payment_sepa] Slowness processing sepa
