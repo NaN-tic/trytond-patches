@@ -1,0 +1,33 @@
+diff -r 115fe695b878 move.py
+--- a/trytond/trytond/modules/stock/move.py	Mon Nov 02 16:13:21 2020 +0100
++++ b/trytond/trytond/modules/stock/move.py	Fri Nov 06 17:52:47 2020 +0100
+@@ -949,6 +949,8 @@
+         child_locations = {}
+         to_write = []
+         to_assign = []
++        to_copy_moves = []
++        to_copy_values = []
+         success = True
+         for move in moves:
+             if move.state != 'draft':
+@@ -1012,13 +1014,18 @@
+                     to_assign.append(move)
+                     first = False
+                 else:
+-                    with Transaction().set_context(_stock_move_split=True):
+-                        to_assign.extend(cls.copy([move], default=values))
++                    to_copy_moves.append(move)
++                    to_copy_values.append(values)
+ 
+                 qty_default_uom = Uom.compute_qty(move.uom, qty,
+                         move.product.default_uom, round=False)
+ 
+                 pbl[key] = pbl.get(key, 0.0) - qty_default_uom
++        if to_copy_moves:
++            with Transaction().set_context(_stock_move_split=True):
++                copied = cls.copy(to_copy_moves)
++            for record, values in zip(copied, to_copy_values):
++                to_write.extend([[record], values])
+         if to_write:
+             cls.write(*to_write)
+         if to_assign:

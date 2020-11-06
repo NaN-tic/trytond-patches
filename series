@@ -41,3 +41,5 @@ issue9103.diff # [trytond] User-defined reports for custom template extensions
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
 
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
+
+issue9802.diff # [stock] Improve performance when partially assigning moves
