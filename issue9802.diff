@@ -1,4 +1,4 @@
-index 7995ab4..fae4268 100644
+index 7995ab4..4277d89 100644
 --- a/trytond/trytond/modules/stock/move.py
 +++ b/trytond/trytond/modules/stock/move.py
 @@ -841,6 +841,8 @@ class Move(Workflow, ModelSQL, ModelView):
@@ -10,7 +10,7 @@ index 7995ab4..fae4268 100644
          success = True
          for move in moves:
              if move.state != 'draft':
-@@ -900,14 +902,19 @@ class Move(Workflow, ModelSQL, ModelView):
+@@ -900,14 +902,20 @@ class Move(Workflow, ModelSQL, ModelView):
                      to_assign.append(move)
                      first = False
                  else:
@@ -29,6 +29,7 @@ index 7995ab4..fae4268 100644
 +                copied = cls.copy(to_copy_moves)
 +            for record, values in zip(copied, to_copy_values):
 +                to_write.extend([[record], values])
++            to_assign.extend(copied)
          if to_write:
              cls.write(*to_write)
          if to_assign:
