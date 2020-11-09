@@ -57,3 +57,4 @@ purchase_line_rule.diff # [purchase] Add missing rule on purchase_line
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
+issue9519.diff # [sale + purchase] Use search context for product field on line
