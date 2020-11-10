@@ -1,5 +1,5 @@
 diff --git a/trytond/trytond/modules/sale/sale.py b/trytond/trytond/modules/sale/sale.py
-index 3d66f74..39db53a 100644
+index 3d66f74..b1096c2 100644
 --- a/trytond/trytond/modules/sale/sale.py
 +++ b/trytond/trytond/modules/sale/sale.py
 @@ -1009,20 +1009,21 @@ class SaleLine(sequence_ordered(), ModelSQL, ModelView):
@@ -28,8 +28,50 @@ index 3d66f74..39db53a 100644
      product_uom_category = fields.Function(
          fields.Many2One('product.uom.category', 'Product Uom Category'),
          'on_change_with_product_uom_category')
+@@ -1080,6 +1081,9 @@ class SaleLine(sequence_ordered(), ModelSQL, ModelView):
+         'on_change_with_shipping_date')
+     sale_state = fields.Function(fields.Selection(STATES, 'Sale State'),
+         'on_change_with_sale_state')
++    company = fields.Function(
++        fields.Many2One('company.company', "Company"),
++        'on_change_with_company')
+ 
+     @classmethod
+     def __register__(cls, module_name):
+@@ -1143,7 +1147,7 @@ class SaleLine(sequence_ordered(), ModelSQL, ModelView):
+ 
+     @fields.depends(
+         'sale', '_parent_sale.currency', '_parent_sale.party',
+-        '_parent_sale.sale_date', '_parent_sale.company',
++        '_parent_sale.sale_date', 'company',
+         'unit', 'product', 'taxes')
+     def _get_context_sale_price(self):
+         context = {}
+@@ -1153,8 +1157,8 @@ class SaleLine(sequence_ordered(), ModelSQL, ModelView):
+             if self.sale.party:
+                 context['customer'] = self.sale.party.id
+             context['sale_date'] = self.sale.sale_date
+-            if self.sale.company:
+-                context['company'] = self.sale.company.id
++        if self.company:
++            context['company'] = self.company.id
+         if self.unit:
+             context['uom'] = self.unit.id
+         elif self.product:
+@@ -1308,6 +1312,11 @@ class SaleLine(sequence_ordered(), ModelSQL, ModelView):
+         if self.sale:
+             return self.sale.state
+ 
++    @fields.depends('sale', '_parent_sale.company')
++    def on_change_with_company(self, name=None):
++        if self.sale and self.sale.company:
++            return self.sale.company.id
++
+     def get_invoice_line(self):
+         'Return a list of invoice lines for sale line'
+         pool = Pool()
 diff --git a/trytond/trytond/modules/purchase/purchase.py b/trytond/trytond/modules/purchase/purchase.py
-index 30ae987..7f53983 100644
+index 30ae987..a0459a5 100644
 --- a/trytond/trytond/modules/purchase/purchase.py
 +++ b/trytond/trytond/modules/purchase/purchase.py
 @@ -967,6 +967,9 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
@@ -42,7 +84,7 @@ index 30ae987..7f53983 100644
              'locations': If(Bool(Eval('_parent_purchase', {}).get(
                          'warehouse')),
                  [Eval('_parent_purchase', {}).get('warehouse', None)],
-@@ -974,16 +977,14 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
+@@ -974,16 +977,13 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
              'stock_date_end': Eval('_parent_purchase', {}).get(
                  'purchase_date'),
              'stock_skip_warehouse': True,
@@ -56,12 +98,11 @@ index 30ae987..7f53983 100644
              'taxes': Eval('taxes', []),
              'quantity': Eval('quantity'),
 -            }, depends=['type', 'purchase_state', 'product_supplier'])
-+            },
-+        depends=['type', 'purchase_state', 'product_supplier', 'company'])
++            }, depends=['type', 'purchase_state', 'product_supplier', 'company'])
      product_supplier = fields.Many2One(
          'purchase.product_supplier', "Supplier's Product",
          ondelete='RESTRICT',
-@@ -1081,6 +1082,12 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
+@@ -1081,6 +1081,12 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
      purchase_state = fields.Function(
          fields.Selection(STATES, 'Purchase State'),
          'on_change_with_purchase_state')
@@ -74,7 +115,27 @@ index 30ae987..7f53983 100644
  
      @classmethod
      def __register__(cls, module_name):
-@@ -1359,6 +1366,16 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
+@@ -1144,7 +1150,7 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
+ 
+     @fields.depends(
+         'purchase', '_parent_purchase.currency', '_parent_purchase.party',
+-        '_parent_purchase.purchase_date', '_parent_purchase.company',
++        '_parent_purchase.purchase_date', 'company',
+         'unit', 'product', 'product_supplier', 'taxes')
+     def _get_context_purchase_price(self):
+         context = {}
+@@ -1154,8 +1160,8 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
+             if self.purchase.party:
+                 context['supplier'] = self.purchase.party.id
+             context['purchase_date'] = self.purchase.purchase_date
+-            if self.purchase.company:
+-                context['company'] = self.purchase.company.id
++            if self.company:
++                context['company'] = self.company.id
+         if self.unit:
+             context['uom'] = self.unit.id
+         elif self.product:
+@@ -1359,6 +1365,16 @@ class PurchaseLine(sequence_ordered(), ModelSQL, ModelView):
          if self.purchase:
              return self.purchase.state
  
