@@ -6,8 +6,6 @@ account_payment_sepa_locale.diff # [account_payment_sepa]
 
 
 issue3932.diff # [account] rule account move and account move line by company
-account_asset.diff # [account_asset] check if exist asset_lines
-
 
 issue6253.diff # [account_invoice] add invoice type criteria
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
