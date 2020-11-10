@@ -3,8 +3,6 @@ trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
-account_asset.diff # [account_asset] check if exist asset_lines
-
 
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
