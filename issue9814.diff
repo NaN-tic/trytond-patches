@@ -1,0 +1,40 @@
+--- a/trytond/trytond/modules/product/product.py
++++ b/trytond/trytond/modules/product/product.py
+@@ -165,9 +165,9 @@ class Template(
+
+ class TemplateFunction(fields.Function):
+
+-    def __init__(self, field):
++    def __init__(self, field, searcher):
+         super(TemplateFunction, self).__init__(
+-            field, 'get_template', searcher='search_template')
++            field, 'get_template', searcher=searcher)
+         # Disable on_change as it is managed by on_change_template
+         self.on_change = set()
+         self.on_change_with = set()
+@@ -176,7 +176,7 @@ class TemplateFunction(fields.Function):
+         return TemplateFunction(copy.copy(self._field))
+
+     def __deepcopy__(self, memo):
+-        return TemplateFunction(copy.deepcopy(self._field, memo))
++        return TemplateFunction(copy.deepcopy(self._field, memo),self.searcher)
+
+     @staticmethod
+     def order(name):
+@@ -246,7 +246,14 @@ class Product(
+                 continue
+             field = getattr(cls, attr, None)
+             if not field or isinstance(field, TemplateFunction):
+-                setattr(cls, attr, TemplateFunction(copy.deepcopy(tfield)))
++                if (isinstance(tfield, fields.Function)
++                        and not tfield.searcher
++                        and not hasattr(Template, 'domain_' + attr)):
++                    searcher = None
++                else:
++                    searcher = 'search_template'
++                setattr(cls, attr, TemplateFunction(copy.deepcopy(tfield),
++                        searcher))
+                 order_method = getattr(cls, 'order_%s' % attr, None)
+                 if (not order_method
+                         and not isinstance(tfield, (
+
