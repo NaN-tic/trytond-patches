@@ -1,0 +1,23 @@
+diff --git a/account.py b/account.py
+--- a/trytond/trytond/modules/account_invoice/account.py
++++ b/trytond/trytond/modules/account_invoice/account.py
+@@ -292,11 +292,19 @@ class Reconciliation(metaclass=PoolMeta):
+     def delete(cls, reconciliations):
+         Invoice = Pool().get('account.invoice')
+
+-        move_ids = set(l.move.id for r in reconciliations for l in r.lines)
++        to_remove = []
++        move_ids = ()
++        for r in reconciliations:
++            for l in r.lines:
++                if l.invoice_payments:
++                    to_remove.append(l)
++                move_ids = move_ids + (l.move.id,)
++
+         invoices = Invoice.search([
+                 ('move', 'in', list(move_ids)),
+                 ])
+         super(Reconciliation, cls).delete(reconciliations)
++        Invoice.remove_payment_lines(to_remove)
+         Invoice.process(invoices)
+
