@@ -1,0 +1,22 @@
+diff --git a/account.xml b/account.xml
+index f5129dd..eea90b1 100644
+--- a/trytond/trytond/modules/account/account.xml
++++ b/trytond/trytond/modules/account/account.xml
+@@ -738,5 +738,17 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="model">account.aged_balance,-1</field>
+             <field name="action" ref="report_aged_balance"/>
+         </record>
++
++        <record model="ir.rule.group" id="rule_group_account_journal_period">
++            <field name="name">Account Journal Period</field>
++            <field name="model" search="[('model', '=', 'account.journal.period')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_account_journal_period">
++            <field name="domain"
++                eval="[('period.company', '=', Eval('user', {}).get('company', None))]"
++                pyson="1"/>
++            <field name="rule_group" ref="rule_group_account_journal_period"/>
++        </record>
+     </data>
+ </tryton>
