@@ -33,7 +33,6 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 issue9017.diff # [purchase] Doesn't copy product_suppliers when a template or a product is duplicated
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
-lazy_loading.diff # [trytond] https://discuss.tryton.org/t/should-create-uid-write-uid-use-lazy-loading/2458/7
 issue9103.diff # [trytond] User-defined reports for custom template extensions
 
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
