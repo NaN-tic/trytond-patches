@@ -19,7 +19,10 @@ sale_copy.diff # [sale] set _cache fields to null when copy
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 issue239_630.diff # [stock] get location quantity by product, product template or lot
+
 stock_quantity_to_zero.diff # [stock] Ensure to sum with value.
+stock_quantity_to_zero_pass_test.diff # [stock] Ensure to sum with value.
+# issue9737.diff # [stock] Delete outgoing_moves with zero quantity on packing customer shipment [not best solution for bug, solved on stock_quantity_to_zero]
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 production_view.diff #[production] Split inputs and outputs on pages
