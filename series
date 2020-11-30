@@ -10,7 +10,6 @@ issue3932.diff # [account] rule account move and account move line by company
 issue6253.diff # [account_invoice] add invoice type criteria
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
-create_invoice_credit_with_refund.diff # [account_invoice] revert the creation of a credit invoice whith refund change. reconcile the 2 invoices, not cancell the origin one.
 issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 
 issue9032.diff # [account_invoice_stock] Skip sum quantity of cancelled invoices
