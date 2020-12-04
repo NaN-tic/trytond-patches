@@ -59,3 +59,5 @@ issue9519.diff # [sale + purchase] Use search context for product field on line
 issue9814.diff #[product] Product template search bar showing non serchable product.product function fields as recomendation
 
 rule_account_journal_period.diff # [account] Add missing rule for account.journal.period
+
+issue8944.diff # [sale_shipment_cost] Prevent crash when duplicating a sale and moving it to quote state.
