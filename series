@@ -61,3 +61,5 @@ issue9814.diff #[product] Product template search bar showing non serchable prod
 rule_account_journal_period.diff # [account] Add missing rule for account.journal.period
 
 issue8944.diff # [sale_shipment_cost] Prevent crash when duplicating a sale and moving it to quote state.
+
+account_asset.diff # [account_asset] permit update asset running without move yet.

@@ -1,0 +1,13 @@
+diff --git a/asset.py b/asset.py
+index fc23ca8..cc10240 100644
+--- a/trytond/trytond/modules/account_asset/asset.py	Mon May 06 14:53:17 2019 +0200
++++ b/trytond/trytond/modules/account_asset/asset.py	Tue Jun 11 22:56:45 2019 +0200
+@@ -757,7 +757,7 @@ class UpdateAssetShowDepreciation(ModelView):
+     date = fields.Date('Date', required=True,
+         domain=[
+             ('date', '>', Eval('latest_move_date')),
+-            ('date', '<', Eval('next_depreciation_date')),
++            ('date', '<=', Eval('next_depreciation_date')),
+             ],
+         depends=['latest_move_date', 'next_depreciation_date'],
+         help=('The date must be between the last update/depreciation date '
