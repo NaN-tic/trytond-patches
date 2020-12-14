@@ -1,6 +1,16 @@
-diff -r 74bdc279fae0 asset.py
+diff --git a/asset.py b/asset.py
+index 371955c..dad6d8f 100644
 --- a/trytond/trytond/modules/account_asset/asset.py	Mon May 06 14:53:17 2019 +0200
 +++ b/trytond/trytond/modules/account_asset/asset.py	Tue Jun 11 22:56:45 2019 +0200
+@@ -711,7 +711,7 @@ class UpdateAssetShowDepreciation(ModelView):
+     date = fields.Date('Date', required=True,
+         domain=[
+             ('date', '>', Eval('latest_move_date')),
+-            ('date', '<', Eval('next_depreciation_date')),
++            ('date', '<=', Eval('next_depreciation_date')),
+             ],
+         depends=['latest_move_date', 'next_depreciation_date'],
+         help=('The date must be between the last update/depreciation date '
 @@ -776,6 +776,9 @@ class UpdateAsset(Wizard):
      def default_show_move(self, fields):
          Asset = Pool().get('account.asset')
@@ -11,9 +21,9 @@ diff -r 74bdc279fae0 asset.py
          return {
              'amount': self.start.value - asset.value,
              'date': datetime.date.today(),
-@@ -923,6 +926,8 @@ class AssetDepreciationTable(CompanyReport):
-             def start_fixed_value(self):
-                 if self.start_date < self.asset.start_date:
+@@ -924,6 +927,8 @@ class AssetDepreciationTable(CompanyReport):
+                 if (self.start_date < self.asset.start_date
+                         or not self.asset_lines):
                      return 0
 +                if not self.asset_lines:
 +                    return 0
