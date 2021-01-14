@@ -32,7 +32,6 @@ issue9737.diff # [stock] Delete outgoing_moves with zero quantity on packing cus
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 production_view.diff #[production] Split inputs and outputs on pages
 issue8702.diff # [stock_supply_forecast] Support production forecast
-sale_allow_group_shipments_with_different_dates.diff # [sale_shipment_grouping] Deletes the grouping condition by dates
 party_identifier_migration.diff # set vat_eu as valid vat
 
 issue8860.diff # [stock_forecast] stock_forecast does not spread all the quantities
