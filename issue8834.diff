@@ -1,0 +1,12 @@
+diff -r dc6d16f53783 trytond/trytond/modules/account_payment_clearing/payment.py
+--- a/trytond/trytond/modules/account_payment_clearing/payment.py	Mon Nov 04 12:53:16 2019 +0100
++++ b/trytond/trytond/modules/account_payment_clearing/payment.py	Mon Nov 18 14:19:24 2019 +0100
+@@ -189,6 +189,8 @@
+         else:
+             counterpart.debit, counterpart.credit = local_amount, 0
+         counterpart.account = self.journal.clearing_account
++        counterpart.party = (self.clearing_party
++            if counterpart.account.party_required else None)
+         if not local_currency:
+             counterpart.amount_second_currency = self.amount.copy_sign(
+                 counterpart.debit - counterpart.credit)
