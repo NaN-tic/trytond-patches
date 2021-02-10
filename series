@@ -88,3 +88,5 @@ issue5907.diff # [trytond] Remove unoconv and call soffice directly
 issue9113.diff # [stock] ir.msg_read_error when read _history table when that not have history
 
 lazy_loading.diff # [trytond] https://discuss.tryton.org/t/should-create-uid-write-uid-use-lazy-loading/2458/7
+
+valid_vies.diff # [party] fix bug that not validate vies correctly

@@ -1,0 +1,12 @@
+--- a/trytond/trytond/modules/party/party.py
++++ b/trytond/trytond/modules/party/party.py
+@@ -349,7 +349,7 @@ class CheckVIES(Wizard):
+                 if identifier.type != 'eu_vat':
+                     continue
+                 try:
+-                    if not vat.check_vies(identifier.code):
++                    if not vat.check_vies(identifier.code)['valid']:
+                         parties_failed.append(party.id)
+                     else:
+                         parties_succeed.append(party.id)
+
