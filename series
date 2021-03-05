@@ -65,3 +65,6 @@ account_asset.diff # [account_asset] permit update asset running without move ye
 issue8834.diff # [account_payment_clearing] Party required when mark a payment succeed and counterpart account is required
 
 project_invoice_progress_compute_qty.diff # [project_invoice] Twice compute qty UOM convertion (to calculate pogress and create invoice line)
+
+issue10068.diff # [trytond] Use safe_join in SharedDataMiddlewareIndex
+
