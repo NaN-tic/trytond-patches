@@ -1,0 +1,14 @@
+diff --git a/trytond/trytond/modules/project_invoice/work.py b/trytond/trytond/modules/project_invoice/work.py
+index fcc41a2..3577e1f 100644
+--- a/trytond/trytond/modules/project_invoice/work.py
++++ b/trytond/trytond/modules/project_invoice/work.py
+@@ -515,9 +515,6 @@ class Work(metaclass=PoolMeta):
+
+         invoiced_progress = sum(x.effort_hours for x in self.invoiced_progress)
+         quantity = self.effort_hours * self.progress - invoiced_progress
+-        if self.product:
+-            quantity = Uom.compute_qty(
+-                hour, quantity, self.product.default_uom)
+         if quantity > 0:
+             if not self.product:
+                 raise InvoicingError(
