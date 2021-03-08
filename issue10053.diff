@@ -10,27 +10,27 @@
 +from trytond.model.exceptions import AccessError
  from trytond.pool import Pool
  from trytond.tools.multivalue import migrate_property
- 
+
 +from .party import IDENTIFIER_TYPES
 +
  __all__ = ['Configuration', 'ConfigurationSequence', 'ConfigurationLang']
- 
+
  party_sequence = fields.Many2One('ir.sequence', 'Party Sequence',
 @@ -23,6 +27,10 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
- 
+
      party_sequence = fields.MultiValue(party_sequence)
      party_lang = fields.MultiValue(party_lang)
 +    identifier_types = fields.MultiSelection(
 +        IDENTIFIER_TYPES, "Identifier Types",
 +        help="Defines which identifier types are available.\n"
 +        "Leave empty for all of them.")
- 
+
      @classmethod
      def default_party_sequence(cls, **pattern):
 @@ -33,6 +41,53 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
          except KeyError:
              return None
- 
+
 +    def get_identifier_types(self):
 +        selection = self.fields_get(
 +            ['identifier_types'])['identifier_types']['selection']
@@ -78,9 +78,9 @@
 +                        identifier=identifier.rec_name,
 +                        ))
 +
- 
+
  class _ConfigurationValue(ModelSQL):
- 
+
 --- a/trytond/trytond/modules/party/message.xml
 +++ b/trytond/trytond/modules/party/message.xml
 @@ -39,5 +39,8 @@ this repository contains the full copyright notices and license terms. -->
@@ -96,8 +96,8 @@
 +++ b/trytond/trytond/modules/party/party.py
 @@ -316,6 +316,147 @@ class PartyCategory(ModelSQL):
          ondelete='CASCADE', required=True, select=True)
- 
- 
+
+
 +IDENTIFIER_TYPES = [
 +    ('ad_nrt', "Andorra Tax Number"),
 +    ('al_nipt', "Albanian VAT Number"),
@@ -358,11 +358,11 @@
 +    type = fields.Selection('get_types', 'Type')
      type_string = type.translated('type')
      code = fields.Char('Code', required=True)
- 
+
 @@ -468,6 +501,13 @@ class PartyIdentifier(sequence_ordered(), ModelSQL, ModelView):
              party_h.drop_column('vat_number')
              party_h.drop_column('vat_country')
- 
+
 +    @classmethod
 +    def get_types(cls):
 +        pool = Pool()
@@ -383,3 +383,28 @@
 +    <label name="identifier_types"/>
 +    <field name="identifier_types"/>
  </form>
+diff --git a/trytond/trytond/modules/account_payment_sepa/party.py b/trytond/trytond/modules/account_payment_sepa/party.py
+index 2b7c16c..7296268 100644
+--- a/trytond/trytond/modules/account_payment_sepa/party.py
++++ b/trytond/trytond/modules/account_payment_sepa/party.py
+@@ -85,11 +85,6 @@ class PartyIdentifier(metaclass=PoolMeta):
+             },
+         depends=['type'])
+
+-    @classmethod
+-    def __setup__(cls):
+-        super(PartyIdentifier, cls).__setup__()
+-        cls.type.selection.append(('sepa', 'SEPA Creditor Identifier'))
+-
+     @fields.depends('party', '_parent_party.identifiers')
+     def check_code(self):
+         super(PartyIdentifier, self).check_code()
+@@ -129,3 +124,8 @@ class PartyIdentifier(metaclass=PoolMeta):
+         elif self.type == 'es_nif':
+             identifier['Id'] += self.sepa_es_suffix or '000'
+         return identifier
++
++    @classmethod
++    def get_types(cls):
++        return super(PartyIdentifier, cls).get_types() + [
++            ('sepa', 'SEPA Creditor Identifier')]
