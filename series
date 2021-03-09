@@ -40,6 +40,7 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 issue9103.diff # [trytond] User-defined reports for custom template extensions
+issue10009.diff # [trytond] Remove active test from sequences and languages action
 
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
 
