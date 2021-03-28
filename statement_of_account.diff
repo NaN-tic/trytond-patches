@@ -1,16 +1,16 @@
 diff -r 62f81d7eb78b account.py
 --- a/trytond/trytond/modules/account/account.py	Fri Jul 07 10:04:01 2017 +0200
 +++ b/trytond/trytond/modules/account/account.py	Fri Jul 07 10:30:29 2017 +0200
-@@ -1261,7 +1261,7 @@
-     @classmethod
+@@ -2009,7 +2009,7 @@
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
+         cls.__access__.add('account')
 -        cls._order.insert(0, ('date', 'ASC'))
 +        cls._order = [('date', 'DESC'), ('id', 'DESC')]
 
      @classmethod
      def table_query(cls):
-@@ -1308,7 +1308,7 @@
+@@ -2057,7 +2057,7 @@
              line_query, fiscalyear_ids = Line.query_get(line)
          return line.join(move, condition=line.move == move.id
              ).join(account, condition=line.account == account.id
