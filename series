@@ -11,17 +11,17 @@ issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 issue4030.diff # [analytic_account] Not selected root accounts in analytic account lines
 analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
-sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
+#sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 #sale_remove_multiselection.diff # [sale] remove multiselection handling exceptions
 sale_copy.diff # [sale] set _cache fields to null when copy
 #purchase_remove_multiselection.diff # [purchase] remove multiselection handling exceptions
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
-issue239_630.diff # [stock] get location quantity by product, product template or lot
+#issue239_630.diff # [stock] get location quantity by product, product template or lot
 
-stock_quantity_to_zero.diff # [stock] Ensure to sum with value.
-stock_quantity_to_zero_pass_test.diff # [stock] Ensure to sum with value.
+#stock_quantity_to_zero.diff # [stock] Ensure to sum with value.
+#stock_quantity_to_zero_pass_test.diff # [stock] Ensure to sum with value.
 # issue9737.diff # [stock] Delete outgoing_moves with zero quantity on packing customer shipment [not best solution for bug, solved on stock_quantity_to_zero]
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
