@@ -2,9 +2,9 @@ diff -r 0bde16075654 trytond/trytond/pool.py
 --- a/trytond/trytond/pool.py   Sun Jul 28 16:05:45 2019 +0200
 +++ b/trytond/trytond/pool.py   Fri Aug 16 11:13:08 2019 +0000
 @@ -183,6 +183,12 @@
-                 cls.__setup__()
                  self.add(cls, type)
-                 return cls
+                 self.setup_mixin(self._modules, type='report', name=name)
+                 return self.get(name, type=type)
 +            elif name[:15] == 'babi_execution_':
 +                with Transaction(new=True).start(self.database_name, 0, readonly=False):
 +                    Execution = self.get('babi.report.execution')
