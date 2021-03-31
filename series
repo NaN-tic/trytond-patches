@@ -24,7 +24,6 @@ search_warehouse.diff # [stock] search function for warehouse
 # issue9737.diff # [stock] Delete outgoing_moves with zero quantity on packing customer shipment [not best solution for bug, solved on stock_quantity_to_zero]
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
-production_view.diff #[production] Split inputs and outputs on pages
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
 issue8860.diff # [stock_forecast] stock_forecast does not spread all the quantities
