@@ -26,8 +26,6 @@ search_warehouse.diff # [stock] search function for warehouse
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
-issue8860.diff # [stock_forecast] stock_forecast does not spread all the quantities
-
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 issue9017.diff # [purchase] Doesn't copy product_suppliers when a template or a product is duplicated
 
