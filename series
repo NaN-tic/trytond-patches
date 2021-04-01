@@ -13,7 +13,6 @@ analitic_line_company_rules.diff # [analytic_account] Not selected root accounts
 #sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 #sale_remove_multiselection.diff # [sale] remove multiselection handling exceptions
-sale_copy.diff # [sale] set _cache fields to null when copy
 #purchase_remove_multiselection.diff # [purchase] remove multiselection handling exceptions
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
