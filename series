@@ -10,7 +10,6 @@ issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 issue4030.diff # [analytic_account] Not selected root accounts in analytic account lines
 analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
-#sale_list_price.diff # [sale] Can't convert to currency with list price is null (multicompany)
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 #sale_remove_multiselection.diff # [sale] remove multiselection handling exceptions
 #purchase_remove_multiselection.diff # [purchase] remove multiselection handling exceptions
