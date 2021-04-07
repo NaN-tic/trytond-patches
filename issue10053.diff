@@ -383,11 +383,39 @@
 +    <label name="identifier_types"/>
 +    <field name="identifier_types"/>
  </form>
+diff --git a/trytond/trytond/modules/account_payment_sepa/__init__.py b/trytond/trytond/modules/account_payment_sepa/__init__.py
+index 17457a9..feee60a 100644
+--- a/trytond/trytond/modules/account_payment_sepa/__init__.py
++++ b/trytond/trytond/modules/account_payment_sepa/__init__.py
+@@ -13,6 +13,7 @@ def register():
+         payment.Mandate,
+         payment.Payment,
+         payment.Message,
++        party.Configuration,
+         party.Party,
+         party.PartyIdentifier,
+         account.Configuration,
 diff --git a/trytond/trytond/modules/account_payment_sepa/party.py b/trytond/trytond/modules/account_payment_sepa/party.py
-index 2b7c16c..7296268 100644
+index 2b7c16c..54de8d7 100644
 --- a/trytond/trytond/modules/account_payment_sepa/party.py
 +++ b/trytond/trytond/modules/account_payment_sepa/party.py
-@@ -85,11 +85,6 @@ class PartyIdentifier(metaclass=PoolMeta):
+@@ -16,6 +16,15 @@ from trytond.modules.party.exceptions import InvalidIdentifierCode
+ from .exceptions import PartyIdentificationdError
+
+
++class Configuration(metaclass=PoolMeta):
++    __name__ = 'party.configuration'
++
++    @classmethod
++    def __setup__(cls):
++        super().__setup__()
++        cls.identifier_types.selection += [('sepa', 'SEPA Creditor Identifier')]
++
++
+ class Party(metaclass=PoolMeta):
+     __name__ = 'party.party'
+     sepa_creditor_identifier_used = fields.Function(fields.Char(
+@@ -85,11 +94,6 @@ class PartyIdentifier(metaclass=PoolMeta):
              },
          depends=['type'])
 
@@ -399,12 +427,25 @@ index 2b7c16c..7296268 100644
      @fields.depends('party', '_parent_party.identifiers')
      def check_code(self):
          super(PartyIdentifier, self).check_code()
-@@ -129,3 +124,8 @@ class PartyIdentifier(metaclass=PoolMeta):
-         elif self.type == 'es_nif':
-             identifier['Id'] += self.sepa_es_suffix or '000'
-         return identifier
+diff --git a/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py b/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
+index 35ddddc..10e1337 100644
+--- a/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
++++ b/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
+@@ -150,6 +150,17 @@ class AccountPaymentSepaTestCase(ModuleTestCase):
+     'Test Account Payment SEPA module'
+     module = 'account_payment_sepa'
+
++    @with_transaction()
++    def test_party_identifiers(self):
++        'Party Identifiers'
++        pool = Pool()
++        Configuration = pool.get('party.configuration')
++        PartyIdentifier = pool.get('party.identifier')
 +
-+    @classmethod
-+    def get_types(cls):
-+        return super(PartyIdentifier, cls).get_types() + [
-+            ('sepa', 'SEPA Creditor Identifier')]
++        _TYPE = ('sepa', 'SEPA Creditor Identifier')
++        self.assertTrue(_TYPE in Configuration.identifier_types.selection)
++        self.assertTrue(_TYPE in PartyIdentifier.get_types())
++
+     @with_transaction()
+     def test_pain001_001_03(self):
+         'Test pain001.001.03 xsd validation'
