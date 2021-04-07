@@ -1,0 +1,35 @@
+diff --git a/trytond/trytond/modules/production/production.py b/trytond/trytond/modules/production/production.py
+index acd7a35..1ccc421 100644
+--- a/trytond/trytond/modules/production/production.py
++++ b/trytond/trytond/modules/production/production.py
+@@ -468,12 +468,6 @@ class Production(Workflow, ModelSQL, ModelView):
+                     moves.append(output)
+         Move.save(moves)
+ 
+-    @classmethod
+-    def validate(cls, productions):
+-        super(Production, cls).validate(productions)
+-        for production in productions:
+-            production.check_cost()
+-
+     @property
+     def output_cost(self):
+         cost_price = Decimal(0)
+@@ -481,17 +475,6 @@ class Production(Workflow, ModelSQL, ModelView):
+             cost_price += (Decimal(str(output.quantity)) * output.unit_price)
+         return cost_price
+
+-    def check_cost(self):
+-        if self.state != 'done':
+-            return
+-        cost_price = self.output_cost
+-        if not self.company.currency.is_zero(self.cost - cost_price):
+-            raise CostError(gettext(
+-                    'production.msg_uneven_costs',
+-                    production=self.rec_name,
+-                    costs=self.cost,
+-                    outputs=cost_price))
+-
+     @classmethod
+     def view_attributes(cls):
+         return [

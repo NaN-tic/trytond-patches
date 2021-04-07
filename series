@@ -70,3 +70,5 @@ project_invoice_progress_compute_qty.diff # [project_invoice] Twice compute qty 
 issue10068.diff # [trytond] Use safe_join in SharedDataMiddlewareIndex
 
 issue10053.diff # [party] Configure available identifiers
+
+issue3209.diff # [production] Not validate cost inputs and outputs 043523 (not merge to 6.x)
