@@ -44,7 +44,7 @@ issue10009.diff # [trytond] Remove active test from sequences and languages acti
 
 issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
 
-fifo_quantity_round.diff # issue9664 [product_cost_fifo] Round fifo_quantity before save, to avoid problems when compare with quantity  [Remove on 5.8]
+#fifo_quantity_round.diff # issue9664 [product_cost_fifo] Round fifo_quantity before save, to avoid problems when compare with quantity  [Remove on 5.8]
 
 account_payment_search_payment_amount.diff # [account_payment] Optimize searcher search_payment_amount
 
@@ -70,3 +70,19 @@ project_invoice_progress_compute_qty.diff # [project_invoice] Twice compute qty 
 issue10068.diff # [trytond] Use safe_join in SharedDataMiddlewareIndex
 
 issue10053.diff # [party] Configure available identifiers
+
+# Cost and Recompute Cost issues
+production_cost_fifo-Update-cost-of-moves-when-recomputing-product-cost.patch  #[issue8795 + issue7271] Remove on 5.8
+production-Update-cost-of-moves-when-recomputing-product-cost.patch            #[issue8795 + issue7271] Remove on 5.8
+stock-Update-cost-of-moves-when-recomputing-product-cost.patch                 #[issue8795 + issue7271] Remove on 5.8
+production-Keep-cost-of-unused-input-products.patch                            #[issue9637] Remove on 5.8
+cost_price_in_productions_without_inputs.diff  # [production]
+product_cost_fifo-Use-all-moves-to-compute-FIFO.patch                          #[issue9443 issue9274] Remove on 5.8
+product-cost-fifo-Use-original-cost-price-for-returned-move.patch              #[issue9440] Remove on 6.0
+stock-Use-original-cost-price-for-returned-move.patch                          #[issue9440] Remove on 6.0
+sale-Use-original-cost-price-for-returned-move.patch                           #[issue9440] Remove on 6.0
+sale_supply_drop_shippment-Use-original-cost-price-for-returned-move.patch     #[issue9440] Remove on 6.0
+product_cost_fifo-Do-not-update-average-cost-price-i.patch                     #[issue9484] Remove on 6.0
+product_cost_fifo-Enforce-filling-cost-price-of-move.patch                     #[issue9397] Remove on 6.0
+stock-Enforce-filling-cost-price-of-move.patch                                 #[issue9397] Remove on 6.0
+# End Cost and Recompute Cost issues

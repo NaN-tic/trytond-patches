@@ -1,13 +1,14 @@
 diff --git a/move.py b/move.py
-index 94fa17d..7e4d733 100644
+index 1b41353..85c89eb 100644
 --- a/trytond/trytond/modules/product_cost_fifo/move.py
 +++ b/trytond/trytond/modules/product_cost_fifo/move.py
-@@ -63,7 +63,7 @@ class Move(metaclass=PoolMeta):
-             cost_price += move_unit_price * Decimal(str(move_qty))
- 
+@@ -105,6 +105,9 @@ class Move(metaclass=PoolMeta):
              move_qty = Uom.compute_qty(self.product.default_uom, move_qty,
--                    move.uom, round=False)
-+                    move.uom, round=True)
+                     move.uom, round=False)
              move.fifo_quantity = (move.fifo_quantity or 0.0) + move_qty
++            # Due to float, the fifo quantity result can exceed the quantity.
++            assert move.quantity >= move.fifo_quantity - move.uom.rounding
++            move.fifo_quantity = min(move.fifo_quantity, move.quantity)
              to_save.append(move)
          if to_save:
+             # TODO save in do method when product change

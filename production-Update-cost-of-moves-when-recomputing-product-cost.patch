@@ -1,0 +1,263 @@
+From cda3ebad04807a8a059ffbe5e57082b0c92fb7b0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
+Date: Wed, 7 Apr 2021 12:24:55 +0200
+Subject: [PATCH] Update cost of moves when recomputing product cost
+
+issue8795
+issue7271
+---
+ __init__.py                            |   2 +
+ ir.py                                  |  14 ++++
+ production.py                          |  16 ++++
+ production.xml                         |   5 ++
+ stock.py                               |  21 +++++
+ tests/scenario_production_set_cost.rst | 105 +++++++++++++++++++++++++
+ tests/test_production.py               |   4 +
+ 7 files changed, 167 insertions(+)
+ create mode 100644 ir.py
+ create mode 100644 tests/scenario_production_set_cost.rst
+
+diff --git a/__init__.py b/__init__.py
+index b8909ab..94292a3 100644
+--- a/trytond/trytond/modules/production/__init__.py
++++ b/trytond/trytond/modules/production/__init__.py
+@@ -7,6 +7,7 @@ from .bom import *
+ from .product import *
+ from .production import *
+ from .stock import *
++from . import ir
+
+
+ def register():
+@@ -27,6 +28,7 @@ def register():
+         ProductionLeadTime,
+         Location,
+         Move,
++        ir.Cron,
+         module='production', type_='model')
+     Pool.register(
+         Assign,
+diff --git a/ir.py b/ir.py
+new file mode 100644
+index 0000000..3ccc082
+--- a/trytond/trytond/modules/production/ir.py
++++ b/trytond/trytond/modules/production/ir.py
+@@ -0,0 +1,14 @@
++# This file is part of Tryton.  The COPYRIGHT file at the top level of
++# this repository contains the full copyright notices and license terms.
++from trytond.pool import PoolMeta
++
++
++class Cron(metaclass=PoolMeta):
++    __name__ = 'ir.cron'
++
++    @classmethod
++    def __setup__(cls):
++        super().__setup__()
++        cls.method.selection.extend([
++                ('production|set_cost_from_moves', "Set Cost from Moves"),
++                ])
+diff --git a/production.py b/production.py
+index acd7a35..2bd52d1 100644
+--- a/trytond/trytond/modules/production/production.py
++++ b/trytond/trytond/modules/production/production.py
+@@ -445,6 +445,22 @@ class Production(Workflow, ModelSQL, ModelView):
+                 move.save()
+         self._set_move_planned_date()
+
++    @classmethod
++    def set_cost_from_moves(cls):
++        pool = Pool()
++        Move = pool.get('stock.move')
++        productions = set()
++        moves = Move.search([
++                ('production_cost_price_updated', '=', True),
++                ('production_input', '!=', None),
++                ],
++            order=[('effective_date', 'ASC')])
++        for move in moves:
++            if move.production_input not in productions:
++                cls.__queue__.set_cost([move.production_input])
++                productions.add(move.production_input)
++        Move.write(moves, {'production_cost_price_updated': False})
++
+     @classmethod
+     def set_cost(cls, productions):
+         pool = Pool()
+diff --git a/production.xml b/production.xml
+index e67fbb5..2f46f8c 100644
+--- a/trytond/trytond/modules/production/production.xml
++++ b/trytond/trytond/modules/production/production.xml
+@@ -305,5 +305,10 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="name">assign_failed_form</field>
+         </record>
+
++        <record model="ir.cron" id="cron_set_cost_from_moves">
++            <field name="method">production|set_cost_from_moves</field>
++            <field name="interval_number" eval="1"/>
++            <field name="interval_type">days</field>
++        </record>
+     </data>
+ </tryton>
+diff --git a/stock.py b/stock.py
+index 092cdba..0b8bbc3 100644
+--- a/trytond/trytond/modules/production/stock.py
++++ b/trytond/trytond/modules/production/stock.py
+@@ -32,6 +32,12 @@ class Move(metaclass=PoolMeta):
+         readonly=True, select=True, ondelete='CASCADE',
+         domain=[('company', '=', Eval('company'))],
+         depends=['company'])
++    production_cost_price_updated = fields.Boolean(
++        "Cost Price Updated", readonly=True,
++        states={
++            'invisible': ~Eval('production_input') & (Eval('state') == 'done'),
++            },
++        depends=['production_input', 'state'])
+
+     def set_effective_date(self):
+         if not self.effective_date and self.production_input:
+@@ -39,3 +45,18 @@ class Move(metaclass=PoolMeta):
+         if not self.effective_date and self.production_output:
+             self.effective_date = self.production_output.effective_date
+         super(Move, self).set_effective_date()
++
++    @classmethod
++    def write(cls, *args):
++        super().write(*args)
++        cost_price_update = []
++        actions = iter(args)
++        for moves, values in zip(actions, actions):
++            for move in moves:
++                if (move.state == 'done'
++                        and move.production_input
++                        and 'cost_price' in values):
++                    cost_price_update.append(move)
++        if cost_price_update:
++            cls.write(
++                cost_price_update, {'production_cost_price_updated': True})
+diff --git a/tests/scenario_production_set_cost.rst b/tests/scenario_production_set_cost.rst
+new file mode 100644
+index 0000000..0117fba
+--- /dev/null
++++ b/trytond/trytond/modules/production/tests/scenario_production_set_cost.rst
+@@ -0,0 +1,105 @@
++===================
++Production Set Cost
++===================
++
++Imports::
++
++    >>> from decimal import Decimal
++    >>> from proteus import Model, Wizard
++    >>> from trytond.tests.tools import activate_modules
++    >>> from trytond.modules.company.tests.tools import create_company, \
++    ...     get_company
++
++Install production Module::
++
++    >>> config = activate_modules('production')
++
++Create company::
++
++    >>> _ = create_company()
++    >>> company = get_company()
++
++Create main product::
++
++    >>> ProductUom = Model.get('product.uom')
++    >>> unit, = ProductUom.find([('name', '=', 'Unit')])
++    >>> ProductTemplate = Model.get('product.template')
++
++    >>> template = ProductTemplate()
++    >>> template.name = 'product'
++    >>> template.default_uom = unit
++    >>> template.type = 'goods'
++    >>> template.producible = True
++    >>> template.list_price = Decimal(20)
++    >>> template.save()
++    >>> product, = template.products
++
++Create component::
++
++    >>> template = ProductTemplate()
++    >>> template.name = 'component'
++    >>> template.default_uom = unit
++    >>> template.type = 'goods'
++    >>> template.save()
++    >>> component, = template.products
++    >>> component.cost_price = Decimal(5)
++    >>> component.save()
++
++Create Bill of Material::
++
++    >>> BOM = Model.get('production.bom')
++    >>> bom = BOM(name='product')
++    >>> input = bom.inputs.new()
++    >>> input.product = component
++    >>> input.quantity = 2
++    >>> output = bom.outputs.new()
++    >>> output.product = product
++    >>> output.quantity = 1
++    >>> bom.save()
++
++Make a production::
++
++    >>> Production = Model.get('production')
++    >>> production = Production()
++    >>> production.product = product
++    >>> production.bom = bom
++    >>> production.quantity = 2
++    >>> production.click('wait')
++    >>> production.click('assign_force')
++    >>> production.click('run')
++    >>> production.click('done')
++
++Check output price::
++
++    >>> production.cost
++    Decimal('20.0000')
++    >>> output, = production.outputs
++    >>> output.unit_price
++    Decimal('10.0000')
++
++
++Change cost of input::
++
++    >>> Move = Model.get('stock.move')
++    >>> input, = production.inputs
++    >>> Move.write([input], {'cost_price': Decimal(6)}, config.context)
++    >>> input.reload()
++    >>> bool(input.production_cost_price_updated)
++    True
++
++Launch cron task::
++
++    >>> Cron = Model.get('ir.cron')
++    >>> Company = Model.get('company.company')
++    >>> cron_set_cost, = Cron.find([
++    ...     ('method', '=', 'production|set_cost_from_moves'),
++    ...     ])
++    >>> cron_set_cost.companies.append(Company(company.id))
++    >>> cron_set_cost.click('run_once')
++
++    >>> output.reload()
++    >>> output.unit_price
++    Decimal('12.0000')
++    >>> input.reload()
++    >>> bool(input.production_cost_price_updated)
++    False
+diff --git a/tests/test_production.py b/tests/test_production.py
+index 2bcf2ec..e9f596c 100644
+--- a/trytond/trytond/modules/production/tests/test_production.py
++++ b/trytond/trytond/modules/production/tests/test_production.py
+@@ -54,4 +54,8 @@ def suite():
+             tearDown=doctest_teardown, encoding='utf-8',
+             checker=doctest_checker,
+             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE))
++    suite.addTests(doctest.DocFileSuite('scenario_production_set_cost.rst',
++            tearDown=doctest_teardown, encoding='utf-8',
++            checker=doctest_checker,
++            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE))
+     return suite
+--
+2.25.1

@@ -1,0 +1,18 @@
+diff --git a/production.py b/production.py
+index afdcdc3..85e6ec5 100644
+--- a/trytond/trytond/modules/production/production.py
++++ b/trytond/trytond/modules/production/production.py
+@@ -467,6 +467,13 @@ class Production(Workflow, ModelSQL, ModelView):
+             if move.production_input not in productions:
+                 cls.__queue__.set_cost([move.production_input])
+                 productions.add(move.production_input)
++        pending_productions = cls.search([
++                ('inputs', '=', None),
++                ('state', '!=', 'cancel'),
++                ])
++        for production in pending_productions:
++            cls.__queue__.set_cost([production])
++            productions.add(production)
+         Move.write(moves, {'production_cost_price_updated': False})
+ 
+     @classmethod

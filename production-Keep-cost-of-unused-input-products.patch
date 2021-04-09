@@ -1,0 +1,136 @@
+From a5edc544456d361175a4de1ed2fc12948cd67118 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
+Date: Thu, 8 Apr 2021 09:15:58 +0200
+Subject: [PATCH] Keep cost of unused input products
+
+We set the average cost price of the input products as the unit price of the
+output of the same product. This way the cost price computation for this
+product does not change.
+
+issue9637
+review316051002
+---
+ production.py | 85 +++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 73 insertions(+), 12 deletions(-)
+
+diff --git a/production.py b/production.py
+index 2bd52d1..13ec112 100644
+--- a/trytond/trytond/modules/production/production.py
++++ b/trytond/trytond/modules/production/production.py
+@@ -1,7 +1,7 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+ from decimal import Decimal
+-
++from collections import defaultdict
+ from sql import Null
+
+ from trytond.i18n import gettext
+@@ -21,6 +21,12 @@ BOM_CHANGES = ['bom', 'product', 'quantity', 'uom', 'warehouse', 'location',
+     'company', 'inputs', 'outputs']
+
+
++
++def round_price(value, rounding=None):
++    "Round price using the price digits"
++    return value.quantize(
++        Decimal(1) / 10 ** price_digits[1], rounding=rounding)
++
+ class Production(Workflow, ModelSQL, ModelView):
+     "Production"
+     __name__ = 'production'
+@@ -461,26 +467,81 @@ class Production(Workflow, ModelSQL, ModelView):
+                 productions.add(move.production_input)
+         Move.write(moves, {'production_cost_price_updated': False})
+
++    @property
++    def _list_price_context(self):
++        return {
++            'company': self.company.id,
++            }
++
+     @classmethod
+     def set_cost(cls, productions):
+         pool = Pool()
+         Uom = pool.get('product.uom')
+         Move = pool.get('stock.move')
+
+-        digits = Move.unit_price.digits
+-        digit = Decimal(str(10 ** -digits[1]))
+         moves = []
+         for production in productions:
+-            if not production.quantity or not production.uom:
+-                continue
+-            if production.company.currency.is_zero(
+-                    production.cost - production.output_cost):
+-                continue
+-            unit_price = production.cost / Decimal(str(production.quantity))
++            sum_ = Decimal(0)
++            prices = {}
++            cost = production.cost
++
++            input_quantities = defaultdict(Decimal)
++            input_costs = defaultdict(Decimal)
++            for input_ in production.inputs:
++                if input_.cost_price is not None:
++                    cost_price = input_.cost_price
++                else:
++                    cost_price = input_.product.cost_price
++                input_quantities[input_.product] += (
++                    Decimal(str(input_.internal_quantity)))
++                input_costs[input_.product] += (
++                    Decimal(str(input_.internal_quantity)) * cost_price)
++            outputs = []
+             for output in production.outputs:
+-                if output.product == production.product:
+-                    output.unit_price = Uom.compute_price(
+-                        production.uom, unit_price, output.uom).quantize(digit)
++                product = output.product
++                if input_quantities.get(output.product):
++                    cost_price = (
++                        input_costs[product] / input_quantities[product])
++                    unit_price = round_price(Uom.compute_price(
++                            product.default_uom, cost_price, output.uom))
++                    if output.unit_price != unit_price:
++                        output.unit_price = unit_price
++                        moves.append(output)
++                    cost -= min(
++                        unit_price * Decimal(str(output.quantity)), cost)
++                else:
++                    outputs.append(output)
++
++            for output in outputs:
++                product = output.product
++                with Transaction().set_context(production._list_price_context):
++                    list_price = product.list_price_used
++                product_price = (Decimal(str(output.quantity))
++                    * Uom.compute_price(
++                        product.default_uom, list_price, output.uom))
++                prices[output] = product_price
++                sum_ += product_price
++
++            if not sum_ and production.product:
++                prices.clear()
++                for output in outputs:
++                    if output.product == production.product:
++                        quantity = Uom.compute_qty(
++                            output.uom, output.quantity,
++                            output.product.default_uom, round=False)
++                        quantity = Decimal(str(quantity))
++                        prices[output] = quantity
++                        sum_ += quantity
++
++            for output in outputs:
++                if sum_:
++                    ratio = prices.get(output, 0) / sum_
++                else:
++                    ratio = Decimal(1) / len(outputs)
++                quantity = Decimal(str(output.quantity))
++                unit_price = round_price(cost * ratio / quantity)
++                if output.unit_price != unit_price:
++                    output.unit_price = unit_price
+                     moves.append(output)
+         Move.save(moves)
+
+--
+2.25.1

@@ -1,0 +1,127 @@
+From 3cdf3e96289fb280363f1df7f5a1d66a3447a0bf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
+Date: Thu, 8 Apr 2021 11:54:47 +0200
+Subject: [PATCH] Use original cost price for returned move
+
+and factorize the cost price of move for cost computation
+
+issue9440
+review327491003
+---
+ move.py | 62 ++++++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 53 insertions(+), 9 deletions(-)
+
+diff --git a/move.py b/move.py
+index df296f3..19f4401 100644
+--- a/trytond/trytond/modules/stock/move.py
++++ b/trytond/trytond/modules/stock/move.py
+@@ -1,4 +1,4 @@
+-# This file is part of Tryton.  The COPYRIGHT file at the top level of
++7# This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+ import datetime
+ import hashlib
+@@ -40,6 +40,12 @@ LOCATION_DOMAIN = [
+ LOCATION_DEPENDS = ['state']
+
+
++def round_price(value, rounding=None):
++    "Round price using the price digits"
++    return value.quantize(
++        Decimal(1) / 10 ** price_digits[1], rounding=rounding)
++
++
+ class StockMixin(object):
+     '''Mixin class with helper to setup stock quantity field.'''
+     __slots__ = ()
+@@ -246,6 +252,14 @@ class Move(Workflow, ModelSQL, ModelView):
+             'readonly': Eval('state') != 'draft',
+             },
+         depends=['unit_price_required', 'state'])
++    unit_price_company = fields.Function(
++         fields.Numeric("Unit Price", digits=price_digits,
++             states={
++                 'invisible': ~Eval('unit_price_required'),
++                 },
++             depends=['unit_price_required'],
++             help="Unit price in company currency."),
++         'get_unit_price_company')
+     unit_price_updated = fields.Boolean(
+         "Unit Price Updated", readonly=True,
+         states={
+@@ -407,6 +421,28 @@ class Move(Workflow, ModelSQL, ModelView):
+         if self.from_location:
+             return self.from_location.type in {'storage', 'view'}
+
++    @classmethod
++    def get_unit_price_company(cls, moves, name):
++        pool = Pool()
++        Currency = pool.get('currency.currency')
++        Uom = pool.get('product.uom')
++        Date = pool.get('ir.date')
++        today = Date.today()
++        prices = {}
++        for move in moves:
++            if move.unit_price is not None:
++                date = move.effective_date or move.planned_date or today
++                with Transaction().set_context(date=date):
++                    unit_price = Currency.compute(
++                        move.currency, move.unit_price,
++                        move.company.currency, round=False)
++                    unit_price = Uom.compute_price(
++                        move.uom, unit_price, move.product.default_uom)
++                    prices[move.id] = round_price(unit_price)
++            else:
++                prices[move.id] = None
++        return prices
++
+     @staticmethod
+     def _get_shipment():
+         'Return list of Model names for shipment Reference'
+@@ -472,7 +508,7 @@ class Move(Workflow, ModelSQL, ModelView):
+     def search_rec_name(cls, name, clause):
+         return [('product.rec_name',) + tuple(clause[1:])]
+
+-    def _compute_product_cost_price(self, direction):
++    def _compute_product_cost_price(self, direction, product_cost_price=None):
+         """
+         Update the cost price on the given product.
+         The direction must be "in" if incoming and "out" if outgoing.
+@@ -490,13 +526,7 @@ class Move(Workflow, ModelSQL, ModelView):
+
+         qty = Decimal(str(qty))
+         product_qty = Decimal(str(self.product.quantity))
+-        # convert wrt currency
+-        with Transaction().set_context(date=self.effective_date):
+-            unit_price = Currency.compute(self.currency, self.unit_price,
+-                self.company.currency, round=False)
+-        # convert wrt to the uom
+-        unit_price = Uom.compute_price(self.uom, unit_price,
+-            self.product.default_uom)
++        unit_price = self.get_cost_price(product_cost_price=product_cost_price)
+         cost_price = self.product.get_multivalue(
+             'cost_price', **self._cost_price_pattern)
+         if product_qty + qty > 0 and product_qty >= 0:
+@@ -616,6 +646,20 @@ class Move(Workflow, ModelSQL, ModelView):
+             ('company', self.company.id),
+             )
+
++    def get_cost_price(self, product_cost_price=None):
++        "Return the cost price of the move for computation"
++        with Transaction().set_context(date=self.effective_date):
++            if (self.from_location.type in {'supplier', 'production'}
++                    or self.to_location.type == 'supplier'):
++                return self.unit_price_company
++            elif product_cost_price is not None:
++                return product_cost_price
++            elif self.cost_price is not None:
++                return self.cost_price
++            else:
++                return self.product.get_multivalue(
++                    'cost_price', **self._cost_price_pattern)
++
+     @classmethod
+     def _cost_price_context(cls, moves):
+         pool = Pool()
+--
+2.25.1

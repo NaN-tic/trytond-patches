@@ -1,0 +1,52 @@
+From 017277e73dbe9120a983d4c3bf27a7bc3e5ee9e6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
+Date: Thu, 8 Apr 2021 12:07:12 +0200
+Subject: [PATCH] product_cost_fifo: Do not update average cost price if the
+ quantity is negative
+
+This is the same test done in Move._compute_product_cost_price. When the stock
+quantity is below zero, the average cost price should not change.
+
+issue9484
+---
+ product.py | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/product.py b/product.py
+index 13e7d95..415d833 100644
+--- a/trytond/trytond/modules/product_cost_fifo/product.py
++++ b/trytond/trytond/modules/product_cost_fifo/product.py
+@@ -138,9 +138,7 @@ class Product(metaclass=PoolMeta):
+             return move.from_location.type == 'storage'
+
+         def compute_fifo_cost_price(quantity, date):
+-            fifo_moves = self.get_fifo_move(
+-                float(quantity),
+-                date=current_moves[-1].effective_date)
++            fifo_moves = self.get_fifo_move(float(quantity), date=date)
+
+             cost_price = Decimal(0)
+             consumed_qty = 0
+@@ -151,6 +149,11 @@ class Product(metaclass=PoolMeta):
+                 return (cost_price / Decimal(str(consumed_qty))).quantize(
+                     Decimal(str(10.0 ** -digits[1])))
+
++        # For each day, process the incoming moves first
++        # in order to keep quantity positive where possible
++        # We do not re-browse because we expect only small changes
++        moves = sorted(moves, key=lambda m: (
++                m.effective_date, out_move(m), m.id))
+         current_moves = []
+         current_out_qty = 0
+         current_cost_price = cost_price
+@@ -173,7 +176,7 @@ class Product(metaclass=PoolMeta):
+                             m for m in out_moves
+                             if m.cost_price != fifo_cost_price],
+                         dict(cost_price=fifo_cost_price))
+-                    if quantity:
++                    if quantity > 0 and quantity + current_out_qty >= 0:
+                         cost_price = (
+                             ((current_cost_price * (
+                                         quantity + current_out_qty))
+--
+2.25.1

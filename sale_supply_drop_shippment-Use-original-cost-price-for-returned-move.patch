@@ -1,0 +1,43 @@
+From 479eff31f971acef41cc0fe77513305c3bb2b4a7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
+Date: Thu, 8 Apr 2021 11:58:52 +0200
+Subject: [PATCH] Use original cost price for returned move
+
+and factorize the cost price of move for cost computation
+
+issue9440
+review327491003
+---
+ stock.py | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/stock.py b/stock.py
+index 46dc496..84b00ca 100644
+--- a/trytond/trytond/modules/sale_supply_drop_shipment/stock.py
++++ b/trytond/trytond/modules/sale_supply_drop_shipment/stock.py
+@@ -404,7 +404,6 @@ class ShipmentDrop(Workflow, ModelSQL, ModelView):
+         pool = Pool()
+         UoM = pool.get('product.uom')
+         Move = pool.get('stock.move')
+-        Currency = pool.get('currency.currency')
+
+         to_save = []
+         cost_exp = Decimal(str(10.0 ** -Move.cost_price.digits[1]))
+@@ -424,14 +423,8 @@ class ShipmentDrop(Workflow, ModelSQL, ModelView):
+                 if s_move.state == 'cancel':
+                     continue
+                 internal_quantity = Decimal(str(s_move.internal_quantity))
+-                with Transaction().set_context(date=s_move.effective_date):
+-                    unit_price = Currency.compute(
+-                        s_move.currency, s_move.unit_price,
+-                        s_move.company.currency, round=False)
+-                unit_price = UoM.compute_price(
+-                    s_move.uom, unit_price, s_move.product.default_uom)
+                 product_cost[s_move.product] += (
+-                    unit_price * internal_quantity)
++                    s_move.get_cost_price() * internal_quantity)
+
+                 quantity = UoM.compute_qty(
+                     s_move.uom, s_move.quantity, s_move.product.default_uom,
+--
+2.25.1
