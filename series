@@ -70,7 +70,6 @@ project_invoice_progress_compute_qty.diff # [project_invoice] Twice compute qty 
 issue10068.diff # [trytond] Use safe_join in SharedDataMiddlewareIndex
 
 issue10053.diff # [party] Configure available identifiers
-
 # Cost and Recompute Cost issues
 production_cost_fifo-Update-cost-of-moves-when-recomputing-product-cost.patch  #[issue8795 + issue7271] Remove on 5.8
 production-Update-cost-of-moves-when-recomputing-product-cost.patch            #[issue8795 + issue7271] Remove on 5.8
@@ -86,3 +85,5 @@ product_cost_fifo-Do-not-update-average-cost-price-i.patch                     #
 product_cost_fifo-Enforce-filling-cost-price-of-move.patch                     #[issue9397] Remove on 6.0
 stock-Enforce-filling-cost-price-of-move.patch                                 #[issue9397] Remove on 6.0
 # End Cost and Recompute Cost issues
+
+issue3209.diff # [production] Not validate cost inputs and outputs 043523 (not merge to 6.x)
