@@ -25,8 +25,6 @@ issue9017.diff # [purchase] Doesn't copy product_suppliers when a template or a 
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
-issue9616.diff # [analytic_invoice] Analytic move is not created when closing an asset
-
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
