@@ -11,8 +11,6 @@ issue4030.diff # [analytic_account] Not selected root accounts in analytic accou
 analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
-#sale_remove_multiselection.diff # [sale] remove multiselection handling exceptions
-#purchase_remove_multiselection.diff # [purchase] remove multiselection handling exceptions
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 #issue239_630.diff # [stock] get location quantity by product, product template or lot
