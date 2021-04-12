@@ -87,3 +87,5 @@ stock-Enforce-filling-cost-price-of-move.patch                                 #
 # End Cost and Recompute Cost issues
 
 issue3209.diff # [production] Not validate cost inputs and outputs 043523 (not merge to 6.x)
+
+issue10271.diff # [sale] The label total_amount_cache field in sale.sale is "Total Tax"
