@@ -13,7 +13,6 @@ analitic_line_company_rules.diff # [analytic_account] Not selected root accounts
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
-#issue239_630.diff # [stock] get location quantity by product, product template or lot
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
