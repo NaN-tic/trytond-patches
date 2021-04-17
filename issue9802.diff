@@ -1,33 +1,35 @@
-diff -r 115fe695b878 move.py
---- a/trytond/trytond/modules/stock/move.py	Mon Nov 02 16:13:21 2020 +0100
-+++ b/trytond/trytond/modules/stock/move.py	Fri Nov 06 17:52:47 2020 +0100
+--- a/trytond/trytond/modules/stock/move.py
++++ b/trytond/trytond/modules/stock/move.py
 @@ -949,6 +949,8 @@
          child_locations = {}
          to_write = []
          to_assign = []
-+        to_copy_moves = []
-+        to_copy_values = []
++        to_copy = []
++        to_copy_values = {}
          success = True
          for move in moves:
              if move.state != 'draft':
-@@ -1012,13 +1014,18 @@
+@@ -1012,13 +1014,21 @@
                      to_assign.append(move)
                      first = False
                  else:
 -                    with Transaction().set_context(_stock_move_split=True):
 -                        to_assign.extend(cls.copy([move], default=values))
-+                    to_copy_moves.append(move)
-+                    to_copy_values.append(values)
++                    to_copy.append(move)
++                    to_copy_values[move.id] = values
  
                  qty_default_uom = Uom.compute_qty(move.uom, qty,
                          move.product.default_uom, round=False)
  
                  pbl[key] = pbl.get(key, 0.0) - qty_default_uom
-+        if to_copy_moves:
++        if to_copy:
 +            with Transaction().set_context(_stock_move_split=True):
-+                copied = cls.copy(to_copy_moves)
-+            for record, values in zip(copied, to_copy_values):
-+                to_write.extend([[record], values])
++                to_assign.extend(cls.copy(to_copy, default={
++                            'from_location': lambda d: (
++                                to_copy_values[d['id']]['from_location']),
++                            'quantity': lambda d: (
++                                to_copy_values[d['id']]['quantity']),
++                            }))
          if to_write:
              cls.write(*to_write)
          if to_assign:
