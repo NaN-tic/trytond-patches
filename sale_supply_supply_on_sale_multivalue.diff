@@ -1,7 +1,8 @@
-diff -r a247523ff3db trytond/trytond/modules/sale_supply/__init__.py
---- a/trytond/trytond/modules/sale_supply/__init__.py	Mon May 06 15:14:01 2019 +0200
-+++ b/trytond/trytond/modules/sale_supply/__init__.py	Mon May 13 11:30:56 2019 +0200
-@@ -16,6 +16,7 @@
+diff --git a/__init__.py b/__init__.py
+index 4f28e75..04d18f3 100644
+--- a/trytond/trytond/modules/sale_supply/__init__.py
++++ b/trytond/trytond/modules/sale_supply/__init__.py
+@@ -16,6 +16,7 @@ def register():
          purchase.Purchase,
          stock.ShipmentIn,
          product.Template,
@@ -9,9 +10,10 @@ diff -r a247523ff3db trytond/trytond/modules/sale_supply/__init__.py
          product.Product,
          module='sale_supply', type_='model')
      Pool.register(
-diff -r a247523ff3db trytond/trytond/modules/sale_supply/product.py
---- a/trytond/trytond/modules/sale_supply/product.py	Mon May 06 15:14:01 2019 +0200
-+++ b/trytond/trytond/modules/sale_supply/product.py	Mon May 13 11:29:50 2019 +0200
+diff --git a/product.py b/product.py
+index b55c829..34ccc24 100644
+--- a/trytond/trytond/modules/sale_supply/product.py
++++ b/trytond/trytond/modules/sale_supply/product.py
 @@ -1,18 +1,35 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -23,9 +25,6 @@ diff -r a247523ff3db trytond/trytond/modules/sale_supply/product.py
 +    CompanyValueMixin)
  from trytond.pyson import Eval
  
-+supply_on_sale = fields.Boolean('Supply On Sale', states={
-+        'invisible': ~Eval('purchasable') | ~Eval('salable'),
-+        }, depends=['purchasable', 'salable'])
  
 -class Template(metaclass=PoolMeta):
 +class Template(CompanyMultiValueMixin, metaclass=PoolMeta):
@@ -36,7 +35,10 @@ diff -r a247523ff3db trytond/trytond/modules/sale_supply/product.py
 -            'invisible': ~Eval('purchasable') | ~Eval('salable'),
 -            },
 -        depends=['purchasable', 'salable'])
-+    supply_on_sale = fields.MultiValue(supply_on_sale)
++    supply_on_sale = fields.MultiValue(fields.Boolean('Supply On Sale',
++            states={
++                'invisible': ~Eval('purchasable') | ~Eval('salable'),
++                }, depends=['purchasable', 'salable']))
 +    supply_on_sales = fields.One2Many(
 +        'product.template.supply_on_sale', 'template', "Supply on sales")
 +
@@ -52,7 +54,7 @@ diff -r a247523ff3db trytond/trytond/modules/sale_supply/product.py
 +    "Template Supply On Sale"
 +    __name__ = 'product.template.supply_on_sale'
 +    template = fields.Many2One('product.template', 'Product Template')
-+    supply_on_sale = supply_on_sale
++    supply_on_sale = fields.Boolean('Supply On Sale')
  
  
  class Product(metaclass=PoolMeta):
