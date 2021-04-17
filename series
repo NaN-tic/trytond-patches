@@ -18,7 +18,6 @@ issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's re
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
-issue9017.diff # [purchase] Doesn't copy product_suppliers when a template or a product is duplicated
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
