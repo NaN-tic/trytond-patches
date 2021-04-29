@@ -1,18 +1,5 @@
-From f3cddba895305b7ecef3c07fb5db6c356a7bc8e2 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?=C3=80ngel=20=C3=80lvarez?= <angel@nan-tic.com>
-Date: Thu, 8 Apr 2021 11:56:28 +0200
-Subject: [PATCH] Use original cost price for returned move
-
-and factorize the cost price of move for cost computation
-
-issue9440
-review327491003
----
- stock.py | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/stock.py b/stock.py
-index 8d34c30..28f1116 100644
+diff --git a/stock.py b/trytond/trytond/modules/sale/stock.py
+index 8d34c30..955de77 100644
 --- a/trytond/trytond/modules/sale/stock.py
 +++ b/trytond/trytond/modules/sale/stock.py
 @@ -1,5 +1,6 @@
@@ -22,7 +9,12 @@ index 8d34c30..28f1116 100644
  from functools import wraps
 
  from trytond.i18n import gettext
-@@ -11,6 +12,12 @@ from trytond.pool import Pool, PoolMeta
+@@ -7,10 +8,17 @@ from trytond.model import Workflow, ModelView, fields
+ from trytond.model.exceptions import AccessError
+ from trytond.transaction import Transaction
+ from trytond.pool import Pool, PoolMeta
++from trytond.modules.product import price_digits
+
  __all__ = ['ShipmentOut', 'ShipmentOutReturn', 'Move']
 
 
@@ -35,7 +27,7 @@ index 8d34c30..28f1116 100644
  def process_sale(moves_field):
      def _process_sale(func):
          @wraps(func)
-@@ -155,6 +162,33 @@ class Move(metaclass=PoolMeta):
+@@ -155,6 +163,33 @@ class Move(metaclass=PoolMeta):
              category = self.origin.unit.category.id
          return category
 
@@ -48,7 +40,7 @@ index 8d34c30..28f1116 100644
 +                and self.origin.quantity < 0
 +                and self.from_location.type != 'storage'
 +                and self.to_location.type == 'storage'
-+                and self.origin.origin and isinstance(self.origin.origin, Sale)):
++                and hasattr(self.origin, 'origin') and isinstance(self.origin.origin, Sale)):
 +            sale = self.origin.origin
 +            cost = Decimal(0)
 +            qty = Decimal(0)
@@ -69,5 +61,3 @@ index 8d34c30..28f1116 100644
      @property
      def origin_name(self):
          pool = Pool()
---
-2.25.1
