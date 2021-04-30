@@ -89,3 +89,5 @@ stock-Enforce-filling-cost-price-of-move.patch                                 #
 issue3209.diff # [production] Not validate cost inputs and outputs 043523 (not merge to 6.x)
 
 issue10271.diff # [sale] The label total_amount_cache field in sale.sale is "Total Tax"
+
+account_asset_update_asset.diff # [account_asset] convert float to decimal [#044336] Remove on 6.0

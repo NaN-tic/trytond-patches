@@ -1,0 +1,13 @@
+diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
+index cf5191f..385cbf1 100644
+--- a/trytond/trytond/modules/account_asset/asset.py
++++ b/trytond/trytond/modules/account_asset/asset.py
+@@ -823,7 +823,7 @@ class UpdateAsset(Wizard):
+         Asset = Pool().get('account.asset')
+         asset = Asset(Transaction().context['active_id'])
+         return {
+-            'amount': self.start.value - asset.value,
++            'amount': Decimal(self.start.value) - asset.value,
+             'date': datetime.date.today(),
+             'depreciation_account': asset.product.account_depreciation_used.id,
+             'counterpart_account': asset.product.account_expense_used.id,
