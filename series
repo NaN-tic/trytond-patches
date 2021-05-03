@@ -91,3 +91,5 @@ issue3209.diff # [production] Not validate cost inputs and outputs 043523 (not m
 issue10271.diff # [sale] The label total_amount_cache field in sale.sale is "Total Tax"
 
 account_asset_update_asset.diff # [account_asset] convert float to decimal [#044336] Remove on 6.0
+
+issue10382.diff # [stock_split] Decimals of quantity move exceed the total digits when split move

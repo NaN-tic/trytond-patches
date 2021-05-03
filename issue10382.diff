@@ -1,0 +1,12 @@
+diff --git a/trytond/trytond/modules/stock_split/stock.py b/trytond/trytond/modules/stock_split/stock.py
+index e68fd55..9f00036 100644
+--- a/trytond/trytond/modules/stock_split/stock.py
++++ b/trytond/trytond/modules/stock_split/stock.py
+@@ -52,6 +52,7 @@ class Move(metaclass=PoolMeta):
+                 'uom': uom.id,
+                 })
+         remainder -= quantity
++        remainder = round(remainder, self.unit_digits)
+         if count:
+             count -= 1
+         while (remainder > quantity
