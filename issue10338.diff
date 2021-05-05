@@ -1,0 +1,32 @@
+--- a/trytond/trytond/modules/bank/bank.py
++++ b/trytond/trytond/modules/bank/bank.py
+@@ -26,7 +26,7 @@ class Bank(ModelSQL, ModelView):
+ 
+     @classmethod
+     def search_rec_name(cls, name, clause):
+-        return [('party',) + tuple(clause[1:])]
++        return [('party.rec_name',) + tuple(clause[1:])]
+ 
+     @fields.depends('bic')
+     def on_change_with_bic(self):
+@@ -63,7 +63,7 @@ class BankAccount(DeactivableMixin, ModelSQL, ModelView):
+ 
+     @classmethod
+     def search_rec_name(cls, name, clause):
+-        return [('numbers',) + tuple(clause[1:])]
++        return [('numbers.rec_name',) + tuple(clause[1:])]
+ 
+ 
+ class BankAccountNumber(sequence_ordered(), ModelSQL, ModelView):
+--- a/trytond/trytond/modules/bank/party.py
++++ b/trytond/trytond/modules/bank/party.py
+@@ -25,7 +25,8 @@ class Party(metaclass=PoolMeta):
+             code_value = lstrip_wildcard(clause[2])
+         return [bool_op,
+             domain,
+-            ('bank_accounts', clause[1], code_value) + tuple(clause[3:]),
++            ('bank_accounts.rec_name',
++                clause[1], code_value) + tuple(clause[3:]),
+             ]
+ 
+ 
