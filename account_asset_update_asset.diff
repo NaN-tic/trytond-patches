@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
-index cf5191f..b6cd41f 100644
---- a/trytond/trytond/modules/account_asset/asset.py
-+++ b/trytond/trytond/modules/account_asset/asset.py
+diff --git a//trytond/trytond/modules/account_asset/asset.py b//trytond/trytond/modules/account_asset/asset.py
+index cf5191f..661982a 100644
+--- a//trytond/trytond/modules/account_asset/asset.py
++++ b//trytond/trytond/modules/account_asset/asset.py
 @@ -745,15 +745,32 @@ class CreateMoves(Wizard):
  class UpdateAssetStart(ModelView):
      'Update Asset Start'
@@ -19,12 +19,12 @@ index cf5191f..b6cd41f 100644
 +
 +    @staticmethod
 +    def default_currency_digits():
-+        Company = Pool().get('company.company')
++        Asset = Pool().get('account.asset')
 +
 +        context = Transaction().context
-+        company_id = context.get('company')
-+        if company_id:
-+            return Company(company_id).currency.digits
++        active_id = context.get('active_id')
++        if active_id:
++            return Asset(active_id).currency_digits
 +        return 2
 
 
@@ -46,12 +46,12 @@ index cf5191f..b6cd41f 100644
 +
 +    @staticmethod
 +    def default_currency_digits():
-+        Company = Pool().get('company.company')
++        Asset = Pool().get('account.asset')
 +
 +        context = Transaction().context
-+        company_id = context.get('company')
-+        if company_id:
-+            return Company(company_id).currency.digits
++        active_id = context.get('active_id')
++        if active_id:
++            return Asset(active_id).currency_digits
 +        return 2
 
 
