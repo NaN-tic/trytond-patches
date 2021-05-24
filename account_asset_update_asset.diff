@@ -1,0 +1,58 @@
+diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
+index 35a24f4..569423d 100644
+--- a/trytond/trytond/modules/account_asset/asset.py
++++ b/trytond/trytond/modules/account_asset/asset.py
+@@ -801,15 +801,32 @@ class CreateMoves(Wizard):
+ class UpdateAssetStart(ModelView):
+     'Update Asset Start'
+     __name__ = 'account.asset.update.start'
+-    value = fields.Numeric('Asset Value', required=True)
+-    residual_value = fields.Numeric('Residual Value', required=True)
++    value = fields.Numeric('Asset Value',
++        digits=(16, Eval('currency_digits', 2)),
++        depends=['currency_digits'], required=True)
++    residual_value = fields.Numeric('Residual Value',
++        digits=(16, Eval('currency_digits', 2)),
++        depends=['currency_digits'], required=True)
+     end_date = fields.Date('End Date', required=True)
++    currency_digits = fields.Integer('Currency Digits', required=True)
++
++    @staticmethod
++    def default_currency_digits():
++        Asset = Pool().get('account.asset')
++
++        context = Transaction().context
++        active_id = context.get('active_id')
++        if active_id:
++            return Asset(active_id).currency_digits
++        return 2
+
+
+ class UpdateAssetShowDepreciation(ModelView):
+     'Update Asset Show Depreciation'
+     __name__ = 'account.asset.update.show_depreciation'
+-    amount = fields.Numeric('Amount', readonly=True)
++    amount = fields.Numeric('Amount',
++        digits=(16, Eval('currency_digits', 2)),
++        depends=['currency_digits'], readonly=True)
+     date = fields.Date('Date', required=True,
+         domain=[
+             ('date', '>=', Eval('latest_move_date')),
+@@ -825,6 +842,17 @@ class UpdateAssetShowDepreciation(ModelView):
+         'Depreciation Account', readonly=True)
+     counterpart_account = fields.Many2One('account.account',
+         'Counterpart Account')
++    currency_digits = fields.Integer('Currency Digits', required=True)
++
++    @staticmethod
++    def default_currency_digits():
++        Asset = Pool().get('account.asset')
++
++        context = Transaction().context
++        active_id = context.get('active_id')
++        if active_id:
++            return Asset(active_id).currency_digits
++        return 2
+
+
+ class UpdateAsset(Wizard):

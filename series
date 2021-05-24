@@ -24,3 +24,5 @@ model.diff # [trytond] Allows dynamic fields in Model as required by the wizard 
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
+
+account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767
