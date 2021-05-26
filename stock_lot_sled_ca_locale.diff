@@ -1,0 +1,13 @@
+diff --git a/locale/ca.po b/locale/ca.po
+index 3f35fe7..338625c 100644
+--- a/trytond/trytond/modules/stock_lot_sled/locale/ca.po
++++ b/trytond/trytond/modules/stock_lot_sled/locale/ca.po
+@@ -101,7 +101,7 @@ msgid ""
+ "You cannot close periods before the expiration of lot \"%(lot)s\" "
+ "(%(date)s)."
+ msgstr ""
+-"No podeu tancar períodes abans de l'expiració del lot \"%(lots)\" (%date)s)."
++"No podeu tancar períodes abans de l'expiració del lot \"%(lot)s\" (%(date)s)."
+ 
+ msgctxt "model:res.group,name:group_stock_force_expiration"
+ msgid "Stock Force Expiration"
