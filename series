@@ -1,9 +1,10 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
+issue8776.diff # [trytond] Add slugify tool
+
 account_payment_view.diff # [account_payment]
 account_payment_sepa_locale.diff # [account_payment_sepa]
-
 
 issue3932.diff # [account] rule account move and account move line by company
 
