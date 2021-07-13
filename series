@@ -28,6 +28,3 @@ issue9802.diff # [stock] Improve performance when partially assigning moves
 account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767
 
 issue10464.diff # [currency] Update currency rates fails
-
-issue10494.diff # [account] [account_fr] [analytic_account] Open move as balance action
-
