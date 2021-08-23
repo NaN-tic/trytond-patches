@@ -102,3 +102,5 @@ stock_lot_sled_ca_locale.diff # [stock_lot_sled] Fix wrong translation [#044921]
 issue9122.diff # [stock_supply] Add cron job to supply stock
 
 issue10500.diff # [account_invoice] Fix msg_invoice_same_account_line variables name
+
+issue9049-issue4050.diff # [purchase] Add origin and set on returned purchase + Add return wizard

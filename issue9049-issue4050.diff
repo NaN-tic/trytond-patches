@@ -1,0 +1,197 @@
+diff --git a/trytond/trytond/modules/purchase/__init__.py b/trytond/trytond/modules/purchase/__init__.py
+index 5f548ca..db72ac1 100644
+--- a/trytond/trytond/modules/purchase/__init__.py
++++ b/trytond/trytond/modules/purchase/__init__.py
+@@ -36,6 +36,7 @@ def register():
+         Location,
+         party.Party,
+         party.CustomerCode,
++        purchase.ReturnPurchaseStart,
+         module='purchase', type_='model')
+     Pool.register(
+         PurchaseReport,
+@@ -47,4 +48,5 @@ def register():
+         party.PartyReplace,
+         party.PartyErase,
+         ModifyHeader,
++        purchase.ReturnPurchase,
+         module='purchase', type_='wizard')
+diff --git a/trytond/trytond/modules/purchase/locale/ca.po b/trytond/trytond/modules/purchase/locale/ca.po
+index b184206..e4e01be 100644
+--- a/trytond/trytond/modules/purchase/locale/ca.po
++++ b/trytond/trytond/modules/purchase/locale/ca.po
+@@ -526,6 +526,10 @@ msgctxt "model:ir.action,name:wizard_modify_header"
+ msgid "Modify Header"
+ msgstr "Modificar capçalera"
+
++msgctxt "model:ir.action,name:wizard_return_purchase"
++msgid "Return Purchase"
++msgstr "Retorna la compra"
++
+ msgctxt "model:ir.action,name:wizard_shipment_handle_exception"
+ msgid "Handle Shipment Exception"
+ msgstr "Gestiona l'excepció d'enviament"
+@@ -1015,6 +1019,10 @@ msgctxt "view:purchase.purchase:"
+ msgid "Purchase"
+ msgstr "Compra"
+
++msgctxt "view:purchase.return_purchase.start:"
++msgid "Are you sure to return these/this purchase(s)?"
++msgstr "Esteu segurs que voleu retornar aquesta/es compra/es?"
++
+ msgctxt "wizard_button:purchase.handle.invoice.exception,ask,end:"
+ msgid "Cancel"
+ msgstr "Cancel·la"
+diff --git a/trytond/trytond/modules/purchase/locale/es.po b/trytond/trytond/modules/purchase/locale/es.po
+index c48d0c8..497e5a3 100644
+--- a/trytond/trytond/modules/purchase/locale/es.po
++++ b/trytond/trytond/modules/purchase/locale/es.po
+@@ -529,6 +529,10 @@ msgctxt "model:ir.action,name:wizard_modify_header"
+ msgid "Modify Header"
+ msgstr "Modificar cabecera"
+
++msgctxt "model:ir.action,name:wizard_return_purchase"
++msgid "Return Purchase"
++msgstr "Devolver la compra"
++
+ msgctxt "model:ir.action,name:wizard_shipment_handle_exception"
+ msgid "Handle Shipment Exception"
+ msgstr "Gestionar excepción de envío"
+@@ -1018,6 +1022,10 @@ msgctxt "view:purchase.purchase:"
+ msgid "Purchase"
+ msgstr "Compra"
+
++msgctxt "view:purchase.return_purchase.start:"
++msgid "Are you sure to return these/this purchase(s)?"
++msgstr "¿Estás seguro de querer devolver este/os pedido/s de compra?"
++
+ msgctxt "wizard_button:purchase.handle.invoice.exception,ask,end:"
+ msgid "Cancel"
+ msgstr "Cancelar"
+diff --git a/trytond/trytond/modules/purchase/purchase.py b/trytond/trytond/modules/purchase/purchase.py
+index a0459a5..4e35105 100644
+--- a/trytond/trytond/modules/purchase/purchase.py
++++ b/trytond/trytond/modules/purchase/purchase.py
+@@ -175,6 +175,11 @@ class Purchase(Workflow, ModelSQL, ModelView, TaxableMixin):
+     invoices_recreated = fields.Many2Many(
+             'purchase.purchase-recreated-account.invoice',
+             'purchase', 'invoice', 'Recreated Invoices', readonly=True)
++    origin = fields.Reference('Origin', selection='get_origin', select=True,
++        states={
++            'readonly': Eval('state') != 'draft',
++            },
++        depends=['state'])
+     delivery_date = fields.Date(
+         "Delivery Date",
+         states={
+@@ -575,6 +580,17 @@ class Purchase(Workflow, ModelSQL, ModelView, TaxableMixin):
+             self.write([self], {
+                     'shipment_state': state,
+                     })
++    @classmethod
++    def _get_origin(cls):
++        "Return list of Model names for origin Reference"
++        return ['purchase.purchase']
++
++    @classmethod
++    def get_origin(cls):
++        Model = Pool().get('ir.model')
++        get_name = Model.get_name
++        models = cls._get_origin()
++        return [(None, '')] + [(m, get_name(m)) for m in models]
+
+     @property
+     def report_address(self):
+@@ -1864,3 +1880,37 @@ class ModifyHeader(Wizard):
+         Line.save(purchase.lines)
+
+         return 'end'
++
++
++class ReturnPurchaseStart(ModelView):
++    "Return Purchase"
++    __name__ = 'purchase.return_purchase.start'
++
++
++class ReturnPurchase(Wizard):
++    "Return Purchase"
++    __name__ = 'purchase.return_purchase'
++    start = StateView('purchase.return_purchase.start',
++        'purchase.return_purchase_start_view_form', [
++            Button("Cancel", 'end', 'tryton-cancel'),
++            Button("Return", 'return_', 'tryton-ok', default=True),
++            ])
++    return_ = StateAction('purchase.act_purchase_form')
++
++    def do_return_(self, action):
++        Purchase = Pool().get('purchase.purchase')
++
++        purchases = Purchase.browse(Transaction().context['active_ids'])
++        return_purchases = Purchase.copy(purchases)
++        for return_purchase, purchase in zip(return_purchases, purchases):
++            return_purchase.origin = purchase
++            for line in return_purchase.lines:
++                if line.type == 'line':
++                    line.quantity *= -1
++            return_purchase.lines = return_purchase.lines  # Force saving
++        Purchase.save(return_purchases)
++
++        data = {'res_id': [s.id for s in return_purchases]}
++        if len(return_purchases) == 1:
++            action['views'].reverse()
++        return action, data
+diff --git a/trytond/trytond/modules/purchase/purchase.xml b/trytond/trytond/modules/purchase/purchase.xml
+index aef771b..97404cb 100644
+--- a/trytond/trytond/modules/purchase/purchase.xml
++++ b/trytond/trytond/modules/purchase/purchase.xml
+@@ -523,6 +523,22 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="name">template_tree</field>
+         </record>
+
++        <record model="ir.ui.view" id="return_purchase_start_view_form">
++            <field name="model">purchase.return_purchase.start</field>
++            <field name="type">form</field>
++            <field name="name">return_purchase_start_form</field>
++        </record>
++        <record model="ir.action.wizard" id="wizard_return_purchase">
++            <field name="name">Return Purchase</field>
++            <field name="wiz_name">purchase.return_purchase</field>
++            <field name="model">purchase.purchase</field>
++        </record>
++        <record model="ir.action.keyword" id="act_wizard_return_purchase_keyword">
++            <field name="keyword">form_action</field>
++            <field name="model">purchase.purchase,-1</field>
++            <field name="action" ref="wizard_return_purchase"/>
++        </record>
++
+         <record model="ir.action.wizard" id="act_open_supplier">
+             <field name="name">Parties associated to Purchases</field>
+             <field name="wiz_name">purchase.open_supplier</field>
+diff --git a/trytond/trytond/modules/purchase/view/purchase_form.xml b/trytond/trytond/modules/purchase/view/purchase_form.xml
+index d689f5e..5f25f91 100644
+--- a/trytond/trytond/modules/purchase/view/purchase_form.xml
++++ b/trytond/trytond/modules/purchase/view/purchase_form.xml
+@@ -45,6 +45,8 @@ this repository contains the full copyright notices and license terms. -->
+             <label name="company"/>
+             <field name="company"/>
+             <newline/>
++            <label name="origin"/>
++            <field name="origin"/>
+             <label name="invoice_method"/>
+             <field name="invoice_method"/>
+             <label name="delivery_date"/>
+diff --git a/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml b/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml
+new file mode 100644
+index 0000000..9a87dd8
+--- /dev/null
++++ b/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0"?>
++<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
++this repository contains the full copyright notices and license terms. -->
++<form col="2">
++    <image name="tryton-warning" xexpand="0" xfill="0"/>
++    <label
++        string="Are you sure to return these/this purchase(s)?"
++        id="return" yalign="0.0" xalign="0.0" xexpand="1"/>
++</form>
