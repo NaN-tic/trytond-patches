@@ -1,0 +1,14 @@
+diff --git a/product.py b/product.py
+--- a/trytond/trytond/modules/product/product.py
++++ b/trytond/trytond/modules/product/product.py
+@@ -282,6 +282,10 @@ class Product(
+
+     def get_template(self, name):
+         value = getattr(self.template, name)
++        if getattr(self.__class__, name)._type == 'reference':
++            if value:
++                return str(value)
++            return value
+         if isinstance(value, Model):
+             return value.id
+         elif (isinstance(value, (list, tuple))
