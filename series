@@ -27,4 +27,3 @@ issue9802.diff # [stock] Improve performance when partially assigning moves
 
 issue10464.diff # [currency] Update currency rates fails
 
-issue10677.diff # [product] Use digits mixin for product UoM
