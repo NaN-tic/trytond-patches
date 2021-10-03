@@ -1,16 +1,21 @@
-diff -r 0bde16075654 trytond/trytond/pool.py
---- a/trytond/trytond/pool.py   Sun Jul 28 16:05:45 2019 +0200
-+++ b/trytond/trytond/pool.py   Fri Aug 16 11:13:08 2019 +0000
-@@ -183,6 +183,12 @@
+diff --git a/trytond/trytond/pool.py b/trytond/trytond/pool.py
+index 407ff358..0be2a41a 100644
+--- a/trytond/trytond/pool.py
++++ b/trytond/trytond/pool.py
+@@ -195,6 +195,16 @@ class Pool(object):
                  self.add(cls, type)
                  self.setup_mixin(self._modules, type='report', name=name)
                  return self.get(name, type=type)
 +            elif name[:15] == 'babi_execution_':
-+                with Transaction(new=True).start(self.database_name, 0, readonly=False):
-+                    Execution = self.get('babi.report.execution')
-+                    execution = Execution(int(name[15:]))
-+                    execution.validate_model(avoid_registration=True)
-+                return self._pool[self.database_name][type][name]
++                import sys
++                # Do not reload if babi model is accessed during update.
++                if not sys.argv[0].endswith('trytond-admin'):
++                    with Transaction(new=True).start(self.database_name, 0,
++                            readonly=False):
++                        Execution = self.get('babi.report.execution')
++                        execution = Execution(int(name[15:]))
++                        execution.validate_model(avoid_registration=True)
++                    return self._pool[self.database_name][type][name]
              raise
  
      def add(self, cls, type='model'):
