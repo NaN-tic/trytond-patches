@@ -1,0 +1,382 @@
+diff --git a/trytond/trytond/modules/account_asset/__init__.py b/trytond/trytond/modules/account_asset/__init__.py
+index 6d428c0..9bfe4aa 100644
+--- a/trytond/trytond/modules/account_asset/__init__.py
++++ b/trytond/trytond/modules/account_asset/__init__.py
+@@ -14,7 +14,7 @@ def register():
+         asset.AssetLine,
+         asset.AssetUpdateMove,
+         asset.CreateMovesStart,
+-        asset.UpdateAssetStart,
++        asset.AssetRevision,
+         asset.UpdateAssetShowDepreciation,
+         asset.PrintDepreciationTableStart,
+         product.Category,
+diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
+index 35a24f4..2d6a395 100644
+--- a/trytond/trytond/modules/account_asset/asset.py
++++ b/trytond/trytond/modules/account_asset/asset.py
+@@ -210,6 +210,8 @@ class Asset(Workflow, ModelSQL, ModelView):
+             },
+         depends=['company'])
+     comment = fields.Text('Comment')
++    revisions = fields.One2Many(
++        'account.asset.revision', 'asset', "Revisions", readonly=True)
+ 
+     @classmethod
+     def __setup__(cls):
+@@ -798,14 +800,6 @@ class CreateMoves(Wizard):
+         return 'end'
+
+ 
+-class UpdateAssetStart(ModelView):
+-    'Update Asset Start'
+-    __name__ = 'account.asset.update.start'
+-    value = fields.Numeric('Asset Value', required=True)
+-    residual_value = fields.Numeric('Residual Value', required=True)
+-    end_date = fields.Date('End Date', required=True)
+-
+-
+ class UpdateAssetShowDepreciation(ModelView):
+     'Update Asset Show Depreciation'
+     __name__ = 'account.asset.update.show_depreciation'
+@@ -830,8 +824,8 @@ class UpdateAssetShowDepreciation(ModelView):
+ class UpdateAsset(Wizard):
+     'Update Asset'
+     __name__ = 'account.asset.update'
+-    start = StateView('account.asset.update.start',
+-        'account_asset.asset_update_start_view_form', [
++    start = StateView('account.asset.revision',
++        'account_asset.asset_revision_view_form', [
+             Button('Cancel', 'end', 'tryton-cancel'),
+             Button('OK', 'update_asset', 'tryton-ok', True),
+             ])
+@@ -849,6 +843,7 @@ class UpdateAsset(Wizard):
+             'value': self.record.value,
+             'residual_value': self.record.residual_value,
+             'end_date': self.record.end_date,
++            'asset': self.record.id,
+             }
+ 
+     def transition_update_asset(self):
+@@ -934,9 +929,68 @@ class UpdateAsset(Wizard):
+                 'end_date': self.start.end_date,
+                 })
+         self.model.create_lines([self.record])
++        self.start.asset = self.record
++        self.start.save()
+         return 'end'
+ 
+ 
++class AssetRevision(ModelSQL, ModelView):
++    "Asset Revision"
++    __name__ = 'account.asset.revision'
++    currency = fields.Function(
++        fields.Many2One('currency.currency', "Currency"),
++        'on_change_with_currency')
++    currency_digits = fields.Function(
++        fields.Integer("Currency Digits"), 'on_change_with_currency_digits')
++    value = fields.Numeric(
++        "Asset Value", digits=(16, Eval('currency_digits', 2)),
++        depends=['currency_digits'], required=True)
++    residual_value = fields.Numeric(
++        "Residual Value", digits=(16, Eval('currency_digits', 2)),
++        required=True, depends=['currency_digits'])
++    end_date = fields.Date("End Date", required=True)
++    origin = fields.Reference("Origin", selection='get_origins', select=True)
++    description = fields.Char("Description")
++    asset = fields.Many2One(
++        'account.asset', "Asset", select=True, required=True)
++
++    @classmethod
++    def __setup__(cls):
++        super().__setup__()
++        cls.__access__.add('asset')
++
++    @fields.depends('asset', '_parent_asset.currency')
++    def on_change_with_currency(self, name=None):
++        if self.asset and self.asset.currency:
++            return self.asset.currency.id
++
++    @fields.depends('asset', '_parent_asset.currency')
++    def on_change_with_currency_digits(self, name=None):
++        if self.asset and self.asset.currency:
++            return self.asset.currency.digits
++
++    @fields.depends('origin', 'value', 'asset', '_parent_asset.value')
++    def on_change_origin(self, name=None):
++        pool = Pool()
++        InvoiceLine = pool.get('account.invoice.line')
++        if isinstance(self.origin, InvoiceLine) and self.origin.id >= 0:
++            self.value = self.asset.value + self.origin.amount
++
++    @staticmethod
++    def _get_origin():
++        "Return list of Model names for origin Reference"
++        return ['account.invoice.line']
++
++    @classmethod
++    def get_origins(cls):
++        pool = Pool()
++        IrModel = pool.get('ir.model')
++
++        get_name = IrModel.get_name
++        models = cls._get_origin()
++        return [(None, '')] + [(m, get_name(m)) for m in models]
++
++
+ class AssetDepreciationTable(CompanyReport):
+     'Asset Depreciation Table'
+     __name__ = 'account.asset.depreciation_table'
+diff --git a/trytond/trytond/modules/account_asset/asset.xml b/trytond/trytond/modules/account_asset/asset.xml
+index 6cd4e5b..cadb5ad 100644
+--- a/trytond/trytond/modules/account_asset/asset.xml
++++ b/trytond/trytond/modules/account_asset/asset.xml
+@@ -180,8 +180,20 @@
+             <field name="name">asset_create_moves_start_form</field>
+         </record>
+ 
+-        <record model="ir.ui.view" id="asset_update_start_view_form">
+-            <field name="model">account.asset.update.start</field>
++        <record model="ir.ui.view" id="revision_view_form">
++            <field name="model">account.asset.revision</field>
++            <field name="type">form</field>
++            <field name="name">revision_form</field>
++        </record>
++
++        <record model="ir.ui.view" id="revision_view_tree">
++            <field name="model">account.asset.revision</field>
++            <field name="type">tree</field>
++            <field name="name">revision_tree</field>
++        </record>
++
++        <record model="ir.ui.view" id="asset_revision_view_form">
++            <field name="model">account.asset.revision</field>
+             <field name="type">form</field>
+             <field name="name">asset_update_start_form</field>
+         </record>
+diff --git a/trytond/trytond/modules/account_asset/locale/ca.po b/trytond/trytond/modules/account_asset/locale/ca.po
+index ec19011..1b5ba6f 100644
+--- a/trytond/trytond/modules/account_asset/locale/ca.po
++++ b/trytond/trytond/modules/account_asset/locale/ca.po
+@@ -82,6 +82,10 @@ msgctxt "field:account.asset,residual_value:"
+ msgid "Residual Value"
+ msgstr "Valor residual"
+ 
++msgctxt "field:account.asset,revisions:"
++msgid "Revisions"
++msgstr ""
++
+ msgctxt "field:account.asset,start_date:"
+ msgid "Start Date"
+ msgstr "Data inicial"
+@@ -170,6 +174,38 @@ msgctxt "field:account.asset.print_depreciation_table.start,start_date:"
+ msgid "Start Date"
+ msgstr "Data inicial"
+ 
++msgctxt "field:account.asset.revision,asset:"
++msgid "Asset"
++msgstr "Actiu"
++
++msgctxt "field:account.asset.revision,currency:"
++msgid "Currency"
++msgstr "Moneda"
++
++msgctxt "field:account.asset.revision,currency_digits:"
++msgid "Currency Digits"
++msgstr "Decimals de la moneda"
++
++msgctxt "field:account.asset.revision,description:"
++msgid "Description"
++msgstr "Descripció"
++
++msgctxt "field:account.asset.revision,end_date:"
++msgid "End Date"
++msgstr "Data finalització"
++
++msgctxt "field:account.asset.revision,origin:"
++msgid "Origin"
++msgstr "Origen"
++
++msgctxt "field:account.asset.revision,residual_value:"
++msgid "Residual Value"
++msgstr "Valor residual"
++
++msgctxt "field:account.asset.revision,value:"
++msgid "Asset Value"
++msgstr "Valor d'actiu"
++
+ msgctxt "field:account.asset.update.show_depreciation,amount:"
+ msgid "Amount"
+ msgstr "Import"
+@@ -362,6 +398,10 @@ msgctxt "model:account.asset.print_depreciation_table.start,name:"
+ msgid "Asset Depreciation Table Start"
+ msgstr "Taula d'amortització d'actiu - Inici"
+ 
++msgctxt "model:account.asset.revision,name:"
++msgid "Asset Revision"
++msgstr ""
++
+ msgctxt "model:account.asset.update.show_depreciation,name:"
+ msgid "Update Asset Show Depreciation"
+ msgstr "Actualitza actius - Mostra amortització"
+diff --git a/trytond/trytond/modules/account_asset/locale/es.po b/trytond/trytond/modules/account_asset/locale/es.po
+index 2391f1d..ee47435 100644
+--- a/trytond/trytond/modules/account_asset/locale/es.po
++++ b/trytond/trytond/modules/account_asset/locale/es.po
+@@ -82,6 +82,10 @@ msgctxt "field:account.asset,residual_value:"
+ msgid "Residual Value"
+ msgstr "Valor residual"
+ 
++msgctxt "field:account.asset,revisions:"
++msgid "Revisions"
++msgstr ""
++
+ msgctxt "field:account.asset,start_date:"
+ msgid "Start Date"
+ msgstr "Fecha inicial"
+@@ -170,6 +174,38 @@ msgctxt "field:account.asset.print_depreciation_table.start,start_date:"
+ msgid "Start Date"
+ msgstr "Fecha inicial"
+ 
++msgctxt "field:account.asset.revision,asset:"
++msgid "Asset"
++msgstr "Activo"
++
++msgctxt "field:account.asset.revision,currency:"
++msgid "Currency"
++msgstr "Moneda"
++
++msgctxt "field:account.asset.revision,currency_digits:"
++msgid "Currency Digits"
++msgstr "Decimales de la moneda"
++
++msgctxt "field:account.asset.revision,description:"
++msgid "Description"
++msgstr "Descripción"
++
++msgctxt "field:account.asset.revision,end_date:"
++msgid "End Date"
++msgstr "Fecha finalización"
++
++msgctxt "field:account.asset.revision,origin:"
++msgid "Origin"
++msgstr "Origen"
++
++msgctxt "field:account.asset.revision,residual_value:"
++msgid "Residual Value"
++msgstr "Valor residual"
++
++msgctxt "field:account.asset.revision,value:"
++msgid "Asset Value"
++msgstr "Valor de activo"
++
+ msgctxt "field:account.asset.update.show_depreciation,amount:"
+ msgid "Amount"
+ msgstr "Importe"
+@@ -362,6 +398,10 @@ msgctxt "model:account.asset.print_depreciation_table.start,name:"
+ msgid "Asset Depreciation Table Start"
+ msgstr "Tabla de amortización de activo - Inicio"
+ 
++msgctxt "model:account.asset.revision,name:"
++msgid "Asset Revision"
++msgstr ""
++
+ msgctxt "model:account.asset.update.show_depreciation,name:"
+ msgid "Update Asset Show Depreciation"
+ msgstr "Actualizar activo - Mostrar amortización"
+diff --git a/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst b/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
+index eae63a7..780b751 100644
+--- a/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
++++ b/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
+@@ -170,7 +170,7 @@ Create Moves for 3 months::
+ Update the asset::
+ 
+     >>> update = Wizard('account.asset.update', [asset])
+-    >>> update.form.value = Decimal('1100')
++    >>> update.form.value = Decimal('1100.00')
+     >>> update.execute('update_asset')
+     >>> update.form.amount
+     Decimal('100.00')
+@@ -192,7 +192,10 @@ Update the asset::
+     >>> update.execute('create_move')
+     >>> asset.reload()
+     >>> asset.value
+-    Decimal('1100')
++    Decimal('1100.00')
++    >>> revision, = asset.revisions
++    >>> revision.value
++    Decimal('1100.00')
+     >>> [l.depreciation for l in asset.lines[:3]]
+     [Decimal('37.50'), Decimal('37.50'), Decimal('37.50')]
+     >>> [l.depreciation for l in asset.lines[3:-1]] == [Decimal('42.26')] * 20
+diff --git a/trytond/trytond/modules/account_asset/view/asset_form.xml b/trytond/trytond/modules/account_asset/view/asset_form.xml
+index e9a83ad..cf95e97 100644
+--- a/trytond/trytond/modules/account_asset/view/asset_form.xml
++++ b/trytond/trytond/modules/account_asset/view/asset_form.xml
+@@ -45,6 +45,9 @@
+             <separator name="comment" colspan="4"/>
+             <field name="comment" colspan="4"/>
+         </page>
++        <page name="revisions">
++            <field name="revisions" colspan="4"/>
++        </page>
+     </notebook>
+     <label name="state"/>
+     <field name="state"/>
+diff --git a/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml b/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
+index 752d6b5..f873eb2 100644
+--- a/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
++++ b/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
+@@ -1,11 +1,16 @@
+ <?xml version="1.0"?>
+ <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of this
+      repository contains the full copyright notices and license terms. -->
+-<form>
++<form col="6">
+     <label name="value"/>
+     <field name="value"/>
+     <label name="residual_value"/>
+     <field name="residual_value"/>
+     <label name="end_date"/>
+     <field name="end_date"/>
++    <label name="origin"/>
++    <field name="origin" colspan="2"/>
++    <label name="description"/>
++    <field name="description" colspan="2"/>
++    <field name="asset" invisible="1"/>
+ </form>
+diff --git a/trytond/trytond/modules/account_asset/view/revision_form.xml b/trytond/trytond/modules/account_asset/view/revision_form.xml
+new file mode 100644
+index 0000000..6e7ae7f
+--- /dev/null
++++ b/trytond/trytond/modules/account_asset/view/revision_form.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0"?>
++<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
++this repository contains the full copyright notices and license terms. -->
++<form>
++  <label name="value"/>
++  <field name="value"/>
++  <label name="end_date"/>
++  <field name="end_date"/>
++  <label name="origin"/>
++  <field name="origin"/>
++  <label name="description"/>
++  <field name="description"/>
++</form>
+diff --git a/trytond/trytond/modules/account_asset/view/revision_tree.xml b/trytond/trytond/modules/account_asset/view/revision_tree.xml
+new file mode 100644
+index 0000000..7291a7b
+--- /dev/null
++++ b/trytond/trytond/modules/account_asset/view/revision_tree.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0"?>
++<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
++this repository contains the full copyright notices and license terms. -->
++<tree>
++    <field name="asset"/>
++    <field name="end_date"/>
++    <field name="value" expand="1"/>
++    <field name="description"/>
++    <field name="origin" expand="1"/>
++</tree>

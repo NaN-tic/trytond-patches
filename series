@@ -25,8 +25,10 @@ issue9797.diff # [account_payment_sepa] Slowness processing sepa
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
 
-account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767
-
 issue10464.diff # [currency] Update currency rates fails
 
 issue10680.diff # [product] Fix get_template in reference field case
+
+account_asset.diff # [account_asset] issue9767: Add revisions when updating an asset (delete this patch in 6.2)
+
+account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767

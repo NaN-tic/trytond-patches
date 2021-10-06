@@ -1,33 +1,8 @@
 diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
-index 35a24f4..569423d 100644
+index 2d6a395..a5a0a3c 100644
 --- a/trytond/trytond/modules/account_asset/asset.py
 +++ b/trytond/trytond/modules/account_asset/asset.py
-@@ -801,15 +801,32 @@ class CreateMoves(Wizard):
- class UpdateAssetStart(ModelView):
-     'Update Asset Start'
-     __name__ = 'account.asset.update.start'
--    value = fields.Numeric('Asset Value', required=True)
--    residual_value = fields.Numeric('Residual Value', required=True)
-+    value = fields.Numeric('Asset Value',
-+        digits=(16, Eval('currency_digits', 2)),
-+        depends=['currency_digits'], required=True)
-+    residual_value = fields.Numeric('Residual Value',
-+        digits=(16, Eval('currency_digits', 2)),
-+        depends=['currency_digits'], required=True)
-     end_date = fields.Date('End Date', required=True)
-+    currency_digits = fields.Integer('Currency Digits', required=True)
-+
-+    @staticmethod
-+    def default_currency_digits():
-+        Asset = Pool().get('account.asset')
-+
-+        context = Transaction().context
-+        active_id = context.get('active_id')
-+        if active_id:
-+            return Asset(active_id).currency_digits
-+        return 2
-
-
+@@ -803,7 +803,9 @@ class CreateMoves(Wizard):
  class UpdateAssetShowDepreciation(ModelView):
      'Update Asset Show Depreciation'
      __name__ = 'account.asset.update.show_depreciation'
@@ -38,7 +13,7 @@ index 35a24f4..569423d 100644
      date = fields.Date('Date', required=True,
          domain=[
              ('date', '>=', Eval('latest_move_date')),
-@@ -825,6 +842,17 @@ class UpdateAssetShowDepreciation(ModelView):
+@@ -819,6 +821,17 @@ class UpdateAssetShowDepreciation(ModelView):
          'Depreciation Account', readonly=True)
      counterpart_account = fields.Many2One('account.account',
          'Counterpart Account')
@@ -53,6 +28,23 @@ index 35a24f4..569423d 100644
 +        if active_id:
 +            return Asset(active_id).currency_digits
 +        return 2
-
-
+ 
+ 
  class UpdateAsset(Wizard):
+@@ -959,6 +972,16 @@ class AssetRevision(ModelSQL, ModelView):
+         super().__setup__()
+         cls.__access__.add('asset')
+ 
++    @staticmethod
++    def default_currency_digits():
++        Asset = Pool().get('account.asset')
++
++        context = Transaction().context
++        active_id = context.get('active_id')
++        if active_id:
++            return Asset(active_id).currency_digits
++        return 2
++
+     @fields.depends('asset', '_parent_asset.currency')
+     def on_change_with_currency(self, name=None):
+         if self.asset and self.asset.currency:
