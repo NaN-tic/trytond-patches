@@ -1,0 +1,68 @@
+diff --git a/sao/src/sao-variables.less b/sao/src/sao-variables.less
+index 7c27f22..e1b5ee0 100644
+--- a/sao/src/sao-variables.less
++++ b/sao/src/sao-variables.less
+@@ -1,8 +1,9 @@
+ /* This file is part of Tryton.  The COPYRIGHT file at the top level of
+    this repository contains the full copyright notices and license terms. */
+-@brand-primary: #267f82;
+-@brand-success: #32ad52;
+-@brand-info: #71bdc1;
++@brand-headers:#F8F8F8;
++@brand-primary: #337ab7;
++@brand-success: #3465A4;
++@brandinfo: #337ab7;
+ @brand-warning: #e78e42;
+ @brand-danger: #e74842;
+ 
+@@ -12,17 +13,18 @@
+ 
+ @input-border-focus: lighten(@brand-primary, 25%);
+ 
+-@navbar-inverse-bg: @brand-primary;
++@navbar-inverse-bg: @brand-headers;
+ 
+-@navbar-inverse-link-color: lighten(@brand-primary, 30%);
++@navbar-inverse-link-color: #555;
++@navbar-inverse-link-hover-color:#333;
+ 
+ @navbar-inverse-toggle-hover-bg: rgba(0,0,0,0.5);
+ @navbar-inverse-toggle-icon-bar-bg: rgba(0,0,0,0.5);
+ 
+ @nav-tabs-justified-link-border-color: @nav-tabs-border-color;
+ 
+-@panel-default-text: #fff;
+-@panel-default-heading-bg: @brand-primary;
++@panel-default-text: #333;
++@panel-default-heading-bg: @brand-headers;
+ 
+ @icon-font-path: "../bower_components/bootstrap/fonts/";
+ 
+diff --git a/sao/src/sao.less b/sao/src/sao.less
+index f30d758..b0e317a 100644
+--- a/sao/src/sao.less
++++ b/sao/src/sao.less
+@@ -63,6 +63,12 @@ html[theme="default"] {
+     }
+ }
+ 
++.navbar-inverse .navbar-brand:hover,
++.navbar-inverse .navbar-brand:focus {
++  color: @navbar-inverse-link-hover-color;
++  background-color: transparent;
++}
++
+ .navbar {
+     .icon {
+         display: inline-block;
+@@ -90,8 +96,8 @@ html[theme="default"] {
+ }
+ 
+ .modal-header {
+-    background-color: @brand-primary;
+-    color: #fff;
++    background-color: @brand-headers;
++    color: #333;
+ }
+ 
+ #tablist > li > a {
