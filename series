@@ -32,3 +32,5 @@ issue10680.diff # [product] Fix get_template in reference field case
 account_asset.diff # [account_asset] issue9767: Add revisions when updating an asset (delete this patch in 6.2)
 
 account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767
+
+sao_colors.diff # [sao] Use the same colors as 5.4 version
