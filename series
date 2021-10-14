@@ -98,6 +98,8 @@ issue10382.diff # [stock_split] Decimals of quantity move exceed the total digit
 issue10338.diff # [bank] Search on rec_name of other model in search_rec_name
 issue9146.diff # [account_stock_landed_cost] Use field digits on secondary unit
 
+issue4440.diff # [party_relationship] add start/end dates
+
 stock_lot_sled_ca_locale.diff # [stock_lot_sled] Fix wrong translation [#044921]
 issue9122.diff # [stock_supply] Add cron job to supply stock
 
