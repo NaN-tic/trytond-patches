@@ -1,0 +1,55 @@
+diff --git a/trytond/trytond/modules/party_relationship/party.py b/trytond/trytond/modules/party_relationship/party.py
+index 5ab3464..e55208f 100644
+--- a/trytond/trytond/modules/party_relationship/party.py
++++ b/trytond/trytond/modules/party_relationship/party.py
+@@ -5,6 +5,7 @@ from sql import Union, As, Column, Null
+ from trytond.pool import Pool, PoolMeta
+ from trytond.model import ModelSQL, ModelView, fields
+ from trytond.transaction import Transaction
++from trytond.pyson import Eval, If
+
+ __all__ = ['RelationType', 'PartyRelation', 'PartyRelationAll', 'Party']
+
+@@ -29,6 +30,17 @@ class PartyRelation(ModelSQL):
+         ondelete='CASCADE')
+     type = fields.Many2One('party.relation.type', 'Type', required=True,
+         select=True)
++    start_date = fields.Date("Start Date", domain=[
++        If(Eval('start_date') & Eval('end_date'),
++                ('start_date', '<=', Eval('end_date', None)),
++            ()),
++        ], depends=['end_date'])
++    end_date = fields.Date("End Date", domain=[
++        If(Eval('start_date') & Eval('end_date'),
++                ('end_date', '>=', Eval('start_date', None)),
++            ()),
++        ], depends=['start_date'])
++
+
+     @classmethod
+     def search_rec_name(cls, name, clause):
+diff --git a/trytond/trytond/modules/party_relationship/view/relation_form.xml b/trytond/trytond/modules/party_relationship/view/relation_form.xml
+index 2c1cddd..572e45d 100644
+--- a/trytond/trytond/modules/party_relationship/view/relation_form.xml
++++ b/trytond/trytond/modules/party_relationship/view/relation_form.xml
+@@ -8,4 +8,9 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="type"/>
+     <label name="to"/>
+     <field name="to"/>
++    <newline/>
++    <label name="start_date"/>
++    <field name="start_date"/>
++    <label name="end_date"/>
++    <field name="end_date"/>
+ </form>
+diff --git a/trytond/trytond/modules/party_relationship/view/relation_tree.xml b/trytond/trytond/modules/party_relationship/view/relation_tree.xml
+index 51fd69d..8fb8bb6 100644
+--- a/trytond/trytond/modules/party_relationship/view/relation_tree.xml
++++ b/trytond/trytond/modules/party_relationship/view/relation_tree.xml
+@@ -5,4 +5,6 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="from_" expand="2"/>
+     <field name="type" expand="1"/>
+     <field name="to" expand="2"/>
++    <field name="start_date"/>
++    <field name="end_date"/>
+ </tree>
