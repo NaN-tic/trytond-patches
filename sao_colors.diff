@@ -11,7 +11,7 @@ index 7c27f22..e1b5ee0 100644
 +@brand-headers:#F8F8F8;
 +@brand-primary: #337ab7;
 +@brand-success: #3465A4;
-+@brandinfo: #337ab7;
++@brand-info: #337ab7;
  @brand-warning: #e78e42;
  @brand-danger: #e74842;
  
