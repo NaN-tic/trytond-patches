@@ -1,0 +1,29 @@
+diff --git a/trytond/trytond/tools/misc.py b/trytond/trytond/tools/misc.py
+index ee2763c9..300b5a72 100644
+--- a/trytond/trytond/tools/misc.py
++++ b/trytond/trytond/tools/misc.py
+@@ -12,6 +12,8 @@ import types
+ import io
+ import warnings
+ import importlib
++import re
++import unicodedata
+
+ from sql import Literal
+ from sql.operators import Or
+@@ -272,3 +274,15 @@ def rstrip_wildcard(string, wildcard='%', escape='\\'):
+     if new_string[-1] == escape:
+         return string
+     return new_string
++
++
++_slugify_strip_re = re.compile(r'[^\w\s-]')
++_slugify_hyphenate_re = re.compile(r'[-\s]+')
++
++
++def slugify(value, hyphenate='-'):
++    if not isinstance(value, str):
++        value = str(value)
++    value = unicodedata.normalize('NFKD', value)
++    value = str(_slugify_strip_re.sub('', value).strip())
++    return _slugify_hyphenate_re.sub(hyphenate, value)

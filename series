@@ -1,9 +1,10 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 logging_jsonrpc_exeption.diff # [trytond] logging JSONRPC Exception
+issue8776.diff # [trytond] Add slugify tool
+
 account_payment_view.diff # [account_payment]
 account_payment_sepa_locale.diff # [account_payment_sepa]
-
 
 issue3932.diff # [account] rule account move and account move line by company
 
@@ -98,3 +99,12 @@ issue10338.diff # [bank] Search on rec_name of other model in search_rec_name
 issue9146.diff # [account_stock_landed_cost] Use field digits on secondary unit
 
 issue4440.diff # [party_relationship] add start/end dates
+
+stock_lot_sled_ca_locale.diff # [stock_lot_sled] Fix wrong translation [#044921]
+issue9122.diff # [stock_supply] Add cron job to supply stock
+
+issue10500.diff # [account_invoice] Fix msg_invoice_same_account_line variables name
+
+issue9049-issue4050.diff # [purchase] Add origin and set on returned purchase + Add return wizard
+
+issue10680.diff # [product] Fix get_template in reference field case

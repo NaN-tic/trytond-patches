@@ -1,0 +1,87 @@
+ diff --git a/trytond/trytond/modules/stock_supply/__init__.py b/trytond/trytond/modules/stock_supply/__init__.py
+ index 48ced90..0d646e9 100644
+ --- a/trytond/trytond/modules/stock_supply/__init__.py
+ +++ b/trytond/trytond/modules/stock_supply/__init__.py
+ @@ -8,6 +8,7 @@ from .purchase_request import *
+  from .shipment import *
+  from .location import *
+  from . import stock
+ +from . import ir
+
+
+  def register():
+ @@ -22,6 +23,7 @@ def register():
+          Location,
+          LocationLeadTime,
+          stock.StockSupplyStart,
+ +        ir.Cron,
+          module='stock_supply', type_='model')
+      Pool.register(
+          stock.StockSupply,
+diff --git a/trytond/trytond/modules/stock_supply/ir.py b/trytond/trytond/modules/stock_supply/ir.py
+new file mode 100644
+index 0000000..27960e0
+--- /dev/null
++++ b/trytond/trytond/modules/stock_supply/ir.py
+@@ -0,0 +1,14 @@
++# The COPYRIGHT file at the top level of this repository contains the full
++# copyright notices and license terms.
++from trytond.pool import PoolMeta
++
++
++class Cron(metaclass=PoolMeta):
++    __name__ = 'ir.cron'
++
++    @classmethod
++    def __setup__(cls):
++        super().__setup__()
++        cls.method.selection.extend([
++                ('stock.order_point|supply_stock', "Supply Stock"),
++                ])
+diff --git a/trytond/trytond/modules/stock_supply/order_point.py b/trytond/trytond/modules/stock_supply/order_point.py
+index 78edc42..e310f0a 100644
+--- a/trytond/trytond/modules/stock_supply/order_point.py
++++ b/trytond/trytond/modules/stock_supply/order_point.py
+@@ -4,6 +4,7 @@ from sql import Null
+
+ from trytond.i18n import gettext
+ from trytond.model import ModelView, ModelSQL, fields
++from trytond.pool import Pool
+ from trytond.pyson import If, Equal, Eval, Not, In
+ from trytond.transaction import Transaction
+
+@@ -251,3 +252,11 @@ class OrderPoint(ModelSQL, ModelView):
+     @staticmethod
+     def default_company():
+         return Transaction().context.get('company')
++
++    @classmethod
++    def supply_stock(cls):
++        pool = Pool()
++        StockSupply = pool.get('stock.supply', type='wizard')
++        session_id, _, _ = StockSupply.create()
++        StockSupply.execute(session_id, {}, 'create_')
++        StockSupply.delete(session_id)
+diff --git a/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst b/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
+index d1681fd..eed49a5 100644
+--- a/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
++++ b/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
+@@ -178,3 +178,18 @@ Execute internal supply::
+     'Provisioning Location'
+     >>> move.to_location.name
+     'Second Storage'
++
++Create stock_supply cron and execute it::
++
++    >>> Cron = Model.get('ir.cron')
++    >>> admin_user, = User.find([('login', '=', 'admin')])
++    >>> set_user(admin_user)
++    >>> shipment.delete()
++    >>> cron = Cron(method='stock.order_point|supply_stock')
++    >>> cron.interval_number = 1
++    >>> cron.interval_type = 'months'
++    >>> cron.click('run_once')
++    >>> shipment, = ShipmentInternal.find(
++    ...     [('to_location', '=', sec_storage_loc.id)])
++    >>> shipment.state
++    'request'
