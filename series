@@ -21,8 +21,6 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
-issue9797.diff # [account_payment_sepa] Slowness processing sepa
-
 issue9802.diff # [stock] Improve performance when partially assigning moves
 
 issue10464.diff # [currency] Update currency rates fails
