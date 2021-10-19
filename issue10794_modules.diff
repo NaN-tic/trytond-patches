@@ -1,0 +1,192 @@
+diff --git a/line.py b/line.py
+index 72eda4c..e9b2467 100644
+--- a/trytond/trytond/modules/timesheet/line.py
++++ b/trytond/trytond/modules/timesheet/line.py
+@@ -31,11 +31,11 @@ class Line(ModelSQL, ModelView):
+             ('company', '=', Eval('company', -1)),
+             ['OR',
+                 ('start_date', '=', None),
+-                ('start_date', '<=', Eval('date')),
++                ('start_date', '<=', Eval('date', None)),
+                 ],
+             ['OR',
+                 ('end_date', '=', None),
+-                ('end_date', '>=', Eval('date')),
++                ('end_date', '>=', Eval('date', None)),
+                 ],
+             ],
+         depends=['company', 'date'],
+@@ -48,11 +48,11 @@ class Line(ModelSQL, ModelView):
+             ('company', '=', Eval('company', -1)),
+             ['OR',
+                 ('timesheet_start_date', '=', None),
+-                ('timesheet_start_date', '<=', Eval('date')),
++                ('timesheet_start_date', '<=', Eval('date', None)),
+                 ],
+             ['OR',
+                 ('timesheet_end_date', '=', None),
+-                ('timesheet_end_date', '>=', Eval('date')),
++                ('timesheet_end_date', '>=', Eval('date', None)),
+                 ],
+             ],
+         depends=['date', 'company'],
+@@ -169,11 +169,11 @@ class EnterLinesStart(ModelView):
+             ('company', '=', Eval('context', {}).get('company', -1)),
+             ['OR',
+                 ('start_date', '=', None),
+-                ('start_date', '<=', Eval('date')),
++                ('start_date', '<=', Eval('date', None)),
+                 ],
+             ['OR',
+                 ('end_date', '=', None),
+-                ('end_date', '>=', Eval('date')),
++                ('end_date', '>=', Eval('date', None)),
+                 ],
+             ],
+         depends=['date'],
+diff --git a/stock.py b/stock.py
+index 05585a6..0cfdea9 100644
+--- a/trytond/trytond/modules/stock_package/stock.py
++++ b/trytond/trytond/modules/stock_package/stock.py
+@@ -19,7 +19,7 @@ class Configuration(metaclass=PoolMeta):
+     package_sequence = fields.MultiValue(fields.Many2One(
+             'ir.sequence', "Package Sequence", required=True,
+             domain=[
+-                ('company', 'in', [Eval('context', {}).get('company'), None]),
++                ('company', 'in', [Eval('context', {}).get('company', -1), None]),
+                 ('sequence_type', '=',
+                     Id('stock_package', 'sequence_type_package')),
+                 ]))
+ diff --git a/work.py b/work.py
+index 8e2c51c..9703cf9 100644
+--- a/trytond/trytond/modules/project_plan/work.py
++++ b/trytond/trytond/modules/project_plan/work.py
+@@ -23,15 +23,15 @@ class Work(tree(parent='successors'), metaclass=PoolMeta):
+     predecessors = fields.Many2Many('project.predecessor_successor',
+         'successor', 'predecessor', 'Predecessors',
+         domain=[
+-            ('parent', '=', Eval('parent')),
+-            ('id', '!=', Eval('id')),
++            ('parent', '=', Eval('parent', -1)),
++            ('id', '!=', Eval('id', -1)),
+             ],
+         depends=['parent', 'id'])
+     successors = fields.Many2Many('project.predecessor_successor',
+         'predecessor', 'successor', 'Successors',
+         domain=[
+-            ('parent', '=', Eval('parent')),
+-            ('id', '!=', Eval('id')),
++            ('parent', '=', Eval('parent', -1)),
++            ('id', '!=', Eval('id', -1)),
+             ],
+         depends=['parent', 'id'])
+     leveling_delay = fields.Float("Leveling Delay", required=True)
+diff --git a/statement.py b/statement.py
+index 93218a5..4627255 100644
+--- a/trytond/trytond/modules/account_statement/statement.py
++++ b/trytond/trytond/modules/account_statement/statement.py
+@@ -742,8 +742,8 @@ class Line(
+             'invisible': ~Bool(Eval('origin')),
+             },
+         domain=[
+-            ('statement', '=', Eval('statement')),
+-            ('date', '=', Eval('date')),
++            ('statement', '=', Eval('statement', -1)),
++            ('date', '=', Eval('date', None)),
+             ],
+         depends=['statement', 'date'])
+ 
+@@ -1059,8 +1059,8 @@ class Origin(origin_mixin(_states, _depends), ModelSQL, ModelView):
+                 ~Eval('statement_state').in_(['draft', 'validated'])),
+             },
+         domain=[
+-            ('statement', '=', Eval('statement')),
+-            ('date', '=', Eval('date')),
++            ('statement', '=', Eval('statement', -1)),
++            ('date', '=', Eval('date', None)),
+             ],
+         depends=['statement', 'date', 'statement_id'])
+     statement_id = fields.Function(
+diff --git a/location.py b/location.py
+index 4c7e4d5..13db917 100644
+--- a/trytond/trytond/modules/stock/location.py
++++ b/trytond/trytond/modules/stock/location.py
+@@ -87,7 +87,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
+         domain=[
+             ('type', '=', 'storage'),
+             ['OR',
+-                ('parent', 'child_of', [Eval('id')]),
++                ('parent', 'child_of', [Eval('id', -1)]),
+                 ('parent', '=', None),
+                 ],
+             ],
+@@ -101,7 +101,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
+         domain=[
+             ('type', '=', 'storage'),
+             ['OR',
+-                ('parent', 'child_of', [Eval('id')]),
++                ('parent', 'child_of', [Eval('id', -1)]),
+                 ('parent', '=', None)]],
+         depends=['type', 'id'],
+         help="Where outgoing stock is sent from.")
+@@ -113,7 +113,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
+         domain=[
+             ('type', 'in', ['storage', 'view']),
+             ['OR',
+-                ('parent', 'child_of', [Eval('id')]),
++                ('parent', 'child_of', [Eval('id', -1)]),
+                 ('parent', '=', None)]],
+         depends=['type', 'id'],
+         help="The top level location where stock is stored.")
+diff --git a/production.py b/production.py
+index 6f660b1..72d2882 100644
+--- a/trytond/trytond/modules/production/production.py
++++ b/trytond/trytond/modules/production/production.py
+@@ -125,8 +125,8 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+     inputs = fields.One2Many('stock.move', 'production_input', 'Inputs',
+         domain=[
+             ('shipment', '=', None),
+-            ('from_location', 'child_of', [Eval('warehouse')], 'parent'),
+-            ('to_location', '=', Eval('location')),
++            ('from_location', 'child_of', [Eval('warehouse', -1)], 'parent'),
++            ('to_location', '=', Eval('location', -1)),
+             ('company', '=', Eval('company', -1)),
+             ],
+         states={
+@@ -137,10 +137,10 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+     outputs = fields.One2Many('stock.move', 'production_output', 'Outputs',
+         domain=[
+             ('shipment', '=', None),
+-            ('from_location', '=', Eval('location')),
++            ('from_location', '=', Eval('location', -1)),
+             ['OR',
+-                ('to_location', 'child_of', [Eval('warehouse')], 'parent'),
+-                ('to_location.waste_warehouses', '=', Eval('warehouse')),
++                ('to_location', 'child_of', [Eval('warehouse', -1)], 'parent'),
++                ('to_location.waste_warehouses', '=', Eval('warehouse', -1)),
+                 ],
+             ('company', '=', Eval('company', -1)),
+             ],
+diff --git a/stock.py b/stock.py
+index a7baefc..db418ea 100644
+--- a/trytond/trytond/modules/production/stock.py
++++ b/trytond/trytond/modules/production/stock.py
+@@ -23,7 +23,7 @@ class Location(metaclass=PoolMeta):
+             },
+         domain=[
+             ('type', '=', 'storage'),
+-            ('parent', 'child_of', [Eval('id')]),
++            ('parent', 'child_of', [Eval('id', -1)]),
+             ],
+         depends=['type', 'id'],
+         help="Where the production components are picked from.\n"
+@@ -35,7 +35,7 @@ class Location(metaclass=PoolMeta):
+             },
+         domain=[
+             ('type', '=', 'storage'),
+-            ('parent', 'child_of', [Eval('id')]),
++            ('parent', 'child_of', [Eval('id', -1)]),
+             ],
+         depends=['type', 'id'],
+         help="Where the produced goods are stored.\n"
+

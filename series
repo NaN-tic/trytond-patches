@@ -1,6 +1,7 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 issue10794.diff # [trytond] Add test on domain of relation fields
+issue10794_modules.diff # [modules] Add test on domain of relation fields
 
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
