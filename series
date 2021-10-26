@@ -106,3 +106,5 @@ issue10500.diff # [account_invoice] Fix msg_invoice_same_account_line variables 
 issue9049-issue4050.diff # [purchase] Add origin and set on returned purchase + Add return wizard
 
 issue10680.diff # [product] Fix get_template in reference field case
+
+issue10845.diff # [commission] Do not reverse commission when canceling invoice with move

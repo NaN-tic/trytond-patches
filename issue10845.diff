@@ -1,0 +1,19 @@
+diff --git a/trytond/trytond/modules/commission/invoice.py b/trytond/trytond/modules/commission/invoice.py
+index 93d37be..60535e6 100644
+--- a/trytond/trytond/modules/commission/invoice.py
++++ b/trytond/trytond/modules/commission/invoice.py
+@@ -77,11 +77,13 @@ class Invoice(metaclass=PoolMeta):
+         pool = Pool()
+         Commission = pool.get('commission')
+
++        invoices_to_revert_commission = [x for x in invoices if not x.move]
++
+         super(Invoice, cls).cancel(invoices)
+
+         to_delete = []
+         to_save = []
+-        for sub_invoices in grouped_slice(invoices):
++        for sub_invoices in grouped_slice(invoices_to_revert_commission):
+             ids = [i.id for i in sub_invoices]
+             to_delete += Commission.search([
+                     ('invoice_line', '=', None),
