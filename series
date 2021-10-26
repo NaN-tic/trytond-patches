@@ -36,3 +36,5 @@ account_asset.diff # [account_asset] issue9767: Add revisions when updating an a
 account_asset_update_asset.diff # [account_asset] decimals when updata asset #044767
 
 sao_colors.diff # [sao] Use the same colors as 5.4 version
+
+issue10845.diff # [commission] Do not reverse commission when canceling invoice with move
