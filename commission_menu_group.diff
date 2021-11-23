@@ -1,0 +1,16 @@
+diff --git a/trytond/trytond/modules/commission/commission.xml b/trytond/trytond/modules/commission/commission.xml
+index fcba3bb..498948f 100644
+--- a/trytond/trytond/modules/commission/commission.xml
++++ b/trytond/trytond/modules/commission/commission.xml
+@@ -28,6 +28,11 @@ this repository contains the full copyright notices and license terms. -->
+             name="Commission"
+             sequence="100"
+             id="menu_commission"/>
++        <record model="ir.ui.menu-res.group"
++            id="menu_commission_group_commission">
++            <field name="menu" ref="menu_commission"/>
++            <field name="group" ref="group_commission"/>
++        </record>
+         <menuitem
+             name="Configuration"
+             parent="menu_commission"
