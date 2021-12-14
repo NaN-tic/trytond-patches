@@ -1,0 +1,21 @@
+diff --git a/trytond/trytond/modules/project/work.xml b/trytond/trytond/modules/project/work.xml
+index 8a961cf..349c326 100644
+--- a/trytond/trytond/modules/project/work.xml
++++ b/trytond/trytond/modules/project/work.xml
+@@ -225,5 +225,16 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="perm_delete" eval="True"/>
+         </record>
+ 
++        <record model="ir.rule.group" id="rule_group_work_companies">
++            <field name="name">User in companies</field>
++            <field name="model" search="[('model', '=', 'project.work')]"/>
++            <field name="global_p" eval="True"/>
++        </record>
++        <record model="ir.rule" id="rule_work_companies">
++            <field name="domain"
++                eval="[('company', 'in', Eval('user', {}).get('companies', []))]"
++                pyson="1"/>
++            <field name="rule_group" ref="rule_group_work_companies"/>
++        </record>
+     </data>
+ </tryton>

@@ -108,3 +108,5 @@ issue9049-issue4050.diff # [purchase] Add origin and set on returned purchase + 
 issue10680.diff # [product] Fix get_template in reference field case
 
 issue10845.diff # [commission] Do not reverse commission when canceling invoice with move
+
+project_work_company_rule.diff # [project] Add company rule at project level [#048280]
