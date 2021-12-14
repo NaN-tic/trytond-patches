@@ -26,3 +26,5 @@ issue9802.diff # [stock] Improve performance when partially assigning moves
 issue10464.diff # [currency] Update currency rates fails
 
 sao_colors.diff # [sao] Use the same colors as 5.4 version
+
+sao_remove_email.diff # [sao] Removes the email button from the toolbar
