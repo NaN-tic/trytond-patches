@@ -28,3 +28,5 @@ issue10464.diff # [currency] Update currency rates fails
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
+
+worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name

@@ -1,0 +1,20 @@
+diff --git a/trytond/worker.py b/trytond/worker.py
+index 4088e2b6..46393e92 100644
+--- a/trytond/worker.py
++++ b/trytond/worker.py
+@@ -126,6 +126,9 @@ def run_task(pool, task_id):
+                 except (UserError, UserWarning) as e:
+                     Error.log(task, e)
+                     raise
++                except Exception:
++                    logger.critical('%s failed', name, exc_info=True)
++                    return
+         logger.info('%s done', name)
+     except backend.DatabaseOperationalError:
+         logger.info('%s failed, retrying', name, exc_info=True)
+@@ -146,5 +149,3 @@ def run_task(pool, task_id):
+                 'rescheduling %s failed', name, exc_info=True)
+     except (UserError, UserWarning):
+         logger.info('%s failed', name)
+-    except Exception:
+-        logger.critical('%s failed', name, exc_info=True)
