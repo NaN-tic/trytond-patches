@@ -110,3 +110,5 @@ issue10680.diff # [product] Fix get_template in reference field case
 issue10845.diff # [commission] Do not reverse commission when canceling invoice with move
 
 project_work_company_rule.diff # [project] Add company rule at project level [#048280]
+
+worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
