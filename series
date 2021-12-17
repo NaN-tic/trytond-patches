@@ -43,4 +43,4 @@ issue10990.diff # [project_invoice] Skip empty efforts on progress migration
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
-worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
+# worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
