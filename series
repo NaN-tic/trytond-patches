@@ -111,4 +111,6 @@ issue10845.diff # [commission] Do not reverse commission when canceling invoice 
 
 project_work_company_rule.diff # [project] Add company rule at project level [#048280]
 
+issue9004.diff # [product] Make product code unique
+
 # worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
