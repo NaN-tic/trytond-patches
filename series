@@ -43,4 +43,4 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
 # worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
-issue10161.diff # [sale] issue10161: Configuration of invoice_method and shipment_method at customer level.
+issue10161.diff # [sale] issue10161: Configuration of invoice_method and shipment_method at customer level. (only 6.0)
