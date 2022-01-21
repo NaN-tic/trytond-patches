@@ -1,0 +1,315 @@
+diff --git a/trytond/trytond/modules/sale/__init__.py b/trytond/trytond/modules/sale/__init__.py
+index 30ff37e..06b7472 100644
+--- a/trytond/trytond/modules/sale/__init__.py
++++ b/trytond/trytond/modules/sale/__init__.py
+@@ -21,6 +21,8 @@ def register():
+         sale.SaleLineTax,
+         sale.SaleLineIgnoredMove,
+         sale.SaleLineRecreatedMove,
++        party.Party,
++        party.PartySaleMethod,
+         product.Configuration,
+         product.DefaultLeadTime,
+         product.Template,
+diff --git a/trytond/trytond/modules/sale/locale/ca.po b/trytond/trytond/modules/sale/locale/ca.po
+index ce0d269..963801d 100644
+--- a/trytond/trytond/modules/sale/locale/ca.po
++++ b/trytond/trytond/modules/sale/locale/ca.po
+@@ -10,6 +10,34 @@ msgctxt "field:account.invoice,sales:"
+ msgid "Sales"
+ msgstr "Vendes"
+
++msgctxt "field:party.party,sale_invoice_method:"
++msgid "Invoice Method"
++msgstr "Mètode de facturació"
++
++msgctxt "field:party.party,sale_methods:"
++msgid "Sale Methods"
++msgstr "Mètodes de venda"
++
++msgctxt "field:party.party,sale_shipment_method:"
++msgid "Shipment Method"
++msgstr "Mètode d'enviament"
++
++msgctxt "field:party.party.sale_method,company:"
++msgid "Company"
++msgstr "Empresa"
++
++msgctxt "field:party.party.sale_method,party:"
++msgid "Party"
++msgstr "Tercer"
++
++msgctxt "field:party.party.sale_method,sale_invoice_method:"
++msgid "Sale Invoice Method"
++msgstr "Mètode de facturació de venda"
++
++msgctxt "field:party.party.sale_method,sale_shipment_method:"
++msgid "Sale Shipment Method"
++msgstr "Mètode d'enviament de venda"
++
+ msgctxt "field:product.configuration,default_lead_time:"
+ msgid "Default Lead Time"
+ msgstr "Temps d'espera per defecte"
+diff --git a/trytond/trytond/modules/sale/locale/es.po b/trytond/trytond/modules/sale/locale/es.po
+index c660192..2a4e3d8 100644
+--- a/trytond/trytond/modules/sale/locale/es.po
++++ b/trytond/trytond/modules/sale/locale/es.po
+@@ -10,6 +10,34 @@ msgctxt "field:account.invoice,sales:"
+ msgid "Sales"
+ msgstr "Ventas"
+
++msgctxt "field:party.party,sale_invoice_method:"
++msgid "Invoice Method"
++msgstr "Método de facturación"
++
++msgctxt "field:party.party,sale_methods:"
++msgid "Sale Methods"
++msgstr "Métodos de venta"
++
++msgctxt "field:party.party,sale_shipment_method:"
++msgid "Shipment Method"
++msgstr "Método de envío"
++
++msgctxt "field:party.party.sale_method,company:"
++msgid "Company"
++msgstr "Empresa"
++
++msgctxt "field:party.party.sale_method,party:"
++msgid "Party"
++msgstr "Tercero"
++
++msgctxt "field:party.party.sale_method,sale_invoice_method:"
++msgid "Sale Invoice Method"
++msgstr "Método de facturación de venta"
++
++msgctxt "field:party.party.sale_method,sale_shipment_method:"
++msgid "Sale Shipment Method"
++msgstr "Método de envío de venta"
++
+ msgctxt "field:product.configuration,default_lead_time:"
+ msgid "Default Lead Time"
+ msgstr "Tiempo de espera por defecto"
+diff --git a/trytond/trytond/modules/sale/party.py b/trytond/trytond/modules/sale/party.py
+index 4503778..3bcca25 100644
+--- a/trytond/trytond/modules/sale/party.py
++++ b/trytond/trytond/modules/sale/party.py
+@@ -1,11 +1,82 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+ from trytond.i18n import gettext
++from trytond.model import ModelSQL, fields
+ from trytond.pool import PoolMeta, Pool
++from trytond.pyson import Eval
++from trytond.transaction import Transaction
+ 
++
++from trytond.modules.company.model import (
++    CompanyMultiValueMixin, CompanyValueMixin)
+ from trytond.modules.party.exceptions import EraseError
+ 
+ 
++def get_sale_methods(field_name):
++    @classmethod
++    def func(cls):
++        pool = Pool()
++        Sale = pool.get('sale.sale')
++        return Sale.fields_get([field_name])[field_name]['selection'] + [
++            (None, '')]
++    return func
++
++class Party(CompanyMultiValueMixin, metaclass=PoolMeta):
++    __name__ = 'party.party'
++
++    sale_invoice_method = fields.MultiValue(fields.Selection(
++            'get_sale_invoice_method', "Invoice Method",
++            help="The default sale invoice method for the customer.\n"
++            "Leave empty to use the default value from the configuration."))
++    sale_shipment_method = fields.MultiValue(fields.Selection(
++            'get_sale_shipment_method', "Shipment Method",
++            help="The default sale shipment method for the customer.\n"
++            "Leave empty to use the default value from the configuration."))
++    sale_methods = fields.One2Many(
++        'party.party.sale_method', 'party', "Sale Methods")
++
++    @classmethod
++    def multivalue_model(cls, field):
++        pool = Pool()
++        if field in {'sale_invoice_method', 'sale_shipment_method'}:
++            return pool.get('party.party.sale_method')
++        return super().multivalue_model(field)
++
++    get_sale_invoice_method = get_sale_methods('invoice_method')
++    get_sale_shipment_method = get_sale_methods('shipment_method')
++
++    @classmethod
++    def copy(cls, parties, default=None):
++        context = Transaction().context
++        default = default.copy() if default else {}
++        if context.get('_check_access'):
++            fields = [
++                'sale_methods', 'sale_invoice_method', 'sale_shipment_method']
++            default_values = cls.default_get(fields, with_rec_name=False)
++            for fname in fields:
++                default.setdefault(fname, default_values.get(fname))
++        return super().copy(parties, default=default)
++
++
++class PartySaleMethod(ModelSQL, CompanyValueMixin):
++    "Party Sale Method"
++    __name__ = 'party.party.sale_method'
++
++    party = fields.Many2One(
++        'party.party', "Party", ondelete='CASCADE', select=True,
++        context={
++            'company': Eval('company', -1),
++            },
++        depends=['company'])
++    sale_invoice_method = fields.Selection(
++        'get_sale_invoice_method', "Sale Invoice Method")
++    sale_shipment_method = fields.Selection(
++        'get_sale_shipment_method', "Sale Shipment Method")
++
++    get_sale_invoice_method = get_sale_methods('invoice_method')
++    get_sale_shipment_method = get_sale_methods('shipment_method')
++
++
+ class Replace(metaclass=PoolMeta):
+     __name__ = 'party.replace'
+ 
+diff --git a/trytond/trytond/modules/sale/party.xml b/trytond/trytond/modules/sale/party.xml
+index 12d7090..931a811 100644
+--- a/trytond/trytond/modules/sale/party.xml
++++ b/trytond/trytond/modules/sale/party.xml
+@@ -22,5 +22,29 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="action" ref="act_sale_form2"/>
+             <field name="group" ref="group_sale"/>
+         </record>
++
++        <record model="ir.model.field.access" id="access_party_sale_invoice_method">
++            <field name="field" search="[('model.model', '=', 'party.party'), ('name', '=', 'sale_invoice_method')]"/>
++            <field name="perm_read" eval="True"/>
++            <field name="perm_write" eval="False"/>
++        </record>
++        <record model="ir.model.field.access" id="access_party_sale_invoice_method_group_sale">
++            <field name="field" search="[('model.model', '=', 'party.party'), ('name', '=', 'sale_invoice_method')]"/>
++            <field name="group" ref="group_sale"/>
++            <field name="perm_read" eval="True"/>
++            <field name="perm_write" eval="True"/>
++        </record>
++
++        <record model="ir.model.field.access" id="access_party_sale_shipment_method">
++            <field name="field" search="[('model.model', '=', 'party.party'), ('name', '=', 'sale_shipment_method')]"/>
++            <field name="perm_read" eval="True"/>
++            <field name="perm_write" eval="False"/>
++        </record>
++        <record model="ir.model.field.access" id="access_party_sale_shipment_method_group_sale">
++            <field name="field" search="[('model.model', '=', 'party.party'), ('name', '=', 'sale_shipment_method')]"/>
++            <field name="group" ref="group_sale"/>
++            <field name="perm_read" eval="True"/>
++            <field name="perm_write" eval="True"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/trytond/trytond/modules/sale/sale.py b/trytond/trytond/modules/sale/sale.py
+index 94897f9..b54b958 100644
+--- a/trytond/trytond/modules/sale/sale.py
++++ b/trytond/trytond/modules/sale/sale.py
+@@ -450,8 +450,16 @@ class Sale(
+                 self.invoice_address = self.party.address_get(type='invoice')
+             if not self.shipment_party:
+                 self.shipment_address = self.party.address_get(type='delivery')
++                if self.party.sale_shipment_method:
++                    self.shipment_method = self.party.sale_shipment_method
++                else:
++                    self.shipment_method = self.default_shipment_method()
+             if self.party.customer_payment_term:
+                 self.payment_term = self.party.customer_payment_term
++            if self.party.sale_invoice_method:
++                self.invoice_method = self.party.sale_invoice_method
++            else:
++                self.invoice_method = self.default_invoice_method()
+ 
+     @fields.depends('party', 'invoice_party')
+     def on_change_invoice_party(self):
+@@ -468,6 +476,8 @@ class Sale(
+                 type='delivery')
+         elif self.party:
+             self.shipment_address = self.party.address_get(type='delivery')
++            if self.party.sale_shipment_method:
++                self.shipment_method = self.party.sale_shipment_method
+ 
+     @fields.depends('currency')
+     def on_change_with_currency_digits(self, name=None):
+diff --git a/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst b/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst
+new file mode 100644
+index 0000000..6c272e8
+--- /dev/null
++++ b/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst
+@@ -0,0 +1,37 @@
++=============================
++Sale Default Methods Scenario
++=============================
++
++Imports::
++
++    >>> from proteus import Model, Wizard, Report
++    >>> from trytond.tests.tools import activate_modules, set_user
++    >>> from trytond.modules.company.tests.tools import create_company, \
++    ...     get_company
++
++Activate modules::
++
++    >>> config = activate_modules('sale')
++
++Create company::
++
++    >>> _ = create_company()
++    >>> company = get_company()
++
++Create a party and set their default methods::
++
++    >>> Party = Model.get('party.party')
++    >>> customer = Party(name='Customer')
++    >>> customer.sale_shipment_method = 'invoice'
++    >>> customer.sale_invoice_method = 'shipment'
++    >>> customer.save()
++
++Create a sale to to check default methods::
++
++    >>> Sale = Model.get('sale.sale')
++    >>> sale = Sale()
++    >>> sale.party = customer
++    >>> sale.shipment_method
++    'invoice'
++    >>> sale.invoice_method
++    'shipment'
+\ No newline at end of file
+diff --git a/trytond/trytond/modules/sale/tests/test_sale.py b/trytond/trytond/modules/sale/tests/test_sale.py
+index da5ff77..0fa1d57 100644
+--- a/trytond/trytond/modules/sale/tests/test_sale.py
++++ b/trytond/trytond/modules/sale/tests/test_sale.py
+@@ -88,4 +88,9 @@ def suite():
+             tearDown=doctest_teardown, encoding='utf-8',
+             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE,
+             checker=doctest_checker))
++    suite.addTests(doctest.DocFileSuite(
++            'scenario_sale_default_methods.rst',
++            tearDown=doctest_teardown, encoding='utf-8',
++            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE,
++            checker=doctest_checker))
+     return suite
+diff --git a/trytond/trytond/modules/sale/view/party_form.xml b/trytond/trytond/modules/sale/view/party_form.xml
+index d2e7b4a..1d41e7e 100644
+--- a/trytond/trytond/modules/sale/view/party_form.xml
++++ b/trytond/trytond/modules/sale/view/party_form.xml
+@@ -7,6 +7,10 @@ this repository contains the full copyright notices and license terms. -->
+     </xpath>
+     <xpath expr="/form/notebook" position="inside">
+         <page id="sale" string="Sale">
++            <label name="sale_invoice_method"/>
++            <field name="sale_invoice_method"/>
++            <label name="sale_shipment_method"/>
++            <field name="sale_shipment_method"/>
+         </page>
+     </xpath>
+ </data>
