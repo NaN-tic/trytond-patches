@@ -1,0 +1,87 @@
+diff --git a/product.py b/product.py
+index 8281bdf..6188bfc 100644
+--- a/trytond/trytond/modules/purchase/product.py
++++ b/trytond/trytond/modules/purchase/product.py
+@@ -6,8 +6,9 @@ from sql import Literal
+ from sql.aggregate import Count
+ 
+ from trytond.i18n import gettext
+-from trytond.model import ModelView, ModelSQL, MatchMixin, fields, \
+-    sequence_ordered
++from trytond.model import (
++    ModelView, ModelSQL, MatchMixin, DeactivableMixin, sequence_ordered,
++    fields)
+ from trytond.pyson import Eval, If, Bool
+ from trytond.pool import Pool, PoolMeta
+ from trytond.transaction import Transaction
+@@ -32,7 +33,10 @@ class Template(metaclass=PoolMeta):
+             'invisible': (~Eval('purchasable', False)
+                 | ~Eval('context', {}).get('company')),
+             },
+-        depends=['active', 'purchasable'])
++        domain=[
++            If(~Eval('active'), ('active', '=', False), ()),
++            ],
++        depends=['purchasable', 'active'])
+     purchase_uom = fields.Many2One('product.uom', 'Purchase UOM', states={
+             'readonly': ~Eval('active'),
+             'invisible': ~Eval('purchasable'),
+@@ -124,6 +128,7 @@ class Product(metaclass=PoolMeta):
+         'purchase.product_supplier', 'product', "Suppliers",
+         domain=[
+             ('template', '=', Eval('template')),
++            If(~Eval('active'), ('active', '=', False), ()),
+             ],
+         states={
+             'readonly': ~Eval('active', True),
+@@ -243,7 +248,8 @@ class Product(metaclass=PoolMeta):
+         return new_products
+ 
+ 
+-class ProductSupplier(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
++class ProductSupplier(
++    sequence_ordered(), DeactivableMixin, ModelSQL, ModelView, MatchMixin):
+     'Product Supplier'
+     __name__ = 'purchase.product_supplier'
+     template = fields.Many2One(
+@@ -253,16 +259,18 @@ class ProductSupplier(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
+             If(Bool(Eval('product')),
+                 ('products', '=', Eval('product')),
+                 ()),
++            If(Eval('active'), ('active', '=', True), ()),
+             ],
+-        depends=['product'])
++        depends=['product', 'active'])
+     product = fields.Many2One(
+         'product.product', "Variant", select=True,
+         domain=[
+             If(Bool(Eval('template')),
+                 ('template', '=', Eval('template')),
+                 ()),
++            If(Eval('active'), ('active', '=', True), ()),
+             ],
+-        depends=['template'])
++        depends=['template', 'active'])
+     party = fields.Many2One('party.party', 'Supplier', required=True,
+         ondelete='CASCADE', select=True)
+     name = fields.Char('Name', size=None, translate=True, select=True)
+
+diff --git a/view/product_supplier_form.xml b/view/product_supplier_form.xml
+index c706b6e..1008559 100644
+--- a/trytond/trytond/modules/purchase/view/product_supplier_form.xml
++++ b/trytond/trytond/modules/purchase/view/product_supplier_form.xml
+@@ -8,8 +8,12 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="product" colspan="3"/>
+     <label name="party"/>
+     <field name="party"/>
+-    <label name="sequence"/>
+-    <field name="sequence"/>
++    <group id="sequence-active" col="-1" colspan="2">
++        <label name="sequence"/>
++        <field name="sequence"/>
++        <label name="active"/>
++        <field name="active"/>
++    </group>
+     <label name="name"/>
+     <field name="name"/>
+     <label name="code"/>

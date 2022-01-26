@@ -114,3 +114,5 @@ project_work_company_rule.diff # [project] Add company rule at project level [#0
 issue9004.diff # [product] Make product code unique
 
 # worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
+
+deactivable_product_supplier.diff # [purchase] Allow product supplier to be dactivated [#048267] Remove on 6.0
