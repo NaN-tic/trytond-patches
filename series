@@ -44,3 +44,7 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 # worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
 issue10161.diff # [sale] issue10161: Configuration of invoice_method and shipment_method at customer level. (only 6.0)
+
+issue11051.diff # [account_invoice_defer] Add default company to invoice deferred (only 6.0)
+issue11006.diff # [account_invoice_defer] Add company to on_change_invoice_line depends (only 6.0)
+issue11049.diff # [account_invoice_defer] Raise user error message for account not configured (only 6.0)
