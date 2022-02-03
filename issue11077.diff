@@ -1,0 +1,92 @@
+diff --git a/trytond/trytond/model/multivalue.py b/trytond/trytond/model/multivalue.py
+index 5cf45d4a..f3765dd6 100644
+--- a/trytond/trytond/model/multivalue.py
++++ b/trytond/trytond/model/multivalue.py
+@@ -3,6 +3,7 @@
+ from ..pool import Pool
+ from .model import Model
+ from .match import MatchMixin
++from .fields import MultiValue
+ 
+
+ class MultiValueMixin(object):
+@@ -32,7 +33,15 @@ class MultiValueMixin(object):
+                 pattern = pattern.copy()
+                 pattern[fname] = self
+                 break
+-        return Value(**pattern)
++        record = Value(**pattern)
++        for oname, ofield in self._fields.items():
++            if (oname != field
++                    and isinstance(ofield, MultiValue)
++                    and self.multivalue_model(oname) == Value):
++                func = getattr(self, 'default_%s' % oname, None)
++                if func:
++                    setattr(record, oname, func(**pattern))
++        return record
+ 
+     def __values(self, field, pattern, match_none=True):
+         Value = self.multivalue_model(field)
+diff --git a/trytond/trytond/tests/multivalue.py b/trytond/trytond/tests/multivalue.py
+index 45fb3863..f303a019 100644
+--- a/trytond/trytond/tests/multivalue.py
++++ b/trytond/trytond/tests/multivalue.py
+@@ -8,13 +8,25 @@ class ModelMultiValue(ModelSQL, MultiValueMixin):
+     "Model MultiValue"
+     __name__ = 'test.model_multivalue'
+     value = fields.MultiValue(fields.Char("Value"))
++    value_default = fields.MultiValue(fields.Char("Value Default"))
+     values = fields.One2Many(
+         'test.model_multivalue.value', 'record', "Values")
+
++    @classmethod
++    def multivalue_model(cls, field):
++        pool = Pool()
++        if field == 'value_default':
++            return pool.get('test.model_multivalue.value')
++        return super().multivalue_model(field)
++
+     @classmethod
+     def default_value(cls, **pattern):
+         return "default"
+
++    @classmethod
++    def default_value_default(cls, **pattern):
++        return "other default"
++
+
+ class ModelValue(ModelSQL, ValueMixin):
+     "Model Value"
+@@ -23,6 +35,7 @@ class ModelValue(ModelSQL, ValueMixin):
+         'test.model_multivalue', "Record")
+     condition = fields.Char("Condition")
+     value = fields.Char("Value")
++    value_default = fields.Char("Value Default")
+
+
+ def register(module):
+diff --git a/trytond/trytond/tests/test_multivalue.py b/trytond/trytond/tests/test_multivalue.py
+index 73722978..5b97232a 100644
+--- a/trytond/trytond/tests/test_multivalue.py
++++ b/trytond/trytond/tests/test_multivalue.py
+@@ -13,6 +13,20 @@ class MultiValueTestCase(unittest.TestCase):
+     def setUpClass(cls):
+         activate_module('tests')
+
++    @with_transaction()
++    def test_set_multivalue_other_default(self):
++        "Test set_multivalue with other default"
++        pool = Pool()
++        ModelMultiValue = pool.get('test.model_multivalue')
++        ModelValue = pool.get('test.model_multivalue.value')
++
++        record = ModelMultiValue()
++        record.save()
++        record.set_multivalue('value', "test")
++
++        value, = ModelValue.search([])
++        self.assertEqual(value.value_default, "other default")
++
+     @with_transaction()
+     def test_get_multivalue(self):
+         "Test get_multivalue"
