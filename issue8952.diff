@@ -1,0 +1,13 @@
+diff --git a/trytond/trytond/modules/country/scripts/import_postal_codes.py b/trytond/trytond/modules/country/scripts/import_postal_codes.py
+index 160aed5..d0b3e8e 100755
+--- a/trytond/trytond/modules/country/scripts/import_postal_codes.py
++++ b/trytond/trytond/modules/country/scripts/import_postal_codes.py
+@@ -36,7 +36,7 @@ def clean(code):
+ 
+ def fetch(code):
+     sys.stderr.write('Fetching')
+-    url = 'https://download.geonames.org/export/zip/%s.zip' % code
++    url = 'https://downloads-cdn.tryton.org/geonames/%s.zip' % code
+     responce = urlopen(url)
+     data = responce.read()
+     with zipfile.ZipFile(BytesIO(data)) as zf:
