@@ -1,0 +1,46 @@
+diff --git a/trytond/trytond/modules/account_invoice_defer/account.py b/trytond/trytond/modules/account_invoice_defer/account.py
+index 09929e7..c58e120 100644
+--- a/trytond/trytond/modules/account_invoice_defer/account.py
++++ b/trytond/trytond/modules/account_invoice_defer/account.py
+@@ -4,6 +4,7 @@
+ from trytond.i18n import gettext
+ from trytond.model import ModelSQL, ModelView, Workflow, fields, Unique
+ from trytond.model.exceptions import AccessError
++from trytond.modules.account.exceptions import AccountMissing
+ from trytond.pool import PoolMeta, Pool
+ from trytond.pyson import Eval, If
+ from trytond.transaction import Transaction
+@@ -357,9 +358,17 @@ class InvoiceDeferred(Workflow, ModelSQL, ModelView):
+         if invoice.type == 'out':
+             balance.account = configuration.get_multivalue(
+                 'deferred_account_revenue', company=self.company.id)
++            if not balance.account:
++                raise AccountMissing(gettext(
++                        'account_invoice_defer.'
++                        'msg_missing_deferred_account_revenue'))
+         else:
+             balance.account = configuration.get_multivalue(
+                 'deferred_account_expense', company=self.company.id)
++            if not balance.account:
++                raise AccountMissing(gettext(
++                        'account_invoice_defer.'
++                        'msg_missing_deferred_account_expense'))
+         balance.debit, balance.credit = income.credit, income.debit
+         if balance.account.party_required:
+             balance.party = invoice.party
+diff --git a/trytond/trytond/modules/account_invoice_defer/message.xml b/trytond/trytond/modules/account_invoice_defer/message.xml
+index cccdb09..28d1f88 100644
+--- a/trytond/trytond/modules/account_invoice_defer/message.xml
++++ b/trytond/trytond/modules/account_invoice_defer/message.xml
+@@ -12,5 +12,11 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_invoice_deferred_delete_draft">
+             <field name="text">You cannot delete invoice deferred "%(deferral)s" because it is not in "draft" state.</field>
+         </record>
++        <record model="ir.message" id="msg_missing_deferred_account_revenue">
++            <field name="text">There is no deferred account revenue configured.</field>
++        </record>
++        <record model="ir.message" id="msg_missing_deferred_account_expense">
++            <field name="text">There is no deferred account expense configured.</field>
++        </record>
+     </data>
+ </tryton>

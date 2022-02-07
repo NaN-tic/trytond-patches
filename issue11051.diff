@@ -1,0 +1,15 @@
+diff --git a/trytond/trytond/modules/account_invoice_defer/account.py b/trytond/trytond/modules/account_invoice_defer/account.py
+index 09929e7..96fd0d2 100644
+--- a/trytond/trytond/modules/account_invoice_defer/account.py
++++ b/trytond/trytond/modules/account_invoice_defer/account.py
+@@ -180,6 +180,10 @@ class InvoiceDeferred(Workflow, ModelSQL, ModelView):
+             else:
+                 self.amount = self.invoice_line.amount
+
++    @classmethod
++    def default_company(cls):
++        return Transaction().context.get('company')
++
+     @classmethod
+     def default_state(cls):
+         return 'draft'
