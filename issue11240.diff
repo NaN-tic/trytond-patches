@@ -1,0 +1,22 @@
+diff --git a/trytond/trytond/modules/account/move.py b/trytond/trytond/modules/account/move.py
+index 28ea9b8..7f7d9c6 100644
+--- a/trytond/trytond/modules/account/move.py
++++ b/trytond/trytond/modules/account/move.py
+@@ -1683,6 +1683,8 @@ class Reconcile(Wizard):
+             lines = [l for l in self.records if not l.reconciliation]
+             return list({l.account for l in lines if l.account.reconcile})
+
++        company_id = Transaction().context.get('company')
++
+         balance = line.debit - line.credit
+         cursor.execute(*line.join(account,
+                 condition=line.account == account.id)
+@@ -1690,7 +1692,7 @@ class Reconcile(Wizard):
+             .select(
+                 account.id,
+                 where=((line.reconciliation == Null) & account.reconcile
+-                    & account.id.in_(account_rule)),
++                    & account.id.in_(account_rule) & (account.company == company_id)),
+                 group_by=[account.id,
+                     account_type.receivable, account_type.payable],
+                 having=((
