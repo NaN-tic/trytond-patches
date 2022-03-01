@@ -53,3 +53,5 @@ issue11051.diff # [account_invoice_defer] Add default company to invoice deferre
 issue11049.diff # [account_invoice_defer] Raise user error message for account not configured (only 6.0)
 
 issue11240.diff # [account_invoice] Can't reconcile by wizard in multicompany - patch pendent de core
+
+issue10363.diff # [production] Remove unique product constraint on BOM
