@@ -19,7 +19,6 @@ search_warehouse.diff # [stock] search function for warehouse
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
-statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
@@ -55,3 +54,5 @@ issue11049.diff # [account_invoice_defer] Raise user error message for account n
 issue11240.diff # [account_invoice] Can't reconcile by wizard in multicompany - patch pendent de core
 
 issue10363.diff # [production] Remove unique product constraint on BOM
+
+statement_of_account.diff # [account] Cumulate balance of previous fiscal years
