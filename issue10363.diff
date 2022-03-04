@@ -1,0 +1,45 @@
+diff --git a/trytond/trytond/modules/production/bom.py b/trytond/trytond/modules/production/bom.py
+index b954951..11bb437 100644
+--- a/trytond/trytond/modules/production/bom.py
++++ b/trytond/trytond/modules/production/bom.py
+@@ -26,13 +26,15 @@ class BOM(DeactivableMixin, ModelSQL, ModelView):
+         Compute factor for an output product
+         '''
+         Uom = Pool().get('product.uom')
++        output_quantity = 0
+         for output in self.outputs:
+             if output.product == product:
+-                if not output.quantity:
+-                    return 0.0
+-                quantity = Uom.compute_qty(uom, quantity,
+-                    output.uom, round=False)
+-                return quantity / output.quantity
++                output_quantity += Uom.compute_qty(
++                    output.uom, output.quantity, uom, round=False)
++        if output_quantity:
++            return quantity / output_quantity
++        else:
++            return 0
+
+     @classmethod
+     def copy(cls, records, default=None):
+@@ -71,13 +73,12 @@ class BOMInput(ModelSQL, ModelView):
+         depends=['unit_digits'])
+
+     @classmethod
+-    def __setup__(cls):
+-        super(BOMInput, cls).__setup__()
+-        t = cls.__table__()
+-        cls._sql_constraints = [
+-            ('product_bom_uniq', Unique(t, t.product, t.bom),
+-                'production.msg_product_bom_unique'),
+-            ]
++    def __register__(cls, module):
++        super().__register__(module)
++        table_h = cls.__table_handler__(module)
++
++        # Migration from 6.0: remove unique constraint
++        table_h.drop_constraint('product_bom_uniq')
+
+     @fields.depends('product', 'uom')
+     def on_change_product(self):

@@ -120,3 +120,4 @@ deactivable_product_supplier.diff # [purchase] Allow product supplier to be dact
 issue11077.diff # [trytond] Fill Value of MultiValue with the other default values [#048483] Remove on 6.0
 
 issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6.4
+issue10363.diff # [production] Remove unique product constraint on BOM
