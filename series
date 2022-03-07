@@ -19,8 +19,6 @@ search_warehouse.diff # [stock] search function for warehouse
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
-statement_of_account.diff # [account] Cumulate balance of previous fiscal years
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
@@ -57,3 +55,7 @@ issue11240.diff # [account] Check access to select account to reconcile
 issue10363.diff # [production] Remove unique product constraint on BOM
 
 issue11252.diff # [sao] Make print button sensitive for exports even without report
+
+statement_of_account.diff # [account] Cumulate balance of previous fiscal years
+
+statement_of_account_2.diff # [account] Use from_date and to_date from context in _debit_credit_context() (pending core)

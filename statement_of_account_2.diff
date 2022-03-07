@@ -1,0 +1,27 @@
+diff --git a/account.py b/account.py
+index 6c17998..dabf92a 100644
+--- a/trytond/trytond/modules/account/account.py
++++ b/trytond/trytond/modules/account/account.py
+@@ -1837,19 +1837,16 @@ class _GeneralLedgerAccount(ActivePeriodMixin, ModelSQL, ModelView):
+ 
+     @classmethod
+     def _debit_credit_context(cls):
+-        period_ids, from_date, to_date = None, None, None
++        period_ids = None
+         context = Transaction().context
+         if context.get('start_period') or context.get('end_period'):
+             start_period_ids = set(cls.get_period_ids('start_balance'))
+             end_period_ids = set(cls.get_period_ids('end_balance'))
+             period_ids = list(end_period_ids.difference(start_period_ids))
+-        elif context.get('from_date') or context.get('end_date'):
+-            _, from_date = cls.get_dates('start_balance')
+-            _, to_date = cls.get_dates('end_balance')
+         return {
+             'periods': period_ids,
+-            'from_date': from_date,
+-            'to_date': to_date,
++            'from_date': context.get('from_date'),
++            'to_date': context.get('end_date'),
+             }
+ 
+     @classmethod
