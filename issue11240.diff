@@ -1,22 +1,34 @@
 diff --git a/trytond/trytond/modules/account/move.py b/trytond/trytond/modules/account/move.py
-index 28ea9b8..7f7d9c6 100644
+index 28ea9b8..63b4f6f 100644
 --- a/trytond/trytond/modules/account/move.py
 +++ b/trytond/trytond/modules/account/move.py
-@@ -1683,6 +1683,8 @@ class Reconcile(Wizard):
-             lines = [l for l in self.records if not l.reconciliation]
-             return list({l.account for l in lines if l.account.reconcile})
+@@ -1759,17 +1759,18 @@ class Reconcile(Wizard):
+             self.show.parties = parties
+             return party,
 
-+        company_id = Transaction().context.get('company')
+-        if getattr(self.show, 'accounts', None) is None:
+-            self.show.accounts = self.get_accounts()
+-            if not next_account():
+-                return 'end'
+-        if getattr(self.show, 'parties', None) is None:
+-            self.show.parties = self.get_parties(self.show.account)
+-
+-        while not next_party():
+-            if not next_account():
+-                return 'end'
+-        return 'show'
++        with Transaction().set_context(_check_access=True):
++            if getattr(self.show, 'accounts', None) is None:
++                self.show.accounts = self.get_accounts()
++                if not next_account():
++                    return 'end'
++            if getattr(self.show, 'parties', None) is None:
++                self.show.parties = self.get_parties(self.show.account)
 +
-         balance = line.debit - line.credit
-         cursor.execute(*line.join(account,
-                 condition=line.account == account.id)
-@@ -1690,7 +1692,7 @@ class Reconcile(Wizard):
-             .select(
-                 account.id,
-                 where=((line.reconciliation == Null) & account.reconcile
--                    & account.id.in_(account_rule)),
-+                    & account.id.in_(account_rule) & (account.company == company_id)),
-                 group_by=[account.id,
-                     account_type.receivable, account_type.payable],
-                 having=((
++            while not next_party():
++                if not next_account():
++                    return 'end'
++            return 'show'
+
+     def default_show(self, fields):
+         pool = Pool()
