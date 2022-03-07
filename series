@@ -55,3 +55,5 @@ issue11049.diff # [account_invoice_defer] Raise user error message for account n
 issue11240.diff # [account] Check access to select account to reconcile
 
 issue10363.diff # [production] Remove unique product constraint on BOM
+
+issue11252.diff # [sao] Make print button sensitive for exports even without report
