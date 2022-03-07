@@ -17,8 +17,6 @@ search_warehouse.diff # [stock] search function for warehouse
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
 
-statement_of_account.diff # [account] Cumulate balance of previous fiscal years
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
@@ -32,3 +30,7 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
 issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6.4
+
+statement_of_account.diff # [account] Cumulate balance of previous fiscal years
+
+statement_of_account_2.diff # [account] Use from_date and to_date from context in _debit_credit_context() (pending core)

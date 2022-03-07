@@ -1,37 +1,41 @@
-diff -r 62f81d7eb78b account.py
---- a/trytond/trytond/modules/account/account.py	Fri Jul 07 10:04:01 2017 +0200
-+++ b/trytond/trytond/modules/account/account.py	Fri Jul 07 10:30:29 2017 +0200
-@@ -2009,7 +2009,7 @@
+diff --git a/account.py b/account.py
+index 6c17998..e463b58 100644
+--- a/trytond/trytond/modules/account/account.py
++++ b/trytond/trytond/modules/account/account.py
+@@ -1917,14 +1917,15 @@ class GeneralLedgerAccountContext(ModelView):
+     'General Ledger Account Context'
+     __name__ = 'account.general_ledger.account.context'
+     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+-        required=True)
++        required=False)
+     start_period = fields.Many2One('account.period', 'Start Period',
+         domain=[
+             ('fiscalyear', '=', Eval('fiscalyear')),
+             ('start_date', '<=', (Eval('end_period'), 'start_date')),
+             ],
+         states={
+-            'invisible': Eval('from_date', False) | Eval('to_date', False),
++            'invisible': (Eval('from_date', False) | Eval('to_date', False)
++                | ~Eval('fiscalyear', False)),
+             },
+         depends=['fiscalyear', 'end_period', 'from_date', 'to_date'])
+     end_period = fields.Many2One('account.period', 'End Period',
+@@ -1933,7 +1934,8 @@ class GeneralLedgerAccountContext(ModelView):
+             ('start_date', '>=', (Eval('start_period'), 'start_date'))
+             ],
+         states={
+-            'invisible': Eval('from_date', False) | Eval('to_date', False),
++            'invisible': (Eval('from_date', False) | Eval('to_date', False)
++                | ~Eval('fiscalyear', False)),
+             },
+         depends=['fiscalyear', 'start_period', 'from_date', 'to_date'])
+     from_date = fields.Date("From Date",
+@@ -2145,7 +2147,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
          cls.__access__.add('account')
 -        cls._order.insert(0, ('date', 'ASC'))
 +        cls._order = [('date', 'DESC'), ('id', 'DESC')]
-
+ 
      @classmethod
      def table_query(cls):
-@@ -2057,7 +2057,7 @@
-             line_query, fiscalyear_ids = Line.query_get(line)
-         return line.join(move, condition=line.move == move.id
-             ).join(account, condition=line.account == account.id
--                ).select(*columns, where=line_query)
-+                ).select(*columns)
-
-     def get_party_required(self, name):
-         return self.account.party_required
-diff -r 62f81d7eb78b view/general_ledger_line_context_form.xml
---- a/trytond/trytond/modules/account/view/general_ledger_line_context_form.xml	Fri Jul 07 10:04:01 2017 +0200
-+++ b/trytond/trytond/modules/account/view/general_ledger_line_context_form.xml	Fri Jul 07 10:30:29 2017 +0200
-@@ -6,4 +6,12 @@
-         <label name="party_cumulate"/>
-         <field name="party_cumulate"/>
-     </xpath>
-+    <xpath expr="/form/field[@name='fiscalyear']" position="replace"/>
-+    <xpath expr="/form/label[@name='fiscalyear']" position="replace"/>
-+    <xpath expr="/form/field[@name='company']" position="replace"/>
-+    <xpath expr="/form/label[@name='company']" position="replace"/>
-+    <xpath expr="/form/field[@name='start_period']" position="replace"/>
-+    <xpath expr="/form/label[@name='start_period']" position="replace"/>
-+    <xpath expr="/form/field[@name='end_period']" position="replace"/>
-+    <xpath expr="/form/label[@name='end_period']" position="replace"/>
- </data>
