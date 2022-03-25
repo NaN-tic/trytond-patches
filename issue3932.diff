@@ -14,7 +14,7 @@ diff -r d5e2bdf73e16 account.xml
 +        </record>
 +        <record model="ir.rule" id="rule_account_journal_period">
 +            <field name="domain"
-+                eval="[('period.company', '=', Eval('user', {}).get('company', None))]"
++                eval="[('period.company', 'in', Eval('companies', []))]"
 +                pyson="1"/>
 +            <field name="rule_group" ref="rule_group_account_journal_period"/>
 +        </record>
@@ -40,7 +40,7 @@ diff -r d5e2bdf73e16 move.xml
 +        </record>
 +        <record model="ir.rule" id="rule_account_move1">
 +            <field name="domain"
-+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
++                eval="[('company', 'in', Eval('companies', []))]"
 +                pyson="1"/>
 +            <field name="rule_group" ref="rule_group_account_move"/>
 +        </record>
@@ -52,7 +52,7 @@ diff -r d5e2bdf73e16 move.xml
 +        </record>
 +        <record model="ir.rule" id="rule_account_move_line1">
 +            <field name="domain"
-+                eval="[('move.company', '=', Eval('user', {}).get('company', None))]"
++                eval="[('move.company', 'in', Eval('companies', []))]"
 +                pyson="1"/>
 +            <field name="rule_group" ref="rule_group_account_move_line"/>
 +        </record>

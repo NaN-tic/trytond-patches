@@ -13,7 +13,7 @@ diff -r 80d34e8f57a0 trytond/trytond/modules/account_invoice/invoice.xml
 +        </record>
 +        <record model="ir.rule" id="rule_invoice_payment_method1">
 +            <field name="domain"
-+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
++                eval="[('company', 'in', Eval('companies', []))]"
 +                pyson="1"/>
 +            <field name="rule_group" ref="rule_group_invoice_payment_method"/>
 +        </record>
