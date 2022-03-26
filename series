@@ -52,8 +52,6 @@ issue11049.diff # [account_invoice_defer] Raise user error message for account n
 
 issue10363.diff # [production] Remove unique product constraint on BOM
 
-issue11252.diff # [sao] Make print button sensitive for exports even without report
-
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 statement_of_account_2.diff # [account] Use from_date and to_date from context in _debit_credit_context() (pending core)
