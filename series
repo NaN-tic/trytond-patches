@@ -50,8 +50,6 @@ issue11181.diff # [stock] Require unit price also for view location like for sto
 issue11051.diff # [account_invoice_defer] Add default company to invoice deferred (only 6.0)
 issue11049.diff # [account_invoice_defer] Raise user error message for account not configured (only 6.0)
 
-issue11240.diff # [account] Check access to select account to reconcile
-
 issue10363.diff # [production] Remove unique product constraint on BOM
 
 issue11252.diff # [sao] Make print button sensitive for exports even without report
