@@ -57,3 +57,4 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 statement_of_account_2.diff # [account] Use from_date and to_date from context in _debit_credit_context() (pending core)
 
 issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invocie module and the account_invoice_defer module (only 6.0)
+issue11359.diff # [product_price_list_dates] add date in pattern to match price list
