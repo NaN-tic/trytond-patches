@@ -58,3 +58,4 @@ statement_of_account_2.diff # [account] Use from_date and to_date from context i
 
 issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invocie module and the account_invoice_defer module (only 6.0)
 issue11359.diff # [product_price_list_dates] add date in pattern to match price list
+issue11294.diff # [analytic_account, analytic_invoice, analytic_sale, analytic_purchase]
