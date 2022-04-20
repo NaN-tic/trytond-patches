@@ -33,4 +33,3 @@ issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
-statement_of_account_2.diff # [account] Use from_date and to_date from context in _debit_credit_context() (pending core)
