@@ -1,0 +1,133 @@
+# HG changeset patch
+# User Juanjo Garcia <juanjo.garcia@nan-tic.com>
+#Handle errors in move template expression
+
+#issue11000
+#review354381002
+
+Index: 5.4/trytond/trytond/modules/account/exceptions.py
+===================================================================
+--- 5.4.orig/trytond/trytond/modules/account/exceptions.py
++++ 5.4/trytond/trytond/modules/account/exceptions.py
+@@ -69,6 +69,10 @@ class MoveDatesError(ValidationError):
+     pass
+ 
+ 
++class MoveTemplateExpressionError(UserError):
++    pass
++
++
+ class CancelWarning(UserWarning):
+     pass
+ 
+Index: 5.4/trytond/trytond/modules/account/message.xml
+===================================================================
+--- 5.4.orig/trytond/trytond/modules/account/message.xml
++++ 5.4/trytond/trytond/modules/account/message.xml
+@@ -121,6 +121,14 @@ this repository contains the full copyri
+ Use the current period to cancel the move?</field>
+         </record>
+ 
++        <record model="ir.message" id="msg_move_template_invalid_expression">
++            <field name="text">Failed to evaluate expression "%(expression)s" from template "%(template)s" with error:
++"%(error)s"</field>
++        </record>
++        <record model="ir.message" id="msg_move_template_expession_not_number">
++            <field name="text">The value "%(value)s" of "%(expression)s" from template "%(template)s" is not a number.</field>
++        </record>
++
+         <record model="ir.message" id="msg_write_reconciliation">
+             <field name="text">You cannot modify any reconciliation.</field>
+         </record>
+Index: 5.4/trytond/trytond/modules/account/move_template.py
+===================================================================
+--- 5.4.orig/trytond/trytond/modules/account/move_template.py
++++ 5.4/trytond/trytond/modules/account/move_template.py
+@@ -3,8 +3,9 @@
+ from xml.sax.saxutils import quoteattr
+ from decimal import Decimal
+ 
+-from simpleeval import simple_eval
++from simpleeval import InvalidExpression, simple_eval
+ 
++from trytond.i18n import gettext
+ from trytond.model import (
+     ModelSQL, ModelView, DeactivableMixin, fields, sequence_ordered)
+ from trytond.pyson import Eval
+@@ -18,6 +19,8 @@ __all__ = ['MoveTemplate', 'MoveTemplate
+     'MoveLineTemplate', 'TaxLineTemplate',
+     'CreateMove', 'CreateMoveTemplate', 'CreateMoveKeywords']
+ 
++from .exceptions import MoveTemplateExpressionError
++
+ 
+ class MoveTemplate(DeactivableMixin, ModelSQL, ModelView):
+     'Account Move Template'
+@@ -190,8 +193,23 @@ class MoveLineTemplate(ModelSQL, ModelVi
+         Keyword = pool.get('account.move.template.keyword')
+ 
+         line = Line()
+-        amount = simple_eval(decistmt(self.amount),
+-            functions={'Decimal': Decimal}, names=values)
++        try:
++            amount = simple_eval(decistmt(self.amount),
++                functions={'Decimal': Decimal}, names=values)
++        except InvalidExpression as e:
++            raise MoveTemplateExpressionError(
++                gettext('account.msg_move_template_invalid_expression',
++                    expression=values,
++                    template=self.move.rec_name,
++                    error=e)) from e
++
++        if not isinstance(amount, Decimal):
++            raise MoveTemplateExpressionError(
++                gettext('account.msg_move_template_expession_not_number',
++                    value=amount,
++                    expression=self.move.name,
++                    template=self.move.rec_name))
++
+         amount = self.move.company.currency.round(amount)
+         if self.operation == 'debit':
+             line.debit = amount
+@@ -201,8 +219,15 @@ class MoveLineTemplate(ModelSQL, ModelVi
+         if self.party:
+             line.party = values.get(self.party)
+         if self.description:
+-            line.description = self.description.format(
+-                **dict(Keyword.format_values(self.move, values)))
++            try:
++                line.description = self.description.format(
++                    **dict(Keyword.format_values(self.move, values)))
++            except KeyError as e:
++                raise MoveTemplateExpressionError(
++                    gettext('account.msg_move_template_invalid_expression',
++                        expression=values,
++                        template=self.move.name,
++                        error=e)) from e
+         line.tax_lines = [t.get_line(values) for t in self.taxes]
+ 
+         return line
+@@ -240,8 +265,21 @@ class TaxLineTemplate(ModelSQL, ModelVie
+         TaxLine = pool.get('account.tax.line')
+ 
+         line = TaxLine()
+-        amount = simple_eval(decistmt(self.amount),
+-            functions={'Decimal': Decimal}, names=values)
++        try:
++            amount = simple_eval(decistmt(self.amount),
++                functions={'Decimal': Decimal}, names=values)
++        except InvalidExpression as e:
++            raise MoveTemplateExpressionError(
++                gettext('account.msg_template_invalid_expression',
++                    expression=values,
++                    template=self.line.rec_name,
++                    error=e)) from e
++
++        if not isinstance(amount, Decimal):
++            raise MoveTemplateExpressionError(
++                gettext('account.msg_not_number',
++                    result=amount,
++                    expression=self.move.rec_name))
+         amount = self.line.move.company.currency.round(amount)
+         line.amount = amount
+         line.type = self.type
