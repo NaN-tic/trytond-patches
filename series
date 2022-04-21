@@ -1,5 +1,4 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
-trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
@@ -15,21 +14,16 @@ issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
-issue8702.diff # [stock_supply_forecast] Support production forecast
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
-
-issue10464.diff # [currency] Update currency rates fails
 
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
-
-issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6.4
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 

@@ -1,8 +1,8 @@
 diff --git a/account.py b/account.py
-index 6c17998..e463b58 100644
+index fd58736..62c3e6f 100644
 --- a/trytond/trytond/modules/account/account.py
 +++ b/trytond/trytond/modules/account/account.py
-@@ -1917,14 +1917,15 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2035,14 +2035,15 @@ class GeneralLedgerAccountContext(ModelView):
      'General Ledger Account Context'
      __name__ = 'account.general_ledger.account.context'
      fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
@@ -16,21 +16,21 @@ index 6c17998..e463b58 100644
          states={
 -            'invisible': Eval('from_date', False) | Eval('to_date', False),
 +            'invisible': (Eval('from_date', False) | Eval('to_date', False)
-+                | ~Eval('fiscalyear', False)),
-             },
-         depends=['fiscalyear', 'end_period', 'from_date', 'to_date'])
++                | ~Eval('fiscalyear', False))
+             })
      end_period = fields.Many2One('account.period', 'End Period',
-@@ -1933,7 +1934,8 @@ class GeneralLedgerAccountContext(ModelView):
+         domain=[
+@@ -2050,7 +2051,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '>=', (Eval('start_period'), 'start_date'))
              ],
          states={
 -            'invisible': Eval('from_date', False) | Eval('to_date', False),
 +            'invisible': (Eval('from_date', False) | Eval('to_date', False)
-+                | ~Eval('fiscalyear', False)),
-             },
-         depends=['fiscalyear', 'start_period', 'from_date', 'to_date'])
++                | ~Eval('fiscalyear', False))
+             })
      from_date = fields.Date("From Date",
-@@ -2145,7 +2147,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+         domain=[
+@@ -2252,7 +2254,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
          cls.__access__.add('account')

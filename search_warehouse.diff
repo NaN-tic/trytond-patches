@@ -1,19 +1,20 @@
-diff -r 78ac887c5b7f location.py
---- a/trytond/trytond/modules/stock/location.py	Tue Jun 12 16:16:43 2018 +0200
-+++ b/trytond/trytond/modules/stock/location.py	Tue Jun 12 16:19:53 2018 +0200
-@@ -59,7 +59,7 @@
-         "Flat Children",
-         help="Check to restrict to one level of children.")
+diff --git a/location.py b/location.py
+index 87104cf..3d89bdb 100644
+--- a/trytond/trytond/modules/stock/location.py
++++ b/trytond/trytond/modules/stock/location.py
+@@ -72,7 +72,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
+         help="Check to enforce a single level of children with no "
+         "grandchildren.")
      warehouse = fields.Function(fields.Many2One('stock.location', 'Warehouse'),
 -        'get_warehouse')
 +        'get_warehouse', searcher='search_warehouse')
      input_location = fields.Many2One(
          "stock.location", "Input", states={
              'invisible': Eval('type') != 'warehouse',
-@@ -195,6 +195,27 @@
+@@ -234,6 +234,27 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
                  inactives.append(location)
          cls.check_inactive(inactives)
-
+ 
 +    @classmethod
 +    def search_warehouse(cls, name, clause):
 +        warehouse_child_locations = cls.search([
@@ -35,6 +36,6 @@ diff -r 78ac887c5b7f location.py
 +                warehouse_location_ids.append(location.id)
 +        return [('id', 'in', warehouse_location_ids)]
 +
-     def check_type_for_moves(self):
+     def check_type_for_moves(self, field_names=None):
          """ Check locations with moves have types compatible with moves. """
-         invalid_move_types = ['warehouse', 'view']
+         pool = Pool()

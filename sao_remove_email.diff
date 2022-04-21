@@ -1,8 +1,8 @@
 diff --git a/sao/src/sao.js b/sao/src/sao.js
-index 242fa32..cb817dc 100644
+index 05d86252..fcedb792 100644
 --- a/sao/src/sao.js
 +++ b/sao/src/sao.js
-@@ -1050,10 +1050,6 @@ var Sao = {};
+@@ -1081,10 +1081,6 @@ var Sao = {};
                  shortcut: 'ctrl+p',
                  label: Sao.i18n.gettext('Print'),
                  id: 'print',
@@ -13,8 +13,8 @@ index 242fa32..cb817dc 100644
              }, {
                  shortcut: 'alt+shift+tab',
                  label: Sao.i18n.gettext('Previous tab'),
-diff --git a/sao/src/tab.js b/sao/src/tab.js
-index d1010ca..7b65bbd 100644
+diff --git a/src/tab.js b/src/tab.js
+index f9186bc9..47987500 100644
 --- a/sao/src/tab.js
 +++ b/sao/src/tab.js
 @@ -91,11 +91,6 @@
@@ -29,16 +29,16 @@ index d1010ca..7b65bbd 100644
                  }, null, {
                      id: 'export',
                      icon: 'tryton-export',
-@@ -522,7 +517,7 @@
+@@ -533,7 +528,7 @@
                      Sao.i18n.gettext('Open related records')],
                  ['print', 'tryton-print',
                      Sao.i18n.gettext('Print report')]
--            ].forEach(function(menu_action) {
-+            ].reverse().forEach(function(menu_action) {
+-            ].forEach(menu_action => {
++            ].reverse().forEach(menu_action => {
                  var dropdown = jQuery('<div/>', {
                      'class': 'btn-group dropdown',
                      'role': 'group'
-@@ -548,7 +543,7 @@
+@@ -559,7 +554,7 @@
                          'role': 'menu',
                          'aria-labelledby': menu_action[0]
                      }))
@@ -47,12 +47,12 @@ index d1010ca..7b65bbd 100644
                  var button = dropdown.find('button');
                  this.buttons[menu_action[0]] = button;
                  dropdown
-@@ -1453,7 +1448,7 @@
-                 if (data[0] !== 0) {
-                     name = data[0];
+@@ -1465,7 +1460,7 @@
+                     name += '#' + selected;
                  }
--                var buttons = ['print', 'relate', 'email', 'save', 'attach'];
-+                var buttons = ['print', 'relate', 'save', 'attach'];
-                 buttons.forEach(function(button_id){
-                     var button = this.buttons[button_id];
-                     var can_be_sensitive = button._can_be_sensitive;
+             }
+-            var buttons = ['print', 'relate', 'email', 'save', 'attach'];
++            var buttons = ['print', 'relate', 'save', 'attach'];
+             for (const button_id of buttons) {
+                 const button = this.buttons[button_id];
+                 let can_be_sensitive = button._can_be_sensitive;
