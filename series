@@ -56,3 +56,5 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invocie module and the account_invoice_defer module (only 6.0)
 issue11359.diff # [product_price_list_dates] add date in pattern to match price list
+
+issue11427.diff # [account_stock_continental] Try to use effective date of stock move for accounting
