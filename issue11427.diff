@@ -6,7 +6,7 @@ index 6d831ce..e13a83f 100644
          if self.product.type != 'goods':
              return
  
--        date = Date.today()
+-        date = self.effective_date or Date.today()
 -        period_id = Period.find(self.company.id, date=date)
 +        today = Date.today()
 +        for date in [self.effective_date, today]:
