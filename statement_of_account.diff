@@ -1,26 +1,27 @@
 diff --git a/account.py b/account.py
-index 6c17998..e463b58 100644
+index c06ccdd..b1182d3 100644
 --- a/trytond/trytond/modules/account/account.py
 +++ b/trytond/trytond/modules/account/account.py
-@@ -1917,14 +1917,15 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -1917,7 +1917,7 @@ class GeneralLedgerAccountContext(ModelView):
      'General Ledger Account Context'
      __name__ = 'account.general_ledger.account.context'
      fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
--        required=True)
-+        required=False)
-     start_period = fields.Many2One('account.period', 'Start Period',
+-        required=True,
++        required=False,
          domain=[
-             ('fiscalyear', '=', Eval('fiscalyear')),
+             ('company', '=', Eval('company')),
+             ],
+@@ -1928,7 +1928,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '<=', (Eval('end_period'), 'start_date')),
              ],
          states={
 -            'invisible': Eval('from_date', False) | Eval('to_date', False),
 +            'invisible': (Eval('from_date', False) | Eval('to_date', False)
-+                | ~Eval('fiscalyear', False)),
++                | ~Eval('fiscalyear', False))
              },
          depends=['fiscalyear', 'end_period', 'from_date', 'to_date'])
      end_period = fields.Many2One('account.period', 'End Period',
-@@ -1933,7 +1934,8 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -1937,7 +1938,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '>=', (Eval('start_period'), 'start_date'))
              ],
          states={
@@ -30,7 +31,7 @@ index 6c17998..e463b58 100644
              },
          depends=['fiscalyear', 'start_period', 'from_date', 'to_date'])
      from_date = fields.Date("From Date",
-@@ -2145,7 +2147,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+@@ -2155,7 +2157,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
          cls.__access__.add('account')
