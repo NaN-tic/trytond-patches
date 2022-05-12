@@ -1,16 +1,17 @@
 diff --git a/account.py b/account.py
-index fd58736..62c3e6f 100644
+index 974a027..60b320f 100644
 --- a/trytond/trytond/modules/account/account.py
-+++ b/trytond/trytond/modules/account/account.py
-@@ -2035,14 +2035,15 @@ class GeneralLedgerAccountContext(ModelView):
++++ a/trytond/trytond/modules/account/account.py
+@@ -2035,7 +2035,7 @@ class GeneralLedgerAccountContext(ModelView):
      'General Ledger Account Context'
      __name__ = 'account.general_ledger.account.context'
      fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
--        required=True)
-+        required=False)
-     start_period = fields.Many2One('account.period', 'Start Period',
+-        required=True,
++        required=False,
          domain=[
-             ('fiscalyear', '=', Eval('fiscalyear')),
+             ('company', '=', Eval('company')),
+             ],
+@@ -2046,7 +2046,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '<=', (Eval('end_period'), 'start_date')),
              ],
          states={
@@ -20,7 +21,7 @@ index fd58736..62c3e6f 100644
              })
      end_period = fields.Many2One('account.period', 'End Period',
          domain=[
-@@ -2050,7 +2051,8 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2054,7 +2055,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '>=', (Eval('start_period'), 'start_date'))
              ],
          states={
@@ -30,7 +31,7 @@ index fd58736..62c3e6f 100644
              })
      from_date = fields.Date("From Date",
          domain=[
-@@ -2252,7 +2254,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+@@ -2262,7 +2264,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
          cls.__access__.add('account')
