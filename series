@@ -2,6 +2,9 @@ babi_multiprocess.diff # [trytond] babi multiprocess
 trytond_test_database.diff # [trytond] avoid errors on upgrades from version 3.4
 issue10794.diff # [trytond] Add test on domain of relation fields
 issue10794_modules.diff # [modules] Add test on domain of relation fields
+model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
+# worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
+issue11077.diff # [trytond] Fill Value of MultiValue with the other default values
 
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
@@ -18,8 +21,6 @@ search_warehouse.diff # [stock] search function for warehouse
 
 issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
 issue8702.diff # [stock_supply_forecast] Support production forecast
-
-model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9797.diff # [account_payment_sepa] Slowness processing sepa
 
@@ -39,8 +40,6 @@ commission_menu_group.diff # [commission] Creates ir.ui.menu-res.group record fo
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
-# worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
-
 issue10161.diff # [sale] issue10161: Configuration of invoice_method and shipment_method at customer level. (only 6.0)
 
 issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6.4
@@ -56,4 +55,3 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invocie module and the account_invoice_defer module (only 6.0)
 issue11359.diff # [product_price_list_dates] add date in pattern to match price list
-
