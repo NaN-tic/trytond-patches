@@ -1,0 +1,13 @@
+diff --git a/sao/src/view/form.js b/sao/src/view/form.js
+index 010a4c06..b0322469 100644
+--- a/sao/src/view/form.js
++++ b/sao/src/view/form.js
+@@ -553,7 +553,7 @@ function eval_pyson(value){
+             var has_expand = false;
+             var i, j;
+
+-            var parent_max_width = 0.9;
++            var parent_max_width = 0.75;
+             this.el.parents('td').each(function() {
+                 var width = this.style.width;
+                 if (width.endsWith('%')) {
