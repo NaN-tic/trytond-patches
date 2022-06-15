@@ -122,3 +122,4 @@ issue11077.diff # [trytond] Fill Value of MultiValue with the other default valu
 issue8952.diff # [country] Use Tryton's CDN to download postal codes Remove on 6.4
 issue10363.diff # [production] Remove unique product constraint on BOM
 issue11000.diff # [account]
+issue11198.diff # [bank] Fill or create bank from IBAN and enforce uniqueness
