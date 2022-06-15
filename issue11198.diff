@@ -1,0 +1,51 @@
+diff --git a/trytond/trytond/modules/bank/bank.py b/trytond/trytond/modules/bank/bank.py
+index 04f6e3d..7bc6601 100644
+--- a/trytond/trytond/modules/bank/bank.py
++++ b/trytond/trytond/modules/bank/bank.py
+@@ -3,10 +3,11 @@
+ from stdnum import iban, bic
+ import stdnum.exceptions
+ from sql import operators, Literal
++from sql.operators import Equal
+
+ from trytond.i18n import gettext
+ from trytond.model import (
+-    ModelView, ModelSQL, DeactivableMixin, fields, sequence_ordered)
++    Exclude, ModelView, ModelSQL, DeactivableMixin, fields, sequence_ordered)
+
+ from .exceptions import IBANValidationError, InvalidBIC
+
+@@ -96,6 +97,17 @@ class AccountNumber(sequence_ordered(), ModelSQL, ModelView):
+         super().__setup__()
+         cls.__access__.add('account')
+         cls._order.insert(0, ('account', 'ASC'))
++        table = cls.__table__()
++        cls._sql_constraints += [
++            ('number_iban_exclude',
++                Exclude(table, (table.number_compact, Equal),
++                    where=table.type == 'iban'),
++                'bank.msg_number_iban_unique'),
++            ('account_iban_exclude',
++                Exclude(table, (table.account, Equal),
++                    where=table.type == 'iban'),
++                'bank.msg_account_iban_unique'),
++            ]
+
+     @classmethod
+     def default_type(cls):
+diff --git a/trytond/trytond/modules/bank/message.xml b/trytond/trytond/modules/bank/message.xml
+index a06297f..f4ab923 100644
+--- a/trytond/trytond/modules/bank/message.xml
++++ b/trytond/trytond/modules/bank/message.xml
+@@ -9,5 +9,11 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_invalid_bic">
+             <field name="text">The BIC "%(bic)s" is not valid.</field>
+         </record>
++        <record model="ir.message" id="msg_account_iban_unique">
++            <field name="text">Account can have only one IBAN.</field>
++        </record>
++        <record model="ir.message" id="msg_number_iban_unique">
++            <field name="text">IBAN must be unique.</field>
++        </record>
+     </data>
+ </tryton>
