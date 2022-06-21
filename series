@@ -57,3 +57,5 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invocie module and the account_invoice_defer module (only 6.0)
 issue11359.diff # [product_price_list_dates] add date in pattern to match price list
 # issue11198.diff # [bank] Fill or create bank from IBAN and enforce uniqueness
+
+issue4440.diff # [party_relationship] Add start and end dates to relation
