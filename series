@@ -59,3 +59,5 @@ issue11359.diff # [product_price_list_dates] add date in pattern to match price 
 # issue11198.diff # [bank] Fill or create bank from IBAN and enforce uniqueness
 
 issue4440.diff # [party_relationship] Add start and end dates to relation
+
+issue11499.diff # [sao] Set FractionDigits options to format CSV to locale
