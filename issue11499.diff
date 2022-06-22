@@ -1,0 +1,16 @@
+diff --git a/sao/src/window.js b/sao/src/window.js
+index d6076f1..ff0b66f 100644
+--- a/sao/src/window.js
++++ b/sao/src/window.js
+@@ -1825,7 +1825,10 @@
+                     val = val.format(Sao.common.date_format());
+                 } else if (!isNaN(Number(val))) {
+                     val = val.toLocaleString(
+-                        Sao.i18n.BC47(Sao.i18n.getlang()));
++                        Sao.i18n.BC47(Sao.i18n.getlang()), {
++                            'minimumFractionDigits': 0,
++                            'maximumFractionDigits': 20,
++                        });
+                 }
+             } else if (typeof(val) == 'boolean') {
+                 val += 0;
