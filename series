@@ -58,3 +58,5 @@ issue11306.diff # [analytic_invocie] Add compatibility between the analytic_invo
 # issue11198.diff # [bank] Fill or create bank from IBAN and enforce uniqueness
 
 issue4440.diff # [party_relationship] Add start and end dates to relation
+
+issue10532.diff # [stock_supply + stock_supply_production] Add warehouses selection to supply stock wizard

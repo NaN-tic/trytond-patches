@@ -1,0 +1,120 @@
+diff --git a/trytond/trytond/modules/stock_supply/shipment.py b/trytond/trytond/modules/stock_supply/shipment.py
+index f033fab..5c1d40b 100644
+--- a/trytond/trytond/modules/stock_supply/shipment.py
++++ b/trytond/trytond/modules/stock_supply/shipment.py
+@@ -11,7 +11,7 @@ class ShipmentInternal(ModelSQL, ModelView):
+     __name__ = 'stock.shipment.internal'
+
+     @classmethod
+-    def generate_internal_shipment(cls, clean=True):
++    def generate_internal_shipment(cls, clean=True, warehouses=None):
+         """
+         Generate internal shipments to meet order points defined on
+         non-warehouse location.
+@@ -27,6 +27,11 @@ class ShipmentInternal(ModelSQL, ModelView):
+         Move = pool.get('stock.move')
+         LeadTime = pool.get('stock.location.lead_time')
+
++        if warehouses is None:
++            warehouses = Location.search([
++                    ('type', '=', 'warehouse'),
++                    ])
++
+         user_record = User(Transaction().user)
+         today = Date.today()
+         lead_time = LeadTime.get_max_lead_time()
+@@ -41,6 +46,8 @@ class ShipmentInternal(ModelSQL, ModelView):
+         order_points = OrderPoint.search([
+             ('type', '=', 'internal'),
+             ])
++        order_points = [
++            op for op in order_points if op.location.warehouse in warehouses]
+         id2product = {}
+         product2op = {}
+         id2location = {}
+diff --git a/trytond/trytond/modules/stock_supply/stock.py b/trytond/trytond/modules/stock_supply/stock.py
+index a5614d5..25a7311 100644
+--- a/trytond/trytond/modules/stock_supply/stock.py
++++ b/trytond/trytond/modules/stock_supply/stock.py
+@@ -2,7 +2,7 @@
+ # this repository contains the full copyright notices and license terms.
+ from trytond.i18n import gettext
+ from trytond.pool import Pool
+-from trytond.model import ModelView
++from trytond.model import ModelView, fields
+ from trytond.transaction import Transaction
+ from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
+     Button)
+@@ -91,14 +91,24 @@ class Supply(Wizard):
+     def generate_internal(self, clean):
+         pool = Pool()
+         ShipmentInternal = pool.get('stock.shipment.internal')
+-        return ShipmentInternal.generate_internal_shipment(clean=clean)
++        # Use getattr because start is empty when run by cron
++        if getattr(self.start, 'warehouses', None):
++            warehouses = self.start.warehouses
++        else:
++            warehouses = None
++        return ShipmentInternal.generate_internal_shipment(
++            clean=clean, warehouses=warehouses)
+
+     def transition_internal(self):
+         return self.next_action('internal')
+
+     @property
+     def _purchase_parameters(self):
+-        return {}
++        parameters = {}
++        # Use getattr because start is empty when run by cron
++        if getattr(self.start, 'warehouses', None):
++            parameters['warehouses'] = self.start.warehouses
++        return parameters
+
+     def generate_purchase(self, clean):
+         pool = Pool()
+@@ -113,3 +123,18 @@ class Supply(Wizard):
+ class SupplyStart(ModelView):
+     "Supply Stock"
+     __name__ = 'stock.supply.start'
++
++    warehouses = fields.Many2Many(
++        'stock.location', None, None, "Warehouses",
++        domain=[
++            ('type', '=', 'warehouse'),
++            ],
++        help="If empty all warehouses are used.")
++
++    @classmethod
++    def default_warehouses(cls):
++        pool = Pool()
++        Location = pool.get('stock.location')
++        warehouse = Location.get_default_warehouse()
++        if warehouse:
++            return [warehouse]
+diff --git a/trytond/trytond/modules/stock_supply/view/supply_start_form.xml b/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
+index d5d4cf9..b731024 100644
+--- a/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
++++ b/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
+@@ -5,4 +5,5 @@ this repository contains the full copyright notices and license terms. -->
+     <image name="tryton-question" xexpand="0" xfill="0"/>
+     <label string="Supply Stock?" id="supply"
+         yalign="0.0" xalign="0.0" xexpand="1"/>
++    <field name="warehouses" colspan="2"/>
+ </form>
+diff --git a/trytond/trytond/modules/stock_supply_production/stock.py b/trytond/trytond/modules/stock_supply_production/stock.py
+index b7bc045..bf4fa32 100644
+--- a/trytond/trytond/modules/stock_supply_production/stock.py
++++ b/trytond/trytond/modules/stock_supply_production/stock.py
+@@ -95,7 +95,11 @@ class StockSupply(metaclass=PoolMeta):
+
+     @property
+     def _production_parameters(self):
+-        return {}
++        parameters = {}
++        # Use getattr because start is empty when run by cron
++        if getattr(self.start, 'warehouses', None):
++            parameters['warehouses'] = self.start.warehouses
++        return parameters
+
+     def generate_production(self, clean):
+         pool = Pool()
