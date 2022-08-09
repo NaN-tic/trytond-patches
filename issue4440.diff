@@ -105,10 +105,27 @@ diff --git a/trytond/trytond/modules/party_relationship/view/relation_form.xml b
 index 2c1cddd..d3a9045 100644
 --- a/trytond/trytond/modules/party_relationship/view/relation_form.xml
 +++ b/trytond/trytond/modules/party_relationship/view/relation_form.xml
-@@ -8,4 +8,8 @@ this repository contains the full copyright notices and license terms. -->
-     <field name="type"/>
-     <label name="to"/>
-     <field name="to"/>
+@@ -1,11 +1,18 @@
+ <?xml version="1.0"?>
+ <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+ this repository contains the full copyright notices and license terms. -->
+-<form col="6">
+-    <label name="from_"/>
+-    <field name="from_"/>
+-    <label name="type"/>
+-    <field name="type"/>
+-    <label name="to"/>
+-    <field name="to"/>
++<form col="4">
++    <group col="6" colspan="4" id="relation">
++        <label name="from_"/>
++        <field name="from_"/>
++        <label name="type"/>
++        <field name="type" widget="selection"/>
++        <label name="to"/>
++        <field name="to"/>
++    </group>
++
 +    <label name="start_date"/>
 +    <field name="start_date"/>
 +    <label name="end_date"/>
