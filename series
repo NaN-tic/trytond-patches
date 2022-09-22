@@ -60,3 +60,4 @@ issue4440.diff # [party_relationship] Add start and end dates to relation
 issue10532.diff # [stock_supply + stock_supply_production] Add warehouses selection to supply stock wizard
 
 issue11181.diff # [stock] Require unit price also for view location like for storage (only 6.0)
+issue11702.diff # [stock] Exclude cancelled moves in product quantities by warehouse move)
