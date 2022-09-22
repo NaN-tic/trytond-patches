@@ -18,6 +18,7 @@ issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's re
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
+issue11702.diff # [stock] Exclude cancelled moves in product quantities by warehouse move
 
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 
@@ -26,4 +27,3 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
-

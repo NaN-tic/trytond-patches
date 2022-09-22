@@ -1,0 +1,13 @@
+diff --git a/trytond/trytond/modules/stock/product.py b/trytond/trytond/modules/stock/product.py
+index 7b38d5e..e4da113 100644
+--- a/trytond/trytond/modules/stock/product.py
++++ b/trytond/trytond/modules/stock/product.py
+@@ -935,7 +935,7 @@ class ProductQuantitiesByWarehouseMove(ModelSQL, ModelView):
+                         & move.to_location.in_(
+                             warehouse.select(warehouse.id))))
+                 & ((date_column < today) & (move.state == 'done')
+-                    | (date_column >= today)),
++                    | (date_column >= today) & (move.state != 'cancelled')),
+                 with_=warehouse))
+
+     @classmethod
