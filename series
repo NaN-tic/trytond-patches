@@ -27,3 +27,5 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
+
+issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
