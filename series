@@ -27,3 +27,4 @@ worker_logger.diff #[trytond] Move exception handling into transaction to keep t
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
+issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
