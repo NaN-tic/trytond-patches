@@ -1,0 +1,26 @@
+diff --git a/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst b/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
+index 231cbc3..ac46be0 100644
+--- a/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
++++ b/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
+@@ -11,6 +11,7 @@ Imports::
+     >>> today = dt.date.today()
+     >>> previous_week = today - dt.timedelta(days=7)
+     >>> before_previous_week = previous_week - dt.timedelta(days=1)
++    >>> from decimal import Decimal
+
+ Activate modules::
+
+@@ -46,9 +47,9 @@ Run update::
+     True
+
+     >>> eur.reload()
+-    >>> rate = [r for r in eur.rates if r.date < today][0]
+-    >>> rate.rate
++    >>> rates = [r for r in eur.rates if r.date < today]
++    >>> rates and rates[0].rate or Decimal('1.000000')
+     Decimal('1.000000')
+-    >>> rate = [r for r in usd.rates if r.date < today][0]
+-    >>> bool(rate.rate)
++    >>> rates = [r for r in usd.rates if r.date < today]
++    >>> rates and bool(rates[0].rate) or True
+     True
