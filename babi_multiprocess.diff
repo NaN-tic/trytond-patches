@@ -19,3 +19,24 @@ index 407ff358..0be2a41a 100644
              raise
  
      def add(self, cls, type='model'):
+diff --git a/trytond/trytond/model/modelsql.py b/trytond/trytond/model/modelsql.py
+index d762a27a..5ca47c34 100644
+--- a/trytond/trytond/model/modelsql.py
++++ b/trytond/trytond/model/modelsql.py
+@@ -1127,8 +1127,14 @@ class ModelSQL(ModelStorage):
+                 foreign_table = Model.__table__()
+                 foreign_red_sql = reduce_ids(
+                     Column(foreign_table, field_name), sub_ids)
+-                cursor.execute(*foreign_table.select(foreign_table.id,
+-                        where=foreign_red_sql))
++                import psycopg2
++                try:
++                    cursor.execute(*foreign_table.select(foreign_table.id,
++                            where=foreign_red_sql))
++                except psycopg2.errors.UndefinedTable as ex:
++                    if ex.args and 'babi_execution' in ex.args:
++                        return []
++                    raise
+                 records = Model.browse([x[0] for x in cursor])
+             else:
+                 with transaction.set_context(active_test=False):
