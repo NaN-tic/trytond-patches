@@ -62,3 +62,5 @@ issue10532.diff # [stock_supply + stock_supply_production] Add warehouses select
 issue11181.diff # [stock] Require unit price also for view location like for storage (only 6.0)
 
 issue11745.diff # [stock] Moves of internal shipment are not valid when switching between transit and no transit
+
+issue11229.diff # [sale_credit] Sale with payments should not be blocked by credit limit
