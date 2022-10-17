@@ -125,3 +125,5 @@ issue11000.diff # [account]
 
 issue11499.diff # [sao] Set FractionDigits options to format CSV to locale
 # issue11198.diff # [bank] Fill or create bank from IBAN and enforce uniqueness
+
+issue11684.diff # [carrier_percentage] Do not compute price if no currency is set
