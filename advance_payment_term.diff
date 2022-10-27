@@ -1,0 +1,35 @@
+diff --git a/trytond/trytond/modules/sale_advance_payment/sale.py b/trytond/trytond/modules/sale_advance_payment/sale.py
+index fec4ad8..629c94d 100644
+--- a/trytond/trytond/modules/sale_advance_payment/sale.py
++++ b/trytond/trytond/modules/sale_advance_payment/sale.py
+@@ -83,19 +83,20 @@ class AdvancePaymentTermLine(ModelView, ModelSQL, CompanyMultiValueMixin):
+             "- total_amount: The total amount of the sale.\n"
+             "- untaxed_amount: The total untaxed amount of the sale.")
+ 
+-    @fields.depends('formula')
++    @fields.depends('formula', 'rec_name')
+     def pre_validate(self, **names):
+         super(AdvancePaymentTermLine, self).pre_validate()
+         names['total_amount'] = names['untaxed_amount'] = 0
+-        try:
+-            if not isinstance(self.compute_amount(**names), Decimal):
+-                raise Exception('The formula does not return a Decimal')
+-        except Exception as exception:
+-            raise FormulaError(
+-                gettext('sale_advance_payment.msg_term_line_invalid_formula',
+-                    formula=self.formula,
+-                    term_line=self.rec_name,
+-                    exception=exception)) from exception
++        if self.formula:
++            try:
++                if not isinstance(self.compute_amount(**names), Decimal):
++                    raise Exception('The formula does not return a Decimal')
++            except Exception as exception:
++                raise FormulaError(
++                    gettext('sale_advance_payment.msg_term_line_invalid_formula',
++                        formula=self.formula,
++                        term_line=self.rec_name,
++                        exception=exception)) from exception
+ 
+     def get_compute_amount_context(self, **names):
+         return {
