@@ -64,3 +64,5 @@ issue11181.diff # [stock] Require unit price also for view location like for sto
 issue11745.diff # [stock] Moves of internal shipment are not valid when switching between transit and no transit
 
 issue11750.diff # [stock] 'create' method execution frozen or extremly slow
+
+allow_none_list_price.diff # [sale_price_list] allow set none as price list in a sale with tax_included=True product_price_list
