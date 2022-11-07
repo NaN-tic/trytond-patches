@@ -26,7 +26,7 @@ index 9067c31..ae467d3 100644
 @@ -2264,11 +2264,15 @@ class ShipmentInternal(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
      def default_company():
          return Transaction().context.get('company')
- 
+
 -    @fields.depends('planned_date', 'planned_start_date', 'company')
 +    @fields.depends('from_location', 'to_location', 'company')
      def on_change_with_transit_location(self, name=None):
@@ -44,7 +44,7 @@ index 9067c31..ae467d3 100644
 @@ -2278,11 +2282,14 @@ class ShipmentInternal(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
          if self.from_location and self.from_location.warehouse:
              return self.from_location.warehouse.id
- 
+
 -    @fields.depends('planned_date', 'from_location', 'to_location')
 +    @fields.depends(
 +        'planned_date', 'from_location', 'to_location',
@@ -71,21 +71,21 @@ index 311d8f3..fe8e262 100644
 +    >>> internal_loc = Location(
 +    ...     name="Internal", type='storage', parent=storage_loc.parent)
      >>> internal_loc.save()
- 
+
  Create stock user::
 @@ -116,7 +117,7 @@ Create Internal Shipment from lost_found location::
      >>> lost_found_shipment.state
      'done'
- 
+
 -Check that now whe can finish the older shipment::
 +Check that now we can finish the older shipment::
- 
+
      >>> shipment.click('assign_try')
      True
 @@ -130,72 +131,6 @@ Check that now whe can finish the older shipment::
      >>> shipment.done_by == employee
      True
- 
+
 -Add lead time inside the warehouse::
 -
 -    >>> set_user(1)
@@ -153,7 +153,7 @@ index 311d8f3..fe8e262 100644
 -    True
 -
  Duplicate Internal Shipment::
- 
+
      >>> shipment_copy, = shipment.duplicate()
 
 diff --git a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst
@@ -290,3 +290,42 @@ index 23d58f5..03663d2 100644
      suite.addTests(doctest.DocFileSuite('scenario_stock_reporting.rst',
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,
+
+diff --git a/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst b/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
+index bc577e8..b2c1bcd 100644
+--- a/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
++++ b/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
+@@ -97,10 +97,13 @@ Concurrently move pallet::
+ 
+ Add lead time inside the warehouse::
+ 
++    >>> warehouse1 = storage_loc.warehouse
++    >>> warehouse2, = warehouse1.duplicate()
++
+     >>> LeadTime = Model.get('stock.location.lead_time')
+     >>> lead_time = LeadTime()
+-    >>> lead_time.warehouse_from = storage_loc.warehouse
+-    >>> lead_time.warehouse_to = storage_loc.warehouse
++    >>> lead_time.warehouse_from = warehouse1
++    >>> lead_time.warehouse_to = warehouse2
+     >>> lead_time.lead_time = datetime.timedelta(1)
+     >>> lead_time.save()
+ 
+@@ -109,8 +112,8 @@ Move pallet from storage1 to storage2 with lead_time::
+     >>> Shipment = Model.get('stock.shipment.internal')
+     >>> shipment = Shipment()
+     >>> shipment.planned_date = tomorrow
+-    >>> shipment.from_location = storage1
+-    >>> shipment.to_location = storage2
++    >>> shipment.from_location = warehouse1.storage_location
++    >>> shipment.to_location = warehouse2.storage_location
+     >>> shipment.locations.append(Location(pallet.id))
+     >>> shipment.click('wait')
+     >>> shipment.click('assign_try')
+@@ -123,5 +126,5 @@ Move pallet from storage1 to storage2 with lead_time::
+ 
+     >>> shipment.click('done')
+     >>> pallet.reload()
+-    >>> pallet.parent == storage2
++    >>> pallet.parent == warehouse2.storage_location
+     True
