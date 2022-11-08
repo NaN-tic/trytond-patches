@@ -14,38 +14,38 @@ index 7c27f22..e1b5ee0 100644
 +@brand-info: #337ab7;
  @brand-warning: #e78e42;
  @brand-danger: #e74842;
- 
+
 @@ -12,17 +13,18 @@
- 
+
  @input-border-focus: lighten(@brand-primary, 25%);
- 
+
 -@navbar-inverse-bg: @brand-primary;
 +@navbar-inverse-bg: @brand-headers;
- 
+
 -@navbar-inverse-link-color: lighten(@brand-primary, 30%);
 +@navbar-inverse-link-color: #555;
 +@navbar-inverse-link-hover-color:#333;
- 
+
  @navbar-inverse-toggle-hover-bg: rgba(0,0,0,0.5);
  @navbar-inverse-toggle-icon-bar-bg: rgba(0,0,0,0.5);
- 
+
  @nav-tabs-justified-link-border-color: @nav-tabs-border-color;
- 
+
 -@panel-default-text: #fff;
 -@panel-default-heading-bg: @brand-primary;
 +@panel-default-text: #333;
 +@panel-default-heading-bg: @brand-headers;
- 
+
  @icon-font-path: "../bower_components/bootstrap/fonts/";
- 
-diff --git a/sao/src/sao.less b/sao/src/sao.less
-index f30d758..b0e317a 100644
---- a/sao/src/sao.less
-+++ b/sao/src/sao.less
-@@ -63,6 +63,12 @@ html[theme="default"] {
+
+ diff --git a/sao/src/sao.less b/sao/src/sao.less
+ index f30d758..b0e317a 100644
+ --- a/sao/src/sao.less
+ +++ b/sao/src/sao.less
+@@ -70,6 +70,12 @@ html[theme="default"] {
      }
  }
- 
+
 +.navbar-inverse .navbar-brand:hover,
 +.navbar-inverse .navbar-brand:focus {
 +  color: @navbar-inverse-link-hover-color;
@@ -55,14 +55,14 @@ index f30d758..b0e317a 100644
  .navbar {
      .icon {
          display: inline-block;
-@@ -90,8 +96,8 @@ html[theme="default"] {
+@@ -97,8 +103,8 @@ html[theme="default"] {
  }
- 
+
  .modal-header {
 -    background-color: @brand-primary;
 -    color: #fff;
 +    background-color: @brand-headers;
 +    color: #333;
- }
- 
- #tablist > li > a {
+
+     .modal-title {
+         small {
