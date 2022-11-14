@@ -1,0 +1,24 @@
+diff --git a/sao/src/common.js b/sao/src/common.js
+index f1354013..16d263d1 100644
+--- a/sao/src/common.js
++++ b/sao/src/common.js
+@@ -1183,17 +1183,8 @@
+                     if (~['many2one', 'one2one', 'one2many', 'many2many']
+                         .indexOf(field.type)) {
+                         var test = function(value) {
+-                            if (field.type == 'many2one') {
+-                                if ((typeof value != 'string') &&
+-                                    (value !== null)) {
+-                                    return false;
+-                                }
+-                            } else {
+-                                if (typeof value != 'string') {
+-                                    return false;
+-                                }
+-                            }
+-                            return true;
++                          return ((typeof value == 'string') ||
++                            (value === null));
+                         };
+                         if (value instanceof Array) {
+                             return value.every(test);
