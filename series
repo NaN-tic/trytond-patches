@@ -37,6 +37,7 @@ account_asset_update_asset.diff # [account_asset] decimals when updata asset #04
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 issue11526.diff # [sao] Form scroll with o2m with lots of columns
+sao_issue11810.diff # [sao] Make domain with None value for xxx2Many fields stringable
 
 commission_menu_group.diff # [commission] Creates ir.ui.menu-res.group record for commission menu and group
 
