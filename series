@@ -69,3 +69,5 @@ issue11750.diff # [stock] 'create' method execution frozen or extremly slow
 allow_none_list_price.diff # [sale_price_list] allow set none as price list in a sale with tax_included=True product_price_list
 
 issue11913.diff # [trytond] Too fast worker loop
+
+remove_left_right_project_work.py # [project] Remove parent left and parent right for the project.work module.
