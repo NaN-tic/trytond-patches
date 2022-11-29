@@ -70,4 +70,4 @@ allow_none_list_price.diff # [sale_price_list] allow set none as price list in a
 
 issue11913.diff # [trytond] Too fast worker loop
 
-remove_left_right_project_work.py # [project] Remove parent left and parent right for the project.work module.
+remove_left_right_project_work.diff # [project] Remove parent left and parent right for the project.work module.
