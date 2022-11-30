@@ -1,0 +1,13 @@
+diff --git a/shipment.py b/shipment.py
+index 9067c31..6c64390 100644
+--- a/trytond/trytond/modules/stock/shipment.py
++++ b/trytond/trytond/modules/stock/shipment.py
+@@ -2476,6 +2476,8 @@ class ShipmentInternal(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+                 if m.state != 'done'
+                 and m.from_location != shipment.transit_location
+                 and m.to_location != shipment.transit_location]
++            if not moves:
++                continue
+             Move.copy(moves, default={
+                     'to_location': shipment.transit_location.id,
+                     'planned_date': shipment.planned_start_date,
