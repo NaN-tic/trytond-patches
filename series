@@ -37,6 +37,7 @@ account_asset_update_asset.diff # [account_asset] decimals when updata asset #04
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 issue11526.diff # [sao] Form scroll with o2m with lots of columns
+sao_issue11810.diff # [sao] Make domain with None value for xxx2Many fields stringable
 
 commission_menu_group.diff # [commission] Creates ir.ui.menu-res.group record for commission menu and group
 
@@ -66,5 +67,11 @@ issue11745.diff # [stock] Moves of internal shipment are not valid when switchin
 issue11750.diff # [stock] 'create' method execution frozen or extremly slow
 
 allow_none_list_price.diff # [sale_price_list] allow set none as price list in a sale with tax_included=True product_price_list
+
+issue11913.diff # [trytond] Too fast worker loop
+
+remove_left_right_project_work.diff # [project] Remove parent left and parent right for the project.work module.
+
+stock_shipment.diff # [stock] No try to copy None moves when set transit location
 
 issue11229.diff # [sale_credit] Sale with payments should not be blocked by credit limit
