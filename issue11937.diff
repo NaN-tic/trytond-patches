@@ -1,0 +1,15 @@
+--- a/trytond/trytond/worker.py
++++ b/trytond/trytond/worker.py
+@@ -73,7 +73,10 @@
+             while len(tasks.filter()) >= processes:
+                 time.sleep(0.1)
+             for queue in queues:
+-                task_id, next_ = queue.pull(options.name)
++                try:
++                    task_id, next_ = queue.pull(options.name)
++                except backend.DatabaseOperationalError:
++                    break
+                 timeout = min(
+                     next_ or options.timeout, timeout, options.timeout)
+                 if task_id:
+
