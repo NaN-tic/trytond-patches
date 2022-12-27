@@ -32,3 +32,5 @@ issue11731.diff # [currency] currency test don't pass when Currency Rates Source
 issue11937.diff # [trytond] Retry pulling from the queue when DatabaseOperationalError is raised
 
 issue11931.diff # [stock_lot] Allow to deactivate lot
+
+issue11868.diff # [account] Add on delete CASCADE to lines and keywords of move template
