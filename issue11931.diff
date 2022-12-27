@@ -1,0 +1,61 @@
+diff --git a/trytond/trytond/modules/stock_lot/stock.py b/trytond/trytond/modules/stock_lot/stock.py
+index c3d204e..3e93c4e 100644
+--- a/trytond/trytond/modules/stock_lot/stock.py
++++ b/trytond/trytond/modules/stock_lot/stock.py
+@@ -7,7 +7,7 @@ from functools import wraps
+ from sql import Column
+
+ from trytond.i18n import gettext
+-from trytond.model import Model, ModelSQL, ModelView, fields
++from trytond.model import DeactivableMixin, Model, ModelSQL, ModelView, fields
+ from trytond.model.exceptions import (
+     AccessError, RequiredValidationError, ValidationError)
+ from trytond.modules.stock import StockMixin
+@@ -67,7 +67,7 @@ class LotMixin:
+             return bool(self.product.lot_sequence)
+
+
+-class Lot(ModelSQL, ModelView, LotMixin, StockMixin):
++class Lot(DeactivableMixin, ModelSQL, ModelView, LotMixin, StockMixin):
+     "Stock Lot"
+     __name__ = 'stock.lot'
+     _rec_name = 'number'
+diff --git a/trytond/trytond/modules/stock_lot/view/lot_form.xml b/trytond/trytond/modules/stock_lot/view/lot_form.xml
+index a71a859..f05aa2a 100644
+--- a/trytond/trytond/modules/stock_lot/view/lot_form.xml
++++ b/trytond/trytond/modules/stock_lot/view/lot_form.xml
+@@ -4,6 +4,10 @@ this repository contains the full copyright notices and license terms. -->
+ <form>
+     <label name="number"/>
+     <field name="number"/>
++    <group col="-1" colspan="2" id="checkboxes">
++        <label name="active"/>
++        <field name="active" xexpand="0" width="25"/>
++    </group>
+     <label name="product"/>
+     <field name="product"/>
+
+diff --git a/trytond/trytond/modules/stock_lot_sled/view/view/lot_form.xml b/trytond/trytond/modules/stock_lot_sled/view/lot_form.xml
+index 11acbc1..f53e907 100644
+--- a/trytond/trytond/modules/stock_lot_sled/view/lot_form.xml
++++ b/trytond/trytond/modules/stock_lot_sled/view/lot_form.xml
+@@ -3,6 +3,7 @@
+ this repository contains the full copyright notices and license terms. -->
+ <data>
+     <xpath expr="/form/field[@name='product']" position="after">
++        <newline/>
+         <label name="shelf_life_expiration_date"/>
+         <field name="shelf_life_expiration_date"/>
+         <label name="expiration_date"/>
+diff --git a/trytond/trytond/modules/stock_lot_unit/view/lot_form.xml b/trytond/trytond/modules/stock_lot_unit/view/lot_form.xml
+index c01f8e1..03fad7d 100644
+--- a/trytond/trytond/modules/stock_lot_unit/view/lot_form.xml
++++ b/trytond/trytond/modules/stock_lot_unit/view/lot_form.xml
+@@ -3,6 +3,7 @@
+ this repository contains the full copyright notices and license terms. -->
+ <data>
+     <xpath expr="//field[@name='product']" position="after">
++        <newline/>
+         <label name="unit"/>
+         <field name="unit"/>
+         <label name="unit_quantity"/>
