@@ -13,8 +13,6 @@ sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field 
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 
-issue10467.diff # [stock_lot] add lot to grouping when assign try if lot it's required on product
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
