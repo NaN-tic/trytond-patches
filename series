@@ -34,3 +34,5 @@ issue11937.diff # [trytond] Retry pulling from the queue when DatabaseOperationa
 issue11931.diff # [stock_lot] Allow to deactivate lot
 
 issue11868.diff # [account] Add on delete CASCADE to lines and keywords of move template
+
+issue11582.diff # [trytond] Add authentication services
