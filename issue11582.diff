@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/protocols/dispatcher.py b/trytond/trytond/protocols/dispatcher.py
+diff --git a/tryton/trytond/trytond/protocols/dispatcher.py b/trytond/trytond/protocols/dispatcher.py
 index 2e86f55e..799a58f4 100644
---- a/trytond/trytond/protocols/dispatcher.py
-+++ b/trytond/trytond/protocols/dispatcher.py
+--- a/tryton/trytond/trytond/protocols/dispatcher.py
++++ b/tryton/trytond/trytond/protocols/dispatcher.py
 @@ -26,6 +26,8 @@ from trytond.wsgi import app
 
  from .wrappers import with_pool

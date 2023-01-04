@@ -1,5 +1,5 @@
---- a/trytond/trytond/worker.py
-+++ b/trytond/trytond/worker.py
+--- a/tryton/trytond/trytond/worker.py
++++ b/tryton/trytond/trytond/worker.py
 @@ -73,7 +73,10 @@
              while len(tasks.filter()) >= processes:
                  time.sleep(0.1)

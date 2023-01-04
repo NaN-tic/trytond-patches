@@ -1,7 +1,7 @@
-diff --git a/sao/src/sao-variables.less b/sao/src/sao-variables.less
+diff --git a/tryton/sao/src/sao-variables.less b/sao/src/sao-variables.less
 index 7c27f22..e1b5ee0 100644
---- a/sao/src/sao-variables.less
-+++ b/sao/src/sao-variables.less
+--- a/tryton/sao/src/sao-variables.less
++++ b/tryton/sao/src/sao-variables.less
 @@ -1,8 +1,9 @@
  /* This file is part of Tryton.  The COPYRIGHT file at the top level of
     this repository contains the full copyright notices and license terms. */
@@ -38,10 +38,10 @@ index 7c27f22..e1b5ee0 100644
  
  @icon-font-path: "../bower_components/bootstrap/fonts/";
  
-diff --git a/sao/src/sao.less b/sao/src/sao.less
+diff --git a/tryton/sao/src/sao.less b/sao/src/sao.less
 index f30d758..b0e317a 100644
---- a/sao/src/sao.less
-+++ b/sao/src/sao.less
+--- a/tryton/sao/src/sao.less
++++ b/tryton/sao/src/sao.less
 @@ -63,6 +63,12 @@ html[theme="default"] {
      }
  }

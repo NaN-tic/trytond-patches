@@ -1,7 +1,7 @@
-diff --git a/sao/src/sao.js b/sao/src/sao.js
+diff --git a/tryton/sao/src/sao.js b/sao/src/sao.js
 index 05d86252..fcedb792 100644
---- a/sao/src/sao.js
-+++ b/sao/src/sao.js
+--- a/tryton/sao/src/sao.js
++++ b/tryton/sao/src/sao.js
 @@ -1081,10 +1081,6 @@ var Sao = {};
                  shortcut: 'ctrl+p',
                  label: Sao.i18n.gettext('Print'),
@@ -15,8 +15,8 @@ index 05d86252..fcedb792 100644
                  label: Sao.i18n.gettext('Previous tab'),
 diff --git a/src/tab.js b/src/tab.js
 index f9186bc9..47987500 100644
---- a/sao/src/tab.js
-+++ b/sao/src/tab.js
+--- a/tryton/sao/src/tab.js
++++ b/tryton/sao/src/tab.js
 @@ -91,11 +91,6 @@
                      id: 'print',
                      icon: 'tryton-print',

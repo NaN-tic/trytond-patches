@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account/move_template.py b/trytond/trytond/modules/account/move_template.py
+diff --git a/tryton/modules/account/move_template.py b/tryton/trytond/trytond/modules/account/move_template.py
 index cbb3aa6..6927533 100644
---- a/trytond/trytond/modules/account/move_template.py
-+++ b/trytond/trytond/modules/account/move_template.py
+--- a/tryton/modules/account/move_template.py
++++ b/tryton/modules/account/move_template.py
 @@ -68,7 +68,8 @@ class MoveTemplateKeyword(sequence_ordered(), ModelSQL, ModelView):
      __name__ = 'account.move.template.keyword'
      name = fields.Char('Name', required=True)

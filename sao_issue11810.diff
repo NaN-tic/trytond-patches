@@ -1,7 +1,7 @@
-diff --git a/sao/src/common.js b/sao/src/common.js
+diff --git a/tryton/sao/src/common.js b/sao/src/common.js
 index f1354013..16d263d1 100644
---- a/sao/src/common.js
-+++ b/sao/src/common.js
+--- a/tryton/sao/src/common.js
++++ b/tryton/sao/src/common.js
 @@ -1183,17 +1183,8 @@
                      if (~['many2one', 'one2one', 'one2many', 'many2many']
                          .indexOf(field.type)) {

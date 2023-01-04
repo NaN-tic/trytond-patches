@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/worker.py b/trytond/trytond/worker.py
+diff --git a/tryton/trytond/trytond/worker.py b/trytond/trytond/worker.py
 index 5ce8ef0d..b5921908 100644
---- a/trytond/trytond/worker.py
-+++ b/trytond/trytond/worker.py
+--- a/tryton/trytond/trytond/worker.py
++++ b/tryton/trytond/trytond/worker.py
 @@ -139,6 +139,9 @@ def run_task(pool, task_id):
                  except (UserError, UserWarning) as e:
                      Error.log(task, e)
