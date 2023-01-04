@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock_supply/shipment.py b/trytond/trytond/modules/stock_supply/shipment.py
+diff --git a/tryton/modules/stock_supply/shipment.py b/tryton/trytond/trytond/modules/stock_supply/shipment.py
 index f033fab..5c1d40b 100644
---- a/trytond/trytond/modules/stock_supply/shipment.py
-+++ b/trytond/trytond/modules/stock_supply/shipment.py
+--- a/tryton/modules/stock_supply/shipment.py
++++ b/tryton/modules/stock_supply/shipment.py
 @@ -11,7 +11,7 @@ class ShipmentInternal(ModelSQL, ModelView):
      __name__ = 'stock.shipment.internal'
 
@@ -32,10 +32,10 @@ index f033fab..5c1d40b 100644
          id2product = {}
          product2op = {}
          id2location = {}
-diff --git a/trytond/trytond/modules/stock_supply/stock.py b/trytond/trytond/modules/stock_supply/stock.py
+diff --git a/tryton/modules/stock_supply/stock.py b/tryton/trytond/trytond/modules/stock_supply/stock.py
 index a5614d5..25a7311 100644
---- a/trytond/trytond/modules/stock_supply/stock.py
-+++ b/trytond/trytond/modules/stock_supply/stock.py
+--- a/tryton/modules/stock_supply/stock.py
++++ b/tryton/modules/stock_supply/stock.py
 @@ -2,7 +2,7 @@
  # this repository contains the full copyright notices and license terms.
  from trytond.i18n import gettext
@@ -91,20 +91,20 @@ index a5614d5..25a7311 100644
 +        warehouse = Location.get_default_warehouse()
 +        if warehouse:
 +            return [warehouse]
-diff --git a/trytond/trytond/modules/stock_supply/view/supply_start_form.xml b/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
+diff --git a/tryton/modules/stock_supply/view/supply_start_form.xml b/tryton/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
 index d5d4cf9..b731024 100644
---- a/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
-+++ b/trytond/trytond/modules/stock_supply/view/supply_start_form.xml
+--- a/tryton/modules/stock_supply/view/supply_start_form.xml
++++ b/tryton/modules/stock_supply/view/supply_start_form.xml
 @@ -5,4 +5,5 @@ this repository contains the full copyright notices and license terms. -->
      <image name="tryton-question" xexpand="0" xfill="0"/>
      <label string="Supply Stock?" id="supply"
          yalign="0.0" xalign="0.0" xexpand="1"/>
 +    <field name="warehouses" colspan="2"/>
  </form>
-diff --git a/trytond/trytond/modules/stock_supply_production/stock.py b/trytond/trytond/modules/stock_supply_production/stock.py
+diff --git a/tryton/modules/stock_supply_production/stock.py b/tryton/trytond/trytond/modules/stock_supply_production/stock.py
 index b7bc045..bf4fa32 100644
---- a/trytond/trytond/modules/stock_supply_production/stock.py
-+++ b/trytond/trytond/modules/stock_supply_production/stock.py
+--- a/tryton/modules/stock_supply_production/stock.py
++++ b/tryton/modules/stock_supply_production/stock.py
 @@ -95,7 +95,11 @@ class StockSupply(metaclass=PoolMeta):
 
      @property

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/tests/test_tryton.py b/trytond/trytond/tests/test_tryton.py
+diff --git a/tryton/trytond/trytond/tests/test_tryton.py b/trytond/trytond/tests/test_tryton.py
 index 864db291..a3c44848 100644
---- a/trytond/trytond/tests/test_tryton.py
-+++ b/trytond/trytond/trytond/tests/test_tryton.py
+--- a/tryton/trytond/trytond/tests/test_tryton.py
++++ b/tryton/trytond/trytond/trytond/tests/test_tryton.py
 @@ -24,14 +24,15 @@ from sql import Table
 
  from trytond.pool import Pool, isregisteredby

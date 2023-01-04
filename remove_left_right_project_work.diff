@@ -1,6 +1,6 @@
 index bcd08af..b3c4d46 100644
---- a/trytond/trytond/modules/project/work.py
-+++ b/trytond/trytond/modules/project/work.py
+--- a/tryton/modules/project/work.py
++++ b/tryton/modules/project/work.py
 @@ -188,13 +188,11 @@ class Work(sequence_ordered(), tree(separator='\\'), ModelSQL, ModelView):
          'get_total')
      comment = fields.Text('Comment')

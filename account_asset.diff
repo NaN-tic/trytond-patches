@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_asset/__init__.py b/trytond/trytond/modules/account_asset/__init__.py
+diff --git a/tryton/modules/account_asset/__init__.py b/tryton/trytond/trytond/modules/account_asset/__init__.py
 index 6d428c0..9bfe4aa 100644
---- a/trytond/trytond/modules/account_asset/__init__.py
-+++ b/trytond/trytond/modules/account_asset/__init__.py
+--- a/tryton/modules/account_asset/__init__.py
++++ b/tryton/modules/account_asset/__init__.py
 @@ -14,7 +14,7 @@ def register():
          asset.AssetLine,
          asset.AssetUpdateMove,
@@ -11,10 +11,10 @@ index 6d428c0..9bfe4aa 100644
          asset.UpdateAssetShowDepreciation,
          asset.PrintDepreciationTableStart,
          product.Category,
-diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
+diff --git a/tryton/modules/account_asset/asset.py b/tryton/trytond/trytond/modules/account_asset/asset.py
 index 35a24f4..2d6a395 100644
---- a/trytond/trytond/modules/account_asset/asset.py
-+++ b/trytond/trytond/modules/account_asset/asset.py
+--- a/tryton/modules/account_asset/asset.py
++++ b/tryton/modules/account_asset/asset.py
 @@ -210,6 +210,8 @@ class Asset(Workflow, ModelSQL, ModelView):
              },
          depends=['company'])
@@ -127,10 +127,10 @@ index 35a24f4..2d6a395 100644
  class AssetDepreciationTable(CompanyReport):
      'Asset Depreciation Table'
      __name__ = 'account.asset.depreciation_table'
-diff --git a/trytond/trytond/modules/account_asset/asset.xml b/trytond/trytond/modules/account_asset/asset.xml
+diff --git a/tryton/modules/account_asset/asset.xml b/tryton/trytond/trytond/modules/account_asset/asset.xml
 index 6cd4e5b..cadb5ad 100644
---- a/trytond/trytond/modules/account_asset/asset.xml
-+++ b/trytond/trytond/modules/account_asset/asset.xml
+--- a/tryton/modules/account_asset/asset.xml
++++ b/tryton/modules/account_asset/asset.xml
 @@ -180,8 +180,20 @@
              <field name="name">asset_create_moves_start_form</field>
          </record>
@@ -154,10 +154,10 @@ index 6cd4e5b..cadb5ad 100644
              <field name="type">form</field>
              <field name="name">asset_update_start_form</field>
          </record>
-diff --git a/trytond/trytond/modules/account_asset/locale/ca.po b/trytond/trytond/modules/account_asset/locale/ca.po
+diff --git a/tryton/modules/account_asset/locale/ca.po b/tryton/trytond/trytond/modules/account_asset/locale/ca.po
 index ec19011..1b5ba6f 100644
---- a/trytond/trytond/modules/account_asset/locale/ca.po
-+++ b/trytond/trytond/modules/account_asset/locale/ca.po
+--- a/tryton/modules/account_asset/locale/ca.po
++++ b/tryton/modules/account_asset/locale/ca.po
 @@ -82,6 +82,10 @@ msgctxt "field:account.asset,residual_value:"
  msgid "Residual Value"
  msgstr "Valor residual"
@@ -219,10 +219,10 @@ index ec19011..1b5ba6f 100644
  msgctxt "model:account.asset.update.show_depreciation,name:"
  msgid "Update Asset Show Depreciation"
  msgstr "Actualitza actius - Mostra amortització"
-diff --git a/trytond/trytond/modules/account_asset/locale/es.po b/trytond/trytond/modules/account_asset/locale/es.po
+diff --git a/tryton/modules/account_asset/locale/es.po b/tryton/trytond/trytond/modules/account_asset/locale/es.po
 index 2391f1d..ee47435 100644
---- a/trytond/trytond/modules/account_asset/locale/es.po
-+++ b/trytond/trytond/modules/account_asset/locale/es.po
+--- a/tryton/modules/account_asset/locale/es.po
++++ b/tryton/modules/account_asset/locale/es.po
 @@ -82,6 +82,10 @@ msgctxt "field:account.asset,residual_value:"
  msgid "Residual Value"
  msgstr "Valor residual"
@@ -284,10 +284,10 @@ index 2391f1d..ee47435 100644
  msgctxt "model:account.asset.update.show_depreciation,name:"
  msgid "Update Asset Show Depreciation"
  msgstr "Actualizar activo - Mostrar amortización"
-diff --git a/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst b/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
+diff --git a/tryton/modules/account_asset/tests/scenario_account_asset.rst b/tryton/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
 index eae63a7..780b751 100644
---- a/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
-+++ b/trytond/trytond/modules/account_asset/tests/scenario_account_asset.rst
+--- a/tryton/modules/account_asset/tests/scenario_account_asset.rst
++++ b/tryton/modules/account_asset/tests/scenario_account_asset.rst
 @@ -170,7 +170,7 @@ Create Moves for 3 months::
  Update the asset::
  
@@ -309,10 +309,10 @@ index eae63a7..780b751 100644
      >>> [l.depreciation for l in asset.lines[:3]]
      [Decimal('37.50'), Decimal('37.50'), Decimal('37.50')]
      >>> [l.depreciation for l in asset.lines[3:-1]] == [Decimal('42.26')] * 20
-diff --git a/trytond/trytond/modules/account_asset/view/asset_form.xml b/trytond/trytond/modules/account_asset/view/asset_form.xml
+diff --git a/tryton/modules/account_asset/view/asset_form.xml b/tryton/trytond/trytond/modules/account_asset/view/asset_form.xml
 index e9a83ad..cf95e97 100644
---- a/trytond/trytond/modules/account_asset/view/asset_form.xml
-+++ b/trytond/trytond/modules/account_asset/view/asset_form.xml
+--- a/tryton/modules/account_asset/view/asset_form.xml
++++ b/tryton/modules/account_asset/view/asset_form.xml
 @@ -45,6 +45,9 @@
              <separator name="comment" colspan="4"/>
              <field name="comment" colspan="4"/>
@@ -323,10 +323,10 @@ index e9a83ad..cf95e97 100644
      </notebook>
      <label name="state"/>
      <field name="state"/>
-diff --git a/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml b/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
+diff --git a/tryton/modules/account_asset/view/asset_update_start_form.xml b/tryton/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
 index 752d6b5..f873eb2 100644
---- a/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
-+++ b/trytond/trytond/modules/account_asset/view/asset_update_start_form.xml
+--- a/tryton/modules/account_asset/view/asset_update_start_form.xml
++++ b/tryton/modules/account_asset/view/asset_update_start_form.xml
 @@ -1,11 +1,16 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of this
@@ -345,11 +345,11 @@ index 752d6b5..f873eb2 100644
 +    <field name="description" colspan="2"/>
 +    <field name="asset" invisible="1"/>
  </form>
-diff --git a/trytond/trytond/modules/account_asset/view/revision_form.xml b/trytond/trytond/modules/account_asset/view/revision_form.xml
+diff --git a/tryton/modules/account_asset/view/revision_form.xml b/tryton/trytond/trytond/modules/account_asset/view/revision_form.xml
 new file mode 100644
 index 0000000..6e7ae7f
 --- /dev/null
-+++ b/trytond/trytond/modules/account_asset/view/revision_form.xml
++++ b/tryton/modules/account_asset/view/revision_form.xml
 @@ -0,0 +1,13 @@
 +<?xml version="1.0"?>
 +<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -364,11 +364,11 @@ index 0000000..6e7ae7f
 +  <label name="description"/>
 +  <field name="description"/>
 +</form>
-diff --git a/trytond/trytond/modules/account_asset/view/revision_tree.xml b/trytond/trytond/modules/account_asset/view/revision_tree.xml
+diff --git a/tryton/modules/account_asset/view/revision_tree.xml b/tryton/trytond/trytond/modules/account_asset/view/revision_tree.xml
 new file mode 100644
 index 0000000..7291a7b
 --- /dev/null
-+++ b/trytond/trytond/modules/account_asset/view/revision_tree.xml
++++ b/tryton/modules/account_asset/view/revision_tree.xml
 @@ -0,0 +1,10 @@
 +<?xml version="1.0"?>
 +<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of

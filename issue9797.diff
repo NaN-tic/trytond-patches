@@ -1,6 +1,6 @@
 index ac29d17..2b240c1 100644
---- a/trytond/trytond/modules/account_payment_sepa/payment.py
-+++ b/trytond/trytond/modules/account_payment_sepa/payment.py
+--- a/tryton/modules/account_payment_sepa/payment.py
++++ b/tryton/modules/account_payment_sepa/payment.py
 @@ -190,18 +190,23 @@ class Group(metaclass=PoolMeta):
          Payment = pool.get('account.payment')
          if self.kind == 'receivable':

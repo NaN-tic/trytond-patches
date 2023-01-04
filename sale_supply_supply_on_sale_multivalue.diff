@@ -1,7 +1,7 @@
 diff --git a/__init__.py b/__init__.py
 index 4f28e75..04d18f3 100644
---- a/trytond/trytond/modules/sale_supply/__init__.py
-+++ b/trytond/trytond/modules/sale_supply/__init__.py
+--- a/tryton/modules/sale_supply/__init__.py
++++ b/tryton/modules/sale_supply/__init__.py
 @@ -16,6 +16,7 @@ def register():
          purchase.Purchase,
          stock.ShipmentIn,
@@ -12,8 +12,8 @@ index 4f28e75..04d18f3 100644
      Pool.register(
 diff --git a/product.py b/product.py
 index b55c829..34ccc24 100644
---- a/trytond/trytond/modules/sale_supply/product.py
-+++ b/trytond/trytond/modules/sale_supply/product.py
+--- a/tryton/modules/sale_supply/product.py
++++ b/tryton/modules/sale_supply/product.py
 @@ -1,18 +1,35 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.

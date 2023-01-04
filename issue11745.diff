@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock/location.py b/trytond/trytond/modules/stock/location.py
+diff --git a/tryton/modules/stock/location.py b/tryton/trytond/trytond/modules/stock/location.py
 index 4c7e4d5..f1a790f 100644
---- a/trytond/trytond/modules/stock/location.py
-+++ b/trytond/trytond/modules/stock/location.py
+--- a/tryton/modules/stock/location.py
++++ b/tryton/modules/stock/location.py
 @@ -811,12 +832,14 @@ class LocationLeadTime(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
          ondelete='CASCADE',
          domain=[
@@ -19,10 +19,10 @@ index 4c7e4d5..f1a790f 100644
      lead_time = fields.TimeDelta('Lead Time',
          help="The time it takes to move stock between the warehouses.")
 
-diff --git a/trytond/trytond/modules/stock/shipment.py b/trytond/trytond/modules/stock/shipment.py
+diff --git a/tryton/modules/stock/shipment.py b/tryton/trytond/trytond/modules/stock/shipment.py
 index 9067c31..ae467d3 100644
---- a/trytond/trytond/modules/stock/shipment.py
-+++ b/trytond/trytond/modules/stock/shipment.py
+--- a/tryton/modules/stock/shipment.py
++++ b/tryton/modules/stock/shipment.py
 @@ -2264,11 +2264,15 @@ class ShipmentInternal(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
      def default_company():
          return Transaction().context.get('company')
@@ -59,10 +59,10 @@ index 9067c31..ae467d3 100644
                  pattern = {}
              pattern.setdefault('warehouse_from',
 
-diff --git a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal.rst b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal.rst
+diff --git a/tryton/modules/stock/tests/scenario_stock_shipment_internal.rst b/tryton/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal.rst
 index 311d8f3..fe8e262 100644
---- a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal.rst
-+++ b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal.rst
+--- a/tryton/modules/stock/tests/scenario_stock_shipment_internal.rst
++++ b/tryton/modules/stock/tests/scenario_stock_shipment_internal.rst
 @@ -43,7 +43,8 @@ Get stock locations::
      >>> Location = Model.get('stock.location')
      >>> lost_found_loc, = Location.find([('type', '=', 'lost_found')])
@@ -156,11 +156,11 @@ index 311d8f3..fe8e262 100644
 
      >>> shipment_copy, = shipment.duplicate()
 
-diff --git a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst
+diff --git a/tryton/modules/stock/tests/scenario_stock_shipment_internal_transit.rst b/tryton/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst
 new file mode 100644
 index 0000000..37cd081
 --- /dev/null
-+++ b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_internal_transit.rst
++++ b/tryton/modules/stock/tests/scenario_stock_shipment_internal_transit.rst
 @@ -0,0 +1,112 @@
 +=============================================
 +Stock Shipment Internal with Transit Scenario
@@ -275,10 +275,10 @@ index 0000000..37cd081
 +    >>> shipment.incoming_moves[0].effective_date == today
 +    True
 
-diff --git a/trytond/trytond/modules/stock/tests/test_stock.py b/trytond/trytond/modules/stock/tests/test_stock.py
+diff --git a/tryton/modules/stock/tests/test_stock.py b/tryton/trytond/trytond/modules/stock/tests/test_stock.py
 index 23d58f5..03663d2 100644
---- a/trytond/trytond/modules/stock/tests/test_stock.py
-+++ b/trytond/trytond/modules/stock/tests/test_stock.py
+--- a/tryton/modules/stock/tests/test_stock.py
++++ b/tryton/modules/stock/tests/test_stock.py
 @@ -1540,6 +1540,10 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,
@@ -291,10 +291,10 @@ index 23d58f5..03663d2 100644
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,
 
-diff --git a/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst b/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
+diff --git a/tryton/modules/stock_location_move/tests/scenario_stock_location_move.rst b/tryton/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
 index bc577e8..b2c1bcd 100644
---- a/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
-+++ b/trytond/trytond/modules/stock_location_move/tests/scenario_stock_location_move.rst
+--- a/tryton/modules/stock_location_move/tests/scenario_stock_location_move.rst
++++ b/tryton/modules/stock_location_move/tests/scenario_stock_location_move.rst
 @@ -97,10 +97,13 @@ Concurrently move pallet::
  
  Add lead time inside the warehouse::

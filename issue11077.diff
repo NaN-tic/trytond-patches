@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/model/multivalue.py b/trytond/trytond/model/multivalue.py
+diff --git a/tryton/trytond/trytond/model/multivalue.py b/trytond/trytond/model/multivalue.py
 index af8f5511..8deef16b 100644
---- a/trytond/trytond/model/multivalue.py
-+++ b/trytond/trytond/model/multivalue.py
+--- a/tryton/trytond/trytond/model/multivalue.py
++++ b/tryton/trytond/trytond/model/multivalue.py
 @@ -3,6 +3,7 @@
  from trytond.pool import Pool
  from .model import Model

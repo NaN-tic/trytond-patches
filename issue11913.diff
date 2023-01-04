@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/worker.py b/trytond/trytond/worker.py
+diff --git a/tryton/trytond/trytond/worker.py b/trytond/trytond/worker.py
 index d9777c53..b1ed119c 100644
---- a/trytond/trytond/worker.py
-+++ b/trytond/trytond/worker.py
+--- a/tryton/trytond/trytond/worker.py
++++ b/tryton/trytond/trytond/worker.py
 @@ -62,15 +62,15 @@ def work(options):
      queues = [Queue(name, mpool) for name in options.database_names]
  

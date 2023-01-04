@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/party_relationship/party.py b/trytond/trytond/modules/party_relationship/party.py
+diff --git a/tryton/modules/party_relationship/party.py b/tryton/trytond/trytond/modules/party_relationship/party.py
 index 99b5794..498411c 100644
---- a/trytond/trytond/modules/party_relationship/party.py
-+++ b/trytond/trytond/modules/party_relationship/party.py
+--- a/tryton/modules/party_relationship/party.py
++++ b/tryton/modules/party_relationship/party.py
 @@ -1,14 +1,17 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -101,10 +101,10 @@ index 99b5794..498411c 100644
          distance.query |= (distance
              .join(relations,
                  condition=distance.to == Column(relations, 'from_'))
-diff --git a/trytond/trytond/modules/party_relationship/view/relation_form.xml b/trytond/trytond/modules/party_relationship/view/relation_form.xml
+diff --git a/tryton/modules/party_relationship/view/relation_form.xml b/tryton/trytond/trytond/modules/party_relationship/view/relation_form.xml
 index 2c1cddd..d3a9045 100644
---- a/trytond/trytond/modules/party_relationship/view/relation_form.xml
-+++ b/trytond/trytond/modules/party_relationship/view/relation_form.xml
+--- a/tryton/modules/party_relationship/view/relation_form.xml
++++ b/tryton/modules/party_relationship/view/relation_form.xml
 @@ -1,11 +1,18 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -131,10 +131,10 @@ index 2c1cddd..d3a9045 100644
 +    <label name="end_date"/>
 +    <field name="end_date"/>
  </form>
-diff --git a/trytond/trytond/modules/party_relationship/view/relation_tree.xml b/trytond/trytond/modules/party_relationship/view/relation_tree.xml
+diff --git a/tryton/modules/party_relationship/view/relation_tree.xml b/tryton/trytond/trytond/modules/party_relationship/view/relation_tree.xml
 index 51fd69d..8fb8bb6 100644
---- a/trytond/trytond/modules/party_relationship/view/relation_tree.xml
-+++ b/trytond/trytond/modules/party_relationship/view/relation_tree.xml
+--- a/tryton/modules/party_relationship/view/relation_tree.xml
++++ b/tryton/modules/party_relationship/view/relation_tree.xml
 @@ -5,4 +5,6 @@ this repository contains the full copyright notices and license terms. -->
      <field name="from_" expand="2"/>
      <field name="type" expand="1"/>

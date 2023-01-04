@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_invoice_defer/account.py b/trytond/trytond/modules/account_invoice_defer/account.py
+diff --git a/tryton/modules/account_invoice_defer/account.py b/tryton/trytond/trytond/modules/account_invoice_defer/account.py
 index 09929e7..96fd0d2 100644
---- a/trytond/trytond/modules/account_invoice_defer/account.py
-+++ b/trytond/trytond/modules/account_invoice_defer/account.py
+--- a/tryton/modules/account_invoice_defer/account.py
++++ b/tryton/modules/account_invoice_defer/account.py
 @@ -180,6 +180,10 @@ class InvoiceDeferred(Workflow, ModelSQL, ModelView):
              else:
                  self.amount = self.invoice_line.amount

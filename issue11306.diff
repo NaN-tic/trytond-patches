@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/analytic_invoice/__init__.py b/trytond/trytond/modules/analytic_invoice/__init__.py
+diff --git a/tryton/modules/analytic_invoice/__init__.py b/tryton/trytond/trytond/modules/analytic_invoice/__init__.py
 index a89ce96..78551af 100644
---- a/trytond/trytond/modules/analytic_invoice/__init__.py
-+++ b/trytond/trytond/modules/analytic_invoice/__init__.py
+--- a/tryton/modules/analytic_invoice/__init__.py
++++ b/tryton/modules/analytic_invoice/__init__.py
 @@ -15,3 +15,7 @@ def register():
          asset.Asset,
          module='analytic_invoice', type_='model',
@@ -10,10 +10,10 @@ index a89ce96..78551af 100644
 +        invoice.InvoiceDeferred,
 +        module='analytic_invoice', type_='model',
 +        depends=['account_invoice_defer'])
-diff --git a/trytond/trytond/modules/analytic_invoice/invoice.py b/trytond/trytond/modules/analytic_invoice/invoice.py
+diff --git a/tryton/modules/analytic_invoice/invoice.py b/tryton/trytond/trytond/modules/analytic_invoice/invoice.py
 index 106de10..854f319 100644
---- a/trytond/trytond/modules/analytic_invoice/invoice.py
-+++ b/trytond/trytond/modules/analytic_invoice/invoice.py
+--- a/tryton/modules/analytic_invoice/invoice.py
++++ b/tryton/modules/analytic_invoice/invoice.py
 @@ -71,6 +71,11 @@ class AnalyticAccountEntry(metaclass=PoolMeta):
              origins.append('account.asset')
          except KeyError:
@@ -95,10 +95,10 @@ index 106de10..854f319 100644
 +                line.analytic_lines = analytic_lines
 +
 +        return move
-diff --git a/trytond/trytond/modules/analytic_invoice/invoice.xml b/trytond/trytond/modules/analytic_invoice/invoice.xml
+diff --git a/tryton/modules/analytic_invoice/invoice.xml b/tryton/trytond/trytond/modules/analytic_invoice/invoice.xml
 index 0fff583..396d00e 100644
---- a/trytond/trytond/modules/analytic_invoice/invoice.xml
-+++ b/trytond/trytond/modules/analytic_invoice/invoice.xml
+--- a/tryton/modules/analytic_invoice/invoice.xml
++++ b/tryton/modules/analytic_invoice/invoice.xml
 @@ -9,4 +9,11 @@ this repository contains the full copyright notices and license terms. -->
              <field name="name">invoice_line_form</field>
          </record>
@@ -111,11 +111,11 @@ index 0fff583..396d00e 100644
 +        </record>
 +    </data>
  </tryton>
-diff --git a/trytond/trytond/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst b/trytond/trytond/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
+diff --git a/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst b/tryton/trytond/trytond/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
 new file mode 100644
 index 0000000..e63c20b
 --- /dev/null
-+++ b/trytond/trytond/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
++++ b/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
 @@ -0,0 +1,149 @@
 +======================================
 +Analytic Invoice with Invoice Deferred
@@ -266,10 +266,10 @@ index 0000000..e63c20b
 +    True
 +
 +
-diff --git a/trytond/trytond/modules/analytic_invoice/tests/test_analytic_invoice.py b/trytond/trytond/modules/analytic_invoice/tests/test_analytic_invoice.py
+diff --git a/tryton/modules/analytic_invoice/tests/test_analytic_invoice.py b/tryton/trytond/trytond/modules/analytic_invoice/tests/test_analytic_invoice.py
 index 4055b7c..bd0ac07 100644
---- a/trytond/trytond/modules/analytic_invoice/tests/test_analytic_invoice.py
-+++ b/trytond/trytond/modules/analytic_invoice/tests/test_analytic_invoice.py
+--- a/tryton/modules/analytic_invoice/tests/test_analytic_invoice.py
++++ b/tryton/modules/analytic_invoice/tests/test_analytic_invoice.py
 @@ -26,4 +26,9 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,
@@ -280,10 +280,10 @@ index 4055b7c..bd0ac07 100644
 +            checker=doctest_checker,
 +            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE))
      return suite
-diff --git a/trytond/trytond/modules/analytic_invoice/tryton.cfg b/trytond/trytond/modules/analytic_invoice/tryton.cfg
+diff --git a/tryton/modules/analytic_invoice/tryton.cfg b/tryton/trytond/trytond/modules/analytic_invoice/tryton.cfg
 index ed28a9c..f83a845 100644
---- a/trytond/trytond/modules/analytic_invoice/tryton.cfg
-+++ b/trytond/trytond/modules/analytic_invoice/tryton.cfg
+--- a/tryton/modules/analytic_invoice/tryton.cfg
++++ b/tryton/modules/analytic_invoice/tryton.cfg
 @@ -5,6 +5,7 @@ depends:
      analytic_account
  extras_depend:
@@ -292,11 +292,11 @@ index ed28a9c..f83a845 100644
  xml:
      invoice.xml
      asset.xml
-diff --git a/trytond/trytond/modules/analytic_invoice/view/invoice_deferred_form.xml b/trytond/trytond/modules/analytic_invoice/view/invoice_deferred_form.xml
+diff --git a/tryton/modules/analytic_invoice/view/invoice_deferred_form.xml b/tryton/trytond/trytond/modules/analytic_invoice/view/invoice_deferred_form.xml
 new file mode 100644
 index 0000000..12cd351
 --- /dev/null
-+++ b/trytond/trytond/modules/analytic_invoice/view/invoice_deferred_form.xml
++++ b/tryton/modules/analytic_invoice/view/invoice_deferred_form.xml
 @@ -0,0 +1,10 @@
 +<?xml version="1.0"?>
 +<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of

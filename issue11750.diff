@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock/period.py b/trytond/trytond/modules/stock/period.py
+diff --git a/tryton/modules/stock/period.py b/tryton/trytond/trytond/modules/stock/period.py
 index 54e5f4b..a411320 100644
---- a/trytond/trytond/modules/stock/period.py
-+++ b/trytond/trytond/modules/stock/period.py
+--- a/tryton/modules/stock/period.py
++++ b/tryton/modules/stock/period.py
 @@ -152,7 +152,9 @@ class Period(Workflow, ModelSQL, ModelView):
                          values[field] = key[i]
                      to_create.append(values)

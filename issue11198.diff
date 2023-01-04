@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/bank/bank.py b/trytond/trytond/modules/bank/bank.py
+diff --git a/tryton/modules/bank/bank.py b/tryton/trytond/trytond/modules/bank/bank.py
 index 04f6e3d..7bc6601 100644
---- a/trytond/trytond/modules/bank/bank.py
-+++ b/trytond/trytond/modules/bank/bank.py
+--- a/tryton/modules/bank/bank.py
++++ b/tryton/modules/bank/bank.py
 @@ -3,10 +3,11 @@
  from stdnum import iban, bic
  import stdnum.exceptions
@@ -33,10 +33,10 @@ index 04f6e3d..7bc6601 100644
 
      @classmethod
      def default_type(cls):
-diff --git a/trytond/trytond/modules/bank/message.xml b/trytond/trytond/modules/bank/message.xml
+diff --git a/tryton/modules/bank/message.xml b/tryton/trytond/trytond/modules/bank/message.xml
 index a06297f..f4ab923 100644
---- a/trytond/trytond/modules/bank/message.xml
-+++ b/trytond/trytond/modules/bank/message.xml
+--- a/tryton/modules/bank/message.xml
++++ b/tryton/modules/bank/message.xml
 @@ -9,5 +9,11 @@ this repository contains the full copyright notices and license terms. -->
          <record model="ir.message" id="msg_invalid_bic">
              <field name="text">The BIC "%(bic)s" is not valid.</field>

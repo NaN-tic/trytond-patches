@@ -1,7 +1,7 @@
-diff --git a/sao/src/view/form.js b/sao/src/view/form.js
+diff --git a/tryton/sao/src/view/form.js b/sao/src/view/form.js
 index 010a4c06..b0322469 100644
---- a/sao/src/view/form.js
-+++ b/sao/src/view/form.js
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
 @@ -553,7 +553,7 @@ function eval_pyson(value){
              var has_expand = false;
              var i, j;

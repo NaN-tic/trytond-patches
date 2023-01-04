@@ -1,7 +1,7 @@
 diff --git a/product.py b/product.py
 index edb0f67..dcb0197 100644
---- a/trytond/trytond/modules/sale_price_list/product.py
-+++ b/trytond/trytond/modules/sale_price_list/product.py
+--- a/tryton/modules/sale_price_list/product.py
++++ b/tryton/modules/sale_price_list/product.py
 @@ -37,7 +37,7 @@ class Product(metaclass=PoolMeta):
                  uom = self.sale_uom
              unit_price = price_list.compute(

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/commission/commission.xml b/trytond/trytond/modules/commission/commission.xml
+diff --git a/tryton/modules/commission/commission.xml b/tryton/trytond/trytond/modules/commission/commission.xml
 index fcba3bb..498948f 100644
---- a/trytond/trytond/modules/commission/commission.xml
-+++ b/trytond/trytond/modules/commission/commission.xml
+--- a/tryton/modules/commission/commission.xml
++++ b/tryton/modules/commission/commission.xml
 @@ -28,6 +28,11 @@ this repository contains the full copyright notices and license terms. -->
              name="Commission"
              sequence="100"

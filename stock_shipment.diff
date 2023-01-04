@@ -1,7 +1,7 @@
 diff --git a/shipment.py b/shipment.py
 index 9067c31..6c64390 100644
---- a/trytond/trytond/modules/stock/shipment.py
-+++ b/trytond/trytond/modules/stock/shipment.py
+--- a/tryton/modules/stock/shipment.py
++++ b/tryton/modules/stock/shipment.py
 @@ -2476,6 +2476,8 @@ class ShipmentInternal(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
                  if m.state != 'done'
                  and m.from_location != shipment.transit_location

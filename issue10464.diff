@@ -1,7 +1,7 @@
 diff --git a/tests/test_currency.py b/tests/test_currency.py
 index bec4c1d..b4f8699 100644
---- a/trytond/trytond/modules/currency/tests/test_currency.py
-+++ b/trytond/trytond/modules/currency/tests/test_currency.py
+--- a/tryton/modules/currency/tests/test_currency.py
++++ b/tryton/modules/currency/tests/test_currency.py
 @@ -382,9 +382,9 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,

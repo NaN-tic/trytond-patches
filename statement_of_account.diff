@@ -1,7 +1,7 @@
 diff --git a/account.py b/account.py
 index c06ccdd..b1182d3 100644
---- a/trytond/trytond/modules/account/account.py
-+++ b/trytond/trytond/modules/account/account.py
+--- a/tryton/modules/account/account.py
++++ b/tryton/modules/account/account.py
 @@ -1917,7 +1917,7 @@ class GeneralLedgerAccountContext(ModelView):
      'General Ledger Account Context'
      __name__ = 'account.general_ledger.account.context'

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_asset/asset.py b/trytond/trytond/modules/account_asset/asset.py
+diff --git a/tryton/modules/account_asset/asset.py b/tryton/trytond/trytond/modules/account_asset/asset.py
 index 2d6a395..a5a0a3c 100644
---- a/trytond/trytond/modules/account_asset/asset.py
-+++ b/trytond/trytond/modules/account_asset/asset.py
+--- a/tryton/modules/account_asset/asset.py
++++ b/tryton/modules/account_asset/asset.py
 @@ -803,7 +803,9 @@ class CreateMoves(Wizard):
  class UpdateAssetShowDepreciation(ModelView):
      'Update Asset Show Depreciation'

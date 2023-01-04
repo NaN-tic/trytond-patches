@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/sale_credit_limit/sale.py b/trytond/trytond/modules/sale_credit_limit/sale.py
+diff --git a/tryton/modules/sale_credit_limit/sale.py b/tryton/trytond/trytond/modules/sale_credit_limit/sale.py
 index 9a60997..d209f72 100644
---- a/trytond/trytond/modules/sale_credit_limit/sale.py
-+++ b/trytond/trytond/modules/sale_credit_limit/sale.py
+--- a/tryton/modules/sale_credit_limit/sale.py
++++ b/tryton/modules/sale_credit_limit/sale.py
 @@ -7,12 +7,21 @@ from trytond.pool import PoolMeta
  class Sale(metaclass=PoolMeta):
      __name__ = 'sale.sale'

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/production/bom.py b/trytond/trytond/modules/production/bom.py
+diff --git a/tryton/modules/production/bom.py b/tryton/trytond/trytond/modules/production/bom.py
 index dc3faeb..3f9c369 100644
---- a/trytond/trytond/modules/production/bom.py
-+++ b/trytond/trytond/modules/production/bom.py
+--- a/tryton/modules/production/bom.py
++++ b/tryton/modules/production/bom.py
 @@ -21,15 +21,15 @@ class BOM(DeactivableMixin, ModelSQL, ModelView):
          Compute factor for an output product
          '''
@@ -44,10 +44,10 @@ index dc3faeb..3f9c369 100644
 
      @classmethod
      def get_product_types(cls):
-diff --git a/trytond/trytond/modules/production/locale/ca.po b/trytond/trytond/modules/production/locale/ca.po
+diff --git a/tryton/modules/production/locale/ca.po b/tryton/trytond/trytond/modules/production/locale/ca.po
 index 1b5da12..b45e93c 100644
---- a/trytond/trytond/modules/production/locale/ca.po
-+++ b/trytond/trytond/modules/production/locale/ca.po
+--- a/tryton/modules/production/locale/ca.po
++++ b/tryton/modules/production/locale/ca.po
 @@ -376,10 +376,6 @@ msgctxt ""
  msgid "Waiting"
  msgstr "En espera"
@@ -59,10 +59,10 @@ index 1b5da12..b45e93c 100644
  msgctxt "model:ir.message,text:msg_recursive_bom"
  msgid "You cannot create a recursive BOM for product \"%(product)s\"."
  msgstr "No podeu crear una LdM recursiva pel producte \"%(product)s\"."
-diff --git a/trytond/trytond/modules/production/locale/es.po b/trytond/trytond/modules/production/locale/es.po
+diff --git a/tryton/modules/production/locale/es.po b/tryton/trytond/trytond/modules/production/locale/es.po
 index 7cbd0a9..923fa40 100644
---- a/trytond/trytond/modules/production/locale/es.po
-+++ b/trytond/trytond/modules/production/locale/es.po
+--- a/tryton/modules/production/locale/es.po
++++ b/tryton/modules/production/locale/es.po
 @@ -376,10 +376,6 @@ msgctxt ""
  msgid "Waiting"
  msgstr "En espera"
@@ -74,10 +74,10 @@ index 7cbd0a9..923fa40 100644
  msgctxt "model:ir.message,text:msg_recursive_bom"
  msgid "You cannot create a recursive BOM for product \"%(product)s\"."
  msgstr "No puede crear una LdM recursiva para el producto \"%(product)s\"."
-diff --git a/trytond/trytond/modules/production/message.xml b/trytond/trytond/modules/production/message.xml
+diff --git a/tryton/modules/production/message.xml b/tryton/trytond/trytond/modules/production/message.xml
 index f97efb1..b12c6e4 100644
---- a/trytond/trytond/modules/production/message.xml
-+++ b/trytond/trytond/modules/production/message.xml
+--- a/tryton/modules/production/message.xml
++++ b/tryton/modules/production/message.xml
 @@ -6,8 +6,5 @@ this repository contains the full copyright notices and license terms. -->
          <record model="ir.message" id="msg_recursive_bom">
              <field name="text">You cannot create a recursive BOM for product "%(product)s".</field>

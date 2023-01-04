@@ -1,7 +1,7 @@
 diff --git a/line.py b/line.py
 index 72eda4c..e9b2467 100644
---- a/trytond/trytond/modules/timesheet/line.py
-+++ b/trytond/trytond/modules/timesheet/line.py
+--- a/tryton/modules/timesheet/line.py
++++ b/tryton/modules/timesheet/line.py
 @@ -31,11 +31,11 @@ class Line(ModelSQL, ModelView):
              ('company', '=', Eval('company', -1)),
              ['OR',
@@ -46,8 +46,8 @@ index 72eda4c..e9b2467 100644
          depends=['date'],
 diff --git a/stock.py b/stock.py
 index 05585a6..0cfdea9 100644
---- a/trytond/trytond/modules/stock_package/stock.py
-+++ b/trytond/trytond/modules/stock_package/stock.py
+--- a/tryton/modules/stock_package/stock.py
++++ b/tryton/modules/stock_package/stock.py
 @@ -19,7 +19,7 @@ class Configuration(metaclass=PoolMeta):
      package_sequence = fields.MultiValue(fields.Many2One(
              'ir.sequence', "Package Sequence", required=True,
@@ -59,8 +59,8 @@ index 05585a6..0cfdea9 100644
                  ]))
  diff --git a/work.py b/work.py
 index 8e2c51c..9703cf9 100644
---- a/trytond/trytond/modules/project_plan/work.py
-+++ b/trytond/trytond/modules/project_plan/work.py
+--- a/tryton/modules/project_plan/work.py
++++ b/tryton/modules/project_plan/work.py
 @@ -23,15 +23,15 @@ class Work(tree(parent='successors'), metaclass=PoolMeta):
      predecessors = fields.Many2Many('project.predecessor_successor',
          'successor', 'predecessor', 'Predecessors',
@@ -83,8 +83,8 @@ index 8e2c51c..9703cf9 100644
      leveling_delay = fields.Float("Leveling Delay", required=True)
 diff --git a/statement.py b/statement.py
 index 93218a5..4627255 100644
---- a/trytond/trytond/modules/account_statement/statement.py
-+++ b/trytond/trytond/modules/account_statement/statement.py
+--- a/tryton/modules/account_statement/statement.py
++++ b/tryton/modules/account_statement/statement.py
 @@ -742,8 +742,8 @@ class Line(
              'invisible': ~Bool(Eval('origin')),
              },
@@ -109,8 +109,8 @@ index 93218a5..4627255 100644
      statement_id = fields.Function(
 diff --git a/location.py b/location.py
 index 4c7e4d5..13db917 100644
---- a/trytond/trytond/modules/stock/location.py
-+++ b/trytond/trytond/modules/stock/location.py
+--- a/tryton/modules/stock/location.py
++++ b/tryton/modules/stock/location.py
 @@ -87,7 +87,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
          domain=[
              ('type', '=', 'storage'),
@@ -140,8 +140,8 @@ index 4c7e4d5..13db917 100644
          help="The top level location where stock is stored.")
 diff --git a/production.py b/production.py
 index 6f660b1..72d2882 100644
---- a/trytond/trytond/modules/production/production.py
-+++ b/trytond/trytond/modules/production/production.py
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
 @@ -125,8 +125,8 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
      inputs = fields.One2Many('stock.move', 'production_input', 'Inputs',
          domain=[
@@ -169,8 +169,8 @@ index 6f660b1..72d2882 100644
              ],
 diff --git a/stock.py b/stock.py
 index a7baefc..db418ea 100644
---- a/trytond/trytond/modules/production/stock.py
-+++ b/trytond/trytond/modules/production/stock.py
+--- a/tryton/modules/production/stock.py
++++ b/tryton/modules/production/stock.py
 @@ -23,7 +23,7 @@ class Location(metaclass=PoolMeta):
              },
          domain=[
@@ -191,8 +191,8 @@ index a7baefc..db418ea 100644
          help="Where the produced goods are stored.\n"
 diff --git a/attendance.py b/attendance.py
 index abd12de..2239a83 100644
---- a/trytond/trytond/modules/attendance/attendance.py
-+++ b/trytond/trytond/modules/attendance/attendance.py
+--- a/tryton/modules/attendance/attendance.py
++++ b/tryton/modules/attendance/attendance.py
 @@ -42,11 +42,11 @@ class Line(ModelSQL, ModelView):
              ('company', '=', Eval('company')),
              ['OR',

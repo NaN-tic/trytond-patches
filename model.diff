@@ -1,7 +1,7 @@
-diff --git a/trytond/model/model.py b/trytond/model/model.py
+diff --git a/tryton/trytond/model/model.py b/trytond/model/model.py
 index c4ab96fc..bdb1c78b 100644
---- a/trytond/trytond/model/model.py
-+++ b/trytond/trytond/model/model.py
+--- a/tryton/trytond/trytond/model/model.py
++++ b/tryton/trytond/trytond/model/model.py
 @@ -258,7 +258,7 @@ class Model(URLMixin, PoolBase, metaclass=ModelMeta):
                      name = name[len('_parent_'):]
                      parent_values[name][field] = value

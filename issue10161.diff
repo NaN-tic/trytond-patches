@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/sale/__init__.py b/trytond/trytond/modules/sale/__init__.py
+diff --git a/tryton/modules/sale/__init__.py b/tryton/trytond/trytond/modules/sale/__init__.py
 index 30ff37e..06b7472 100644
---- a/trytond/trytond/modules/sale/__init__.py
-+++ b/trytond/trytond/modules/sale/__init__.py
+--- a/tryton/modules/sale/__init__.py
++++ b/tryton/modules/sale/__init__.py
 @@ -21,6 +21,8 @@ def register():
          sale.SaleLineTax,
          sale.SaleLineIgnoredMove,
@@ -11,10 +11,10 @@ index 30ff37e..06b7472 100644
          product.Configuration,
          product.DefaultLeadTime,
          product.Template,
-diff --git a/trytond/trytond/modules/sale/locale/ca.po b/trytond/trytond/modules/sale/locale/ca.po
+diff --git a/tryton/modules/sale/locale/ca.po b/tryton/trytond/trytond/modules/sale/locale/ca.po
 index ce0d269..963801d 100644
---- a/trytond/trytond/modules/sale/locale/ca.po
-+++ b/trytond/trytond/modules/sale/locale/ca.po
+--- a/tryton/modules/sale/locale/ca.po
++++ b/tryton/modules/sale/locale/ca.po
 @@ -10,6 +10,34 @@ msgctxt "field:account.invoice,sales:"
  msgid "Sales"
  msgstr "Vendes"
@@ -50,10 +50,10 @@ index ce0d269..963801d 100644
  msgctxt "field:product.configuration,default_lead_time:"
  msgid "Default Lead Time"
  msgstr "Temps d'espera per defecte"
-diff --git a/trytond/trytond/modules/sale/locale/es.po b/trytond/trytond/modules/sale/locale/es.po
+diff --git a/tryton/modules/sale/locale/es.po b/tryton/trytond/trytond/modules/sale/locale/es.po
 index c660192..2a4e3d8 100644
---- a/trytond/trytond/modules/sale/locale/es.po
-+++ b/trytond/trytond/modules/sale/locale/es.po
+--- a/tryton/modules/sale/locale/es.po
++++ b/tryton/modules/sale/locale/es.po
 @@ -10,6 +10,34 @@ msgctxt "field:account.invoice,sales:"
  msgid "Sales"
  msgstr "Ventas"
@@ -89,10 +89,10 @@ index c660192..2a4e3d8 100644
  msgctxt "field:product.configuration,default_lead_time:"
  msgid "Default Lead Time"
  msgstr "Tiempo de espera por defecto"
-diff --git a/trytond/trytond/modules/sale/party.py b/trytond/trytond/modules/sale/party.py
+diff --git a/tryton/modules/sale/party.py b/tryton/trytond/trytond/modules/sale/party.py
 index 4503778..3bcca25 100644
---- a/trytond/trytond/modules/sale/party.py
-+++ b/trytond/trytond/modules/sale/party.py
+--- a/tryton/modules/sale/party.py
++++ b/tryton/modules/sale/party.py
 @@ -1,11 +1,82 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -176,10 +176,10 @@ index 4503778..3bcca25 100644
  class Replace(metaclass=PoolMeta):
      __name__ = 'party.replace'
  
-diff --git a/trytond/trytond/modules/sale/party.xml b/trytond/trytond/modules/sale/party.xml
+diff --git a/tryton/modules/sale/party.xml b/tryton/trytond/trytond/modules/sale/party.xml
 index 12d7090..931a811 100644
---- a/trytond/trytond/modules/sale/party.xml
-+++ b/trytond/trytond/modules/sale/party.xml
+--- a/tryton/modules/sale/party.xml
++++ b/tryton/modules/sale/party.xml
 @@ -22,5 +22,29 @@ this repository contains the full copyright notices and license terms. -->
              <field name="action" ref="act_sale_form2"/>
              <field name="group" ref="group_sale"/>
@@ -210,10 +210,10 @@ index 12d7090..931a811 100644
 +        </record>
      </data>
  </tryton>
-diff --git a/trytond/trytond/modules/sale/sale.py b/trytond/trytond/modules/sale/sale.py
+diff --git a/tryton/modules/sale/sale.py b/tryton/trytond/trytond/modules/sale/sale.py
 index 94897f9..b54b958 100644
---- a/trytond/trytond/modules/sale/sale.py
-+++ b/trytond/trytond/modules/sale/sale.py
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
 @@ -450,8 +450,16 @@ class Sale(
                  self.invoice_address = self.party.address_get(type='invoice')
              if not self.shipment_party:
@@ -240,11 +240,11 @@ index 94897f9..b54b958 100644
  
      @fields.depends('currency')
      def on_change_with_currency_digits(self, name=None):
-diff --git a/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst b/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst
+diff --git a/tryton/modules/sale/tests/scenario_sale_default_methods.rst b/tryton/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst
 new file mode 100644
 index 0000000..6c272e8
 --- /dev/null
-+++ b/trytond/trytond/modules/sale/tests/scenario_sale_default_methods.rst
++++ b/tryton/modules/sale/tests/scenario_sale_default_methods.rst
 @@ -0,0 +1,37 @@
 +=============================
 +Sale Default Methods Scenario
@@ -284,10 +284,10 @@ index 0000000..6c272e8
 +    >>> sale.invoice_method
 +    'shipment'
 \ No newline at end of file
-diff --git a/trytond/trytond/modules/sale/tests/test_sale.py b/trytond/trytond/modules/sale/tests/test_sale.py
+diff --git a/tryton/modules/sale/tests/test_sale.py b/tryton/trytond/trytond/modules/sale/tests/test_sale.py
 index da5ff77..0fa1d57 100644
---- a/trytond/trytond/modules/sale/tests/test_sale.py
-+++ b/trytond/trytond/modules/sale/tests/test_sale.py
+--- a/tryton/modules/sale/tests/test_sale.py
++++ b/tryton/modules/sale/tests/test_sale.py
 @@ -88,4 +88,9 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              optionflags=doctest.REPORT_ONLY_FIRST_FAILURE,
@@ -298,10 +298,10 @@ index da5ff77..0fa1d57 100644
 +            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE,
 +            checker=doctest_checker))
      return suite
-diff --git a/trytond/trytond/modules/sale/view/party_form.xml b/trytond/trytond/modules/sale/view/party_form.xml
+diff --git a/tryton/modules/sale/view/party_form.xml b/tryton/trytond/trytond/modules/sale/view/party_form.xml
 index d2e7b4a..1d41e7e 100644
---- a/trytond/trytond/modules/sale/view/party_form.xml
-+++ b/trytond/trytond/modules/sale/view/party_form.xml
+--- a/tryton/modules/sale/view/party_form.xml
++++ b/tryton/modules/sale/view/party_form.xml
 @@ -7,6 +7,10 @@ this repository contains the full copyright notices and license terms. -->
      </xpath>
      <xpath expr="/form/notebook" position="inside">
