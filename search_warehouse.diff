@@ -1,7 +1,7 @@
 diff --git a/location.py b/location.py
 index 87104cf..3d89bdb 100644
---- a/trytond/trytond/modules/stock/location.py
-+++ b/trytond/trytond/modules/stock/location.py
+--- a/tryton/modules/stock/location.py
++++ b/tryton/modules/stock/location.py
 @@ -72,7 +72,7 @@ class Location(DeactivableMixin, tree(), ModelSQL, ModelView):
          help="Check to enforce a single level of children with no "
          "grandchildren.")

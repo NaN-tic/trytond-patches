@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst b/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
+diff --git a/tryton/modules/currency/tests/scenario_currency_rate_update.rst b/tryton/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
 index 231cbc3..ac46be0 100644
---- a/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
-+++ b/trytond/trytond/modules/currency/tests/scenario_currency_rate_update.rst
+--- a/tryton/modules/currency/tests/scenario_currency_rate_update.rst
++++ b/tryton/modules/currency/tests/scenario_currency_rate_update.rst
 @@ -11,6 +11,7 @@ Imports::
      >>> today = dt.date.today()
      >>> previous_week = today - dt.timedelta(days=7)

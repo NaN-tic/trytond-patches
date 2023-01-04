@@ -1,6 +1,6 @@
-diff -r 80d34e8f57a0 trytond/trytond/modules/account_invoice/invoice.xml
---- a/trytond/trytond/modules/account_invoice/invoice.xml	Mon Jul 08 11:14:42 2019 +0200
-+++ b/trytond/trytond/modules/account_invoice/invoice.xml	Mon Jul 08 11:15:43 2019 +0200
+diff -r 80d34e8f57a0 trytond/tryton/trytond/modules/account_invoice/invoice.xml
+--- a/tryton/modules/account_invoice/invoice.xml	Mon Jul 08 11:14:42 2019 +0200
++++ b/tryton/modules/account_invoice/invoice.xml	Mon Jul 08 11:15:43 2019 +0200
 @@ -411,5 +411,17 @@
                  pyson="1"/>
              <field name="rule_group" ref="rule_group_invoice_line"/>
