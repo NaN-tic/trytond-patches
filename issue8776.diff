@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/tools/misc.py b/trytond/trytond/tools/misc.py
+diff --git a/tryton/trytond/trytond/tools/misc.py b/trytond/trytond/tools/misc.py
 index ee2763c9..300b5a72 100644
---- a/trytond/trytond/tools/misc.py
-+++ b/trytond/trytond/tools/misc.py
+--- a/tryton/trytond/trytond/tools/misc.py
++++ b/tryton/trytond/trytond/tools/misc.py
 @@ -12,6 +12,8 @@ import types
  import io
  import warnings

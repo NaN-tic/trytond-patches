@@ -1,5 +1,5 @@
---- a/trytond/trytond/modules/bank/bank.py
-+++ b/trytond/trytond/modules/bank/bank.py
+--- a/tryton/modules/bank/bank.py
++++ b/tryton/modules/bank/bank.py
 @@ -26,7 +26,7 @@ class Bank(ModelSQL, ModelView):
  
      @classmethod
@@ -18,8 +18,8 @@
  
  
  class BankAccountNumber(sequence_ordered(), ModelSQL, ModelView):
---- a/trytond/trytond/modules/bank/party.py
-+++ b/trytond/trytond/modules/bank/party.py
+--- a/tryton/modules/bank/party.py
++++ b/tryton/modules/bank/party.py
 @@ -25,7 +25,8 @@ class Party(metaclass=PoolMeta):
              code_value = lstrip_wildcard(clause[2])
          return [bool_op,

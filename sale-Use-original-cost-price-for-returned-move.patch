@@ -1,7 +1,7 @@
-diff --git a/stock.py b/trytond/trytond/modules/sale/stock.py
+diff --git a/stock.py b/tryton/modules/sale/stock.py
 index 8d34c30..955de77 100644
---- a/trytond/trytond/modules/sale/stock.py
-+++ b/trytond/trytond/modules/sale/stock.py
+--- a/tryton/modules/sale/stock.py
++++ b/tryton/modules/sale/stock.py
 @@ -1,5 +1,6 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.

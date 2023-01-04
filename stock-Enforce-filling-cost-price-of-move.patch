@@ -12,8 +12,8 @@ issue9397
 
 diff --git a/move.py b/move.py
 index 19f4401..839a393 100644
---- a/trytond/trytond/modules/stock/move.py
-+++ b/trytond/trytond/modules/stock/move.py
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
 @@ -266,8 +266,15 @@ class Move(Workflow, ModelSQL, ModelView):
              'invisible': Eval('state') != 'done',
              },

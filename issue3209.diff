@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/production/production.py b/trytond/trytond/modules/production/production.py
+diff --git a/tryton/modules/production/production.py b/tryton/trytond/trytond/modules/production/production.py
 index acd7a35..1ccc421 100644
---- a/trytond/trytond/modules/production/production.py
-+++ b/trytond/trytond/modules/production/production.py
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
 @@ -468,12 +468,6 @@ class Production(Workflow, ModelSQL, ModelView):
                      moves.append(output)
          Move.save(moves)

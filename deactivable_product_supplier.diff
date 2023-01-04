@@ -1,7 +1,7 @@
 diff --git a/product.py b/product.py
 index 8281bdf..6188bfc 100644
---- a/trytond/trytond/modules/purchase/product.py
-+++ b/trytond/trytond/modules/purchase/product.py
+--- a/tryton/modules/purchase/product.py
++++ b/tryton/modules/purchase/product.py
 @@ -6,8 +6,9 @@ from sql import Literal
  from sql.aggregate import Count
  
@@ -68,8 +68,8 @@ index 8281bdf..6188bfc 100644
 
 diff --git a/view/product_supplier_form.xml b/view/product_supplier_form.xml
 index c706b6e..1008559 100644
---- a/trytond/trytond/modules/purchase/view/product_supplier_form.xml
-+++ b/trytond/trytond/modules/purchase/view/product_supplier_form.xml
+--- a/tryton/modules/purchase/view/product_supplier_form.xml
++++ b/tryton/modules/purchase/view/product_supplier_form.xml
 @@ -8,8 +8,12 @@ this repository contains the full copyright notices and license terms. -->
      <field name="product" colspan="3"/>
      <label name="party"/>

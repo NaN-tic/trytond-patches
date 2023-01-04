@@ -1,5 +1,5 @@
---- a/trytond/trytond/wsgi.py
-+++ b/trytond/trytond/wsgi.py
+--- a/tryton/trytond/trytond/wsgi.py
++++ b/tryton/trytond/trytond/wsgi.py
 @@ -4,6 +4,7 @@
  import http.client
  import logging

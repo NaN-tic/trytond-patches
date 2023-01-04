@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/worker.py b/trytond/trytond/worker.py
+diff --git a/tryton/trytond/trytond/worker.py b/trytond/trytond/worker.py
 index 854d1fc4..3442a97b 100644
---- a/trytond/trytond/worker.py
-+++ b/trytond/trytond/worker.py
+--- a/tryton/trytond/trytond/worker.py
++++ b/tryton/trytond/trytond/worker.py
 @@ -120,6 +120,9 @@ def run_task(pool, task_id):
                          transaction.rollback()
                          continue

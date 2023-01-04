@@ -1,6 +1,6 @@
 diff -r 6c85f394741c invoice.py
---- a/trytond/trytond/modules/account_invoice/invoice.py	Wed Jan 24 20:14:28 2018 +0100
-+++ b/trytond/trytond/modules/account_invoice/invoice.py	Wed Feb 07 15:39:49 2018 +0100
+--- a/tryton/modules/account_invoice/invoice.py	Wed Jan 24 20:14:28 2018 +0100
++++ b/tryton/modules/account_invoice/invoice.py	Wed Feb 07 15:39:49 2018 +0100
 @@ -1020,6 +1020,11 @@
              invoice.number = invoice.get_next_number()
          cls.save(invoices)

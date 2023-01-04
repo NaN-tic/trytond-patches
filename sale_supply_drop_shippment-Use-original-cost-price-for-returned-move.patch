@@ -13,8 +13,8 @@ review327491003
 
 diff --git a/stock.py b/stock.py
 index 46dc496..84b00ca 100644
---- a/trytond/trytond/modules/sale_supply_drop_shipment/stock.py
-+++ b/trytond/trytond/modules/sale_supply_drop_shipment/stock.py
+--- a/tryton/modules/sale_supply_drop_shipment/stock.py
++++ b/tryton/modules/sale_supply_drop_shipment/stock.py
 @@ -404,7 +404,6 @@ class ShipmentDrop(Workflow, ModelSQL, ModelView):
          pool = Pool()
          UoM = pool.get('product.uom')

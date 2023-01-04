@@ -1,6 +1,6 @@
 diff --git a/product.py b/product.py
---- a/trytond/trytond/modules/product/product.py
-+++ b/trytond/trytond/modules/product/product.py
+--- a/tryton/modules/product/product.py
++++ b/tryton/modules/product/product.py
 @@ -282,6 +282,10 @@ class Product(
 
      def get_template(self, name):

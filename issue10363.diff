@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/production/bom.py b/trytond/trytond/modules/production/bom.py
+diff --git a/tryton/modules/production/bom.py b/tryton/trytond/trytond/modules/production/bom.py
 index b954951..11bb437 100644
---- a/trytond/trytond/modules/production/bom.py
-+++ b/trytond/trytond/modules/production/bom.py
+--- a/tryton/modules/production/bom.py
++++ b/tryton/modules/production/bom.py
 @@ -26,13 +26,15 @@ class BOM(DeactivableMixin, ModelSQL, ModelView):
          Compute factor for an output product
          '''

@@ -14,8 +14,8 @@ review327491003
 
 diff --git a/move.py b/move.py
 index 9e20a1d..423a4bd 100644
---- a/trytond/trytond/modules/product_cost_fifo/move.py
-+++ b/trytond/trytond/modules/product_cost_fifo/move.py
+--- a/tryton/modules/product_cost_fifo/move.py
++++ b/tryton/modules/product_cost_fifo/move.py
 @@ -68,7 +68,6 @@ class Move(metaclass=PoolMeta):
          '''
          pool = Pool()
@@ -69,8 +69,8 @@ index 9e20a1d..423a4bd 100644
              cost_price = self._compute_product_cost_price('in')
 diff --git a/product.py b/product.py
 index b7e25bb..13e7d95 100644
---- a/trytond/trytond/modules/product_cost_fifo/product.py
-+++ b/trytond/trytond/modules/product_cost_fifo/product.py
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
 @@ -4,7 +4,6 @@ import datetime as dt
  from decimal import Decimal
 

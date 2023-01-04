@@ -1,5 +1,5 @@
---- a/trytond/trytond/modules/product/product.py
-+++ b/trytond/trytond/modules/product/product.py
+--- a/tryton/modules/product/product.py
++++ b/tryton/modules/product/product.py
 @@ -165,9 +165,9 @@ class Template(
 
  class TemplateFunction(fields.Function):

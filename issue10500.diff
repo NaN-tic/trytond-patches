@@ -1,7 +1,7 @@
 diff --git a/invoice.py b/invoice.py
 index 582265d..1093bb3 100644
---- a/trytond/trytond/modules/account_invoice/invoice.py
-+++ b/trytond/trytond/modules/account_invoice/invoice.py
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
 @@ -1202,7 +1202,7 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin):
                      gettext('account_invoice.msg_invoice_same_account_line',
                          account=self.account.rec_name,

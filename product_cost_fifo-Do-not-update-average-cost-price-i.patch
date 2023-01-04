@@ -14,8 +14,8 @@ issue9484
 
 diff --git a/product.py b/product.py
 index 13e7d95..415d833 100644
---- a/trytond/trytond/modules/product_cost_fifo/product.py
-+++ b/trytond/trytond/modules/product_cost_fifo/product.py
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
 @@ -138,9 +138,7 @@ class Product(metaclass=PoolMeta):
              return move.from_location.type == 'storage'
 

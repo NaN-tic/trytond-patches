@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/model/multivalue.py b/trytond/trytond/model/multivalue.py
+diff --git a/tryton/trytond/trytond/model/multivalue.py b/trytond/trytond/model/multivalue.py
 index 5cf45d4a..f3765dd6 100644
---- a/trytond/trytond/model/multivalue.py
-+++ b/trytond/trytond/model/multivalue.py
+--- a/tryton/trytond/trytond/model/multivalue.py
++++ b/tryton/trytond/trytond/model/multivalue.py
 @@ -3,6 +3,7 @@
  from ..pool import Pool
  from .model import Model
@@ -27,10 +27,10 @@ index 5cf45d4a..f3765dd6 100644
  
      def __values(self, field, pattern, match_none=True):
          Value = self.multivalue_model(field)
-diff --git a/trytond/trytond/tests/multivalue.py b/trytond/trytond/tests/multivalue.py
+diff --git a/tryton/trytond/trytond/tests/multivalue.py b/trytond/trytond/tests/multivalue.py
 index 45fb3863..f303a019 100644
---- a/trytond/trytond/tests/multivalue.py
-+++ b/trytond/trytond/tests/multivalue.py
+--- a/tryton/trytond/trytond/tests/multivalue.py
++++ b/tryton/trytond/trytond/tests/multivalue.py
 @@ -8,13 +8,25 @@ class ModelMultiValue(ModelSQL, MultiValueMixin):
      "Model MultiValue"
      __name__ = 'test.model_multivalue'
@@ -65,10 +65,10 @@ index 45fb3863..f303a019 100644
 
 
  def register(module):
-diff --git a/trytond/trytond/tests/test_multivalue.py b/trytond/trytond/tests/test_multivalue.py
+diff --git a/tryton/trytond/trytond/tests/test_multivalue.py b/trytond/trytond/tests/test_multivalue.py
 index 73722978..5b97232a 100644
---- a/trytond/trytond/tests/test_multivalue.py
-+++ b/trytond/trytond/tests/test_multivalue.py
+--- a/tryton/trytond/trytond/tests/test_multivalue.py
++++ b/tryton/trytond/trytond/tests/test_multivalue.py
 @@ -13,6 +13,20 @@ class MultiValueTestCase(unittest.TestCase):
      def setUpClass(cls):
          activate_module('tests')

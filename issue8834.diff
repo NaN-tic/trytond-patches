@@ -1,6 +1,6 @@
-diff -r dc6d16f53783 trytond/trytond/modules/account_payment_clearing/payment.py
---- a/trytond/trytond/modules/account_payment_clearing/payment.py	Mon Nov 04 12:53:16 2019 +0100
-+++ b/trytond/trytond/modules/account_payment_clearing/payment.py	Mon Nov 18 14:19:24 2019 +0100
+diff -r dc6d16f53783 trytond/tryton/trytond/modules/account_payment_clearing/payment.py
+--- a/tryton/modules/account_payment_clearing/payment.py	Mon Nov 04 12:53:16 2019 +0100
++++ b/tryton/modules/account_payment_clearing/payment.py	Mon Nov 18 14:19:24 2019 +0100
 @@ -189,6 +189,8 @@
          else:
              counterpart.debit, counterpart.credit = local_amount, 0

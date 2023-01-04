@@ -17,8 +17,8 @@ review321471002
 
 Index: move.py
 ===================================================================
---- a/trytond/trytond/modules/product_cost_fifo/move.py
-+++ b/trytond/trytond/modules/product_cost_fifo/move.py
+--- a/tryton/modules/product_cost_fifo/move.py
++++ b/tryton/modules/product_cost_fifo/move.py
 @@ -81,13 +81,15 @@
          to_save = []
          for move, move_qty in fifo_moves:
@@ -44,8 +44,8 @@ Index: move.py
              move_qty = Uom.compute_qty(self.product.default_uom, move_qty,
 Index: product.py
 ===================================================================
---- a/trytond/trytond/modules/product_cost_fifo/product.py
-+++ b/trytond/trytond/modules/product_cost_fifo/product.py
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
 @@ -31,7 +31,7 @@
          domain = [
              ('product', '=', self.id),
@@ -124,8 +124,8 @@ Index: product.py
 
 Index: tests/scenario_product_cost_fifo_recompute_cost_price.rst
 ===================================================================
---- a/trytond/trytond/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
-+++ b/trytond/trytond/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
 @@ -45,6 +45,7 @@
      >>> supplier_loc, = Location.find([('code', '=', 'SUP')])
      >>> storage_loc, = Location.find([('code', '=', 'STO')])

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock_lot/product.py b/trytond/trytond/modules/stock_lot/product.py
+diff --git a/tryton/modules/stock_lot/product.py b/tryton/trytond/trytond/modules/stock_lot/product.py
 index e8a01ec..8e3b5d9 100644
---- a/trytond/trytond/modules/stock_lot/product.py
-+++ b/trytond/trytond/modules/stock_lot/product.py
+--- a/tryton/modules/stock_lot/product.py
++++ b/tryton/modules/stock_lot/product.py
 @@ -13,12 +13,13 @@ class Template(metaclass=PoolMeta):
      __name__ = 'product.template'
 
@@ -18,10 +18,10 @@ index e8a01ec..8e3b5d9 100644
          help='The type of location for which lot is required.',
          states={
              'invisible': ~Eval('type').in_(['goods', 'assets']),
-diff --git a/trytond/trytond/modules/stock_lot/stock.py b/trytond/trytond/modules/stock_lot/stock.py
+diff --git a/tryton/modules/stock_lot/stock.py b/tryton/trytond/trytond/modules/stock_lot/stock.py
 index 699f336..d683f87 100644
---- a/trytond/trytond/modules/stock_lot/stock.py
-+++ b/trytond/trytond/modules/stock_lot/stock.py
+--- a/tryton/modules/stock_lot/stock.py
++++ b/tryton/modules/stock_lot/stock.py
 @@ -116,6 +116,20 @@ class Move(metaclass=PoolMeta):
              },
          depends=['state', 'product'])

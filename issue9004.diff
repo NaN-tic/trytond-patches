@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/product/message.xml b/trytond/trytond/modules/product/message.xml
+diff --git a/tryton/modules/product/message.xml b/tryton/trytond/trytond/modules/product/message.xml
 index d77bc0e..d8b1f2f 100644
---- a/trytond/trytond/modules/product/message.xml
-+++ b/trytond/trytond/modules/product/message.xml
+--- a/tryton/modules/product/message.xml
++++ b/tryton/modules/product/message.xml
 @@ -24,5 +24,8 @@ this repository contains the full copyright notices and license terms. -->
          <record model="ir.message" id="msg_invalid_code">
              <field name="text">The %(type)s "%(code)s" for product "%(product)s" is not valid.</field>
@@ -11,10 +11,10 @@ index d77bc0e..d8b1f2f 100644
 +        </record>
      </data>
  </tryton>
-diff --git a/trytond/trytond/modules/product/product.py b/trytond/trytond/modules/product/product.py
+diff --git a/tryton/modules/product/product.py b/tryton/trytond/trytond/modules/product/product.py
 index 7207c02..559329e 100644
---- a/trytond/trytond/modules/product/product.py
-+++ b/trytond/trytond/modules/product/product.py
+--- a/tryton/modules/product/product.py
++++ b/tryton/modules/product/product.py
 @@ -7,12 +7,13 @@ from importlib import import_module
 
  import stdnum

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/sale_advance_payment/sale.py b/trytond/trytond/modules/sale_advance_payment/sale.py
+diff --git a/tryton/modules/sale_advance_payment/sale.py b/tryton/trytond/trytond/modules/sale_advance_payment/sale.py
 index fec4ad8..629c94d 100644
---- a/trytond/trytond/modules/sale_advance_payment/sale.py
-+++ b/trytond/trytond/modules/sale_advance_payment/sale.py
+--- a/tryton/modules/sale_advance_payment/sale.py
++++ b/tryton/modules/sale_advance_payment/sale.py
 @@ -83,19 +83,20 @@ class AdvancePaymentTermLine(ModelView, ModelSQL, CompanyMultiValueMixin):
              "- total_amount: The total amount of the sale.\n"
              "- untaxed_amount: The total untaxed amount of the sale.")

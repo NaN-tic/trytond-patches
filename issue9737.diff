@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock/shipment.py b/trytond/trytond/modules/stock/shipment.py
+diff --git a/tryton/modules/stock/shipment.py b/tryton/trytond/trytond/modules/stock/shipment.py
 index d176518..b915c21 100644
---- a/trytond/trytond/modules/stock/shipment.py
-+++ b/trytond/trytond/modules/stock/shipment.py
+--- a/tryton/modules/stock/shipment.py
++++ b/tryton/modules/stock/shipment.py
 @@ -1150,6 +1150,8 @@ class ShipmentOut(ShipmentMixin, Workflow, ModelSQL, ModelView):
          Move = pool.get('stock.move')
          Move.do([m for s in shipments for m in s.inventory_moves])

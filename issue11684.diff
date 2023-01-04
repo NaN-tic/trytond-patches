@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/carrier_percentage/carrier.py b/trytond/trytond/modules/carrier_percentage/carrier.py
+diff --git a/tryton/modules/carrier_percentage/carrier.py b/tryton/trytond/trytond/modules/carrier_percentage/carrier.py
 index 8cf58a3..d85ceb9 100644
---- a/trytond/trytond/modules/carrier_percentage/carrier.py
-+++ b/trytond/trytond/modules/carrier_percentage/carrier.py
+--- a/tryton/modules/carrier_percentage/carrier.py
++++ b/tryton/modules/carrier_percentage/carrier.py
 @@ -30,8 +30,6 @@ class Carrier(metaclass=PoolMeta):
          Currency = Pool().get('currency.currency')
 

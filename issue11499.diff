@@ -1,7 +1,7 @@
-diff --git a/sao/src/window.js b/sao/src/window.js
+diff --git a/tryton/sao/src/window.js b/sao/src/window.js
 index d6076f1..ff0b66f 100644
---- a/sao/src/window.js
-+++ b/sao/src/window.js
+--- a/tryton/sao/src/window.js
++++ b/tryton/sao/src/window.js
 @@ -1825,7 +1825,10 @@
                      val = val.format(Sao.common.date_format());
                  } else if (!isNaN(Number(val))) {

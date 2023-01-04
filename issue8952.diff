@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/country/scripts/import_zip.py b/trytond/trytond/modules/country/scripts/import_zip.py
+diff --git a/tryton/modules/country/scripts/import_zip.py b/tryton/trytond/trytond/modules/country/scripts/import_zip.py
 index 25bbfc7..4bf3ed7 100755
---- a/trytond/trytond/modules/country/scripts/import_zip.py
-+++ b/trytond/trytond/modules/country/scripts/import_zip.py
+--- a/tryton/modules/country/scripts/import_zip.py
++++ b/tryton/modules/country/scripts/import_zip.py
 @@ -36,7 +36,7 @@ def clean(code):
  
  def fetch(code):

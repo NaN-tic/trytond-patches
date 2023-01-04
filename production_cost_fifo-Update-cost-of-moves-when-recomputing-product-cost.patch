@@ -13,8 +13,8 @@ Subject: [PATCH] Update cost of moves when recomputing product cost issue8795
 
 diff --git a/product.py b/product.py
 index 86a6faa..0c204bd 100644
---- a/trytond/trytond/modules/product_cost_fifo/product.py
-+++ b/trytond/trytond/modules/product_cost_fifo/product.py
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
 @@ -1,6 +1,9 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -281,7 +281,7 @@ diff --git a/tests/scenario_product_cost_fifo_recompute_cost_price.rst b/tests/s
 new file mode 100644
 index 0000000..f8b952f
 --- /dev/null
-+++ b/trytond/trytond/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
 @@ -0,0 +1,126 @@
 +======================================
 +Product Cost FIFO Recompute Cost Price
@@ -411,8 +411,8 @@ index 0000000..f8b952f
 +    Decimal('99.9999')
 diff --git a/tests/test_product_cost_fifo.py b/tests/test_product_cost_fifo.py
 index 7b81f5e..5ee6fb6 100644
---- a/trytond/trytond/modules/product_cost_fifo/tests/test_product_cost_fifo.py
-+++ b/trytond/trytond/modules/product_cost_fifo/tests/test_product_cost_fifo.py
+--- a/tryton/modules/product_cost_fifo/tests/test_product_cost_fifo.py
++++ b/tryton/modules/product_cost_fifo/tests/test_product_cost_fifo.py
 @@ -32,4 +32,9 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,

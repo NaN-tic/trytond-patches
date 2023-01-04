@@ -15,8 +15,8 @@ review316051002
 
 diff --git a/production.py b/production.py
 index 2bd52d1..13ec112 100644
---- a/trytond/trytond/modules/production/production.py
-+++ b/trytond/trytond/modules/production/production.py
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
 @@ -1,7 +1,7 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.

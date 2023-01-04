@@ -1,6 +1,6 @@
 diff -r c1860f118efd move.py
---- a/trytond/trytond/modules/stock/move.py	Wed Nov 07 12:14:26 2018 +0100
-+++ b/trytond/trytond/modules/stock/move.py	Wed Nov 07 12:18:14 2018 +0100
+--- a/tryton/modules/stock/move.py	Wed Nov 07 12:14:26 2018 +0100
++++ b/tryton/modules/stock/move.py	Wed Nov 07 12:18:14 2018 +0100
 @@ -748,6 +748,10 @@ class Move(Workflow, ModelSQL, ModelView):
              return to_pick
          return to_pick

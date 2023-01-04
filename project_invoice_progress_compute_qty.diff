@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/project_invoice/work.py b/trytond/trytond/modules/project_invoice/work.py
+diff --git a/tryton/modules/project_invoice/work.py b/tryton/trytond/trytond/modules/project_invoice/work.py
 index fcc41a2..3577e1f 100644
---- a/trytond/trytond/modules/project_invoice/work.py
-+++ b/trytond/trytond/modules/project_invoice/work.py
+--- a/tryton/modules/project_invoice/work.py
++++ b/tryton/modules/project_invoice/work.py
 @@ -515,9 +515,6 @@ class Work(metaclass=PoolMeta):
 
          invoiced_progress = sum(x.effort_hours for x in self.invoiced_progress)

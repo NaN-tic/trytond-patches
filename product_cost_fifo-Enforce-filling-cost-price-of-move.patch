@@ -12,8 +12,8 @@ issue9397
 
 diff --git a/move.py b/move.py
 index 423a4bd..f4a7b61 100644
---- a/trytond/trytond/modules/product_cost_fifo/move.py
-+++ b/trytond/trytond/modules/product_cost_fifo/move.py
+--- a/tryton/modules/product_cost_fifo/move.py
++++ b/tryton/modules/product_cost_fifo/move.py
 @@ -102,7 +102,7 @@ class Move(metaclass=PoolMeta):
          # Compute average cost price
          average_cost_price = self._compute_product_cost_price(

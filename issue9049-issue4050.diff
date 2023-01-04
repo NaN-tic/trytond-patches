@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/purchase/__init__.py b/trytond/trytond/modules/purchase/__init__.py
+diff --git a/tryton/modules/purchase/__init__.py b/tryton/trytond/trytond/modules/purchase/__init__.py
 index 5f548ca..db72ac1 100644
---- a/trytond/trytond/modules/purchase/__init__.py
-+++ b/trytond/trytond/modules/purchase/__init__.py
+--- a/tryton/modules/purchase/__init__.py
++++ b/tryton/modules/purchase/__init__.py
 @@ -36,6 +36,7 @@ def register():
          Location,
          party.Party,
@@ -16,10 +16,10 @@ index 5f548ca..db72ac1 100644
          ModifyHeader,
 +        purchase.ReturnPurchase,
          module='purchase', type_='wizard')
-diff --git a/trytond/trytond/modules/purchase/locale/ca.po b/trytond/trytond/modules/purchase/locale/ca.po
+diff --git a/tryton/modules/purchase/locale/ca.po b/tryton/trytond/trytond/modules/purchase/locale/ca.po
 index b184206..e4e01be 100644
---- a/trytond/trytond/modules/purchase/locale/ca.po
-+++ b/trytond/trytond/modules/purchase/locale/ca.po
+--- a/tryton/modules/purchase/locale/ca.po
++++ b/tryton/modules/purchase/locale/ca.po
 @@ -526,6 +526,10 @@ msgctxt "model:ir.action,name:wizard_modify_header"
  msgid "Modify Header"
  msgstr "Modificar capçalera"
@@ -42,10 +42,10 @@ index b184206..e4e01be 100644
  msgctxt "wizard_button:purchase.handle.invoice.exception,ask,end:"
  msgid "Cancel"
  msgstr "Cancel·la"
-diff --git a/trytond/trytond/modules/purchase/locale/es.po b/trytond/trytond/modules/purchase/locale/es.po
+diff --git a/tryton/modules/purchase/locale/es.po b/tryton/trytond/trytond/modules/purchase/locale/es.po
 index c48d0c8..497e5a3 100644
---- a/trytond/trytond/modules/purchase/locale/es.po
-+++ b/trytond/trytond/modules/purchase/locale/es.po
+--- a/tryton/modules/purchase/locale/es.po
++++ b/tryton/modules/purchase/locale/es.po
 @@ -529,6 +529,10 @@ msgctxt "model:ir.action,name:wizard_modify_header"
  msgid "Modify Header"
  msgstr "Modificar cabecera"
@@ -68,10 +68,10 @@ index c48d0c8..497e5a3 100644
  msgctxt "wizard_button:purchase.handle.invoice.exception,ask,end:"
  msgid "Cancel"
  msgstr "Cancelar"
-diff --git a/trytond/trytond/modules/purchase/purchase.py b/trytond/trytond/modules/purchase/purchase.py
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/trytond/trytond/modules/purchase/purchase.py
 index a0459a5..4e35105 100644
---- a/trytond/trytond/modules/purchase/purchase.py
-+++ b/trytond/trytond/modules/purchase/purchase.py
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
 @@ -175,6 +175,11 @@ class Purchase(Workflow, ModelSQL, ModelView, TaxableMixin):
      invoices_recreated = fields.Many2Many(
              'purchase.purchase-recreated-account.invoice',
@@ -140,10 +140,10 @@ index a0459a5..4e35105 100644
 +        if len(return_purchases) == 1:
 +            action['views'].reverse()
 +        return action, data
-diff --git a/trytond/trytond/modules/purchase/purchase.xml b/trytond/trytond/modules/purchase/purchase.xml
+diff --git a/tryton/modules/purchase/purchase.xml b/tryton/trytond/trytond/modules/purchase/purchase.xml
 index aef771b..97404cb 100644
---- a/trytond/trytond/modules/purchase/purchase.xml
-+++ b/trytond/trytond/modules/purchase/purchase.xml
+--- a/tryton/modules/purchase/purchase.xml
++++ b/tryton/modules/purchase/purchase.xml
 @@ -523,6 +523,22 @@ this repository contains the full copyright notices and license terms. -->
              <field name="name">template_tree</field>
          </record>
@@ -167,10 +167,10 @@ index aef771b..97404cb 100644
          <record model="ir.action.wizard" id="act_open_supplier">
              <field name="name">Parties associated to Purchases</field>
              <field name="wiz_name">purchase.open_supplier</field>
-diff --git a/trytond/trytond/modules/purchase/view/purchase_form.xml b/trytond/trytond/modules/purchase/view/purchase_form.xml
+diff --git a/tryton/modules/purchase/view/purchase_form.xml b/tryton/trytond/trytond/modules/purchase/view/purchase_form.xml
 index d689f5e..5f25f91 100644
---- a/trytond/trytond/modules/purchase/view/purchase_form.xml
-+++ b/trytond/trytond/modules/purchase/view/purchase_form.xml
+--- a/tryton/modules/purchase/view/purchase_form.xml
++++ b/tryton/modules/purchase/view/purchase_form.xml
 @@ -45,6 +45,8 @@ this repository contains the full copyright notices and license terms. -->
              <label name="company"/>
              <field name="company"/>
@@ -180,11 +180,11 @@ index d689f5e..5f25f91 100644
              <label name="invoice_method"/>
              <field name="invoice_method"/>
              <label name="delivery_date"/>
-diff --git a/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml b/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml
+diff --git a/tryton/modules/purchase/view/return_purchase_start_form.xml b/tryton/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml
 new file mode 100644
 index 0000000..9a87dd8
 --- /dev/null
-+++ b/trytond/trytond/modules/purchase/view/return_purchase_start_form.xml
++++ b/tryton/modules/purchase/view/return_purchase_start_form.xml
 @@ -0,0 +1,9 @@
 +<?xml version="1.0"?>
 +<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of

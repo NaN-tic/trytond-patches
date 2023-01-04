@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_invoice_stock/stock.py b/trytond/trytond/modules/account_invoice_stock/stock.py
+diff --git a/tryton/modules/account_invoice_stock/stock.py b/tryton/trytond/trytond/modules/account_invoice_stock/stock.py
 index a741d88..b118326 100644
---- a/trytond/trytond/modules/account_invoice_stock/stock.py
-+++ b/trytond/trytond/modules/account_invoice_stock/stock.py
+--- a/tryton/modules/account_invoice_stock/stock.py
++++ b/tryton/modules/account_invoice_stock/stock.py
 @@ -20,6 +20,8 @@ class StockMove(metaclass=PoolMeta):
          Uom = pool.get('product.uom')
          quantity = 0

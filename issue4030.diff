@@ -1,6 +1,6 @@
-diff -r 1329bfa523a8 trytond/trytond/modules/analytic_account/line.py
---- a/trytond/trytond/modules/analytic_account/line.py   Mon Apr 23 17:28:19 2018 +0200
-+++ b/trytond/trytond/modules/analytic_account/line.py   Fri May 11 13:16:07 2018 +0200
+diff -r 1329bfa523a8 trytond/tryton/trytond/modules/analytic_account/line.py
+--- a/tryton/modules/analytic_account/line.py   Mon Apr 23 17:28:19 2018 +0200
++++ b/tryton/modules/analytic_account/line.py   Fri May 11 13:16:07 2018 +0200
 @@ -28,7 +28,7 @@
          'on_change_with_company', searcher='search_company')
      account = fields.Many2One('analytic_account.account', 'Account',

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account/move.xml b/trytond/trytond/modules/account/move.xml
+diff --git a/tryton/modules/account/move.xml b/tryton/trytond/trytond/modules/account/move.xml
 index 3ce79e1..820cee2 100644
---- a/trytond/trytond/modules/account/move.xml
-+++ b/trytond/trytond/modules/account/move.xml
+--- a/tryton/modules/account/move.xml
++++ b/tryton/modules/account/move.xml
 @@ -392,6 +392,19 @@ this repository contains the full copyright notices and license terms. -->
              <field name="perm_delete" eval="True"/>
          </record>

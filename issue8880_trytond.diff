@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/ir/action.py b/trytond/ir/action.py
+diff --git a/tryton/trytond/trytond/ir/action.py b/trytond/ir/action.py
 index a6d6ec32..9904c8dc 100644
---- a/trytond/trytond/ir/action.py
-+++ b/trytond/ir/action.py
+--- a/tryton/trytond/trytond/ir/action.py
++++ b/tryton/trytond/ir/action.py
 @@ -10,6 +10,7 @@ from sql import Null
  from trytond.config import config
  from trytond.i18n import gettext
@@ -41,10 +41,10 @@ index a6d6ec32..9904c8dc 100644
              pysons[window.id] = (getattr(window, field)
                  or defaults.get(field, 'null'))
          return pysons
-diff --git a/trytond/trytond/ir/attachment.py b/trytond/ir/attachment.py
+diff --git a/tryton/trytond/trytond/ir/attachment.py b/trytond/ir/attachment.py
 index c9f92a10..5aa85afd 100644
---- a/trytond/trytond/ir/attachment.py
-+++ b/trytond/ir/attachment.py
+--- a/tryton/trytond/trytond/ir/attachment.py
++++ b/tryton/trytond/ir/attachment.py
 @@ -54,7 +54,10 @@ class Attachment(ResourceMixin, ModelSQL, ModelView):
      @classmethod
      def __setup__(cls):
@@ -57,10 +57,10 @@ index c9f92a10..5aa85afd 100644
 
      @classmethod
      def __register__(cls, module_name):
-diff --git a/trytond/trytond/ir/ui/tree.rnc b/trytond/ir/ui/tree.rnc
+diff --git a/tryton/trytond/trytond/ir/ui/tree.rnc b/trytond/ir/ui/tree.rnc
 index b694f5f4..77625b55 100644
---- a/trytond/trytond/ir/ui/tree.rnc
-+++ b/trytond/ir/ui/tree.rnc
+--- a/tryton/trytond/trytond/ir/ui/tree.rnc
++++ b/tryton/trytond/ir/ui/tree.rnc
 @@ -5,7 +5,7 @@ tree = element tree { attlist.tree,
       | button)*
    }
@@ -70,10 +70,10 @@ index b694f5f4..77625b55 100644
  attlist.tree &= attribute sequence { text }?
  attlist.tree &=
    [ a:defaultValue = "0" ] attribute keyword_open { "0" | "1" }?
-diff --git a/trytond/trytond/ir/ui/tree.rng b/trytond/ir/ui/tree.rng
+diff --git a/tryton/trytond/trytond/ir/ui/tree.rng b/trytond/ir/ui/tree.rng
 index 0c5651fc..73437d74 100644
---- a/trytond/trytond/ir/ui/tree.rng
-+++ b/trytond/ir/ui/tree.rng
+--- a/tryton/trytond/trytond/ir/ui/tree.rng
++++ b/tryton/trytond/ir/ui/tree.rng
 @@ -29,6 +29,8 @@
          <choice>
            <value>top</value>
@@ -83,10 +83,10 @@ index 0c5651fc..73437d74 100644
          </choice>
        </attribute>
      </optional>
-diff --git a/trytond/trytond/ir/view/attachment_list.xml b/trytond/ir/view/attachment_list.xml
+diff --git a/tryton/trytond/trytond/ir/view/attachment_list.xml b/trytond/ir/view/attachment_list.xml
 index 4759271b..cf5b577b 100644
---- a/trytond/trytond/ir/view/attachment_list.xml
-+++ b/trytond/ir/view/attachment_list.xml
+--- a/tryton/trytond/trytond/ir/view/attachment_list.xml
++++ b/tryton/trytond/ir/view/attachment_list.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -96,10 +96,10 @@ index 4759271b..cf5b577b 100644
      <field name="resource" expand="2"/>
      <field name="name" expand="2"/>
      <field name="summary" expand="1"/>
-diff --git a/trytond/trytond/ir/view/lang_list.xml b/trytond/ir/view/lang_list.xml
+diff --git a/tryton/trytond/trytond/ir/view/lang_list.xml b/trytond/ir/view/lang_list.xml
 index b50df81d..2d06b1d0 100644
---- a/trytond/trytond/ir/view/lang_list.xml
-+++ b/trytond/ir/view/lang_list.xml
+--- a/tryton/trytond/trytond/ir/view/lang_list.xml
++++ b/tryton/trytond/ir/view/lang_list.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -109,10 +109,10 @@ index b50df81d..2d06b1d0 100644
      <field name="name" expand="1"/>
      <field name="code"/>
      <field name="direction"/>
-diff --git a/trytond/trytond/ir/view/module_config_wizard_item_list.xml b/trytond/ir/view/module_config_wizard_item_list.xml
+diff --git a/tryton/trytond/trytond/ir/view/module_config_wizard_item_list.xml b/trytond/ir/view/module_config_wizard_item_list.xml
 index 51bfa46f..87498859 100644
---- a/trytond/trytond/ir/view/module_config_wizard_item_list.xml
-+++ b/trytond/ir/view/module_config_wizard_item_list.xml
+--- a/tryton/trytond/trytond/ir/view/module_config_wizard_item_list.xml
++++ b/tryton/trytond/ir/view/module_config_wizard_item_list.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -122,10 +122,10 @@ index 51bfa46f..87498859 100644
      <field name="action" expand="1"/>
      <field name="sequence"/>
      <field name="state"/>
-diff --git a/trytond/trytond/ir/view/translation_list.xml b/trytond/ir/view/translation_list.xml
+diff --git a/tryton/trytond/trytond/ir/view/translation_list.xml b/trytond/ir/view/translation_list.xml
 index 9b5df31a..0bbe31da 100644
---- a/trytond/trytond/ir/view/translation_list.xml
-+++ b/trytond/ir/view/translation_list.xml
+--- a/tryton/trytond/trytond/ir/view/translation_list.xml
++++ b/tryton/trytond/ir/view/translation_list.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0"?>
  <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
@@ -135,10 +135,10 @@ index 9b5df31a..0bbe31da 100644
      <field name="src" widget="char" expand="2"/>
      <field name="value" widget="char" expand="2"/>
      <field name="fuzzy"/>
-diff --git a/trytond/trytond/model/fields/many2many.py b/trytond/model/fields/many2many.py
+diff --git a/tryton/trytond/trytond/model/fields/many2many.py b/trytond/model/fields/many2many.py
 index 0c68be0d..0191cc21 100644
---- a/trytond/trytond/model/fields/many2many.py
-+++ b/trytond/model/fields/many2many.py
+--- a/tryton/trytond/trytond/model/fields/many2many.py
++++ b/tryton/trytond/model/fields/many2many.py
 @@ -455,6 +455,9 @@ class Many2Many(Field):
          definition['search_context'] = encoder.encode(self.search_context)
          definition['search_order'] = encoder.encode(self.search_order)
@@ -149,10 +149,10 @@ index 0c68be0d..0191cc21 100644
          if self.size is not None:
              definition['size'] = encoder.encode(self.size)
          return definition
-diff --git a/trytond/trytond/model/fields/one2many.py b/trytond/model/fields/one2many.py
+diff --git a/tryton/trytond/trytond/model/fields/one2many.py b/trytond/model/fields/one2many.py
 index 24d67e09..401e7ef3 100644
---- a/trytond/trytond/model/fields/one2many.py
-+++ b/trytond/model/fields/one2many.py
+--- a/tryton/trytond/trytond/model/fields/one2many.py
++++ b/tryton/trytond/model/fields/one2many.py
 @@ -349,4 +349,7 @@ class One2Many(Field):
          if self.size is not None:
              definition['size'] = encoder.encode(self.size)
@@ -161,10 +161,10 @@ index 24d67e09..401e7ef3 100644
 +            getattr(model, '_order', None)
 +            if self.order is None else self.order)
          return definition
-diff --git a/trytond/trytond/model/modelsql.py b/trytond/model/modelsql.py
+diff --git a/tryton/trytond/trytond/model/modelsql.py b/trytond/model/modelsql.py
 index 0ace0b7f..af41284d 100644
---- a/trytond/trytond/model/modelsql.py
-+++ b/trytond/model/modelsql.py
+--- a/tryton/trytond/trytond/model/modelsql.py
++++ b/tryton/trytond/model/modelsql.py
 @@ -188,7 +188,7 @@ class ModelSQL(ModelStorage):
              cls._sql_constraints.append(
                  ('id_positive', Check(table, table.id >= 0),

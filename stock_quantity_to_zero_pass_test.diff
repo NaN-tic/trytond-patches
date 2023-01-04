@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_out.rst b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_out.rst
+diff --git a/tryton/modules/stock/tests/scenario_stock_shipment_out.rst b/tryton/trytond/trytond/modules/stock/tests/scenario_stock_shipment_out.rst
 index 52d5b22..09a29ae 100644
---- a/trytond/trytond/modules/stock/tests/scenario_stock_shipment_out.rst
-+++ b/trytond/trytond/modules/stock/tests/scenario_stock_shipment_out.rst
+--- a/tryton/modules/stock/tests/scenario_stock_shipment_out.rst
++++ b/tryton/modules/stock/tests/scenario_stock_shipment_out.rst
 @@ -172,7 +172,7 @@ Delete the draft move, assign and pack shipment::
      >>> all(m.state == 'assigned' for m in shipment_out.outgoing_moves)
      True
@@ -29,10 +29,10 @@ index 52d5b22..09a29ae 100644
      1
      >>> shipment_out.inventory_moves[0].state
 
-diff --git a/trytond/trytond/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst b/trytond/trytond/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
+diff --git a/tryton/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst b/tryton/trytond/trytond/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
 index ea2b371..edaba40 100644
---- a/trytond/trytond/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
-+++ b/trytond/trytond/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
+--- a/tryton/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
++++ b/tryton/modules/stock_lot/tests/scenario_stock_lot_shipment_out.rst
 @@ -118,13 +118,13 @@ Pack the shipment::
      >>> shipment_out.state
      'packed'
@@ -51,10 +51,10 @@ index ea2b371..edaba40 100644
 -    [('', 0.0), ('00001', 3.0), ('00002', 7.0)]
 +    [('00001', 3.0), ('00002', 7.0)]
 
-diff --git a/trytond/trytond/modules/stock_partial_shipment_out/ests/scenario_stock_shipment_out.rst b/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
+diff --git a/tryton/modules/stock_partial_shipment_out/ests/scenario_stock_shipment_out.rst b/tryton/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
 index 321b6a9..4991c9d 100644
---- a/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
-+++ b/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
+--- a/tryton/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
++++ b/tryton/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
 @@ -127,7 +127,3 @@ Create Shipment Out::
      1
      >>> len(shipment_out.outgoing_moves)

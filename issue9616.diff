@@ -1,5 +1,5 @@
---- a/trytond/trytond/modules/analytic_invoice/asset.py
-+++ b/trytond/trytond/modules/analytic_invoice/asset.py
+--- a/tryton/modules/analytic_invoice/asset.py
++++ b/tryton/modules/analytic_invoice/asset.py
 @@ -53,7 +53,8 @@ class Asset(AnalyticMixin, metaclass=PoolMeta):
          if self.analytic_accounts:
              with Transaction().set_context(date=move.date):

@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/sale/locale/ca.po b/trytond/trytond/modules/sale/locale/ca.po
+diff --git a/tryton/modules/sale/locale/ca.po b/tryton/trytond/trytond/modules/sale/locale/ca.po
 index 3b110ce..e4a79f6 100644
---- a/trytond/trytond/modules/sale/locale/ca.po
-+++ b/trytond/trytond/modules/sale/locale/ca.po
+--- a/tryton/modules/sale/locale/ca.po
++++ b/tryton/modules/sale/locale/ca.po
 @@ -684,8 +684,8 @@ msgid "Total"
  msgstr "Total"
 
@@ -13,10 +13,10 @@ index 3b110ce..e4a79f6 100644
 
  msgctxt "field:sale.sale,untaxed_amount:"
  msgid "Untaxed"
-diff --git a/trytond/trytond/modules/sale/locale/es.po b/trytond/trytond/modules/sale/locale/es.po
+diff --git a/tryton/modules/sale/locale/es.po b/tryton/trytond/trytond/modules/sale/locale/es.po
 index 7229496..aee4002 100644
---- a/trytond/trytond/modules/sale/locale/es.po
-+++ b/trytond/trytond/modules/sale/locale/es.po
+--- a/tryton/modules/sale/locale/es.po
++++ b/tryton/modules/sale/locale/es.po
 @@ -684,8 +684,8 @@ msgid "Total"
  msgstr "Total"
 
@@ -28,10 +28,10 @@ index 7229496..aee4002 100644
 
  msgctxt "field:sale.sale,untaxed_amount:"
  msgid "Untaxed"
-diff --git a/trytond/trytond/modules/sale/sale.py b/trytond/trytond/modules/sale/sale.py
+diff --git a/tryton/modules/sale/sale.py b/tryton/trytond/trytond/modules/sale/sale.py
 index b1096c2..b3699ee 100644
---- a/trytond/trytond/modules/sale/sale.py
-+++ b/trytond/trytond/modules/sale/sale.py
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
 @@ -167,7 +167,7 @@ class Sale(Workflow, ModelSQL, ModelView, TaxableMixin):
      total_amount = fields.Function(fields.Numeric('Total',
              digits=(16, Eval('currency_digits', 2)),

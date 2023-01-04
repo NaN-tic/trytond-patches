@@ -1,6 +1,6 @@
 diff -r e19cb8ea533a forecast.py
---- a/trytond/trytond/modules/stock_forecast/forecast.py	Wed Oct 30 13:23:56 2019 +0100
-+++ b/trytond/trytond/modules/stock_forecast/forecast.py	Sat Nov 23 01:22:47 2019 +0100
+--- a/tryton/modules/stock_forecast/forecast.py	Wed Oct 30 13:23:56 2019 +0100
++++ b/tryton/modules/stock_forecast/forecast.py	Sat Nov 23 01:22:47 2019 +0100
 @@ -448,15 +448,23 @@
                  unit_price, self.uom)
  

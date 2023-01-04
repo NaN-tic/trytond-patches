@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/modules/account_stock_landed_cost/account.py b/trytond/trytond/modules/account_stock_landed_cost/account.py
+diff --git a/tryton/modules/account_stock_landed_cost/account.py b/tryton/trytond/trytond/modules/account_stock_landed_cost/account.py
 index 3815326..93478b1 100644
---- a/trytond/trytond/modules/account_stock_landed_cost/account.py
-+++ b/trytond/trytond/modules/account_stock_landed_cost/account.py
+--- a/tryton/modules/account_stock_landed_cost/account.py
++++ b/tryton/modules/account_stock_landed_cost/account.py
 @@ -10,11 +10,18 @@ from trytond.transaction import Transaction
  from trytond import backend
  from trytond.tools.multivalue import migrate_property

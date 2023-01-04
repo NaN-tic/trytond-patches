@@ -5,10 +5,10 @@
 #issue11000
 #review354381002
 
-Index: 5.4/trytond/trytond/modules/account/exceptions.py
+Index: 5.4/tryton/modules/account/exceptions.py
 ===================================================================
---- 5.4.orig/trytond/trytond/modules/account/exceptions.py
-+++ 5.4/trytond/trytond/modules/account/exceptions.py
+--- 5.4.orig/tryton/modules/account/exceptions.py
++++ 5.4/tryton/modules/account/exceptions.py
 @@ -69,6 +69,10 @@ class MoveDatesError(ValidationError):
      pass
  
@@ -20,10 +20,10 @@ Index: 5.4/trytond/trytond/modules/account/exceptions.py
  class CancelWarning(UserWarning):
      pass
  
-Index: 5.4/trytond/trytond/modules/account/message.xml
+Index: 5.4/tryton/modules/account/message.xml
 ===================================================================
---- 5.4.orig/trytond/trytond/modules/account/message.xml
-+++ 5.4/trytond/trytond/modules/account/message.xml
+--- 5.4.orig/tryton/modules/account/message.xml
++++ 5.4/tryton/modules/account/message.xml
 @@ -121,6 +121,14 @@ this repository contains the full copyri
  Use the current period to cancel the move?</field>
          </record>
@@ -39,10 +39,10 @@ Index: 5.4/trytond/trytond/modules/account/message.xml
          <record model="ir.message" id="msg_write_reconciliation">
              <field name="text">You cannot modify any reconciliation.</field>
          </record>
-Index: 5.4/trytond/trytond/modules/account/move_template.py
+Index: 5.4/tryton/modules/account/move_template.py
 ===================================================================
---- 5.4.orig/trytond/trytond/modules/account/move_template.py
-+++ 5.4/trytond/trytond/modules/account/move_template.py
+--- 5.4.orig/tryton/modules/account/move_template.py
++++ 5.4/tryton/modules/account/move_template.py
 @@ -3,8 +3,9 @@
  from xml.sax.saxutils import quoteattr
  from decimal import Decimal

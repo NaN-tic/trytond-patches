@@ -19,8 +19,8 @@ issue7271
 
 diff --git a/__init__.py b/__init__.py
 index b8909ab..94292a3 100644
---- a/trytond/trytond/modules/production/__init__.py
-+++ b/trytond/trytond/modules/production/__init__.py
+--- a/tryton/modules/production/__init__.py
++++ b/tryton/modules/production/__init__.py
 @@ -7,6 +7,7 @@ from .bom import *
  from .product import *
  from .production import *
@@ -40,8 +40,8 @@ index b8909ab..94292a3 100644
 diff --git a/ir.py b/ir.py
 new file mode 100644
 index 0000000..3ccc082
---- a/trytond/trytond/modules/production/ir.py
-+++ b/trytond/trytond/modules/production/ir.py
+--- a/tryton/modules/production/ir.py
++++ b/tryton/modules/production/ir.py
 @@ -0,0 +1,14 @@
 +# This file is part of Tryton.  The COPYRIGHT file at the top level of
 +# this repository contains the full copyright notices and license terms.
@@ -59,8 +59,8 @@ index 0000000..3ccc082
 +                ])
 diff --git a/production.py b/production.py
 index acd7a35..2bd52d1 100644
---- a/trytond/trytond/modules/production/production.py
-+++ b/trytond/trytond/modules/production/production.py
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
 @@ -445,6 +445,22 @@ class Production(Workflow, ModelSQL, ModelView):
                  move.save()
          self._set_move_planned_date()
@@ -86,8 +86,8 @@ index acd7a35..2bd52d1 100644
          pool = Pool()
 diff --git a/production.xml b/production.xml
 index e67fbb5..2f46f8c 100644
---- a/trytond/trytond/modules/production/production.xml
-+++ b/trytond/trytond/modules/production/production.xml
+--- a/tryton/modules/production/production.xml
++++ b/tryton/modules/production/production.xml
 @@ -305,5 +305,10 @@ this repository contains the full copyright notices and license terms. -->
              <field name="name">assign_failed_form</field>
          </record>
@@ -101,8 +101,8 @@ index e67fbb5..2f46f8c 100644
  </tryton>
 diff --git a/stock.py b/stock.py
 index 092cdba..0b8bbc3 100644
---- a/trytond/trytond/modules/production/stock.py
-+++ b/trytond/trytond/modules/production/stock.py
+--- a/tryton/modules/production/stock.py
++++ b/tryton/modules/production/stock.py
 @@ -32,6 +32,12 @@ class Move(metaclass=PoolMeta):
          readonly=True, select=True, ondelete='CASCADE',
          domain=[('company', '=', Eval('company'))],
@@ -139,7 +139,7 @@ diff --git a/tests/scenario_production_set_cost.rst b/tests/scenario_production_
 new file mode 100644
 index 0000000..0117fba
 --- /dev/null
-+++ b/trytond/trytond/modules/production/tests/scenario_production_set_cost.rst
++++ b/tryton/modules/production/tests/scenario_production_set_cost.rst
 @@ -0,0 +1,105 @@
 +===================
 +Production Set Cost
@@ -248,8 +248,8 @@ index 0000000..0117fba
 +    False
 diff --git a/tests/test_production.py b/tests/test_production.py
 index 2bcf2ec..e9f596c 100644
---- a/trytond/trytond/modules/production/tests/test_production.py
-+++ b/trytond/trytond/modules/production/tests/test_production.py
+--- a/tryton/modules/production/tests/test_production.py
++++ b/tryton/modules/production/tests/test_production.py
 @@ -54,4 +54,8 @@ def suite():
              tearDown=doctest_teardown, encoding='utf-8',
              checker=doctest_checker,

@@ -26,8 +26,8 @@ issue9443
 
 diff --git a/product.py b/product.py
 index 0c204bd..b7e25bb 100644
---- a/trytond/trytond/modules/product_cost_fifo/product.py
-+++ b/trytond/trytond/modules/product_cost_fifo/product.py
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
 @@ -30,7 +30,7 @@ class Product(metaclass=PoolMeta):
          domain = [
              ('product', '=', self.id),
@@ -115,8 +115,8 @@ index 0c204bd..b7e25bb 100644
 
 diff --git a/tests/scenario_product_cost_fifo_recompute_cost_price.rst b/tests/scenario_product_cost_fifo_recompute_cost_price.rst
 index f8b952f..ff76174 100644
---- a/trytond/trytond/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
-+++ b/trytond/trytond/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
 @@ -45,6 +45,7 @@ Get stock locations::
      >>> supplier_loc, = Location.find([('code', '=', 'SUP')])
      >>> storage_loc, = Location.find([('code', '=', 'STO')])

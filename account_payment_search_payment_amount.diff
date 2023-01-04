@@ -1,6 +1,6 @@
 diff --git a/account.py b/account.py
---- a/trytond/trytond/modules/account_payment/account.py
-+++ b/trytond/trytond/modules/account_payment/account.py
+--- a/tryton/modules/account_payment/account.py
++++ b/tryton/modules/account_payment/account.py
 @@ -116,7 +116,7 @@ class MoveLine(metaclass=PoolMeta):
          account = Account.__table__()
          account_type = AccountType.__table__()

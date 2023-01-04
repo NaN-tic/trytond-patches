@@ -1,7 +1,7 @@
 diff --git a/purchase.xml b/purchase.xml
 index d3ecb5b..aef771b 100644
---- a/trytond/trytond/modules/purchase/purchase.xml
-+++ b/trytond/trytond/modules/purchase/purchase.xml
+--- a/tryton/modules/purchase/purchase.xml
++++ b/tryton/modules/purchase/purchase.xml
 @@ -559,6 +559,18 @@ this repository contains the full copyright notices and license terms. -->
              <field name="rule_group" ref="rule_group_purchase"/>
          </record>

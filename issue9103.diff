@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/trytond/pool.py b/trytond/trytond/pool.py
+diff --git a/tryton/trytond/trytond/trytond/pool.py b/trytond/trytond/pool.py
 index 8d8d2f28..3349d6a1 100644
---- a/trytond/trytond/pool.py
-+++ b/trytond/trytond/pool.py
+--- a/tryton/trytond/trytond/pool.py
++++ b/tryton/trytond/trytond/pool.py
 @@ -184,6 +184,13 @@ class Pool(object):
                  cls = builtins.type(str(name), (Report,), {})
                  cls.__setup__()

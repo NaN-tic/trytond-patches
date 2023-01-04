@@ -1,5 +1,5 @@
---- a/trytond/trytond/modules/party/configuration.py
-+++ b/trytond/trytond/modules/party/configuration.py
+--- a/tryton/modules/party/configuration.py
++++ b/tryton/modules/party/configuration.py
 @@ -1,11 +1,15 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -81,8 +81,8 @@
 
  class _ConfigurationValue(ModelSQL):
 
---- a/trytond/trytond/modules/party/message.xml
-+++ b/trytond/trytond/modules/party/message.xml
+--- a/tryton/modules/party/message.xml
++++ b/tryton/modules/party/message.xml
 @@ -39,5 +39,8 @@ this repository contains the full copyright notices and license terms. -->
          <record model="ir.message" id="msg_address_subdivision_country_code_unique">
              <field name="text">The country code on subdivision type must be unique.</field>
@@ -92,8 +92,8 @@
 +        </record>
      </data>
  </tryton>
---- a/trytond/trytond/modules/party/party.py
-+++ b/trytond/trytond/modules/party/party.py
+--- a/tryton/modules/party/party.py
++++ b/tryton/modules/party/party.py
 @@ -316,6 +316,147 @@ class PartyCategory(ModelSQL):
          ondelete='CASCADE', required=True, select=True)
 
@@ -373,8 +373,8 @@
      @fields.depends('type', 'code')
      def on_change_with_code(self):
          if self.type and '_' in self.type:
---- a/trytond/trytond/modules/party/view/configuration_form.xml
-+++ b/trytond/trytond/modules/party/view/configuration_form.xml
+--- a/tryton/modules/party/view/configuration_form.xml
++++ b/tryton/modules/party/view/configuration_form.xml
 @@ -6,4 +6,7 @@ this repository contains the full copyright notices and license terms. -->
      <field name="party_sequence"/>
      <label name="party_lang"/>
@@ -383,10 +383,10 @@
 +    <label name="identifier_types"/>
 +    <field name="identifier_types"/>
  </form>
-diff --git a/trytond/trytond/modules/account_payment_sepa/__init__.py b/trytond/trytond/modules/account_payment_sepa/__init__.py
+diff --git a/tryton/modules/account_payment_sepa/__init__.py b/tryton/trytond/trytond/modules/account_payment_sepa/__init__.py
 index 17457a9..feee60a 100644
---- a/trytond/trytond/modules/account_payment_sepa/__init__.py
-+++ b/trytond/trytond/modules/account_payment_sepa/__init__.py
+--- a/tryton/modules/account_payment_sepa/__init__.py
++++ b/tryton/modules/account_payment_sepa/__init__.py
 @@ -13,6 +13,7 @@ def register():
          payment.Mandate,
          payment.Payment,
@@ -395,10 +395,10 @@ index 17457a9..feee60a 100644
          party.Party,
          party.PartyIdentifier,
          account.Configuration,
-diff --git a/trytond/trytond/modules/account_payment_sepa/party.py b/trytond/trytond/modules/account_payment_sepa/party.py
+diff --git a/tryton/modules/account_payment_sepa/party.py b/tryton/trytond/trytond/modules/account_payment_sepa/party.py
 index 2b7c16c..54de8d7 100644
---- a/trytond/trytond/modules/account_payment_sepa/party.py
-+++ b/trytond/trytond/modules/account_payment_sepa/party.py
+--- a/tryton/modules/account_payment_sepa/party.py
++++ b/tryton/modules/account_payment_sepa/party.py
 @@ -16,6 +16,15 @@ from trytond.modules.party.exceptions import InvalidIdentifierCode
  from .exceptions import PartyIdentificationdError
 
@@ -427,10 +427,10 @@ index 2b7c16c..54de8d7 100644
      @fields.depends('party', '_parent_party.identifiers')
      def check_code(self):
          super(PartyIdentifier, self).check_code()
-diff --git a/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py b/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
+diff --git a/tryton/modules/account_payment_sepa/tests/test_account_payment_sepa.py b/tryton/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
 index 35ddddc..10e1337 100644
---- a/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
-+++ b/trytond/trytond/modules/account_payment_sepa/tests/test_account_payment_sepa.py
+--- a/tryton/modules/account_payment_sepa/tests/test_account_payment_sepa.py
++++ b/tryton/modules/account_payment_sepa/tests/test_account_payment_sepa.py
 @@ -150,6 +150,17 @@ class AccountPaymentSepaTestCase(ModuleTestCase):
      'Test Account Payment SEPA module'
      module = 'account_payment_sepa'

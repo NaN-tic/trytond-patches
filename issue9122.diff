@@ -1,7 +1,7 @@
- diff --git a/trytond/trytond/modules/stock_supply/__init__.py b/trytond/trytond/modules/stock_supply/__init__.py
+ diff --git a/tryton/modules/stock_supply/__init__.py b/tryton/trytond/trytond/modules/stock_supply/__init__.py
  index 48ced90..0d646e9 100644
- --- a/trytond/trytond/modules/stock_supply/__init__.py
- +++ b/trytond/trytond/modules/stock_supply/__init__.py
+ --- a/tryton/modules/stock_supply/__init__.py
+ +++ b/tryton/modules/stock_supply/__init__.py
  @@ -8,6 +8,7 @@ from .purchase_request import *
   from .shipment import *
   from .location import *
@@ -18,11 +18,11 @@
           module='stock_supply', type_='model')
       Pool.register(
           stock.StockSupply,
-diff --git a/trytond/trytond/modules/stock_supply/ir.py b/trytond/trytond/modules/stock_supply/ir.py
+diff --git a/tryton/modules/stock_supply/ir.py b/tryton/trytond/trytond/modules/stock_supply/ir.py
 new file mode 100644
 index 0000000..27960e0
 --- /dev/null
-+++ b/trytond/trytond/modules/stock_supply/ir.py
++++ b/tryton/modules/stock_supply/ir.py
 @@ -0,0 +1,14 @@
 +# The COPYRIGHT file at the top level of this repository contains the full
 +# copyright notices and license terms.
@@ -38,10 +38,10 @@ index 0000000..27960e0
 +        cls.method.selection.extend([
 +                ('stock.order_point|supply_stock', "Supply Stock"),
 +                ])
-diff --git a/trytond/trytond/modules/stock_supply/order_point.py b/trytond/trytond/modules/stock_supply/order_point.py
+diff --git a/tryton/modules/stock_supply/order_point.py b/tryton/trytond/trytond/modules/stock_supply/order_point.py
 index 78edc42..e310f0a 100644
---- a/trytond/trytond/modules/stock_supply/order_point.py
-+++ b/trytond/trytond/modules/stock_supply/order_point.py
+--- a/tryton/modules/stock_supply/order_point.py
++++ b/tryton/modules/stock_supply/order_point.py
 @@ -4,6 +4,7 @@ from sql import Null
 
  from trytond.i18n import gettext
@@ -62,10 +62,10 @@ index 78edc42..e310f0a 100644
 +        session_id, _, _ = StockSupply.create()
 +        StockSupply.execute(session_id, {}, 'create_')
 +        StockSupply.delete(session_id)
-diff --git a/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst b/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
+diff --git a/tryton/modules/stock_supply/tests/scenario_stock_internal_supply.rst b/tryton/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
 index d1681fd..eed49a5 100644
---- a/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
-+++ b/trytond/trytond/modules/stock_supply/tests/scenario_stock_internal_supply.rst
+--- a/tryton/modules/stock_supply/tests/scenario_stock_internal_supply.rst
++++ b/tryton/modules/stock_supply/tests/scenario_stock_internal_supply.rst
 @@ -178,3 +178,18 @@ Execute internal supply::
      'Provisioning Location'
      >>> move.to_location.name

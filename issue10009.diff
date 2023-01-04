@@ -1,7 +1,7 @@
-diff --git a/trytond/trytond/ir/lang.xml b/trytond/trytond/ir/lang.xml
+diff --git a/tryton/trytond/trytond/ir/lang.xml b/trytond/trytond/ir/lang.xml
 index 9bd0b510..53d7e6b1 100644
---- a/trytond/trytond/ir/lang.xml
-+++ b/trytond/trytond/ir/lang.xml
+--- a/tryton/trytond/trytond/ir/lang.xml
++++ b/tryton/trytond/trytond/ir/lang.xml
 @@ -479,7 +479,7 @@ this repository contains the full copyright notices and license terms. -->
          <record model="ir.action.act_window" id="act_lang_form">
              <field name="name">Languages</field>
@@ -11,10 +11,10 @@ index 9bd0b510..53d7e6b1 100644
          </record>
          <record model="ir.action.act_window.view"
              id="act_lang_form_view1">
-diff --git a/trytond/trytond/ir/sequence.xml b/trytond/trytond/ir/sequence.xml
+diff --git a/tryton/trytond/trytond/ir/sequence.xml b/trytond/trytond/ir/sequence.xml
 index 702333af..fe1f7333 100644
---- a/trytond/trytond/ir/sequence.xml
-+++ b/trytond/trytond/ir/sequence.xml
+--- a/tryton/trytond/trytond/ir/sequence.xml
++++ b/tryton/trytond/trytond/ir/sequence.xml
 @@ -20,7 +20,7 @@ this repository contains the full copyright notices and license terms. -->
              <field name="name">Sequences</field>
              <field name="type">ir.action.act_window</field>
