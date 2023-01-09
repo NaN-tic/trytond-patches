@@ -36,5 +36,6 @@ issue11931.diff # [stock_lot] Allow to deactivate lot
 issue11868.diff # [account] Add on delete CASCADE to lines and keywords of move template
 
 issue11582.diff # [trytond] Add authentication services
+issue11582-sao.diff # [sao] Add authentication services
 
 issue11989.diff # [purchase_request] Clear requests when copying purchase lines
