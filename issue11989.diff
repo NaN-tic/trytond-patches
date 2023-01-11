@@ -2,9 +2,9 @@ diff --git a/tryton/modules/purchase_request/purchase.py b/tryton/modules/purcha
 index 63425351b4..a63b557763 100644
 --- a/tryton/modules/purchase_request/purchase.py
 +++ b/tryton/modules/purchase_request/purchase.py
-@@ -26,6 +26,12 @@ def process_request(func):
- class Purchase(metaclass=PoolMeta):
-     __name__ = 'purchase.purchase'
+@@ -91,6 +91,12 @@ class Line(metaclass=PoolMeta):
+             'invisible': ~Eval('requests'),
+             })
  
 +    @classmethod
 +    def copy(cls, lines, default=None):
@@ -13,5 +13,5 @@ index 63425351b4..a63b557763 100644
 +        return super().copy(lines, default=default)
 +
      @classmethod
-     def delete(cls, purchases):
-         cls.check_delete_purchase_request(purchases)
+     def delete(cls, lines):
+         pool = Pool()
