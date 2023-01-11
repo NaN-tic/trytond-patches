@@ -14,3 +14,23 @@ diff -r 0bde16075654 trytond/tryton/trytond/pool.py
              raise
  
      def add(self, cls, type='model'):
+diff --git a/tryton/trytond/trytond/model/modelsql.py b/tryton/trytond/trytond/model/modelsql.py
+index ee4e855895..ffe84c9e15 100644
+--- a/tryton/trytond/trytond/model/modelsql.py
++++ b/tryton/trytond/trytond/model/modelsql.py
+@@ -1086,8 +1086,13 @@ class ModelSQL(ModelStorage):
+                 foreign_table = Model.__table__()
+                 foreign_red_sql = reduce_ids(
+                     Column(foreign_table, field_name), sub_ids)
+-                cursor.execute(*foreign_table.select(foreign_table.id,
+-                        where=foreign_red_sql))
++                import psycopg2
++                try:
++                    cursor.execute(*foreign_table.select(foreign_table.id,
++                            where=foreign_red_sql))
++                except psycopg2.errors.UndefinedTable as ex:
++                    if ex.args and 'babi_execution' in ex.args:
++                        return []
+                 records = Model.browse([x[0] for x in cursor.fetchall()])
+             else:
+                 with transaction.set_context(active_test=False):
