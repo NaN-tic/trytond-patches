@@ -39,3 +39,5 @@ issue11582.diff # [trytond] Add authentication services
 issue11582-sao.diff # [sao] Add authentication services
 
 issue11989.diff # [purchase_request] Clear requests when copying purchase lines
+
+issue11998.diff # [sale_shipment_grouping] KeyError when processing a sale with modules sale_shipment_cost and sale_shipment_grouping installed.
