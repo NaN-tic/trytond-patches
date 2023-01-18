@@ -2,15 +2,14 @@ diff --git a/tryton/modules/commission/invoice.py b/tryton/modules/commission/in
 index f7e2fb3d9e..b3dbee52ea 100644
 --- a/tryton/modules/commission/invoice.py
 +++ b/tryton/modules/commission/invoice.py
-@@ -168,7 +168,7 @@ class InvoiceLine(metaclass=PoolMeta):
-                 continue
-             with Transaction().set_context(date=self.invoice.currency_date):
+@@ -170,6 +170,7 @@ class InvoiceLine(metaclass=PoolMeta):
                  base_amount = Currency.compute(self.invoice.currency,
--                    self.amount, agent.currency, round=False)
-+                    self.amount, agent.currency, round=True)
+                     self.amount, agent.currency, round=False)
              amount = self._get_commission_amount(base_amount, plan)
++            base_amount = round_price(base_amount)
              if amount:
                  amount = round_price(amount)
+             if not amount:
 diff --git a/tryton/modules/commission/commission.py b/tryton/modules/commission/commission.py
 index 08c693bdf1..2eabebc3e6 100644
 --- a/tryton/modules/commission/commission.py
