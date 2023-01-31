@@ -38,6 +38,5 @@ issue11868.diff # [account] Add on delete CASCADE to lines and keywords of move 
 issue11582.diff # [trytond] Add authentication services
 issue11582-sao.diff # [sao] Add authentication services
 
-issue11998.diff # [sale_shipment_grouping] KeyError when processing a sale with modules sale_shipment_cost and sale_shipment_grouping installed.
 
 issue12018.diff # [commission] Commissions: Incorrect round to Base Amount Field
