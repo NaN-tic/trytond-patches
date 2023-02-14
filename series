@@ -16,6 +16,7 @@ search_warehouse.diff # [stock] search function for warehouse
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue9802.diff # [stock] Improve performance when partially assigning moves
+issue11945.diff # [stock] Ignore assign can ignore more than moves displayed on wizard
 
 sao_colors.diff # [sao] Use the same colors as 5.4 version
 
