@@ -41,5 +41,3 @@ issue11582-sao.diff # [sao] Add authentication services
 
 
 issue12018.diff # [commission] Commissions: Incorrect round to Base Amount Field
-
-issue12072.diff # [sao] On change fields does not fill correctly (SAO)
