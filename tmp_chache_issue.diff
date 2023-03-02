@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+index 8e81c27be6..c83868c8e4 100644
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -1591,6 +1591,7 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin):
+         if moves:
+             Move.save(moves)
+         cls.save(invoices)
++        invoices = cls.browse(invoices)
+         Move.post([i.move for i in invoices if i.move.state != 'posted'])
+         reconciled = []
+         to_print = []
