@@ -50,16 +50,3 @@ index ea2b371..edaba40 100644
      >>> sorted(lot_quantities.items())
 -    [('', 0.0), ('00001', 3.0), ('00002', 7.0)]
 +    [('00001', 3.0), ('00002', 7.0)]
-
-diff --git a/tryton/trytond/trytond/modules/stock_partial_shipment_out/ests/scenario_stock_shipment_out.rst b/tryton/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
-index 321b6a9..4991c9d 100644
---- a/tryton/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
-+++ b/tryton/trytond/trytond/modules/stock_partial_shipment_out/tests/scenario_stock_shipment_out.rst
-@@ -127,7 +127,3 @@ Create Shipment Out::
-     1
-     >>> len(shipment_out.outgoing_moves)
-     2
--    >>> shipment_out.click('pack')
--    >>> outgoing_move1, outgoing_move2 = shipment_out.outgoing_moves
--    >>> outgoing_move1.quantity == 0
--    True
