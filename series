@@ -38,4 +38,4 @@ issue11868.diff # [account] Add on delete CASCADE to lines and keywords of move 
 issue11582.diff # [trytond] Add authentication services
 issue11582-sao.diff # [sao] Add authentication services
 
-tmp_chache_issue.diff # [account_invoice] TEMPORALLY: Fix the 'cache' problem.
+issue12119.diff # [trytond] Transaction cache not always cleaned
