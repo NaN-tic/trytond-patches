@@ -39,3 +39,5 @@ issue11582.diff # [trytond] Add authentication services
 issue11582-sao.diff # [sao] Add authentication services
 
 issue12119.diff # [trytond] Transaction cache not always cleaned
+
+issue12131.diff # [analytic_invoice] UpdateAsset Wizard not ser analytic lines in moves
