@@ -1,0 +1,45 @@
+diff --git a/tryton/modules/analytic_invoice/__init__.py b/tryton/modules/analytic_invoice/__init__.py
+index 78551af41d..abb790461a 100644
+--- a/tryton/modules/analytic_invoice/__init__.py
++++ b/tryton/modules/analytic_invoice/__init__.py
+@@ -19,3 +19,7 @@ def register():
+         invoice.InvoiceDeferred,
+         module='analytic_invoice', type_='model',
+         depends=['account_invoice_defer'])
++    Pool.register(
++        asset.UpdateAsset,
++        module='analytic_invoice', type_='wizard',
++        depends=['account_asset'])
+diff --git a/tryton/modules/analytic_invoice/asset.py b/tryton/modules/analytic_invoice/asset.py
+index 39f37c8e24..d613b40b15 100644
+--- a/tryton/modules/analytic_invoice/asset.py
++++ b/tryton/modules/analytic_invoice/asset.py
+@@ -59,3 +59,28 @@ class Asset(AnalyticMixin, metaclass=PoolMeta):
+                         analytic_lines.extend(
+                             entry.get_analytic_lines(line, move.date))
+                     line.analytic_lines = analytic_lines
++
++
++class UpdateAsset(metaclass=PoolMeta):
++    __name__ = 'account.asset.update'
++
++    def get_move_lines(self, asset):
++        lines = super().get_move_lines(asset)
++        if not lines:
++            return lines
++        self.set_analytic_lines(lines, asset)
++        return lines
++
++    def set_analytic_lines(self, lines, asset):
++        "Fill analytic lines on lines with given account"
++        account = asset.product.account_expense_used
++        if asset.analytic_accounts:
++            with Transaction().set_context(date=self.show_move.date):
++                for line in lines:
++                    if line.account != account:
++                        continue
++                    analytic_lines = []
++                    for entry in asset.analytic_accounts:
++                        analytic_lines.extend(
++                            entry.get_analytic_lines(line, self.show_move.date))
++                    line.analytic_lines = analytic_lines
