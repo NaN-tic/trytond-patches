@@ -11,21 +11,21 @@ index f033fab..5c1d40b 100644
          """
          Generate internal shipments to meet order points defined on
          non-warehouse location.
-@@ -27,6 +27,11 @@ class ShipmentInternal(ModelSQL, ModelView):
-         Move = pool.get('stock.move')
-         LeadTime = pool.get('stock.location.lead_time')
+@@ -30,6 +30,11 @@ class ShipmentInternal(ModelSQL, ModelView):
+         if not company:
+             return
 
 +        if warehouses is None:
 +            warehouses = Location.search([
 +                    ('type', '=', 'warehouse'),
 +                    ])
 +
-         user_record = User(Transaction().user)
          today = Date.today()
          lead_time = LeadTime.get_max_lead_time()
-@@ -41,6 +46,8 @@ class ShipmentInternal(ModelSQL, ModelView):
-         order_points = OrderPoint.search([
+
+@@ -45,6 +50,8 @@ class ShipmentInternal(ModelSQL, ModelView):
              ('type', '=', 'internal'),
+             ('company', '=', company.id),
              ])
 +        order_points = [
 +            op for op in order_points if op.location.warehouse in warehouses]
