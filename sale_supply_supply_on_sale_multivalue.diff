@@ -14,30 +14,33 @@ diff --git a/product.py b/product.py
 index 08537ed..34ccc24 100644
 --- a/tryton/modules/sale_supply/product.py
 +++ b/tryton/modules/sale_supply/product.py
-@@ -1,17 +1,35 @@
- # This file is part of Tryton.  The COPYRIGHT file at the top level of
- # this repository contains the full copyright notices and license terms.
+@@ -4,23 +4,34 @@
+ from sql import Literal
+
+ from trytond.i18n import gettext
 -from trytond.model import fields
--from trytond.pool import PoolMeta
 +from trytond.model import fields, ModelSQL
-+from trytond.pool import Pool, PoolMeta
+ from trytond.pool import Pool, PoolMeta
 +from trytond.modules.company.model import (CompanyMultiValueMixin,
 +    CompanyValueMixin)
  from trytond.pyson import Eval
+ from trytond.transaction import Transaction
  
  
 -class Template(metaclass=PoolMeta):
 +class Template(CompanyMultiValueMixin, metaclass=PoolMeta):
      __name__ = 'product.template'
  
--    supply_on_sale = fields.Boolean('Supply On Sale',
--        states={
--            'invisible': ~Eval('purchasable') | ~Eval('salable'),
+-    supply_on_sale = fields.Selection([
++    supply_on_sale = fields.MultiValue(fields.Selection([
+             (None, "Never"),
+             ('stock_first', "Stock First"),
+             ('always', "Always"),
+             ], "Supply On Sale",
+         states={
+             'invisible': ~Eval('purchasable') | ~Eval('salable'),
 -            })
-+    supply_on_sale = fields.MultiValue(fields.Boolean('Supply On Sale',
-+            states={
-+                'invisible': ~Eval('purchasable') | ~Eval('salable'),
-+                }, depends=['purchasable', 'salable']))
++            }))
 +    supply_on_sales = fields.One2Many(
 +        'product.template.supply_on_sale', 'template', "Supply on sales")
 +
@@ -47,13 +50,23 @@ index 08537ed..34ccc24 100644
 +        if field == 'supply_on_sale':
 +            return pool.get('product.template.supply_on_sale')
 +        return super(Template, cls).multivalue_model(field)
-+
-+
+
+     @classmethod
+     def __resgister__(cls, module):
+@@ -71,5 +82,16 @@ class Template(metaclass=PoolMeta):
+                         order_points=names))
+
+
 +class TemplateSupplyOnSale(ModelSQL, CompanyValueMixin):
 +    "Template Supply On Sale"
 +    __name__ = 'product.template.supply_on_sale'
 +    template = fields.Many2One('product.template', 'Product Template')
-+    supply_on_sale = fields.Boolean('Supply On Sale')
- 
- 
++    supply_on_sale =  fields.Selection([
++            (None, "Never"),
++            ('stock_first', "Stock First"),
++            ('always', "Always"),
++            ], "Supply On Sale")
++
++
  class Product(metaclass=PoolMeta):
+     __name__ = 'product.product'
