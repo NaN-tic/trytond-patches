@@ -75,3 +75,5 @@ stock_shipment.diff # [stock] No try to copy None moves when set transit locatio
 issue11229.diff # [sale_credit] Sale with payments should not be blocked by credit limit
 
 issue12131.diff # [analytic_invoice] UpdateAsset Wizard not ser analytic lines in moves
+
+issue12165.diff # [res] Traceback with read/set user fields in version 6.0 scenarios

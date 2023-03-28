@@ -1,0 +1,35 @@
+diff --git a/trytond/trytond/res/user.py b/trytond/trytond/res/user.py
+index 522ddf4aac..1cd69204ce 100644
+--- a/trytond/trytond/res/user.py
++++ b/trytond/trytond/res/user.py
+@@ -361,28 +361,11 @@ class User(avatar_mixin(100, 'login'), DeactivableMixin, ModelSQL, ModelView):
+     @classmethod
+     def read(cls, ids, fields_names):
+         result = super(User, cls).read(ids, fields_names)
+-        cache = Transaction().get_cache()[cls.__name__]
+-        for values in result:
+-            if 'password_hash' in values:
++        if not fields_names or 'password_hash' in fields_names:
++            for values in result:
+                 values['password_hash'] = None
+-            if values['id'] in cache:
+-                cache[values['id']]['password_hash'] = None
+         return result
+ 
+-    @classmethod
+-    def search(
+-            cls, domain, offset=0, limit=None, order=None, count=False,
+-            query=False):
+-        users = super().search(
+-            domain, offset=offset, limit=limit, order=order, count=count,
+-            query=query)
+-        cache = Transaction().get_cache()[cls.__name__]
+-        if not count and not query:
+-            for user in users:
+-                if user.id in cache:
+-                    cache[user.id]['password_hash'] = None
+-        return users
+-
+     @classmethod
+     def create(cls, vlist):
+         vlist = [cls._convert_vals(vals) for vals in vlist]
