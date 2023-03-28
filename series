@@ -41,3 +41,5 @@ issue11582-sao.diff # [sao] Add authentication services
 issue12131.diff # [analytic_invoice] UpdateAsset Wizard not ser analytic lines in moves
 
 issue11817.diff # [sao]  Update overflow for optionals dropdown
+
+issue8065.diff # [account_payment_sepa] Do not consider as valid mandate linked to an inactive account number
