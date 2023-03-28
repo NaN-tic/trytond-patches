@@ -1,0 +1,15 @@
+diff --git a/src/view/tree.js b/src/view/tree.js
+index f791989365821f480365a19c372054ab2b5317df_c3JjL3ZpZXcvdHJlZS5qcw==..609330a911b6e0792c0dd62117683d00c00f02be_c3JjL3ZpZXcvdHJlZS5qcw== 100644
+--- a/tryton/sao/src/view/tree.js
++++ b/tryton/sao/src/view/tree.js
+@@ -308,6 +308,10 @@
+                 ).append(menu);
+                 dropdown.on('hide.bs.dropdown', () => {
+                     this.save_optional(true);
++                    Sao.common.set_overflow(th, 'hide');
++                });
++                dropdown.on('show.bs.dropdown', () => {
++                    Sao.common.set_overflow(th, 'show');
+                 });
+                 th.append(dropdown);
+             }
