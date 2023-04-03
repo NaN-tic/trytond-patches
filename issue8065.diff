@@ -11,3 +11,66 @@ index c6d40bbd91..ca417a1636 100644
              if self.type == 'one-off':
                  if not self.has_payments:
                      return True
+
+diff --git a/tryton/modules/bank/bank.py b/tryton/modules/bank/bank.py
+index 4fd4187c2f..7ef1269f52 100644
+--- a/tryton/modules/bank/bank.py
++++ b/tryton/modules/bank/bank.py
+@@ -14,6 +14,7 @@ from trytond.i18n import gettext
+ from trytond.model import (
+     DeactivableMixin, Exclude, ModelSQL, ModelView, fields, sequence_ordered)
+ from trytond.pool import Pool
++from trytond.pyson import Eval, If
+ from trytond.tools import lstrip_wildcard
+
+ from .exceptions import AccountValidationError, IBANValidationError, InvalidBIC
+@@ -93,7 +94,11 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
+     owners = fields.Many2Many('bank.account-party.party', 'account', 'owner',
+         'Owners')
+     currency = fields.Many2One('currency.currency', 'Currency')
+-    numbers = fields.One2Many('bank.account.number', 'account', 'Numbers',
++    numbers = fields.One2Many(
++        'bank.account.number', 'account', 'Numbers',
++        domain=[
++            If(~Eval('active'), ('active', '=', False), ()),
++            ],
+         help="Add the numbers which identify the bank account.")
+
+     def get_rec_name(self, name):
+@@ -170,12 +175,15 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
+                 return Bank.from_bic(iban.bic)
+
+
+-class AccountNumber(sequence_ordered(), ModelSQL, ModelView):
++class AccountNumber(DeactivableMixin, sequence_ordered(), ModelSQL, ModelView):
+     'Bank Account Number'
+     __name__ = 'bank.account.number'
+     _rec_name = 'number'
+     account = fields.Many2One('bank.account', 'Account', required=True,
+         ondelete='CASCADE', select=True,
++        domain=[
++            If(Eval('active'), ('active', '=', True), ()),
++            ],
+         help="The bank account which is identified by the number.")
+     type = fields.Selection([
+             ('iban', 'IBAN'),
+diff --git a/tryton/modules/bank/view/bank_account_number_form.xml b/tryton/modules/bank/view/bank_account_number_form.xml
+index dd49fbe78a..9e2f9ed1eb 100644
+--- a/tryton/modules/bank/view/bank_account_number_form.xml
++++ b/tryton/modules/bank/view/bank_account_number_form.xml
+@@ -4,8 +4,13 @@ this repository contains the full copyright notices and license terms. -->
+ <form cursor="number">
+     <label name="account"/>
+     <field name="account"/>
+-    <label name="sequence"/>
+-    <field name="sequence"/>
++    <group col="-1" colspan="2" id="checkboxes">
++        <label name="active"/>
++        <field name="active" xexpand="0" width="25"/>
++        <label name="sequence"/>
++        <field name="sequence"/>
++    </group>
++
+     <label name="type"/>
+     <field name="type"/>
+     <label name="number"/>
