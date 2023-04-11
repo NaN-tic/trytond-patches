@@ -45,3 +45,5 @@ issue11817.diff # [sao]  Update overflow for optionals dropdown
 issue8065.diff # [account_payment_sepa] Do not consider as valid mandate linked to an inactive account number
 
 issue12190.diff # [trytond] Update model data also when old values are different from the current values
+
+issue11986.diff # [account] Second currency not filled correctly when adding account move lines
