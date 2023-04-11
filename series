@@ -43,3 +43,5 @@ issue12131.diff # [analytic_invoice] UpdateAsset Wizard not ser analytic lines i
 issue11817.diff # [sao]  Update overflow for optionals dropdown
 
 issue8065.diff # [account_payment_sepa] Do not consider as valid mandate linked to an inactive account number
+
+issue12190.diff # [trytond] Update model data also when old values are different from the current values
