@@ -1,3 +1,32 @@
+diff --git a/tryton/modules/account_asset/asset.py b/tryton/modules/account_asset/asset.py
+index 9d0ebdbb04..682325bb4d 100644
+--- a/tryton/modules/account_asset/asset.py
++++ b/tryton/modules/account_asset/asset.py
+@@ -873,13 +873,15 @@ class UpdateAsset(Wizard):
+         Period = pool.get('account.period')
+         Move = pool.get('account.move')
+         period_id = Period.find(asset.company.id, self.show_move.date)
+-        return Move(
++        move = Move(
+             company=asset.company,
+             origin=asset,
+             journal=asset.account_journal.id,
+             period=period_id,
+             date=self.show_move.date,
+             )
++        move.lines = self.get_move_lines(asset)
++        return move
+
+     def get_move_lines(self, asset):
+         MoveLine = Pool().get('account.move.line')
+@@ -904,7 +906,6 @@ class UpdateAsset(Wizard):
+         if not (latest_move_date <= self.show_move.date <= next_date):
+             raise ValueError('The update move date is invalid')
+         move = self.get_move(self.record)
+-        move.lines = self.get_move_lines(self.record)
+         move.save()
+         self.model.write([self.record], {
+                 'update_moves': [('add', [move.id])],
 diff --git a/tryton/modules/analytic_invoice/__init__.py b/tryton/modules/analytic_invoice/__init__.py
 index e5b724200d..5ffa82beed 100644
 --- a/tryton/modules/analytic_invoice/__init__.py
@@ -10,11 +39,11 @@ index e5b724200d..5ffa82beed 100644
 +        asset.UpdateAsset,
 +        module='analytic_invoice', type_='wizard',
 +        depends=['account_asset'])
-diff --git a/modules/analytic_invoice/asset.py b/modules/analytic_invoice/asset.py
+diff --git a/tryton/modules/analytic_invoice/asset.py b/tryton/modules/analytic_invoice/asset.py
 index f7a71a45d5..4024bac2a3 100644
 --- a/tryton/modules/analytic_invoice/asset.py
 +++ b/tryton/modules/analytic_invoice/asset.py
-@@ -57,3 +57,28 @@ class Asset(AnalyticMixin, metaclass=PoolMeta):
+@@ -57,3 +57,12 @@ class Asset(AnalyticMixin, metaclass=PoolMeta):
                          analytic_lines.extend(
                              entry.get_analytic_lines(line, move.date))
                      line.analytic_lines = analytic_lines
@@ -23,23 +52,31 @@ index f7a71a45d5..4024bac2a3 100644
 +class UpdateAsset(metaclass=PoolMeta):
 +    __name__ = 'account.asset.update'
 +
-+    def get_move_lines(self, asset):
-+        lines = super().get_move_lines(asset)
-+        if not lines:
-+            return lines
-+        self.set_analytic_lines(lines, asset)
-+        return lines
++    def get_move(self, asset):
++        move = super().get_move(asset)
++        asset.set_analytic_lines(move, self.show_move.counterpart_account)
++        return move
+diff --git a/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_asset.rst b/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_asset.rst
+index 591050e011..132d49169b 100644
+--- a/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_asset.rst
++++ b/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_asset.rst
+@@ -132,6 +132,19 @@ Create Moves for 1 month::
+     >>> analytic_account.credit
+     Decimal('0.00')
+
++Update the asset::
 +
-+    def set_analytic_lines(self, lines, asset):
-+        "Fill analytic lines on lines with given account"
-+        account = asset.product.account_expense_used
-+        if asset.analytic_accounts:
-+            with Transaction().set_context(date=self.show_move.date):
-+                for line in lines:
-+                    if line.account != account:
-+                        continue
-+                    analytic_lines = []
-+                    for entry in asset.analytic_accounts:
-+                        analytic_lines.extend(
-+                            entry.get_analytic_lines(line, self.show_move.date))
-+                    line.analytic_lines = analytic_lines
++    >>> update = Wizard('account.asset.update', [asset])
++    >>> update.form.value = Decimal('950.00')
++    >>> update.execute('update_asset')
++    >>> update.form.date = update.form.next_depreciation_date
++    >>> update.execute('create_move')
++    >>> analytic_account.reload()
++    >>> analytic_account.debit
++    Decimal('150.00')
++    >>> analytic_account.credit
++    Decimal('0.00')
++
+ Close the asset::
+
+     >>> asset.click('close')
