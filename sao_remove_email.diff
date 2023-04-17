@@ -29,7 +29,7 @@ index f9186bc9..47987500 100644
                  }, null, {
                      id: 'export',
                      icon: 'tryton-export',
-@@ -533,7 +528,7 @@
+@@ -532,7 +527,7 @@
                      Sao.i18n.gettext('Open related records')],
                  ['print', 'tryton-print',
                      Sao.i18n.gettext('Print report')]
@@ -38,7 +38,7 @@ index f9186bc9..47987500 100644
                  var dropdown = jQuery('<div/>', {
                      'class': 'btn-group dropdown',
                      'role': 'group'
-@@ -559,7 +554,7 @@
+@@ -558,7 +553,7 @@
                          'role': 'menu',
                          'aria-labelledby': menu_action[0]
                      }))
@@ -47,12 +47,12 @@ index f9186bc9..47987500 100644
                  var button = dropdown.find('button');
                  this.buttons[menu_action[0]] = button;
                  dropdown
-@@ -1465,7 +1460,7 @@
+@@ -1433,7 +1428,7 @@
                      name += '#' + selected;
                  }
              }
--            var buttons = ['print', 'relate', 'email', 'save', 'attach'];
-+            var buttons = ['print', 'relate', 'save', 'attach'];
+-            var buttons = ['print', 'relate', 'email', 'attach'];
++            var buttons = ['print', 'relate', 'attach'];
              for (const button_id of buttons) {
                  const button = this.buttons[button_id];
                  let can_be_sensitive = button._can_be_sensitive;
