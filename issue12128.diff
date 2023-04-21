@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale_shipment_cost/sale.py b/tryton/modules/sale_shipment_cost/sale.py
+index d5d6de2d68..a490801a56 100644
+--- a/tryton/modules/sale_shipment_cost/sale.py
++++ b/tryton/modules/sale_shipment_cost/sale.py
+@@ -306,7 +306,7 @@ class SaleLine(metaclass=PoolMeta):
+
+     def _get_invoice_line_quantity(self):
+         quantity = super(SaleLine, self)._get_invoice_line_quantity()
+-        if self.shipment_cost:
++        if self.shipment_cost is not None:
+             if self.sale.shipment_cost_method == 'shipment':
+                 return 0
+             elif (self.sale.shipment_cost_method == 'order'

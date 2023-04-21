@@ -129,3 +129,5 @@ issue11499.diff # [sao] Set FractionDigits options to format CSV to locale
 issue11684.diff # [carrier_percentage] Do not compute price if no currency is set
 
 advance_payment_term.diff # [sale_advance_payment] Do not evaluate formua if its None
+
+issue12128.diff # [sale_shipment_cost] The quantity should not be reset when a sale line is set with unit price 0
