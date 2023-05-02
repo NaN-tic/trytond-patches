@@ -1,0 +1,105 @@
+diff --git a/tryton/modules/sale_credit_limit/__init__.py b/tryton/modules/sale_credit_limit/__init__.py
+index 78da1b6ee0..8ebdad6e3e 100644
+--- a/tryton/modules/sale_credit_limit/__init__.py
++++ b/tryton/modules/sale_credit_limit/__init__.py
+@@ -10,4 +10,5 @@ def register():
+     Pool.register(
+         party.Party,
+         sale.Sale,
++        sale.Line,
+         module='sale_credit_limit', type_='model')
+diff --git a/tryton/modules/sale_credit_limit/party.py b/tryton/modules/sale_credit_limit/party.py
+index ea1a823053..0ecc449813 100644
+--- a/tryton/modules/sale_credit_limit/party.py
++++ b/tryton/modules/sale_credit_limit/party.py
+@@ -31,8 +31,8 @@ class Party(metaclass=PoolMeta):
+         for sale in sales:
+             amount = 0
+             for line in sale.lines:
+-                quantity = line.quantity
+-                if not quantity or (line.type != 'line'):
++                quantity = line.credit_limit_quantity
++                if quantity is None:
+                     continue
+                 for invoice_line in line.invoice_lines:
+                     if invoice_line.type != 'line':
+@@ -42,10 +42,11 @@ class Party(metaclass=PoolMeta):
+                         quantity -= Uom.compute_qty(
+                             invoice_line.unit, invoice_line.quantity,
+                             line.unit, round=False)
+-                amount += Currency.compute(
+-                    sale.currency,
+-                    Decimal(str(quantity)) * line.unit_price, currency,
+-                    round=False)
++                if quantity > 0:
++                    amount += Currency.compute(
++                        sale.currency,
++                        Decimal(str(quantity)) * line.unit_price, currency,
++                        round=False)
+             amounts[sale.party.id] = currency.round(
+                 amounts[sale.party.id] + amount)
+         return amounts
+diff --git a/tryton/modules/sale_credit_limit/sale.py b/tryton/modules/sale_credit_limit/sale.py
+index d209f7268f..37c94d53ec 100644
+--- a/tryton/modules/sale_credit_limit/sale.py
++++ b/tryton/modules/sale_credit_limit/sale.py
+@@ -1,7 +1,7 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+ from trytond.model import ModelView, Workflow
+-from trytond.pool import PoolMeta
++from trytond.pool import Pool, PoolMeta
+
+
+ class Sale(metaclass=PoolMeta):
+@@ -25,3 +25,26 @@ class Sale(metaclass=PoolMeta):
+                 party.check_credit_limit(
+                     sale.credit_limit_amount, origin=str(sale))
+         super(Sale, cls).confirm(sales)
++
++
++class Line(metaclass=PoolMeta):
++    __name__ = 'sale.line'
++
++    @property
++    def credit_limit_quantity(self):
++        pool = Pool()
++        UoM = pool.get('product.uom')
++        if (self.type != 'line') or (self.quantity <= 0):
++            return None
++        quantity = self.quantity
++        if self.sale.invoice_method == 'shipment':
++            for move in self.moves_ignored:
++                quantity -= UoM.compute_qty(
++                    move.uom, move.quantity, self.unit, round=False)
++        elif self.sale.invoice_method == 'order':
++            for invoice_line in self.invoice_lines:
++                if invoice_line.invoice in self.sale.invoices_ignored:
++                    quantity -= UoM.compute_qty(
++                        invoice_line.unit, invoice_line.quantity, self.unit,
++                        round=False)
++        return quantity
+diff --git a/tryton/modules/sale_credit_limit/tests/test_module.py b/tryton/modules/sale_credit_limit/tests/test_module.py
+index 31fde1e612..491fba12d3 100644
+--- a/tryton/modules/sale_credit_limit/tests/test_module.py
++++ b/tryton/modules/sale_credit_limit/tests/test_module.py
+@@ -88,8 +88,8 @@ class SaleCreditLimitTestCase(CompanyTestMixin, ModuleTestCase):
+                         'lines': [
+                             ('create', [{
+                                         'description': 'Test',
+-                                        'quantity': 1,
+-                                        'unit_price': Decimal('50'),
++                                        'quantity': 2,
++                                        'unit_price': Decimal('25'),
+                                         }]),
+                             ],
+                         }])
+@@ -117,7 +117,7 @@ class SaleCreditLimitTestCase(CompanyTestMixin, ModuleTestCase):
+             # Increase quantity invoiced does not change the credit amount
+             invoice, = sale.invoices
+             invoice_line, = invoice.lines
+-            invoice_line.quantity += 1
++            invoice_line.quantity = 1
+             invoice_line.save()
+             Invoice.post([invoice])
+             self.assertEqual(party.credit_amount, Decimal('150'))
