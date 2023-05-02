@@ -52,3 +52,5 @@ issue12116.diff # [sale] Return sale using a single copy call
 issue12128.diff # [sale_shipment_cost] The quantity should not be reset when a sale line is set with unit price 0
 
 issue12226.diff # [sale_credit_limit] Do not deduce negative sale quantities from credit amount
+
+issue12223.diff # [sao] Tree view with "sum" attribute scrolls down indefinitely
