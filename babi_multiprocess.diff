@@ -23,7 +23,7 @@ diff --git a/tryton/trytond/trytond/model/modelsql.py b/trytond/trytond/model/mo
 index d762a27a..5ca47c34 100644
 --- a/tryton/trytond/trytond/model/modelsql.py
 +++ b/tryton/trytond/trytond/model/modelsql.py
-@@ -1127,8 +1127,14 @@ class ModelSQL(ModelStorage):
+@@ -1429,8 +1429,14 @@ class ModelSQL(ModelStorage):
                  foreign_table = Model.__table__()
                  foreign_red_sql = reduce_ids(
                      Column(foreign_table, field_name), sub_ids)
@@ -37,6 +37,6 @@ index d762a27a..5ca47c34 100644
 +                    if ex.args and 'babi_execution' in ex.args:
 +                        return []
 +                    raise
-                 records = Model.browse([x[0] for x in cursor])
+                 related_records = Model.browse([x[0] for x in cursor])
              else:
-                 with transaction.set_context(active_test=False):
+                 with inactive_records():
