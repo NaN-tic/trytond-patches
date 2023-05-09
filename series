@@ -24,3 +24,5 @@ worker_logger.diff #[trytond] Move exception handling into transaction to keep t
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
+
+strftime_format.diff # [ir] Fix problem with strftime format, reducing the time needed to format standard time. When the %A or %B is not used.
