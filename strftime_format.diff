@@ -1,0 +1,13 @@
+diff --git a/tryton/trytond/trytond/ir/lang.py b/tryton/trytond/trytond/ir/lang.py
+index eaeb6c5094..2817326d93 100644
+--- a/tryton/trytond/trytond/ir/lang.py
++++ b/tryton/trytond/trytond/ir/lang.py
+@@ -532,6 +532,8 @@ class Lang(DeactivableMixin, ModelSQL, ModelView):
+         if isinstance(value, datetime.date):
+             for f, i, klass in (('%A', 6, Day), ('%B', 1, Month)):
+                 for field, f in [('name', f), ('abbreviation', f.lower())]:
++                    if f not in format:
++                        continue
+                     locale = klass.locale(self, field=field)
+                     format = format.replace(f, locale[value.timetuple()[i]])
+         if isinstance(value, datetime.time):

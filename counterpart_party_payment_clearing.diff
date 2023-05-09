@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_payment_clearing/payment.py b/tryton/modules/account_payment_clearing/payment.py
+index 5492145e14..efe29c4cac 100644
+--- a/tryton/modules/account_payment_clearing/payment.py
++++ b/tryton/modules/account_payment_clearing/payment.py
+@@ -240,6 +240,8 @@ class Payment(metaclass=PoolMeta):
+             counterpart.amount_second_currency = self.amount.copy_sign(
+                 counterpart.debit - counterpart.credit)
+             counterpart.second_currency = self.journal.currency
++        counterpart.party = (self.clearing_party
++            if counterpart.account.party_required else None)
+         move.lines = (line, counterpart)
+         return move
+ 
