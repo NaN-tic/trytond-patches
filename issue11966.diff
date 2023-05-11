@@ -1,0 +1,14 @@
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index d687f26ec8..256b9b9e71 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -1069,6 +1069,9 @@ function eval_pyson(value){
+             this.set_label(name, domains, counter);
+         },
+         set_label: function(name, domains, counter) {
++            if (name.length > 10) {
++              name = name.substr(0, 10)+'...';
++            }
+             this.label.text(name);
+             this.el.attr('accesskey', Sao.common.accesskey(name));
+             if (domains.length) {

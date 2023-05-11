@@ -29,4 +29,6 @@ strftime_format.diff # [ir] Fix problem with strftime format, reducing the time 
 
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
 
+issue11966.diff # [sao] Overlap label links in form view
+
 issue12263-issue12239.diff # [account_invoice] Can't set invoice journal to null or other journal + Set invoice account only when changing party or dates
