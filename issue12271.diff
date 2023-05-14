@@ -1,0 +1,22 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -514,11 +514,14 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin):
+         Journal = pool.get('account.journal')
+         if self.state != 'draft':
+             return self.journal
++        journal_type = {
++            'out': 'revenue',
++            'in': 'expense',
++            }.get(self.type)
++        if self.journal and self.journal.type == journal_type:
++            return self.journal
+         pattern = pattern.copy() if pattern is not None else {}
+-        pattern.setdefault('type', {
+-                'out': 'revenue',
+-                'in': 'expense',
+-                }.get(self.type))
++        pattern.setdefault('type', journal_type)
+         return Journal.find(pattern)
+ 
+     @classmethod
