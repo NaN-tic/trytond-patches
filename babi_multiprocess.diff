@@ -1,8 +1,8 @@
 diff --git a/tryton/trytond/trytond/pool.py b/trytond/trytond/pool.py
-index 407ff358..0be2a41a 100644
+index a21e9e63e8..bd22d3b073 100644
 --- a/tryton/trytond/trytond/pool.py
 +++ b/tryton/trytond/trytond/pool.py
-@@ -195,6 +195,16 @@ class Pool(object):
+@@ -197,6 +197,16 @@ class Pool(object):
                  self.add(cls, type)
                  self.setup_mixin(self._modules, type='report', name=name)
                  return self.get(name, type=type)
@@ -20,10 +20,10 @@ index 407ff358..0be2a41a 100644
  
      def add(self, cls, type='model'):
 diff --git a/tryton/trytond/trytond/model/modelsql.py b/trytond/trytond/model/modelsql.py
-index d762a27a..5ca47c34 100644
+index 889916371c..ae51a5d433 100644
 --- a/tryton/trytond/trytond/model/modelsql.py
 +++ b/tryton/trytond/trytond/model/modelsql.py
-@@ -1127,8 +1127,14 @@ class ModelSQL(ModelStorage):
+@@ -1209,8 +1209,14 @@ class ModelSQL(ModelStorage):
                  foreign_table = Model.__table__()
                  foreign_red_sql = reduce_ids(
                      Column(foreign_table, field_name), sub_ids)
@@ -37,6 +37,6 @@ index d762a27a..5ca47c34 100644
 +                    if ex.args and 'babi_execution' in ex.args:
 +                        return []
 +                    raise
-                 records = Model.browse([x[0] for x in cursor])
+                 related_records = Model.browse([x[0] for x in cursor])
              else:
                  with transaction.set_context(active_test=False):
