@@ -5,7 +5,6 @@ tax_update_unit_price.diff # [account] Add the update_unit_price control on pare
 
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
-issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
