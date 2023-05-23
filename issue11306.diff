@@ -1,0 +1,293 @@
+diff --git a/tryton/modules/analytic_invoice/__init__.py b/tryton/trytond/trytond/modules/analytic_invoice/__init__.py
+index d628e0cec8..da4e6994e1 100644
+--- a/tryton/modules/analytic_invoice/__init__.py
++++ b/tryton/modules/analytic_invoice/__init__.py
+@@ -15,3 +15,7 @@ def register():
+         asset.Asset,
+         module='analytic_invoice', type_='model',
+         depends=['account_asset'])
++    Pool.register(
++        invoice.InvoiceDeferred,
++        module='analytic_invoice', type_='model',
++        depends=['account_invoice_defer'])
+diff --git a/tryton/modules/analytic_invoice/invoice.py b/tryton/trytond/trytond/modules/analytic_invoice/invoice.py
+index d9c65b9852..6b6f4a9f58 100644
+--- a/tryton/modules/analytic_invoice/invoice.py
++++ b/tryton/modules/analytic_invoice/invoice.py
+@@ -66,6 +66,11 @@ class AnalyticAccountEntry(metaclass=PoolMeta):
+             origins.append('account.asset')
+         except KeyError:
+             pass
++        try:
++            pool.get('account.invoice.deferred')
++            origins.append('account.invoice.deferred')
++        except KeyError:
++            pass
+         return origins
+ 
+     @fields.depends('origin')
+@@ -76,10 +81,16 @@ class AnalyticAccountEntry(metaclass=PoolMeta):
+             Asset = pool.get('account.asset')
+         except KeyError:
+             Asset = None
++        try:
++            InvoiceDeferred = pool.get('account.invoice.deferred')
++        except KeyError:
++            InvoiceDeferred = None
+         company = super(AnalyticAccountEntry, self).on_change_with_company(
+             name)
+         if (isinstance(self.origin, InvoiceLine)
+-                or (Asset and isinstance(self.origin, Asset))):
++                or (Asset and isinstance(self.origin, Asset))
++                or (InvoiceDeferred and isinstance(self.origin,
++                    InvoiceDeferred))):
+             company = self.origin.company.id if self.origin.company else None
+         return company
+ 
+@@ -100,3 +111,47 @@ class AnalyticAccountEntry(metaclass=PoolMeta):
+         except KeyError:
+             pass
+         return domain
++
++
++class InvoiceDeferred(AnalyticMixin, metaclass=PoolMeta):
++    "Invoice Deferred"
++    __name__ = 'account.invoice.deferred'
++
++    @classmethod
++    def __setup__(cls):
++        super(InvoiceDeferred, cls).__setup__()
++        cls.analytic_accounts.domain = [
++            ('company', '=', Eval('company', -1)),
++            ]
++        cls.analytic_accounts.depends.add('company')
++
++    @fields.depends('invoice_line', 'analytic_accounts')
++    def on_change_invoice_line(self):
++        pool = Pool()
++        Entry = pool.get('analytic.account.entry')
++
++        super(InvoiceDeferred, self).on_change_invoice_line()
++        if self.invoice_line:
++            entries = []
++            for entry in self.invoice_line.analytic_accounts:
++                new_entry = Entry()
++                for field in Entry._fields:
++                    if field in {'origin', 'id'}:
++                        continue
++                    setattr(new_entry, field, getattr(entry, field))
++                entries.append(new_entry)
++            self.analytic_accounts = entries
++
++    def get_move(self, period=None):
++        move = super(InvoiceDeferred, self).get_move(period)
++
++        if self.invoice_line.analytic_accounts:
++            for line in move.lines:
++                if line.account.type.statement != 'income':
++                    continue
++                analytic_lines = []
++                for entry in self.analytic_accounts:
++                    analytic_lines.extend(
++                        entry.get_analytic_lines(line, move.date))
++                line.analytic_lines = analytic_lines
++        return move
+diff --git a/tryton/modules/analytic_invoice/invoice.xml b/tryton/trytond/trytond/modules/analytic_invoice/invoice.xml
+index 0fff583201..396d00e09a 100644
+--- a/tryton/modules/analytic_invoice/invoice.xml
++++ b/tryton/modules/analytic_invoice/invoice.xml
+@@ -9,4 +9,11 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="name">invoice_line_form</field>
+         </record>
+     </data>
++    <data depends="account_invoice_defer">
++        <record model="ir.ui.view" id="invoice_deferred_view_form">
++            <field name="model">account.invoice.deferred</field>
++            <field name="inherit" ref="account_invoice_defer.invoice_deferred_view_form"/>
++            <field name="name">invoice_deferred_form</field>
++        </record>
++    </data>
+ </tryton>
+diff --git a/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst b/tryton/trytond/trytond/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
+new file mode 100644
+index 0000000..e63c20b
+--- /dev/null
++++ b/tryton/modules/analytic_invoice/tests/scenario_analytic_invoice_invoice_deferred.rst
+@@ -0,0 +1,149 @@
++======================================
++Analytic Invoice with Invoice Deferred
++======================================
++
++Imports::
++    >>> import datetime
++    >>> from dateutil.relativedelta import relativedelta
++    >>> from decimal import Decimal
++    >>> from operator import attrgetter
++    >>> from proteus import Model, Wizard
++    >>> from trytond.tests.tools import activate_modules
++    >>> from trytond.modules.company.tests.tools import create_company, \
++    ...     get_company
++    >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
++    ...     create_chart, get_accounts
++    >>> from trytond.modules.account_invoice.tests.tools import \
++    ...     set_fiscalyear_invoice_sequences, create_payment_term
++    >>> today = datetime.date.today()
++
++Activate modules::
++
++    >>> config = activate_modules(['analytic_invoice', 'account_invoice_defer'])
++
++Create company::
++
++    >>> _ = create_company()
++    >>> company = get_company()
++
++Create fiscal year::
++
++    >>> fiscalyear = set_fiscalyear_invoice_sequences(
++    ...     create_fiscalyear(company))
++    >>> fiscalyear.click('create_period')
++
++Create chart of accounts::
++
++    >>> _ = create_chart(company)
++    >>> accounts = get_accounts(company)
++    >>> revenue = accounts['revenue']
++    >>> expense = accounts['expense']
++    >>> cash = accounts['cash']
++
++Create analytic accounts::
++
++    >>> AnalyticAccount = Model.get('analytic_account.account')
++    >>> root = AnalyticAccount(type='root', name='Root')
++    >>> root.save()
++    >>> analytic_account = AnalyticAccount(root=root, parent=root,
++    ...     name='Analytic')
++    >>> analytic_account.save()
++
++Create party::
++
++    >>> Party = Model.get('party.party')
++    >>> party = Party(name='Party')
++    >>> party.save()
++
++
++Create deferred accounts::
++    >>> Account = Model.get('account.account')
++    >>> deferred_account, = Account.copy([cash.id], {}, config.context)
++    >>> deferred_account = Account(deferred_account)
++
++Default deferred accounts::
++
++    >>> AccountConfiguration = Model.get('account.configuration')
++    >>> account_configuration = AccountConfiguration(1)
++    >>> account_configuration.deferred_account_revenue = deferred_account
++    >>> account_configuration.deferred_account_expense = deferred_account
++    >>> account_configuration.save()
++
++Create account category::
++
++    >>> ProductCategory = Model.get('product.category')
++    >>> account_category = ProductCategory(name="Account Category")
++    >>> account_category.accounting = True
++    >>> account_category.account_expense = expense
++    >>> account_category.account_revenue = revenue
++    >>> account_category.save()
++
++Create product::
++
++    >>> ProductUom = Model.get('product.uom')
++    >>> unit, = ProductUom.find([('name', '=', 'Unit')])
++    >>> ProductTemplate = Model.get('product.template')
++    >>> template = ProductTemplate()
++    >>> template.name = 'product'
++    >>> template.default_uom = unit
++    >>> template.type = 'service'
++    >>> template.list_price = Decimal('40')
++    >>> template.account_category = account_category
++    >>> template.save()
++    >>> product, = template.products
++
++Create payment term::
++
++    >>> payment_term = create_payment_term()
++    >>> payment_term.save()
++
++Create invoice with analytic accounts::
++
++    >>> Invoice = Model.get('account.invoice')
++    >>> invoice = Invoice()
++    >>> invoice.party = party
++    >>> invoice.payment_term = payment_term
++    >>> line = invoice.lines.new()
++    >>> entry, = line.analytic_accounts
++    >>> entry.root == root
++    True
++    >>> entry.account = analytic_account
++    >>> line.product = product
++    >>> line.quantity = 5
++    >>> line.unit_price = Decimal('40')
++    >>> invoice.click('post')
++    >>> invoice.state
++    'posted'
++    >>> analytic_account.reload()
++    >>> analytic_account.credit
++    Decimal('200.00')
++    >>> analytic_account.debit
++    Decimal('0.00')
++
++Create invoice deferred::
++
++    >>> Journal = Model.get('account.journal')
++    >>> journal_revenue, = Journal.find([
++    ...         ('code', '=', 'REV'),
++    ...         ])
++    >>> InvoiceDeferred = Model.get('account.invoice.deferred')
++    >>> invoice_deferred = InvoiceDeferred()
++    >>> invoice_deferred.type = 'out'
++    >>> invoice_deferred.invoice_line = invoice.lines[0]
++    >>> invoice_deferred.start_date = today
++    >>> invoice_deferred.end_date = today + relativedelta(days=1)
++    >>> invoice_deferred.journal = journal_revenue
++    >>> invoice_deferred.save()
++    >>> len(invoice_deferred.analytic_accounts) == len(line.analytic_accounts)
++    True
++    >>> invoice_deferred.click('run')
++    >>> len(invoice_deferred.moves[0].lines[0].analytic_lines) == len(line.analytic_accounts)
++    True
++    >>> len(invoice_deferred.moves[0].lines[1].analytic_lines) == 0
++    True
++    >>> len(invoice_deferred.moves[1].lines[0].analytic_lines) == len(line.analytic_accounts)
++    True
++    >>> len(invoice_deferred.moves[1].lines[1].analytic_lines) == 0
++    True
++
++
+diff --git a/tryton/modules/analytic_invoice/tryton.cfg b/tryton/trytond/trytond/modules/analytic_invoice/tryton.cfg
+index 29146cab84..b9f66a4ad9 100644
+--- a/tryton/modules/analytic_invoice/tryton.cfg
++++ b/tryton/modules/analytic_invoice/tryton.cfg
+@@ -5,6 +5,7 @@ depends:
+     analytic_account
+ extras_depend:
+     account_asset
++    account_invoice_defer
+ xml:
+     invoice.xml
+     asset.xml
+diff --git a/tryton/modules/analytic_invoice/view/invoice_deferred_form.xml b/tryton/trytond/trytond/modules/analytic_invoice/view/invoice_deferred_form.xml
+new file mode 100644
+index 0000000..12cd351
+--- /dev/null
++++ b/tryton/modules/analytic_invoice/view/invoice_deferred_form.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0"?>
++<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
++this repository contains the full copyright notices and license terms. -->
++<data>
++    <xpath expr="/form/notebook" position="inside">
++        <page string="Analytic" id="analytic_accounts">
++            <field name="analytic_accounts" colspan="4"/>
++        </page>
++    </xpath>
++</data>
