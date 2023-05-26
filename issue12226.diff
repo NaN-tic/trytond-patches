@@ -52,7 +52,7 @@ index d209f7268f..37c94d53ec 100644
 
 
  class Sale(metaclass=PoolMeta):
-@@ -25,3 +25,26 @@ class Sale(metaclass=PoolMeta):
+@@ -25,3 +25,25 @@ class Sale(metaclass=PoolMeta):
                  party.check_credit_limit(
                      sale.credit_limit_amount, origin=str(sale))
          super(Sale, cls).confirm(sales)
@@ -72,12 +72,11 @@ index d209f7268f..37c94d53ec 100644
 +            for move in self.moves_ignored:
 +                quantity -= UoM.compute_qty(
 +                    move.uom, move.quantity, self.unit, round=False)
-+        elif self.sale.invoice_method == 'order':
-+            for invoice_line in self.invoice_lines:
-+                if invoice_line.invoice in self.sale.invoices_ignored:
-+                    quantity -= UoM.compute_qty(
-+                        invoice_line.unit, invoice_line.quantity, self.unit,
-+                        round=False)
++        for invoice_line in self.invoice_lines:
++            if invoice_line.invoice in self.sale.invoices_ignored:
++                quantity -= UoM.compute_qty(
++                    invoice_line.unit, invoice_line.quantity, self.unit,
++                    round=False)
 +        return quantity
 diff --git a/tryton/modules/sale_credit_limit/tests/test_module.py b/tryton/modules/sale_credit_limit/tests/test_module.py
 index 31fde1e612..491fba12d3 100644
