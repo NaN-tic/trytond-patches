@@ -1,0 +1,20 @@
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+index e9123a42a9..f8a7d3209c 100644
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -2348,12 +2348,14 @@ class RescheduleLines(Wizard):
+                 and self.start.interval
+                 and self.start.currency):
+             remaining = self.start.total_amount
++            total = self.start.total_amount
+             date = self.start.start_date
+             values['terms'] = terms = []
+             if self.start.amount:
+                 interval = self.start.interval
+                 amount = self.start.amount.copy_sign(remaining)
+-                while remaining - amount > 0:
++                while ((total > 0 and remaining - amount > 0)
++                        or (total < 0 and remaining - amount < 0)):
+                     terms.append({
+                             'date': date,
+                             'amount': amount,
