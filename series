@@ -59,3 +59,5 @@ strftime_format.diff # [ir] Fix problem with strftime format, reducing the time 
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
 
 account_move_reschedule_line.diff # [account] Fix bug when reschedule the move_lines based on amount.
+
+country.diff # [counrty] backport counrty module from v6.8. Is needed for the use of account_stock_eu module.
