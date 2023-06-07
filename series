@@ -61,3 +61,5 @@ counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the pos
 account_move_reschedule_line.diff # [account] Fix bug when reschedule the move_lines based on amount.
 
 country.diff # [counrty] backport counrty module from v6.8. Is needed for the use of account_stock_eu module.
+
+issue12310.diff # [stock_product_location] Check product.product locations and product.template locations too.

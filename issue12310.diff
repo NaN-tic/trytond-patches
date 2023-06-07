@@ -1,0 +1,21 @@
+diff --git a/tryton/modules/stock_product_location/production.py b/tryton/modules/stock_product_location/production.py
+index b4bd9e159a..060b0b152e 100644
+--- a/tryton/modules/stock_product_location/production.py
++++ b/tryton/modules/stock_product_location/production.py
+@@ -13,8 +13,16 @@ class Production(metaclass=PoolMeta):
+         move = super(Production, self)._explode_move_values(
+             from_location, to_location, company, bom_io, quantity)
+         if move and isinstance(bom_io, ProductionBomOutput):
++            location_found = False
+             for product_location in bom_io.product.locations:
+                 if product_location.warehouse != to_location.warehouse:
+                     continue
++                location_found = True
+                 move.to_location = product_location.location
++            if not location_found:
++                for product_location in bom_io.product.template.locations:
++                    if (product_location.warehouse != to_location.warehouse or
++                            product_location.product):
++                        continue
++                    move.to_location = product_location.location
+         return move
