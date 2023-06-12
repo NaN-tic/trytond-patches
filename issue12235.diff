@@ -1,0 +1,12 @@
+diff --git a/tryton/trytond/trytond/model/fields/many2one.py b/tryton/trytond/trytond/model/fields/many2one.py
+index 13e1a957ad..3adb1a9654 100644
+--- a/tryton/trytond/trytond/model/fields/many2one.py
++++ b/tryton/trytond/trytond/model/fields/many2one.py
+@@ -129,6 +129,7 @@ class Many2One(Field):
+         red_sql = reduce_ids(table.id, (i for i in ids if i is not None))
+         Target = self.get_target()
+         path_column = getattr(Target, self.path).sql_column(table)
++        path_column = Coalesce(path_column, '')
+         cursor.execute(*table.select(path_column, where=red_sql))
+         if operator.endswith('child_of'):
+             where = Or()
