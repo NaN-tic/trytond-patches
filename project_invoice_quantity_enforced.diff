@@ -1,0 +1,359 @@
+diff --git a/tryton/modules/project_invoice/invoice.py b/tryton/modules/project_invoice/invoice.py
+index 0fc5b547fe..d1c0e1f362 100644
+--- a/tryton/modules/project_invoice/invoice.py
++++ b/tryton/modules/project_invoice/invoice.py
+@@ -1,13 +1,113 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
++import datetime as dt
++
++from sql.aggregate import Sum
++
++from trytond.i18n import gettext
++from trytond.model import fields
++from trytond.modules.account_invoice.exceptions import (
++    InvoiceLineValidationError)
+ from trytond.pool import Pool, PoolMeta
+-from trytond.tools import grouped_slice
++from trytond.tools import grouped_slice, reduce_ids
+ from trytond.transaction import Transaction
+ 
+ 
+ class InvoiceLine(metaclass=PoolMeta):
+     __name__ = 'account.invoice.line'
+ 
++    project_invoice_works = fields.One2Many(
++        'project.work', 'invoice_line',
++        "Project Invoice Works", readonly=True)
++    project_invoice_progresses = fields.One2Many(
++        'project.work.invoiced_progress', 'invoice_line',
++        "Project Invoice Progresses", readonly=True)
++    project_invoice_timesheet_duration = fields.Function(
++        fields.TimeDelta("Project Invoice Timesheet Duration"),
++        'get_project_invoice_timesheet_duration')
++
++    @classmethod
++    def check_validate_project_invoice_quantity(cls, lines, field_names):
++        pool = Pool()
++        Lang = pool.get('ir.lang')
++        if field_names and not (field_names & {
++                    'quantity', 'project_invoice_works'}):
++            return
++        for line in lines:
++            project_invoice_quantity = line.project_invoice_quantity
++            if project_invoice_quantity is None:
++                continue
++            if line.unit:
++                project_invoice_quantity = line.unit.round(
++                    project_invoice_quantity)
++            if line.quantity != project_invoice_quantity:
++                lang = Lang.get()
++                if line.unit:
++                    quantity = lang.format_number_symbol(
++                        project_invoice_quantity, line.unit)
++                else:
++                    quantity = lang.format_number(project_invoice_quantity)
++                raise InvoiceLineValidationError(gettext(
++                        'project_invoice.msg_project_invoice_line_quantity',
++                        invoice_line=line.rec_name,
++                        quantity=quantity,
++                        ))
++
++    @property
++    def project_invoice_quantity(self):
++        quantity = None
++        for work in self.project_invoice_works:
++            if quantity is None:
++                quantity = 0
++            if work.price_list_hour:
++                quantity += work.effort_hours
++            else:
++                quantity += 1
++        for progress in self.project_invoice_progresses:
++            if quantity is None:
++                quantity = 0
++            work = progress.work
++            if work.price_list_hour:
++                quantity += progress.progress * work.effort_hours
++            else:
++                quantity += progress.progress
++        if self.project_invoice_timesheet_duration is not None:
++            if quantity is None:
++                quantity = 0
++            quantity += (
++                self.project_invoice_timesheet_duration.total_seconds()
++                / 60 / 60)
++        return quantity
++
++    @classmethod
++    def get_project_invoice_timesheet_duration(cls, lines, name):
++        pool = Pool()
++        TimesheetLine = pool.get('timesheet.line')
++        cursor = Transaction().connection.cursor()
++        ts_line = TimesheetLine.__table__()
++
++        durations = dict.fromkeys(map(int, lines))
++        query = ts_line.select(
++            ts_line.invoice_line, Sum(ts_line.duration),
++            group_by=ts_line.invoice_line)
++        for sub_lines in grouped_slice(lines):
++            query.where = reduce_ids(
++                ts_line.invoice_line, map(int, sub_lines))
++            cursor.execute(*query)
++
++            for line_id, duration in cursor:
++                # SQLite uses float for SUM
++                if (duration is not None
++                        and not isinstance(duration, dt.timedelta)):
++                    duration = dt.timedelta(seconds=duration)
++                durations[line_id] = duration
++        return durations
++
++    @classmethod
++    def validate_fields(cls, lines, field_names):
++        super().validate_fields(lines, field_names)
++        cls.check_validate_project_invoice_quantity(lines, field_names)
++
+     @classmethod
+     def delete(cls, lines):
+         pool = Pool()
+diff --git a/tryton/modules/project_invoice/message.xml b/tryton/modules/project_invoice/message.xml
+index 211012405d..14f7feef9c 100644
+--- a/tryton/modules/project_invoice/message.xml
++++ b/tryton/modules/project_invoice/message.xml
+@@ -3,11 +3,14 @@
+ this repository contains the full copyright notices and license terms. -->
+ <tryton>
+     <data grouped="1">
+-        <record model="ir.message" id="msg_modify_invoiced_line">
+-            <field name="text">You cannot modify an invoiced line.</field>
++        <record model="ir.message" id="msg_invoiced_timesheet_line_modify_duration">
++            <field name="text">You cannot modify the duration of timesheet line "%(line)s" because it has been invoiced.</field>
+         </record>
+-        <record model="ir.message" id="msg_delete_invoiced_line">
+-            <field name="text">You cannot delete an invoiced line.</field>
++        <record model="ir.message" id="msg_invoiced_timesheet_line_modify_work">
++            <field name="text">You cannot modify the work of timesheet line "%(line)s" because it has been invoiced.</field>
++        </record>
++        <record model="ir.message" id="msg_invoiced_timesheet_line_delete">
++            <field name="text">You cannot delete timesheet line "%(line)s" because it has been invoiced.</field>
+         </record>
+         <record model="ir.message" id="msg_product_missing_account_revenue">
+             <field name="text">To invoice work "%(work)s" you must define an account revenue for product "%(product)s".</field>
+@@ -21,5 +24,14 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_missing_party">
+             <field name="text">There is no party on work "%(work)s".</field>
+         </record>
++        <record model="ir.message" id="msg_invoiced_work_modify_effort">
++            <field name="text">You cannot modify the effort of work "%(work)s" because it has been invoiced.</field>
++        </record>
++        <record model="ir.message" id="msg_invoiced_work_delete">
++            <field name="text">You cannot delete work "%(work)s" because it has been invoiced.</field>
++        </record>
++        <record model="ir.message" id="msg_project_invoice_line_quantity">
++            <field name="text">The quantity of project invoice line "%(invoice_line)s" must be "%(quantity)s"</field>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/project_invoice/project.py b/tryton/modules/project_invoice/project.py
+index 68ae3b9fa1..a15c451eda 100644
+--- a/tryton/modules/project_invoice/project.py
++++ b/tryton/modules/project_invoice/project.py
+@@ -15,6 +15,7 @@ from sql.operators import Concat
+ 
+ from trytond.i18n import gettext
+ from trytond.model import ModelSQL, ModelView, fields
++from trytond.model.exceptions import AccessError
+ from trytond.modules.currency.fields import Monetary
+ from trytond.pool import Pool, PoolMeta
+ from trytond.pyson import Bool, Eval, Id, If
+@@ -39,7 +40,7 @@ class Effort:
+         quantities = {}
+         for work in works:
+             if (work.progress == 1
+-                    and work.list_price
++                    and work.invoice_unit_price
+                     and not work.invoice_line):
+                 if work.price_list_hour:
+                     quantity = work.effort_hours
+@@ -115,7 +116,7 @@ class Progress:
+         for sub_works in grouped_slice(works):
+             sub_works = list(sub_works)
+             where = reduce_ids(
+-                table.id, [x.id for x in sub_works if x.list_price])
++                table.id, [x.id for x in sub_works if x.invoice_unit_price])
+             cursor.execute(*table.join(progress,
+                     condition=progress.work == table.id
+                     ).select(table.id, Sum(progress.progress),
+@@ -127,7 +128,7 @@ class Progress:
+                 delta = (
+                     (work.progress or 0)
+                     - invoiced_progress.get(work.id, 0.0))
+-                if work.list_price and delta > 0:
++                if work.invoice_unit_price and delta > 0:
+                     quantity = delta
+                     if work.price_list_hour:
+                         quantity *= work.effort_hours
+@@ -288,7 +289,7 @@ class Timesheet:
+         quantities = {}
+         for work in works:
+             duration = durations[work.id]
+-            if work.list_price:
++            if work.invoice_unit_price:
+                 hours = duration.total_seconds() / 60 / 60
+                 if work.unit_to_invoice:
+                     hours = work.unit_to_invoice.round(hours)
+@@ -422,6 +423,27 @@ class Work(Effort, Progress, Timesheet, metaclass=PoolMeta):
+         default.setdefault('invoice_line', None)
+         return super(Work, cls).copy(records, default=default)
+ 
++    @classmethod
++    def write(cls, *args):
++        actions = iter(args)
++        for works, values in zip(actions, actions):
++            if ('effort_duration' in values
++                    and any(w.invoice_line for w in works)):
++                work = next((w for w in works if w.invoice_line))
++                raise AccessError(gettext(
++                        'project_invoice.msg_invoiced_work_modify_effort',
++                        work=work.rec_name))
++        super().write(*args)
++
++    @classmethod
++    def delete(cls, works):
++        if any(w.invoice_line for w in works):
++            work = next((w for w in works if w.invoice_line))
++            raise AccessError(gettext(
++                    'project_invoice.msg_invoiced_work_delete',
++                    work=work.rec_name))
++        super().delete(works)
++
+     @classmethod
+     def get_invoice_methods(cls):
+         field = 'project_invoice_method'
+@@ -508,13 +530,11 @@ class Work(Effort, Progress, Timesheet, metaclass=PoolMeta):
+                 for line in lines:
+                     for origin in line['origins']:
+                         origins[origin.__class__].append(origin)
+-                # TODO: remove when _check_access ignores record rule
+-                with Transaction().set_user(0):
+-                    for klass, records in origins.items():
+-                        klass.save(records)  # Store first new origins
+-                        klass.write(records, {
+-                                'invoice_line': invoice_line.id,
+-                                })
++                for klass, records in origins.items():
++                    klass.save(records)  # Store first new origins
++                    klass.write(records, {
++                            'invoice_line': invoice_line.id,
++                            })
+         Invoice.update_taxes(invoices)
+
+     def _get_invoice(self):
+@@ -643,8 +663,7 @@ class Work(Effort, Progress, Timesheet, metaclass=PoolMeta):
+ class WorkInvoicedProgress(ModelView, ModelSQL):
+     'Work Invoiced Progress'
+     __name__ = 'project.work.invoiced_progress'
+-    work = fields.Many2One('project.work', 'Work', ondelete='RESTRICT',
+-        select=True)
++    work = fields.Many2One('project.work', "Work", ondelete='RESTRICT')
+     progress = fields.Float('Progress', required=True,
+         domain=[
+             ('progress', '>=', 0),
+diff --git a/tryton/modules/project_invoice/timesheet.py b/tryton/modules/project_invoice/timesheet.py
+index 62899a9628..c020c0b1b9 100644
+--- a/tryton/modules/project_invoice/timesheet.py
++++ b/tryton/modules/project_invoice/timesheet.py
+@@ -26,13 +26,21 @@ class Line(metaclass=PoolMeta):
+         for lines, values in zip(actions, actions):
+             if (('duration' in values or 'work' in values)
+                     and any(l.invoice_line for l in lines)):
+-                raise AccessError(
+-                    gettext('project_invoice.msg_modify_invoiced_line'))
++                line = next(l for l in lines if l.invoice_line)
++                if 'duration' in values:
++                    msg = 'msg_invoiced_timesheet_line_modify_duration'
++                else:
++                    msg = 'msg_invoiced_timesheet_line_modify_work'
++                raise AccessError(gettext(
++                        f'project_invoice.{msg}',
++                        line=line.rec_name))
+         super().write(*args)
+ 
+     @classmethod
+-    def delete(cls, records):
+-        if any(r.invoice_line for r in records):
+-            raise AccessError(
+-                gettext('project_invoice.msg_delete_invoiced_line'))
+-        super().delete(records)
++    def delete(cls, lines):
++        if any(r.invoice_line for r in lines):
++            line = next((l for l in lines if l.invoice_line))
++            raise AccessError(gettext(
++                    'project_invoice.msg_invoiced_timesheet_line_delete',
++                    line=line.rec_name))
++        super().delete(lines)
+diff --git a/tryton/modules/project_invoice/tests/scenario_project_invoice_effort.rst b/tryton/modules/project_invoice/tests/scenario_project_invoice_effort.rst
+index 78a5e267cd..b5114789cf 100644
+--- a/tryton/modules/project_invoice/tests/scenario_project_invoice_effort.rst
++++ b/tryton/modules/project_invoice/tests/scenario_project_invoice_effort.rst
+@@ -194,3 +194,16 @@ Invoice again project::
+     Decimal('0.00')
+     >>> project.invoiced_amount
+     Decimal('170.00')
++
++Try to change invoice line quantity::
++
++    >>> set_user(1)
++    >>> ProjectWork = Model.get('project.work')
++    >>> task = ProjectWork(task.id)
++    >>> task.invoice_line.quantity = 1
++    >>> task.invoice_line.save()  # doctest: +IGNORE_EXCEPTION_DETAIL
++    Traceback (most recent call last):
++        ...
++    InvoiceLineValidationError: ...
++    >>> task.invoice_line.quantity = 5
++    >>> task.invoice_line.save()
+diff --git a/tryton/modules/project_invoice/tests/scenario_project_invoice_progress.rst b/tryton/modules/project_invoice/tests/scenario_project_invoice_progress.rst
+index 1b043b9f02..fb8b6ffb12 100644
+--- a/tryton/modules/project_invoice/tests/scenario_project_invoice_progress.rst
++++ b/tryton/modules/project_invoice/tests/scenario_project_invoice_progress.rst
+@@ -196,3 +196,17 @@ Invoice again project::
+     Decimal('0.00')
+     >>> project.invoiced_amount
+     Decimal('136.00')
++
++Try to change invoice line quantity::
++
++    >>> set_user(1)
++    >>> ProjectWork = Model.get('project.work')
++    >>> task = ProjectWork(task.id)
++    >>> invoice_line = task.invoiced_progress[0].invoice_line
++    >>> invoice_line.quantity = 2.
++    >>> invoice_line.save()  # doctest: +IGNORE_EXCEPTION_DETAIL
++    Traceback (most recent call last):
++        ...
++    InvoiceLineValidationError: ...
++    >>> invoice_line.quantity = 2.5
++    >>> invoice_line.save()
+diff --git a/tryton/modules/project_invoice/tests/scenario_project_invoice_timesheet.rst b/tryton/modules/project_invoice/tests/scenario_project_invoice_timesheet.rst
+index 6b4be53e5c..aebb7f3ec5 100644
+--- a/tryton/modules/project_invoice/tests/scenario_project_invoice_timesheet.rst
++++ b/tryton/modules/project_invoice/tests/scenario_project_invoice_timesheet.rst
+@@ -224,3 +224,16 @@ Invoice again project::
+     >>> _, _, invoice = Invoice.find([], order=[('id', 'ASC')])
+     >>> invoice.total_amount
+     Decimal('80.00')
++
++Try to change invoice line quantity::
++
++    >>> set_user(1)
++    >>> TimesheetLine = Model.get('timesheet.line')
++    >>> line = TimesheetLine(line.id)
++    >>> line.invoice_line.quantity = 5
++    >>> line.invoice_line.save()  # doctest: +IGNORE_EXCEPTION_DETAIL
++    Traceback (most recent call last):
++        ...
++    InvoiceLineValidationError: ...
++    >>> line.invoice_line.quantity = 4
++    >>> line.invoice_line.save()
