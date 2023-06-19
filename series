@@ -67,3 +67,5 @@ issue12310.diff # [stock_product_location] Check product.product locations and p
 issue12235.diff # [trytond] Fallback to empty string when column path is NULL
 
 project_invoice_quantity_enforced.diff # [project_invoice] Forbid to change quantity of invoiced project
+
+product-cost-fifo-average.diff # [product_cost_fifo] [product_cost_history] [stock] Add product cost price to move
