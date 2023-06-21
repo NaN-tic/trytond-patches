@@ -67,3 +67,5 @@ issue12310.diff # [stock_product_location] Check product.product locations and p
 issue12235.diff # [trytond] Fallback to empty string when column path is NULL
 
 project_invoice_quantity_enforced.diff # [project_invoice] Forbid to change quantity of invoiced project
+
+issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice_similar" in ES language
