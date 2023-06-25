@@ -34,5 +34,3 @@ issue11966.diff # [sao] Overlap label links in form view
 issue12226.diff # [sale_credit_limit] Do not deduce negative sale quantities from credit amount
 
 issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice_similar" in ES language
-
-marketing_email_token_unique.diff # [marketing_email] Ensure email_tokens are unique
