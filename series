@@ -70,4 +70,4 @@ project_invoice_quantity_enforced.diff # [project_invoice] Forbid to change quan
 
 issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice_similar" in ES language
 
-marketing_email_token_unique.diff # [marketing_email] Ensure email_tokens are unique
+issue12349.diff # [marketing_email] Multiple mareting emails created at once have the same email token
