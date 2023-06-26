@@ -68,4 +68,8 @@ issue12235.diff # [trytond] Fallback to empty string when column path is NULL
 
 project_invoice_quantity_enforced.diff # [project_invoice] Forbid to change quantity of invoiced project
 
+issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice_similar" in ES language
+
+issue12349.diff # [marketing_email] Multiple mareting emails created at once have the same email token
+
 product-cost-fifo-average.diff # [product_cost_fifo] [product_cost_history] [stock] Add product cost price to move

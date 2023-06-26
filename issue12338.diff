@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_invoice/locale/es.po b/tryton/modules/account_invoice/locale/es.po
+index 6c82077b5b..b44cbabedc 100644
+--- a/tryton/modules/account_invoice/locale/es.po
++++ b/tryton/modules/account_invoice/locale/es.po
+@@ -950,7 +950,7 @@ msgstr ""
+
+ msgctxt "model:ir.message,text:msg_invoice_similar"
+ msgid "The invoice \"%(invoice)s\" is similar to invoice \"%(similar)s\"."
+-msgstr "La factura \"%(invoices)s\" es similar a la factura \"%(similar)s\"."
++msgstr "La factura \"%(invoice)s\" es similar a la factura \"%(similar)s\"."
+
+ msgctxt "model:ir.message,text:msg_invoice_tax_create"
+ msgid ""
