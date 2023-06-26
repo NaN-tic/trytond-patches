@@ -1,0 +1,204 @@
+diff --git a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo.rst b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo.rst
+index ff3f341960..d4be3c298a 100644
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo.rst
+@@ -110,6 +110,8 @@ Check Cost Price FIFO is 20 and cost is 10::
+     Decimal('20.0000')
+     >>> outgoing_move.cost_price
+     Decimal('10.0000')
++    >>> outgoing_move.product_cost_price
++    Decimal('20.0000')
+ 
+ Sell twice 1 more units @ 50::
+ 
+@@ -149,3 +151,5 @@ Check Cost Price FIFO is 25 and costs are 10 and 25::
+     Decimal('25.0000')
+     >>> [m.cost_price for m in outgoing_moves]
+     [Decimal('10.0000'), Decimal('25.0000')]
++    >>> [m.product_cost_price for m in outgoing_moves]
++    [Decimal('25.0000'), Decimal('25.0000')]
+
+diff --git a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_no_in.rst b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_no_in.rst
+index 48ba721941..150f2c822c 100644
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_no_in.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_no_in.rst
+@@ -96,3 +96,5 @@ Check Cost Price FIFO is the current cost price::
+     Decimal('70.0000')
+     >>> outgoing_move.cost_price
+     Decimal('70.0000')
++    >>> outgoing_move.product_cost_price
++    Decimal('70.0000')
+
+diff --git a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
+index c0a6c3e05d..60d234dc1b 100644
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price.rst
+@@ -102,6 +102,9 @@ Create some moves::
+     >>> [m.cost_price for m in StockMove.find([])]
+     [Decimal('100.0000'), Decimal('116.6666'), Decimal('106.6666'), Decimal('110.0000'), Decimal('113.3333'), Decimal('113.3333'), Decimal('100.0000')]
+
++    >>> [m.product_cost_price for m in StockMove.find([])]
++    [Decimal('99.9998'), Decimal('99.9999'), None, Decimal('116.6666'), None, None, None]
++
+     >>> product.reload()
+     >>> product.cost_price
+     Decimal('99.9998')
+@@ -114,6 +117,9 @@ Recompute cost price::
+     >>> [m.cost_price for m in StockMove.find([])]
+     [Decimal('111.1111'), Decimal('111.1111'), Decimal('106.6666'), Decimal('110.0000'), Decimal('113.3333'), Decimal('113.3333'), Decimal('100.0000')]
+
++    >>> [m.product_cost_price for m in StockMove.find([])]
++    [Decimal('100.0000'), Decimal('100.0000'), None, Decimal('116.6666'), None, None, None]
++
+     >>> product.reload()
+     >>> product.cost_price
+     Decimal('100.0000')
+
+diff --git a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price_production.rst b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price_production.rst
+index 4735da9d2e..b2bfd7208a 100644
+--- a/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price_production.rst
++++ b/tryton/modules/product_cost_fifo/tests/scenario_product_cost_fifo_recompute_cost_price_production.rst
+@@ -69,6 +69,8 @@ Consume product for production and reverse some::
+
+     >>> [m.cost_price for m in StockMove.find([])]
+     [Decimal('40.0000'), Decimal('40.0000')]
++    >>> [m.product_cost_price for m in StockMove.find([])]
++    [None, Decimal('40.0000')]
+
+ Recompute cost price::
+
+@@ -78,6 +80,9 @@ Recompute cost price::
+     >>> [m.cost_price for m in StockMove.find([])]
+     [Decimal('0.0000'), Decimal('40.0000')]
+
++    >>> [m.product_cost_price for m in StockMove.find([])]
++    [None, Decimal('0.0000')]
++
+     >>> product.reload()
+     >>> product.cost_price
+     Decimal('0.0000')
+@@ -99,6 +104,8 @@ Recompute cost price::
+
+     >>> [m.cost_price for m in StockMove.find([])]
+     [Decimal('20.0000'), Decimal('20.0000'), Decimal('20.0000')]
++    >>> [m.product_cost_price for m in StockMove.find([])]
++    [None, None, Decimal('20.0000')]
+
+     >>> product.reload()
+     >>> product.cost_price
+
+diff --git a/tryton/modules/product_cost_fifo/move.py b/tryton/modules/product_cost_fifo/move.py
+index b576aad865..8558382e4b 100644
+--- a/tryton/modules/product_cost_fifo/move.py
++++ b/tryton/modules/product_cost_fifo/move.py
+@@ -120,8 +120,11 @@ class Move(metaclass=PoolMeta):
+                 and self.product.cost_price_method == 'fifo'):
+             fifo_cost_price, cost_price, moves = (
+                 self._update_fifo_out_product_cost_price())
+-            if self.cost_price_required and self.cost_price is None:
+-                self.cost_price = fifo_cost_price
++            if self.cost_price_required:
++                if self.cost_price is None:
++                    self.cost_price = fifo_cost_price
++                if self.product_cost_price is None:
++                    self.product_cost_price = cost_price
+             to_save.extend(moves)
+         return cost_price, to_save
+
+diff --git a/tryton/modules/product_cost_fifo/product.py b/tryton/modules/product_cost_fifo/product.py
+index fd0be2de37..490cba0cca 100644
+--- a/tryton/modules/product_cost_fifo/product.py
++++ b/tryton/modules/product_cost_fifo/product.py
+@@ -181,10 +181,6 @@ class Product(metaclass=PoolMeta):
+                         current_out_qty, current_moves[-1].effective_date)
+                     if fifo_cost_price is None:
+                         fifo_cost_price = current_cost_price
+-                    Move.write([
+-                            m for m in out_moves
+-                            if m.cost_price != fifo_cost_price],
+-                        dict(cost_price=fifo_cost_price))
+                     if quantity > 0 and quantity + current_out_qty >= 0:
+                         cost_price = (
+                             ((current_cost_price * (
+@@ -194,6 +190,13 @@ class Product(metaclass=PoolMeta):
+                     else:
+                         cost_price = current_cost_price
+                     current_cost_price = round_price(cost_price)
++                    Move.write([
++                            m for m in out_moves
++                            if m.cost_price != fifo_cost_price
++                            or m.product_cost_price != current_cost_price],
++                        dict(
++                            cost_price=fifo_cost_price,
++                            product_cost_price=current_cost_price))
+                 current_moves.clear()
+                 current_out_qty = 0
+                 qty_production = 0
+@@ -235,10 +238,6 @@ class Product(metaclass=PoolMeta):
+                 current_out_qty, current_moves[-1].effective_date)
+             if fifo_cost_price is None:
+                 fifo_cost_price = current_cost_price
+-            Move.write([
+-                    m for m in out_moves
+-                    if m.cost_price != fifo_cost_price],
+-                dict(cost_price=fifo_cost_price))
+             if quantity > 0:
+                 cost_price = (
+                     ((cost_price * (quantity + current_out_qty))
+@@ -246,6 +245,14 @@ class Product(metaclass=PoolMeta):
+                     / quantity)
+             else:
+                 cost_price = current_cost_price
++            current_cost_price = round_price(cost_price)
++            Move.write([
++                    m for m in out_moves
++                    if m.cost_price != fifo_cost_price
++                    or m.product_cost_price != current_cost_price],
++                dict(
++                    cost_price=fifo_cost_price,
++                    product_cost_price=current_cost_price))
+         for revision in revisions:
+             cost_price = revision.get_cost_price(cost_price)
+         return cost_price
+
+diff --git a/tryton/modules/product_cost_history/product.py b/tryton/modules/product_cost_history/product.py
+index f81fb714fe..e3298d8b16 100644
+--- a/tryton/modules/product_cost_history/product.py
++++ b/tryton/modules/product_cost_history/product.py
+@@ -116,14 +116,15 @@ class ProductCostHistory(ModelSQL, ModelView):
+                 None: (move, None),
+                 })
+
++        cost_price = Coalesce(move.product_cost_price, move.cost_price)
+         if database.has_window_functions():
+             window = Window(
+                 [move.effective_date, move.product],
+                 frame='ROWS', start=None, end=None,
+                 order_by=[move.write_date.asc, move.id.asc])
+-            cost_price = LastValue(move.cost_price, window=window)
++            cost_price = LastValue(cost_price, window=window)
+         else:
+-            cost_price = cls.cost_price.sql_cast(move.cost_price)
++            cost_price = cls.cost_price.sql_cast(cost_price)
+
+         move_history = convert_from(None, tables).select(
+             (move.id * 2).as_('id'),
+
+diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
+index c82d5271ad..7cf384510d 100644
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
+@@ -275,6 +275,13 @@ class Move(Workflow, ModelSQL, ModelView):
+                 (Eval('state') == 'done')
+                 & Eval('cost_price_required', False)),
+             })
++    product_cost_price = fields.Numeric(
++        "Product Cost Price", digits=price_digits, readonly=True,
++        states={
++            'invisible': ~Eval('cost_price'),
++            },
++        help="The cost price of the product "
++        "when different from the cost price of the move.")
+     currency = fields.Many2One('currency.currency', 'Currency',
+         states={
+             'invisible': ~Eval('unit_price_required'),
