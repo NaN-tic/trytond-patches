@@ -73,3 +73,5 @@ issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice
 issue12349.diff # [marketing_email] Multiple mareting emails created at once have the same email token
 
 product-cost-fifo-average.diff # [product_cost_fifo] [product_cost_history] [stock] Add product cost price to move
+
+issue10650.diff # [account_dunning_email] [marketing_automation] [marketing_email] [notification_email] [trytond] Support RFC6530 on email formatting

@@ -1,0 +1,197 @@
+diff --git a/tryton/modules/account_dunning_email/account.py b/modules/account_dunning_email/account.py
+index 8513c27751c0e841f630bc6f4e511c0d8ee68ff0_bW9kdWxlcy9hY2NvdW50X2R1bm5pbmdfZW1haWwvYWNjb3VudC5weQ==..c7b9a8fd886428d866f215591c176269cab6a5c6_bW9kdWxlcy9hY2NvdW50X2R1bm5pbmdfZW1haWwvYWNjb3VudC5weQ== 100644
+--- a/tryton/modules/account_dunning_email/account.py
++++ b/tryton/modules/account_dunning_email/account.py
+@@ -9,8 +9,8 @@
+ from trytond.pyson import Bool, Eval
+ from trytond.report import get_email
+ from trytond.sendmail import SMTPDataManager, sendmail_transactional
+-from trytond.tools.email_ import set_from_header
++from trytond.tools.email_ import convert_ascii_email, set_from_header
+ from trytond.transaction import Transaction
+ from trytond.wizard import StateTransition
+ 
+ 
+@@ -13,7 +13,14 @@
+ from trytond.transaction import Transaction
+ from trytond.wizard import StateTransition
+ 
+ 
++def _formataddr(pair):
++    name, address = pair
++    if name:
++        name = str(Header(name, 'utf-8'))
++    return formataddr((name, convert_ascii_email(address)))
++
++
+ class Configuration(metaclass=PoolMeta):
+     __name__ = 'account.configuration'
+ 
+@@ -117,8 +124,8 @@
+         contact = self.party.contact_mechanism_get(
+             'email', usage=self.level.email_contact_mechanism)
+         if contact and contact.email:
+-            name = str(Header(contact.name or self.party.rec_name))
+-            to.append(formataddr((name, contact.email)))
++            name = contact.name or self.party.rec_name
++            to.append(_formataddr((name, contact.email)))
+         elif account_config.dunning_email_fallback:
+             user = account_config.get_multivalue(
+                 'dunning_email_fallback', company=self.company.id)
+@@ -122,7 +129,7 @@
+         elif account_config.dunning_email_fallback:
+             user = account_config.get_multivalue(
+                 'dunning_email_fallback', company=self.company.id)
+-            to.append(formataddr((self.party.rec_name, user.email)))
++            to.append(_formataddr((self.party.rec_name, user.email)))
+         cc = []
+         bcc = []
+         languages = set()
+diff --git a/tryton/modules/marketing_automation/marketing_automation.py b/modules/marketing_automation/marketing_automation.py
+index 8513c27751c0e841f630bc6f4e511c0d8ee68ff0_bW9kdWxlcy9tYXJrZXRpbmdfYXV0b21hdGlvbi9tYXJrZXRpbmdfYXV0b21hdGlvbi5weQ==..c7b9a8fd886428d866f215591c176269cab6a5c6_bW9kdWxlcy9tYXJrZXRpbmdfYXV0b21hdGlvbi9tYXJrZXRpbmdfYXV0b21hdGlvbi5weQ== 100644
+--- a/tryton/modules/marketing_automation/marketing_automation.py
++++ b/tryton/modules/marketing_automation/marketing_automation.py
+@@ -32,7 +32,7 @@
+ from trytond.report import Report
+ from trytond.sendmail import SMTPDataManager, sendmail_transactional
+ from trytond.tools import grouped_slice, reduce_ids
+-from trytond.tools.email_ import set_from_header
++from trytond.tools.email_ import convert_ascii_email, set_from_header
+ from trytond.transaction import Transaction
+ from trytond.url import http_host
+ from trytond.wsgi import Base64Converter
+@@ -55,7 +55,7 @@
+ def _formataddr(name, email):
+     if name:
+         name = str(Header(name, 'utf-8'))
+-    return formataddr((name, email))
++    return formataddr((name, convert_ascii_email(email)))
+ 
+ 
+ class Scenario(Workflow, ModelSQL, ModelView):
+diff --git a/tryton/modules/marketing_email/marketing.py b/modules/marketing_email/marketing.py
+index 070c84fa97..cdd907cc53 100644
+--- a/tryton/modules/marketing_email/marketing.py
++++ b/tryton/modules/marketing_email/marketing.py
+@@ -28,7 +28,7 @@ from trytond.pyson import Eval
+ from trytond.report import Report, get_email
+ from trytond.sendmail import SMTPDataManager, sendmail_transactional
+ from trytond.tools import grouped_slice
+-from trytond.tools.email_ import set_from_header
++from trytond.tools.email_ import convert_ascii_email, set_from_header
+ from trytond.transaction import Transaction
+ from trytond.url import http_host
+ from trytond.wizard import Button, StateTransition, StateView, Wizard
+@@ -48,7 +48,7 @@ URL_OPEN = urljoin(URL_BASE, '/m/empty.gif')
+ def _formataddr(name, email):
+     if name:
+         name = str(Header(name, 'utf-8'))
+-    return formataddr((name, email))
++    return formataddr((name, convert_ascii_email(email)))
+ 
+ 
+ def _add_params(url, **params):
+@@ -278,7 +278,8 @@ class EmailList(DeactivableMixin, ModelSQL, ModelView):
+             set_from_header(msg, from_cfg, from_ or from_cfg)
+             msg['To'] = record.email
+             msg['Subject'] = Header(title, 'utf-8')
+-            sendmail_transactional(from_cfg, [record.email], msg)
++            sendmail_transactional(
++                from_cfg, [convert_ascii_email(record.email)], msg)
+ 
+     def request_unsubscribe(self, email, from_=None):
+         pool = Pool()
+@@ -303,7 +304,8 @@ class EmailList(DeactivableMixin, ModelSQL, ModelView):
+                 set_from_header(msg, from_cfg, from_ or from_cfg)
+                 msg['To'] = record.email
+                 msg['Subject'] = Header(title, 'utf-8')
+-                sendmail_transactional(from_cfg, [record.email], msg)
++                sendmail_transactional(
++                    from_cfg, [convert_ascii_email(record.email)], msg)
+ 
+ 
+ class Message(Workflow, ModelSQL, ModelView):
+diff --git a/tryton/modules/notification_email/notification.py b/modules/notification_email/notification.py
+index d439a86756..f07c485f4a 100644
+--- a/tryton/modules/notification_email/notification.py
++++ b/tryton/modules/notification_email/notification.py
+@@ -6,7 +6,7 @@ from email.header import Header
+ from email.mime.application import MIMEApplication
+ from email.mime.multipart import MIMEMultipart
+ from email.mime.nonmultipart import MIMENonMultipart
+-from email.utils import formataddr, getaddresses, parseaddr
++from email.utils import formataddr, getaddresses
+ 
+ from genshi.template import TextTemplate
+ from sql import Null
+@@ -20,7 +20,7 @@ from trytond.pool import Pool
+ from trytond.pyson import Eval
+ from trytond.report import get_email
+ from trytond.sendmail import SMTPDataManager, sendmail_transactional
+-from trytond.tools.email_ import set_from_header
++from trytond.tools.email_ import convert_ascii_email, set_from_header
+ from trytond.transaction import Transaction
+ 
+ from .exceptions import TemplateError
+@@ -194,8 +194,12 @@ class Email(ModelSQL, ModelView):
+             msg = content
+ 
+         set_from_header(msg, sender, from_)
+-        msg['To'] = ', '.join(formataddr(parseaddr(a)) for a in to)
+-        msg['Cc'] = ', '.join(formataddr(parseaddr(a)) for a in cc)
++        msg['To'] = ', '.join(
++            formataddr((n, convert_ascii_email(a)))
++            for n, a in getaddresses(to))
++        msg['Cc'] = ', '.join(
++            formataddr((n, convert_ascii_email(a)))
++            for n, a in getaddresses(cc))
+         msg['Subject'] = Header(title, 'utf-8')
+         msg['Auto-Submitted'] = 'auto-generated'
+         return msg
+@@ -247,7 +251,8 @@ class Email(ModelSQL, ModelView):
+             cc, cc_languages = self._get_cc(record)
+             bcc, bcc_languages = self._get_bcc(record)
+             languagues = to_languages | cc_languages | bcc_languages
+-            to_addrs = [e for _, e in getaddresses(to + cc + bcc)]
++            to_addrs = [
++                convert_ascii_email(e) for _, e in getaddresses(to + cc + bcc)]
+             if to_addrs:
+                 msg = self.get_email(record, from_, to, cc, bcc, languagues)
+                 sendmail_transactional(
+diff --git a/tryton/trytond/trytond/ir/email_.py b/trytond/trytond/ir/email_.py
+index 8513c27751c0e841f630bc6f4e511c0d8ee68ff0_dHJ5dG9uZC90cnl0b25kL2lyL2VtYWlsXy5weQ==..c7b9a8fd886428d866f215591c176269cab6a5c6_dHJ5dG9uZC90cnl0b25kL2lyL2VtYWlsXy5weQ== 100644
+--- a/tryton/trytond/trytond/ir/email_.py
++++ b/tryton/trytond/trytond/ir/email_.py
+@@ -27,7 +27,7 @@
+ from trytond.rpc import RPC
+ from trytond.sendmail import sendmail_transactional
+ from trytond.tools import escape_wildcard
+-from trytond.tools.email_ import set_from_header
++from trytond.tools.email_ import convert_ascii_email, set_from_header
+ from trytond.tools.string_ import StringMatcher
+ from trytond.transaction import Transaction
+ 
+@@ -56,7 +56,7 @@
+ def _formataddr(pair):
+     "Format address without encoding"
+     name, address = pair
+-    address.encode('ascii')
++    convert_ascii_email(address).encode('ascii')
+     if name:
+         quotes = ''
+         if specialsre.search(name):
+@@ -167,8 +167,12 @@
+             msg = content
+         from_ = config.get('email', 'from')
+         set_from_header(msg, from_, user.email or from_)
+-        msg['To'] = ', '.join(formataddr(a) for a in getaddresses([to]))
+-        msg['Cc'] = ', '.join(formataddr(a) for a in getaddresses([cc]))
++        msg['To'] = ', '.join(
++            formataddr((n, convert_ascii_email(a)))
++            for n, a in getaddresses([to]))
++        msg['Cc'] = ', '.join(
++            formataddr((n, convert_ascii_email(a)))
++            for n, a in getaddresses([cc]))
+         msg['Subject'] = Header(subject, 'utf-8')
+ 
+         to_addrs = list(filter(None, map(
