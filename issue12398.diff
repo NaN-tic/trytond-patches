@@ -1,0 +1,22 @@
+diff --git a/tryton/modules/account_dunning/dunning.py b/tryton/modules/account_dunning/dunning.py
+index fa7aadd494..deb4dd69b5 100644
+--- a/tryton/modules/account_dunning/dunning.py
++++ b/tryton/modules/account_dunning/dunning.py
+@@ -63,6 +63,17 @@ class Level(sequence_ordered(), ModelSQL, ModelView):
+         return '%s@%s' % (self.procedure.levels.index(self),
+             self.procedure.rec_name)
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        _, operator, value = clause
++        if operator.startswith('!') or operator.startswith('not '):
++            bool_op = 'AND'
++        else:
++            bool_op = 'OR'
++        return [bool_op,
++            ('procedure.rec_name', *clause[1:]),
++            ]
++
+     def test(self, line, date):
+         if self.overdue is not None:
+             return (date - line.maturity_date) >= self.overdue

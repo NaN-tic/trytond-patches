@@ -38,3 +38,5 @@ issue12338.diff # [account_invoice] Show ID message "account_invoice.msg_invoice
 issue10650.diff # [account_dunning_email] [marketing_automation] [marketing_email] [notification_email] [trytond] Support RFC6530 on email formatting
 
 tools-email.diff # [trytond] tools email
+
+issue12398.diff # [account_dunning] Missing searc_rec_name in model 'account.dunning.level'
