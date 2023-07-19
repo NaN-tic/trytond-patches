@@ -79,3 +79,5 @@ issue10650.diff # [account_dunning_email] [marketing_automation] [marketing_emai
 tools-email.diff # [trytond] tools email
 
 issue12398.diff # [account_dunning] Missing searc_rec_name in model 'account.dunning.level'
+
+issue12414.diff # [stock_lot_sled] Check expiration lot in case Shelf Life Time State is not "none"
