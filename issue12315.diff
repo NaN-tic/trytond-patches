@@ -1,0 +1,15 @@
+diff --git a/tryton/modules/stock_product_location/location.py b/tryton/modules/stock_product_location/location.py
+index 42b0e68470..5a82d5d6cc 100644
+--- a/tryton/modules/stock_product_location/location.py
++++ b/tryton/modules/stock_product_location/location.py
+@@ -70,6 +70,13 @@ class Move(metaclass=PoolMeta):
+                 setattr(self, field, product_location.location)
+                 break
+ 
++    def pick_product(self, quantities):
++        if self.product.consumable and self.warehouse:
++            self.set_product_location(field='from_location',
++                    warehouse=self.warehouse.id)
++        to_pick = super().pick_product(quantities)
++        return to_pick
++
