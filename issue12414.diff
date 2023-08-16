@@ -1,12 +1,26 @@
 diff --git a/tryton/modules/stock_lot_sled/stock.py b/tryton/modules/stock_lot_sled/stock.py
-index 111b160821..0ca38fbfa8 100644
+index 111b160821..ffa7e8dd04 100644
 --- a/tryton/modules/stock_lot_sled/stock.py
 +++ b/tryton/modules/stock_lot_sled/stock.py
-@@ -183,6 +183,7 @@ class Move(metaclass=PoolMeta):
-     @property
-     def to_check_expiration(self):
-         if (self.lot
-+                and self.product.shelf_life_state != 'none'
-                 and self.lot.shelf_life_expiration_date
-                 and self.effective_date > self.lot.shelf_life_expiration_date):
-             return True
+@@ -51,7 +51,9 @@ class LotSledMixin:
+         states={
+             'required': (
+                 Eval('shelf_life_expiration_state', 'none') == 'required'),
+-            'invisible': Eval('shelf_life_expiration_state', 'none') == 'none',
++            'invisible': (
++                (Eval('shelf_life_expiration_state', 'none') == 'none')
++                & ~Eval('shelf_life_expiration_date')),
+             })
+     shelf_life_expiration_state = fields.Function(
+         fields.Selection(DATE_STATE, 'Shelf Life Expiration State'),
+@@ -59,7 +61,9 @@ class LotSledMixin:
+     expiration_date = fields.Date('Expiration Date',
+         states={
+             'required': Eval('expiration_state', 'none') == 'required',
+-            'invisible': Eval('expiration_state', 'none') == 'none',
++            'invisible': (
++                (Eval('expiration_state', 'none') == 'none')
++                & ~Eval('expiration_date')),
+             })
+     expiration_state = fields.Function(
+         fields.Selection(DATE_STATE, 'Expiration State'),
