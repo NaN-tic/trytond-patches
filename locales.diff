@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_invoice/locale/es.po b/tryton/modules/account_invoice/locale/es.po
+index 312c014d4e..4cfdd9b2c9 100644
+--- a/tryton/modules/account_invoice/locale/es.po
++++ b/tryton/modules/account_invoice/locale/es.po
+@@ -815,7 +815,7 @@ msgstr "Validada"
+
+ msgctxt "model:ir.message,text:msg_close_period_non_posted_invoices"
+ msgid "To close the periods you must post the invoices \"%(invoices)s\"."
+-msgstr "Para cerrar los periodos debe contabilizar las facturas \"%(facturas)s\"."
++msgstr "Para cerrar los periodos debe contabilizar las facturas \"%(invoices)s\"."
+
+ msgctxt "model:ir.message,text:msg_erase_party_pending_invoice"
+ msgid ""
