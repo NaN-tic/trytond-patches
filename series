@@ -43,3 +43,5 @@ tools-email.diff # [trytond] tools email
 issue12398.diff # [account_dunning] Missing searc_rec_name in model 'account.dunning.level'
 
 issue12414.diff # [stock_lot_sled] Check expiration lot in case Shelf Life Time State is not "none"
+
+merge_request581.diff # [account] Post cancelled, grouped, rescheduled and delegated moves

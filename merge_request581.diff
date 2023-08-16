@@ -1,0 +1,81 @@
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+index 8e2b40f178..9d38a33af3 100644
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -2428,6 +2428,7 @@ class CancelMoves(Wizard):
+     def transition_cancel(self):
+         pool = Pool()
+         Line = pool.get('account.move.line')
++        Move = pool.get('account.move')
+         Warning = pool.get('res.user.warning')
+         Unreconcile = pool.get('account.move.unreconcile_lines', type='wizard')
+
+@@ -2447,6 +2448,7 @@ class CancelMoves(Wizard):
+                     key, gettext(
+                         'account.msg_cancel_line_delegated', moves=names))
+
++        to_post = []
+         for move in moves:
+             if moves_w_delegation.get(move):
+                 # Skip further warnings
+@@ -2455,12 +2457,16 @@ class CancelMoves(Wizard):
+             default = self.default_cancel(move)
+             cancel_move = move.cancel(
+                 default=default, reversal=self.default.reversal)
++            if move.state == 'posted':
++                to_post.append(cancel_move)
+             to_reconcile = defaultdict(list)
+             for line in move.lines + cancel_move.lines:
+                 if line.account.reconcile:
+                     to_reconcile[(line.account, line.party)].append(line)
+             for lines in to_reconcile.values():
+                 Line.reconcile(lines)
++        if to_post:
++            Move.post(to_post)
+         return 'end'
+
+
+@@ -2488,13 +2494,26 @@ class GroupLines(Wizard):
+     group = StateAction('account.act_move_form_grouping')
+
+     def do_group(self, action):
++        Move = Pool().get('account.move')
++
+         move, balance_line = self._group_lines(self.records)
++        # Post cancelled, grouped, rescheduled and delegated moves
++        # tryton efdb98eb55e54cea31792f3a1fd1e0fb1e21a8d7
++        if all(l.move.state == 'posted' for l in self.records):
++            Move.post([move])
+         return action, {'res_id': move.id}
+
+     def _group_lines(self, lines, date=None):
++        Move = Pool().get('account.move')
++
+         move, balance_line = self.group_lines(lines, self.start.journal, date)
+         move.description = self.start.description
+         move.save()
++
++        # Post cancelled, grouped, rescheduled and delegated moves
++        # tryton efdb98eb55e54cea31792f3a1fd1e0fb1e21a8d7
++        if all(l.move.state == 'posted' for l in self.records):
++            Move.post([move])
+         return move, balance_line
+
+     @classmethod
+@@ -2776,11 +2795,17 @@ class RescheduleLines(Wizard):
+         return values
+
+     def do_reschedule(self, action):
++        Move = Pool().get('account.move')
++
+         move, balance_line = self.reschedule_lines(
+             self.records, self.preview.journal, self.preview.terms)
+         move.origin = self.get_origin()
+         move.description = self.preview.description
+         move.save()
++        # Post cancelled, grouped, rescheduled and delegated moves
++        # tryton efdb98eb55e54cea31792f3a1fd1e0fb1e21a8d7
++        if all(l.move.state == 'posted' for l in self.records):
++            Move.post([move])
+         action['res_id'] = [move.id]
+         return action, {}
