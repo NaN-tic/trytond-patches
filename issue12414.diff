@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/stock_lot_sled/stock.py b/tryton/modules/stock_lot_sled/stock.py
+index 111b160821..0ca38fbfa8 100644
+--- a/tryton/modules/stock_lot_sled/stock.py
++++ b/tryton/modules/stock_lot_sled/stock.py
+@@ -183,6 +183,7 @@ class Move(metaclass=PoolMeta):
+     @property
+     def to_check_expiration(self):
+         if (self.lot
++                and self.product.shelf_life_state != 'none'
+                 and self.lot.shelf_life_expiration_date
+                 and self.effective_date > self.lot.shelf_life_expiration_date):
+             return True
