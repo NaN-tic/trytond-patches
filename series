@@ -86,3 +86,5 @@ issue12414.diff # [stock_lot_sled] Check expiration lot in case Shelf Life Time 
 issue12315.diff # [stock_product_location] Make production entry move from_location configurable
 
 merge_request581.diff # [account] Post cancelled, grouped, rescheduled and delegated moves
+
+issue11745.diff # [stock] Moves of internal shipment are not valid when switching between transit and no transit
