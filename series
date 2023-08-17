@@ -22,6 +22,4 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
 issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
 
-strftime_format.diff # [ir] Fix problem with strftime format, reducing the time needed to format standard time. When the %A or %B is not used.
-
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
