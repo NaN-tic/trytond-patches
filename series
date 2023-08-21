@@ -23,3 +23,5 @@ statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
 
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
+
+issue12473.diff # [trytond] Support add/update/remove/delete on on_change_with for one2many
