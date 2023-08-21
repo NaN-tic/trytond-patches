@@ -1,7 +1,7 @@
-diff --git a/proteus/proteus/__init__.py b/proteus/proteus/__init__.py
+diff --git a/tryton/proteus/proteus/__init__.py b/proteus/proteus/__init__.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_cHJvdGV1cy9wcm90ZXVzL19faW5pdF9fLnB5..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_cHJvdGV1cy9wcm90ZXVzL19faW5pdF9fLnB5 100644
---- a/proteus/proteus/__init__.py
-+++ b/proteus/proteus/__init__.py
+--- a/tryton/proteus/proteus/__init__.py
++++ b/tryton/proteus/proteus/__init__.py
 @@ -1152,9 +1152,8 @@
              values.update(self._on_change_args(on_change))
          if values:
@@ -14,10 +14,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_cHJvdGV1cy9wcm90ZXVzL19faW5pdF9fL
  
          values = {}
          fieldnames = set(names)
-diff --git a/sao/src/model.js b/sao/src/model.js
+diff --git a/tryton/sao/src/model.js b/sao/src/model.js
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_c2FvL3NyYy9tb2RlbC5qcw==..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_c2FvL3NyYy9tb2RlbC5qcw== 100644
---- a/sao/src/model.js
-+++ b/sao/src/model.js
+--- a/tryton/sao/src/model.js
++++ b/tryton/sao/src/model.js
 @@ -1071,5 +1071,5 @@
                                  [values], this.get_context(), false));
                          }
@@ -129,10 +129,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_c2FvL3NyYy9tb2RlbC5qcw==..bf7072a
              }
          },
          set_on_change: function(values) {
-diff --git a/tryton/tryton/gui/window/view_form/model/record.py b/tryton/tryton/gui/window/view_form/model/record.py
+diff --git a/tryton/tryton/tryton/gui/window/view_form/model/record.py b/tryton/tryton/gui/window/view_form/model/record.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uL3RyeXRvbi9ndWkvd2luZG93L3ZpZXdfZm9ybS9tb2RlbC9yZWNvcmQucHk=..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uL3RyeXRvbi9ndWkvd2luZG93L3ZpZXdfZm9ybS9tb2RlbC9yZWNvcmQucHk= 100644
---- a/tryton/tryton/gui/window/view_form/model/record.py
-+++ b/tryton/tryton/gui/window/view_form/model/record.py
+--- a/tryton/tryton/tryton/gui/window/view_form/model/record.py
++++ b/tryton/tryton/tryton/gui/window/view_form/model/record.py
 @@ -577,9 +577,9 @@
                                  'on_change_' + fieldname,
                                  values, context=self.get_context()))
@@ -218,20 +218,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uL3RyeXRvbi9ndWkvd2luZG93L
  
      def autocomplete_with(self, field_name):
          for fieldname, fieldinfo in self.group.fields.items():
-diff --git a/trytond/CHANGELOG b/trytond/CHANGELOG
-index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC9DSEFOR0VMT0c=..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC9DSEFOR0VMT0c= 100644
---- a/trytond/CHANGELOG
-+++ b/trytond/CHANGELOG
-@@ -1,3 +1,5 @@
-+* Support add/update/remove/delete for on_change_with of xxx2Many
-+* Add decorator on RPC
- * Add a canonicalize function for domains
- * Enforce record rules when reading only non SQL fields (#12428)
- * Support PYSON comparison of timedelta
-diff --git a/trytond/doc/ref/rpc.rst b/trytond/doc/ref/rpc.rst
+diff --git a/tryton/trytond/doc/ref/rpc.rst b/trytond/doc/ref/rpc.rst
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC9kb2MvcmVmL3JwYy5yc3Q=..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC9kb2MvcmVmL3JwYy5yc3Q= 100644
---- a/trytond/doc/ref/rpc.rst
-+++ b/trytond/doc/ref/rpc.rst
+--- a/tryton/trytond/doc/ref/rpc.rst
++++ b/tryton/trytond/doc/ref/rpc.rst
 @@ -4,7 +4,7 @@
  RPC
  ===
@@ -252,10 +242,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC9kb2MvcmVmL3JwYy5yc3Q=.
  .. attribute:: RPC.result
  
     The function to transform the result
-diff --git a/trytond/trytond/model/fields/field.py b/trytond/trytond/model/fields/field.py
+diff --git a/tryton/trytond/trytond/model/fields/field.py b/trytond/trytond/model/fields/field.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9maWVsZC5weQ==..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9maWVsZC5weQ== 100644
---- a/trytond/trytond/model/fields/field.py
-+++ b/trytond/trytond/model/fields/field.py
+--- a/tryton/trytond/trytond/model/fields/field.py
++++ b/tryton/trytond/trytond/model/fields/field.py
 @@ -1,7 +1,7 @@
  # This file is part of Tryton.  The COPYRIGHT file at the top level of
  # this repository contains the full copyright notices and license terms.
@@ -316,10 +306,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZ
  
      def definition(self, model, language):
          pool = Pool()
-diff --git a/trytond/trytond/model/fields/function.py b/trytond/trytond/model/fields/function.py
+diff --git a/tryton/trytond/trytond/model/fields/function.py b/trytond/trytond/model/fields/function.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9mdW5jdGlvbi5weQ==..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9mdW5jdGlvbi5weQ== 100644
---- a/trytond/trytond/model/fields/function.py
-+++ b/trytond/trytond/model/fields/function.py
+--- a/tryton/trytond/trytond/model/fields/function.py
++++ b/tryton/trytond/trytond/model/fields/function.py
 @@ -9,7 +9,7 @@
  from trytond.tools import is_instance_method
  from trytond.transaction import Transaction, without_check_access
@@ -373,10 +363,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZ
          if isinstance(name, list):
              names = name
              if multiple:
-diff --git a/trytond/trytond/model/modelview.py b/trytond/trytond/model/modelview.py
+diff --git a/tryton/trytond/trytond/model/modelview.py b/trytond/trytond/model/modelview.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL21vZGVsdmlldy5weQ==..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL21vZGVsL21vZGVsdmlldy5weQ== 100644
---- a/trytond/trytond/model/modelview.py
-+++ b/trytond/trytond/model/modelview.py
+--- a/tryton/trytond/trytond/model/modelview.py
++++ b/tryton/trytond/trytond/model/modelview.py
 @@ -68,8 +68,9 @@
          super(ModelView, cls).__setup__()
          cls.__rpc__['fields_view_get'] = RPC(cache=dict(days=1))
@@ -460,10 +450,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL21vZGVsL21vZ
                  continue
              if field._type in ('many2one', 'one2one', 'reference'):
                  if value:
-diff --git a/trytond/trytond/protocols/dispatcher.py b/trytond/trytond/protocols/dispatcher.py
+diff --git a/tryton/trytond/trytond/protocols/dispatcher.py b/trytond/trytond/protocols/dispatcher.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3Byb3RvY29scy9kaXNwYXRjaGVyLnB5..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL3Byb3RvY29scy9kaXNwYXRjaGVyLnB5 100644
---- a/trytond/trytond/protocols/dispatcher.py
-+++ b/trytond/trytond/protocols/dispatcher.py
+--- a/tryton/trytond/trytond/protocols/dispatcher.py
++++ b/tryton/trytond/trytond/protocols/dispatcher.py
 @@ -190,7 +190,7 @@
                  c_args, c_kwargs, transaction.context, transaction.timestamp \
                      = rpc.convert(obj, *args, **kwargs)
@@ -473,25 +463,11 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3Byb3RvY29sc
                  if (rpc.instantiate is None
                          or not is_instance_method(obj, method)):
                      result = rpc.result(meth(*c_args, **c_kwargs))
-diff --git a/trytond/trytond/rpc.py b/trytond/trytond/rpc.py
+diff --git a/tryton/trytond/trytond/rpc.py b/trytond/trytond/rpc.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3JwYy5weQ==..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL3JwYy5weQ== 100644
---- a/trytond/trytond/rpc.py
-+++ b/trytond/trytond/rpc.py
-@@ -12,9 +12,10 @@
- 
-     readonly: The transaction mode
-     instantiate: The position or the slice of the arguments to be instanciated
-+    decorator: A function to decorate the procedure with
-     result: The function to transform the result
-     check_access: If access right must be checked
-     fresh_session: If a fresh session is required
-     unique: Check instances are unique
-     '''
- 
-@@ -15,9 +16,10 @@
-     result: The function to transform the result
-     check_access: If access right must be checked
-     fresh_session: If a fresh session is required
+--- a/tryton/trytond/trytond/rpc.py
++++ b/tryton/trytond/trytond/rpc.py
+@@ -18,8 +18,9 @@
      unique: Check instances are unique
      '''
  
@@ -501,6 +477,8 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3JwYy5weQ==.
 +        'readonly', 'instantiate', 'decorator', 'result',
 +        'check_access', 'fresh_session', 'unique', 'cache')
  
+     def __init__(self, readonly=True, instantiate=None, result=None,
+             check_access=True, fresh_session=False, unique=True, cache=None):
 @@ -23,5 +25,6 @@
  
 -    def __init__(self, readonly=True, instantiate=None, result=None,
@@ -529,10 +507,10 @@ index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3JwYy5weQ==.
  
  class RPCCache:
      __slots__ = ('duration',)
-diff --git a/trytond/trytond/tests/test_field_function.py b/trytond/trytond/tests/test_field_function.py
+diff --git a/tryton/trytond/trytond/tests/test_field_function.py b/trytond/trytond/tests/test_field_function.py
 index bfad1dc7382cb9fd2c17bef77da699ed36869d3e_dHJ5dG9uZC90cnl0b25kL3Rlc3RzL3Rlc3RfZmllbGRfZnVuY3Rpb24ucHk=..bf7072adc76db4e62ec3fbde7efde17e7bbd630d_dHJ5dG9uZC90cnl0b25kL3Rlc3RzL3Rlc3RfZmllbGRfZnVuY3Rpb24ucHk= 100644
---- a/trytond/trytond/tests/test_field_function.py
-+++ b/trytond/trytond/tests/test_field_function.py
+--- a/tryton/trytond/trytond/tests/test_field_function.py
++++ b/tryton/trytond/trytond/tests/test_field_function.py
 @@ -103,7 +103,7 @@
  
          record = Model()
