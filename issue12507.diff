@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/sale_shipment_cost/sale.py b/tryton/modules/sale_shipment_cost/sale.py
+index 6a46404035..25db1de472 100644
+--- a/tryton/modules/sale_shipment_cost/sale.py
++++ b/tryton/modules/sale_shipment_cost/sale.py
+@@ -348,6 +348,7 @@ class Line(metaclass=PoolMeta):
+                         self.sale._get_invoice_sale())
+                     if invoice_line:
+                         invoice_line.origin = self
++                        invoice_line.taxes = self.taxes
+                         lines.append(invoice_line)
+                         shipment_cost_invoiced.append(shipment.id)
+         return lines
