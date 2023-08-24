@@ -90,3 +90,5 @@ merge_request581.diff # [account] Post cancelled, grouped, rescheduled and deleg
 issue11745.diff # [stock] Moves of internal shipment are not valid when switching between transit and no transit
 
 issue12319.diff # [sale_advance_payment] Only create an advance line if the invoice dont have already one.
+
+issue12216.diff # [stock] Handle evaluation error of cost price in cost price revision
