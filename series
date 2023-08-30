@@ -94,3 +94,5 @@ issue12319.diff # [sale_advance_payment] Only create an advance line if the invo
 issue12507.diff # [sale_shipment_cost] Set taxes from the sale line when create a invoice line from shipment cost
 
 issue12216.diff # [stock] Handle evaluation error of cost price in cost price revision
+
+issue12535.diff # [stock] Return 0 as default recomputed fixed cost price

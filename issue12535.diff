@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/stock/product.py b/modules/stock/product.py
+index e4da113ef3..d195969ca3 100644
+--- a/tryton/modules/stock/product.py
++++ b/tryton/modules/stock/product.py
+@@ -349,7 +349,7 @@ class Product(StockMixin, object, metaclass=PoolMeta):
+             cls.write(*to_write)
+ 
+     def recompute_cost_price_fixed(self, start=None):
+-        return self.cost_price
++        return self.cost_price or Decimal(0)
+ 
+     @classmethod
+     def _domain_moves_cost(cls):
