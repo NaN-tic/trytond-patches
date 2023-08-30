@@ -1,0 +1,35 @@
+diff --git a/tryton/modules/sale_shipment_cost/sale.py b/tryton/modules/sale_shipment_cost/sale.py
+index 6a46404035..f7cd12ab29 100644
+--- a/tryton/modules/sale_shipment_cost/sale.py
++++ b/tryton/modules/sale_shipment_cost/sale.py
+@@ -345,7 +345,7 @@ class Line(metaclass=PoolMeta):
+                 if (shipment.state == 'done'
+                         and shipment.id not in shipment_cost_invoiced):
+                     invoice_line = shipment.get_cost_invoice_line(
+-                        self.sale._get_invoice_sale())
++                        self.sale._get_invoice_sale(), origin=self)
+                     if invoice_line:
+                         invoice_line.origin = self
+                         lines.append(invoice_line)
+diff --git a/tryton/modules/sale_shipment_cost/stock.py b/tryton/modules/sale_shipment_cost/stock.py
+index 6f2b6ddee4..08a9d2deda 100644
+--- a/tryton/modules/sale_shipment_cost/stock.py
++++ b/tryton/modules/sale_shipment_cost/stock.py
+@@ -113,7 +113,7 @@ class ShipmentOut(metaclass=PoolMeta):
+         'Get tax rule pattern for invoice line'
+         return {}
+
+-    def get_cost_invoice_line(self, invoice):
++    def get_cost_invoice_line(self, invoice, origin=None):
+         pool = Pool()
+         Currency = pool.get('currency.currency')
+         InvoiceLine = pool.get('account.invoice.line')
+@@ -125,7 +125,7 @@ class ShipmentOut(metaclass=PoolMeta):
+             return
+         product = self.carrier.carrier_product
+
+-        invoice_line = InvoiceLine(invoice=invoice)
++        invoice_line = InvoiceLine(invoice=invoice, origin=origin)
+         invoice_line.on_change_invoice()
+         invoice_line.type = 'line'
+         invoice_line.quantity = 1  # XXX
