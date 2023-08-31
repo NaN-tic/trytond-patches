@@ -47,3 +47,5 @@ issue12414.diff # [stock_lot_sled] Check expiration lot in case Shelf Life Time 
 merge_request581.diff # [account] Post cancelled, grouped, rescheduled and delegated moves
 
 issue12216.diff # [stock] Handle evaluation error of cost price in cost price revision
+
+issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extension
