@@ -29,7 +29,7 @@ index ee4e855895..ffe84c9e15 100644
 +                    cursor.execute(*foreign_table.select(foreign_table.id,
 +                            where=foreign_red_sql))
 +                except psycopg2.errors.UndefinedTable as ex:
-+                    if ex.args and 'babi_execution' in ex.args:
++                    if ex.args and (len(ex.args) > 0) and 'babi_execution' in ex.args[0]:
 +                        return []
                  records = Model.browse([x[0] for x in cursor.fetchall()])
              else:
