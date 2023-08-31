@@ -96,3 +96,5 @@ issue12507.diff # [sale_shipment_cost] Set taxes from the sale line when create 
 issue12216.diff # [stock] Handle evaluation error of cost price in cost price revision
 
 issue12535.diff # [stock] Return 0 as default recomputed fixed cost price
+
+issue12541.diff # [stock] _set_transit may try to copy() an empty list
