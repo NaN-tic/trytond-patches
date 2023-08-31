@@ -40,3 +40,24 @@ index 889916371c..ae51a5d433 100644
                  related_records = Model.browse([x[0] for x in cursor])
              else:
                  with transaction.set_context(active_test=False):
+diff --git a/tryton/trytond/trytond/ir/model.py b/tryton/trytond/trytond/ir/model.py
+index 6304018f24..1ea08d8be5 100644
+--- a/tryton/trytond/trytond/ir/model.py
++++ b/tryton/trytond/trytond/ir/model.py
+@@ -555,8 +555,14 @@ class ModelAccess(DeactivableMixin, ModelSQL, ModelView):
+                 fill_models(field.get_target(), models)
+         model2models = defaultdict(list)
+         for model in models:
+-            fill_models(pool.get(model), model2models[model])
+-
++            try:
++                fill_models(pool.get(model), model2models[model])
++            except KeyError as err:
++                if 'babi_execution_' in str(err):
++                    models.remove(model)
++                    continue
++                else:
++                    raise
+         all_models = list(set(sum(model2models.values(), [])))
+         default = {'read': True, 'write': True, 'create': True, 'delete': True}
+         default_singleton = {
