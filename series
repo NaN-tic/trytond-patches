@@ -49,3 +49,5 @@ merge_request581.diff # [account] Post cancelled, grouped, rescheduled and deleg
 issue12216.diff # [stock] Handle evaluation error of cost price in cost price revision
 
 issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extension
+
+issue12497.diff # [purchase] Use the last 10 purchases to set default currency, payment term and invoice method
