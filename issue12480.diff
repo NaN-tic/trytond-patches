@@ -1,9 +1,29 @@
 diff --git a/tryton/trytond/trytond/backend/postgresql/table.py b/tryton/trytond/trytond/backend/postgresql/table.py
-index e874ee61c0..44ff97ce9b 100644
+index 75c4c8b276..8a8fc7a3cb 100644
 --- a/tryton/trytond/trytond/backend/postgresql/table.py
 +++ b/tryton/trytond/trytond/backend/postgresql/table.py
-@@ -647,23 +647,42 @@ class TrigramTranslator(IndexMixin, IndexTranslatorInterface):
- 
+@@ -571,7 +571,18 @@ class IndexMixin:
+
+     @classmethod
+     def _get_indexed_expressions(cls, index):
+-        return index.expressions
++        database = Transaction().database
++        has_btree_gin = database.has_extension('btree_gin')
++        has_trigram = database.has_extension('pg_trgm')
++
++        def filter(usage):
++            if usage.__class__.__name__ == 'Similarity':
++                return has_trigram
++            elif usage.__class__.__name__ in {'Range', 'Equality'}:
++                return has_btree_gin
++            else:
++                return False
++        return [(e, u) for e, u in index.expressions if filter(u)]
+
+     @classmethod
+     def _get_expression_variables(cls, expression, usage):
+@@ -647,14 +658,24 @@ class TrigramTranslator(IndexMixin, IndexTranslatorInterface):
+
      @classmethod
      def score(cls, index):
 -        has_trigram = Transaction().database.has_extension('pg_trgm')
@@ -13,7 +33,7 @@ index e874ee61c0..44ff97ce9b 100644
 +        has_trigram = database.has_extension('pg_trgm')
 +        if not has_btree_gin and not has_trigram:
              return 0
- 
+
          score = 0
          for _, usage in index.expressions:
              if usage.__class__.__name__ == 'Similarity':
@@ -30,24 +50,3 @@ index e874ee61c0..44ff97ce9b 100644
              else:
                  return 0
          return score
- 
-     @classmethod
-     def _get_indexed_expressions(cls, index):
--        return [
--            (e, u) for e, u in index.expressions
--            if u.__class__.__name__ == 'Similarity']
-+        database = Transaction().database
-+        has_btree_gin = database.has_extension('btree_gin')
-+        has_trigram = database.has_extension('pg_trgm')
-+
-+        def filter(usage):
-+            if usage.__class__.__name__ == 'Similarity':
-+                return has_trigram
-+            elif usage.__class__.__name__ in {'Range', 'Equality'}:
-+                return has_btree_gin
-+            else:
-+                return False
-+        return [(e, u) for e, u in index.expressions if filter(u)]
- 
-     @classmethod
-     def _get_expression_variables(cls, expression, usage):
