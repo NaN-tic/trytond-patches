@@ -13,7 +13,6 @@ analitic_line_company_rules.diff # [analytic_account] Not selected root accounts
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 issue11945.diff # [stock] Ignore assign can ignore more than moves displayed on wizard
@@ -98,3 +97,5 @@ issue12216.diff # [stock] Handle evaluation error of cost price in cost price re
 issue12535.diff # [stock] Return 0 as default recomputed fixed cost price
 
 issue12541.diff # [stock] _set_transit may try to copy() an empty list
+
+issue12497.diff # [purchase] Use the last 10 purchases to set default currency, payment term and invoice method
