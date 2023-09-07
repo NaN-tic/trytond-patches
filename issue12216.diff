@@ -49,7 +49,7 @@ index e4da113ef3..96a9fac580 100644
 +        try:
 +            amount = simple_eval(decistmt(self.cost_price), **context)
 +        except (InvalidExpression, SyntaxError) as exception:
-+            product = self.product or self.template
++            product = hasattr(self, 'product') and self.product or self.template
 +            raise ProductCostPriceError(
 +                gettext('stock.msg_invalid_cost_price',
 +                    cost_price=self.cost_price,
