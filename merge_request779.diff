@@ -1,0 +1,235 @@
+diff --git a/tryton/modules/account/exceptions.py b/tryton/modules/account/exceptions.py
+index 1742ee2f59..37e26689b1 100644
+--- a/tryton/modules/account/exceptions.py
++++ b/tryton/modules/account/exceptions.py
+@@ -97,5 +97,17 @@ class GroupLineError(UserError):
+     pass
+
+
++class GroupLineWarning(UserWarning):
++    pass
++
++
+ class RescheduleLineError(UserError):
+     pass
++
++
++class RescheduleLineWarning(UserWarning):
++    pass
++
++
++class DelegateLineWarning(UserWarning):
++    pass
+diff --git a/tryton/modules/account_payment/__init__.py b/tryton/modules/account_payment/__init__.py
+index 52f6be034a..a59a560059 100644
+--- a/tryton/modules/account_payment/__init__.py
++++ b/tryton/modules/account_payment/__init__.py
+@@ -34,6 +34,9 @@ def register():
+         payment.ProcessPayment,
+         account.CreateDirectDebit,
+         account.PayLine,
++        account.MoveCancel,
++        account.MoveLineGroup,
++        account.MoveLineReschedule,
+         party.Replace,
+         party.Erase,
+         module='account_payment', type_='wizard')
+diff --git a/tryton/modules/account_payment/account.py b/tryton/modules/account_payment/account.py
+index e6acb794cf..112c8e1f2c 100644
+--- a/tryton/modules/account_payment/account.py
++++ b/tryton/modules/account_payment/account.py
+@@ -11,6 +11,9 @@ from sql.functions import Abs
+ from trytond import backend
+ from trytond.i18n import gettext
+ from trytond.model import ModelSQL, ModelView, fields
++from trytond.modules.account.exceptions import (
++    CancelWarning, DelegateLineWarning, GroupLineWarning,
++    RescheduleLineWarning)
+ from trytond.modules.company.model import CompanyValueMixin
+ from trytond.modules.currency.fields import Monetary
+ from trytond.pool import Pool, PoolMeta
+@@ -503,6 +506,80 @@ class ConfigurationPaymentGroupSequence(ModelSQL, CompanyValueMixin):
+             return None
+
+
++class MoveCancel(metaclass=PoolMeta):
++    __name__ = 'account.move.cancel'
++
++    def transition_cancel(self):
++        pool = Pool()
++        Warning = pool.get('res.user.warning')
++        moves_w_payments = []
++        for move in self.records:
++            for line in move.lines:
++                if any(p.state != 'failed' for p in line.payments):
++                    moves_w_payments.append(move)
++                    break
++        if moves_w_payments:
++            names = ', '.join(
++                m.rec_name for m in moves_w_payments[:5])
++            if len(moves_w_payments) > 5:
++                names += '...'
++            key = Warning.format('cancel_payments', moves_w_payments)
++            if Warning.check(key):
++                raise CancelWarning(
++                    key, gettext(
++                        'account_payment.msg_move_cancel_payments',
++                        moves=names))
++        return super().transition_cancel()
++
++
++class MoveLineGroup(metaclass=PoolMeta):
++    __name__ = 'account.move.line.group'
++
++    def do_group(self, action):
++        pool = Pool()
++        Warning = pool.get('res.user.warning')
++        lines_w_payments = []
++        for line in self.records:
++            if any(p.state != 'failed' for p in line.payments):
++                lines_w_payments.append(line)
++        if lines_w_payments:
++            names = ', '.join(
++                m.rec_name for m in lines_w_payments[:5])
++            if len(lines_w_payments) > 5:
++                names += '...'
++            key = Warning.format('group_payments', lines_w_payments)
++            if Warning.check(key):
++                raise GroupLineWarning(
++                    key, gettext(
++                        'account_payment.msg_move_line_group_payments',
++                        lines=names))
++        return super().do_group(action)
++
++
++class MoveLineReschedule(metaclass=PoolMeta):
++    __name__ = 'account.move.line.reschedule'
++
++    def do_reschedule(self, action):
++        pool = Pool()
++        Warning = pool.get('res.user.warning')
++        lines_w_payments = []
++        for line in self.records:
++            if any(p.state != 'failed' for p in line.payments):
++                lines_w_payments.append(line)
++        if lines_w_payments:
++            names = ', '.join(
++                m.rec_name for m in lines_w_payments[:5])
++            if len(lines_w_payments) > 5:
++                names += '...'
++            key = Warning.format('reschedule_payments', lines_w_payments)
++            if Warning.check(key):
++                raise RescheduleLineWarning(
++                    key, gettext(
++                        'account_payment.msg_move_line_reschedule_payments',
++                        lines=names))
++        return super().do_reschedule(action)
++
++
+ class Invoice(metaclass=PoolMeta):
+     __name__ = 'account.invoice'
+
+diff --git a/tryton/modules/account_payment/exceptions.py b/tryton/modules/account_payment/exceptions.py
+index 3403af63cd..de61c32ae9 100644
+--- a/tryton/modules/account_payment/exceptions.py
++++ b/tryton/modules/account_payment/exceptions.py
+@@ -13,6 +13,10 @@ class OverpayWarning(UserWarning):
+     pass
+
+
++class ReconciledWarning(UserWarning):
++    pass
++
++
+ class PaymentValidationError(ValidationError):
+     pass
+
+diff --git a/tryton/modules/account_payment/message.xml b/tryton/modules/account_payment/message.xml
+index 69fabc95fe..d4cc514c84 100644
+--- a/tryton/modules/account_payment/message.xml
++++ b/tryton/modules/account_payment/message.xml
+@@ -9,6 +9,9 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_payment_overpay">
+             <field name="text">Payment "%(payment)s" overpays line "%(line)s".</field>
+         </record>
++        <record model="ir.message" id="msg_payment_reconciled">
++            <field name="text">The line "%(line)s" of payment "%(payment)s" is already reconciled.</field>
++        </record>
+         <record model="ir.message" id="msg_erase_party_pending_payment">
+             <field name="text">You cannot erase party "%(party)s" while they have pending payments with company "%(company)s".</field>
+         </record>
+@@ -18,5 +21,14 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_pay_line_group">
+             <field name="text">The lines "%(names)s" for %(party)s could be grouped with the line "%(line)s".</field>
+         </record>
++        <record model="ir.message" id="msg_move_cancel_payments">
++            <field name="text">The moves "%(moves)s" contain lines with payments, you may want to cancel them before cancelling.</field>
++        </record>
++        <record model="ir.message" id="msg_move_line_group_payments">
++            <field name="text">The lines "%(lines)s" have payments, you may want to cancel them before grouping.</field>
++        </record>
++        <record model="ir.message" id="msg_move_line_reschedule_payments">
++            <field name="text">The lines "%(lines)s" have payments, you may want to cancel them before rescheduling.</field>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/account_payment/payment.py b/tryton/modules/account_payment/payment.py
+index 61dceb3205..52de371dc7 100644
+--- a/tryton/modules/account_payment/payment.py
++++ b/tryton/modules/account_payment/payment.py
+@@ -22,7 +22,7 @@ from trytond.tools import (
+ from trytond.transaction import Transaction
+ from trytond.wizard import Button, StateAction, StateView, Wizard
+
+-from .exceptions import OverpayWarning
++from .exceptions import OverpayWarning, ReconciledWarning
+
+ KINDS = [
+     ('payable', 'Payable'),
+@@ -561,14 +561,14 @@ class Payment(Workflow, ModelSQL, ModelView):
+     @Workflow.transition('submitted')
+     @set_employee('submitted_by')
+     def submit(cls, payments):
+-        pass
++        cls._check_reconciled(payments)
+
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('approved')
+     @set_employee('approved_by')
+     def approve(cls, payments):
+-        pass
++        cls._check_reconciled(payments)
+
+     @classmethod
+     @Workflow.transition('processing')
+@@ -595,6 +595,8 @@ class Payment(Workflow, ModelSQL, ModelView):
+     @Workflow.transition('processing')
+     def proceed(cls, payments):
+         assert all(p.group for p in payments)
++        cls._check_reconciled(
++            [p for p in payments if p.state not in {'succeeded', 'failed'}])
+
+     @classmethod
+     @ModelView.button
+@@ -610,6 +612,20 @@ class Payment(Workflow, ModelSQL, ModelView):
+     def fail(cls, payments):
+         pass
+
++    @classmethod
++    def _check_reconciled(cls, payments):
++        pool = Pool()
++        Warning = pool.get('res.user.warning')
++        for payment in payments:
++            if payment.line and payment.line.reconciliation:
++                key = Warning.format('submit_reconciled', [payment])
++                if Warning.check(key):
++                    raise ReconciledWarning(
++                        key, gettext(
++                            'account_payment.msg_payment_reconciled',
++                            payment=payment.rec_name,
++                            line=payment.line.rec_name))
++
+
+ class ProcessPaymentStart(ModelView):
+     'Process Payment'

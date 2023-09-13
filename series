@@ -99,3 +99,5 @@ issue12535.diff # [stock] Return 0 as default recomputed fixed cost price
 issue12541.diff # [stock] _set_transit may try to copy() an empty list
 
 issue12497.diff # [purchase] Use the last 10 purchases to set default currency, payment term and invoice method
+
+merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
