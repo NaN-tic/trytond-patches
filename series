@@ -101,3 +101,5 @@ issue12541.diff # [stock] _set_transit may try to copy() an empty list
 issue12497.diff # [purchase] Use the last 10 purchases to set default currency, payment term and invoice method
 
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
+
+merge_request775.diff # [sao] Set visibility of active button when screen is displayed
