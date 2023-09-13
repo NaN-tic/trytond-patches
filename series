@@ -51,3 +51,5 @@ issue12216.diff # [stock] Handle evaluation error of cost price in cost price re
 issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extension
 
 issue12497.diff # [purchase] Use the last 10 purchases to set default currency, payment term and invoice method
+
+merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
