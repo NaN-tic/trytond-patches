@@ -1,0 +1,55 @@
+diff --git a/sao/src/screen.js b/sao/src/screen.js
+index e28f89fa26..fc1764890f 100644
+--- a/sao/src/screen.js
++++ b/sao/src/screen.js
+@@ -1037,7 +1037,8 @@
+             var domain = this.search_domain(search_string, true);
+ 
+             var context = this.context;
+-            if (this.screen_container.but_active.hasClass('active')) {
++            if ((this.screen_container.but_active.css('display') != 'none') &&
++                this.screen_container.but_active.hasClass('active')) {
+                 context.active_test = false;
+             }
+             const search = () => {
+@@ -1118,7 +1119,8 @@
+             } else {
+                 domain = this.domain;
+             }
+-            if (this.screen_container.but_active.hasClass('active')) {
++            if ((this.screen_container.but_active.css('display') != 'none') &&
++                this.screen_container.but_active.hasClass('active')) {
+                 if (!jQuery.isEmptyObject(domain)) {
+                     domain = [domain, ['active', '=', false]];
+                 } else {
+@@ -1339,6 +1341,17 @@
+                     }
+                 }
+             }
++            if (this.current_view.view_type == 'tree') {
++                let view_tree = this.fields_view_tree[
++                    this.current_view.view_id] || {};
++                if ('active' in view_tree.fields) {
++                    this.screen_container.but_active.show();
++                } else {
++                    this.screen_container.but_active.hide();
++                }
++            } else {
++                this.screen_container.but_active.hide();
++            }
+             return jQuery.when.apply(jQuery, deferreds).then(
+                 () => this.set_tree_state().then(() => {
+                     this.current_record = this.current_record;
+@@ -1765,12 +1778,6 @@
+                 fields = dom_fields;
+             }
+ 
+-            if ('active' in view_tree.fields) {
+-                this.screen_container.but_active.show();
+-            } else {
+-                this.screen_container.but_active.hide();
+-            }
+-
+             // Add common fields
+             const common_fields = new Set([
+                 ['id', Sao.i18n.gettext('ID'), 'integer'],
