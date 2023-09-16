@@ -70,8 +70,6 @@ allow_none_list_price.diff # [sale_price_list] allow set none as price list in a
 
 remove_left_right_project_work.diff # [project] Remove parent left and parent right for the project.work module.
 
-stock_shipment.diff # [stock] No try to copy None moves when set transit location
-
 issue11229.diff # [sale_credit] Sale with payments should not be blocked by credit limit
 
 issue12131.diff # [analytic_invoice] UpdateAsset Wizard not ser analytic lines in moves
