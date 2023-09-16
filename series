@@ -51,5 +51,3 @@ issue12216.diff # [stock] Handle evaluation error of cost price in cost price re
 issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extension
 
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
-
-merge_request775.diff # [sao] Set visibility of active button when screen is displayed
