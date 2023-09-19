@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_stock_eu/stock.py b/tryton/modules/account_stock_eu/stock.py
+index 2cccc9a179..f4b64c84ff 100644
+--- a/tryton/modules/account_stock_eu/stock.py
++++ b/tryton/modules/account_stock_eu/stock.py
+@@ -244,7 +244,7 @@ class Move(metaclass=PoolMeta):
+         unknown_country = []
+         for move in moves:
+             move._set_intrastat()
+-            if (not move.intrastat_type
++            if (move.intrastat_type
+                     and (not move.intrastat_from_country
+                         or not move.intrastat_to_country)):
+                 unknown_country.append(move)
