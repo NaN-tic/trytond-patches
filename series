@@ -103,3 +103,5 @@ issue12497.diff # [purchase] Use the last 10 purchases to set default currency, 
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
 
 merge_request775.diff # [sao] Set visibility of active button when screen is displayed
+
+issue12583.diff # [stock_lot] Missing search function in default_uom field in stock.lot model

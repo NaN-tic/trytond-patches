@@ -1,0 +1,25 @@
+diff --git a/tryton/modules/stock_lot/stock.py b/tryton/modules/stock_lot/stock.py
+index 3e93c4e57c..734018dbe8 100644
+--- a/tryton/modules/stock_lot/stock.py
++++ b/tryton/modules/stock_lot/stock.py
+@@ -78,7 +78,7 @@ class Lot(DeactivableMixin, ModelSQL, ModelView, LotMixin, StockMixin):
+         'get_quantity', searcher='search_quantity')
+     default_uom = fields.Function(
+         fields.Many2One('product.uom', "Default UOM"),
+-        'on_change_with_default_uom')
++        'on_change_with_default_uom', searcher='search_default_uom')
+     default_uom_digits = fields.Function(fields.Integer("Default Unit Digits"),
+         'on_change_with_default_uom_digits')
+
+@@ -152,6 +152,11 @@ class Lot(DeactivableMixin, ModelSQL, ModelView, LotMixin, StockMixin):
+     def downward_traces(cls, lots):
+         pass
+
++    @classmethod
++    def search_default_uom(cls, name, clause):
++        nested = clause[0][len(name):]
++        return [('product.' + name + nested, *clause[1:])]
++
+
+ class LotTrace(ModelSQL, ModelView):
+     "Lot Trace"
