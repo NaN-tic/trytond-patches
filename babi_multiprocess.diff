@@ -19,11 +19,34 @@ index a21e9e63e8..bd22d3b073 100644
              raise
  
      def add(self, cls, type='model'):
-diff --git a/tryton/trytond/trytond/model/modelsql.py b/trytond/trytond/model/modelsql.py
-index 889916371c..ae51a5d433 100644
+diff --git a/tryton/trytond/trytond/model/modelsql.py b/tryton/trytond/trytond/model/modelsql.py
+index a21e9e63e8..e767d2e9ae 100644
 --- a/tryton/trytond/trytond/model/modelsql.py
 +++ b/tryton/trytond/trytond/model/modelsql.py
-@@ -1209,8 +1209,14 @@ class ModelSQL(ModelStorage):
+@@ -747,13 +747,21 @@ class ModelSQL(ModelStorage):
+         extra_fields = set()
+         if 'write_date' not in fields_names:
+             extra_fields.add('write_date')
++        fields_names = fields_names[:]
+         for field_name in fields_names:
+             if field_name in {'_timestamp', '_write', '_delete'}:
+                 continue
+             if '.' in field_name:
+                 field_name, field_related = field_name.split('.', 1)
+                 fields_related[field_name].add(field_related)
+-            field = cls._fields[field_name]
++            try:
++                field = cls._fields[field_name]
++            except KeyError as err:
++                if 'babi_' in str(err):
++                    fields_names.remove(field_name)
++                    continue
++                else:
++                    raise
+             if hasattr(field, 'datetime_field') and field.datetime_field:
+                 extra_fields.add(field.datetime_field)
+             if field.context:
+@@ -1209,8 +1217,14 @@ class ModelSQL(ModelStorage):
                  foreign_table = Model.__table__()
                  foreign_red_sql = reduce_ids(
                      Column(foreign_table, field_name), sub_ids)
