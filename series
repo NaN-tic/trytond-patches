@@ -53,3 +53,9 @@ issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extensio
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
 
 issue12576.diff # [account_stock_eu] Could not find the intrastat countries for moves
+
+product_cost_price_migration.diff # [product] Add missing column in product_cost_price
+
+table_rename.diff # [trytond] Add missing sequence rename in table_rename function
+
+sequence_exist.diff # [trytond] Search sequences using pg_sequences instead of information_schema.sequences
