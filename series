@@ -53,3 +53,5 @@ issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extensio
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
 
 issue12576.diff # [account_stock_eu] Could not find the intrastat countries for moves
+
+issue7677.diff # [trytond] Do not set rec_name for unsaved record
