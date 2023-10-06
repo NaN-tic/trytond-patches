@@ -1,0 +1,14 @@
+diff --git a/tryton/trytond/trytond/model/modelview.py b/tryton/trytond/trytond/model/modelview.py
+index dafa3c4608..dce8e790b1 100644
+--- a/tryton/trytond/trytond/model/modelview.py
++++ b/tryton/trytond/trytond/model/modelview.py
+@@ -786,7 +786,8 @@ class ModelView(Model):
+                 continue
+             if field._type in ('many2one', 'one2one', 'reference'):
+                 if value:
+-                    if isinstance(value, ModelStorage):
++                    if isinstance(value, ModelStorage)
++                            and value.id and value.id >= 0):
+                         changed['%s.' % fname] = {
+                             'rec_name': value.rec_name,
+                             }
