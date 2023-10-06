@@ -111,3 +111,5 @@ issue12109.diff # [sale] [purchase] [sale_product_customer] Replace _parent_ exp
 issue11574.diff # [stock] #162150 missing warehouse in stock.shipment.in.return. Since Support warehouse pickup add warehouse
 
 issue7677.diff # [trytond] Do not set rec_name for unsaved record
+
+issue7672.diff # [stock] Always fill product and template of cost price revision
