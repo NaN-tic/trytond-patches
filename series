@@ -107,3 +107,5 @@ merge_request775.diff # [sao] Set visibility of active button when screen is dis
 issue12583.diff # [stock_lot] Missing search function in default_uom field in stock.lot model
 
 issue12109.diff # [sale] [purchase] [sale_product_customer] Replace _parent_ expression with direct field on sale and purchase line
+
+issue11574.diff # [stock] #162150 missing warehouse in stock.shipment.in.return. Since Support warehouse pickup add warehouse
