@@ -55,3 +55,5 @@ merge_request779.diff # [account_payment] Warn when submitting, approving or pro
 issue12576.diff # [account_stock_eu] Could not find the intrastat countries for moves
 
 issue7677.diff # [trytond] Do not set rec_name for unsaved record
+
+issue7672.diff # [stock] Always fill product and template of cost price revision
