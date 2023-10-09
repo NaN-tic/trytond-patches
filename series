@@ -113,3 +113,5 @@ issue11574.diff # [stock] #162150 missing warehouse in stock.shipment.in.return.
 issue7677.diff # [trytond] Do not set rec_name for unsaved record
 
 issue7672.diff # [stock] Always fill product and template of cost price revision
+
+sale_purchase_relate_lines.diff # [sale] [purchase] Add relates to sale and purchase lines from party and product

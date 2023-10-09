@@ -1,0 +1,92 @@
+diff --git a/tryton/modules/sale/sale.py b/tryton/modules/sale/sale.py
+index 6c85325b2b..0d8535cb23 100644
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
+@@ -1220,6 +1220,16 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
+     company = fields.Function(
+         fields.Many2One('company.company', "Company"),
+         'on_change_with_company')
++    customer = fields.Function(
++        fields.Many2One(
++            'party.party', "Customer",
++            context={
++                'company': Eval('company', -1),
++                }),
++        'on_change_with_customer', searcher='search_customer')
++    sale_date = fields.Function(
++        fields.Date("Sale Date"),
++        'on_change_with_sale_date', searcher='search_sale_date')
+ 
+     @classmethod
+     def get_move_product_types(cls):
+@@ -1501,6 +1511,24 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
+         if self.sale and self.sale.company:
+             return self.sale.company.id
+ 
++    @fields.depends('sale', '_parent_sale.party')
++    def on_change_with_customer(self, name=None):
++        if self.sale and self.sale.party:
++            return self.sale.party.id
++
++    @classmethod
++    def search_customer(cls, name, clause):
++        return [('sale.party' + clause[0][len(name):], *clause[1:])]
++
++    @fields.depends('sale', '_parent_sale.sale_date')
++    def on_change_with_sale_date(self, name=None):
++        if self.sale:
++            return self.sale.sale_date
++
++    @classmethod
++    def search_sale_date(cls, name, clause):
++        return [('sale.sale_date', *clause[1:])]
++
+     def get_invoice_line(self):
+         'Return a list of invoice lines for sale line'
+         pool = Pool()
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
+index bb564ff9f4..06fb0c5fcd 100644
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
+@@ -1203,6 +1203,16 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
+     company = fields.Function(
+         fields.Many2One('company.company', "Company"),
+         'on_change_with_company')
++    supplier = fields.Function(
++        fields.Many2One(
++            'party.party', "Supplier",
++            context={
++                'company': Eval('company', -1),
++                }),
++        'on_change_with_supplier', searcher='search_supplier')
++    purchase_date = fields.Function(
++        fields.Date("Purchase Date"),
++        'on_change_with_purchase_date', searcher='search_purchase_date')
+     currency = fields.Function(
+         fields.Many2One('currency.currency', 'Currency'),
+         'on_change_with_currency')
+@@ -1530,6 +1540,24 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
+         if self.purchase and self.purchase.company:
+             return self.purchase.company.id
+ 
++    @fields.depends('purchase', '_parent_purchase.party')
++    def on_change_with_supplier(self, name=None):
++        if self.purchase and self.purchase.party:
++            return self.purchase.party.id
++
++    @classmethod
++    def search_supplier(cls, name, clause):
++        return [('purchase.party' + clause[0][len(name):], *clause[1:])]
++
++    @fields.depends('purchase', '_parent_purchase.purchase_date')
++    def on_change_with_purchase_date(self, name=None):
++        if self.purchase:
++            return self.purchase.purchase_date
++
++    @classmethod
++    def search_purchase_date(cls, name, clause):
++        return [('purchase.purchase_date', *clause[1:])]
++
+     @fields.depends('purchase', '_parent_purchase.currency')
+     def on_change_with_currency(self, name=None):
+         if self.purchase and self.purchase.currency:
