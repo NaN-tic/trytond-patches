@@ -57,3 +57,5 @@ issue12576.diff # [account_stock_eu] Could not find the intrastat countries for 
 issue7677.diff # [trytond] Do not set rec_name for unsaved record
 
 issue7672.diff # [stock] Always fill product and template of cost price revision
+
+issue12570.diff # [account] Do not compute account party for general ledger line without party
