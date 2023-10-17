@@ -67,7 +67,7 @@ index faf35cecfa..bb564ff9f4 100644
          if (self.quantity or 0) >= 0:
              if self.purchase.party.supplier_location:
 diff --git a/tryton/modules/sale/sale.py b/tryton/modules/sale/sale.py
-index 1b0e36a3b3..6c85325b2b 100644
+index 1b0e36a3b3..d628a9d2be 100644
 --- a/tryton/modules/sale/sale.py
 +++ b/tryton/modules/sale/sale.py
 @@ -1143,13 +1143,13 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
@@ -109,19 +109,18 @@ index 1b0e36a3b3..6c85325b2b 100644
      from_location = fields.Function(fields.Many2One('stock.location',
              'From Location'), 'get_from_location')
      to_location = fields.Function(fields.Many2One('stock.location',
-@@ -1427,8 +1426,10 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
-             return amount
-         return Decimal('0.0')
-
--    def get_warehouse(self, name):
--        return self.sale.warehouse.id if self.sale.warehouse else None
+@@ -1430,6 +1429,11 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
+     def get_warehouse(self, name):
+         return self.sale.warehouse.id if self.sale.warehouse else None
+ 
 +    @fields.depends('sale', '_parent_sale.warehouse')
 +    def on_change_with_warehouse(self, name=None):
 +        if self.sale and self.sale.warehouse:
 +            return self.sale.warehouse.id
-
++
      def get_from_location(self, name):
          if (self.quantity or 0) >= 0:
+             if self.warehouse:
 diff --git a/tryton/modules/sale_product_customer/sale.py b/tryton/modules/sale_product_customer/sale.py
 index 4f0c4cca41..f77870d05f 100644
 --- a/tryton/modules/sale_product_customer/sale.py
