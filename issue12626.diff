@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+index 35be14cf1f..123755b2e9 100644
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -1368,6 +1368,8 @@ class Line(MoveLineMixin, ModelSQL, ModelView):
+
+         reconciliations = []
+         for lines in lines_list:
++            if not lines:
++                continue
+             for line in lines:
+                 if line.reconciliation:
+                     raise AccessError(
