@@ -125,3 +125,5 @@ issue12618.diff # [sao] Wrap long label to 80 chars
 issue12567.diff # [account_invoice_defer] Defer invoice line only once
 
 issue12626.diff # [account] Do not fail when reconciling an empty list
+
+issue12653.diff # [purchase] Depend on product supplier unit to compute unit on price
