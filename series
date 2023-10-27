@@ -62,8 +62,6 @@ issue12570.diff # [account] Do not compute account party for general ledger line
 
 issue12590.diff # [account_payment] Do not test active clause of dunning being in a set
 
-issue12618.diff # [sao] Wrap long label to 80 chars
-
 issue12567.diff # [account_invoice_defer] Defer invoice line only once
 
 issue12626.diff # [account] Do not fail when reconciling an empty list
