@@ -8,10 +8,8 @@ issue4506.diff # [account_invoice] Add credit invoices keyword from account.invo
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
 issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 issue4030.diff # [analytic_account] Not selected root accounts in analytic account lines
-analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
-issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
