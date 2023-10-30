@@ -4,10 +4,9 @@ issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
 
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
-analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
-issue4482.diff # [stock] stock inventory misses company access rule
+
 search_warehouse.diff # [stock] search function for warehouse
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
