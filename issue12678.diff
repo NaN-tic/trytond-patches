@@ -1,0 +1,68 @@
+diff --git a/tryton/modules/account_statement/message.xml b/tryton/modules/account_statement/message.xml
+index d46ddec636..341ee11bc9 100644
+--- a/tryton/modules/account_statement/message.xml
++++ b/tryton/modules/account_statement/message.xml
+@@ -39,6 +39,12 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_line_amount_non_zero">
+             <field name="text">Statement line amount cannot be zero.</field>
+         </record>
++        <record model="ir.message" id="msg_statement_line_delete_cancel_draft">
++            <field name="text">To delete line "%(line)s" you must cancel or reset to draft statement "%(statement)s".</field>
++        </record>
++        <record model="ir.message" id="msg_statement_origin_delete_cancel_draft">
++            <field name="text">To delete origin "%(origin)s" you must cancel or reset to draft statement "%(statement)s".</field>
++        </record>
+         <record model="ir.message" id="msg_post_statement_move">
+             <field name="text">To post the move "%(move)s" you must post the statement "%(statement)s".</field>
+         </record>
+diff --git a/tryton/modules/account_statement/statement.py b/tryton/modules/account_statement/statement.py
+index d0b426bc4e..e874e24c4c 100644
+--- a/tryton/modules/account_statement/statement.py
++++ b/tryton/modules/account_statement/statement.py
+@@ -761,7 +761,7 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+         states=_states,
+         context={'with_payment': False})
+     origin = fields.Many2One('account.statement.origin', 'Origin',
+-        readonly=True,
++        readonly=True, ondelete='RESTRICT',
+         states={
+             'invisible': ~Bool(Eval('origin')),
+             },
+@@ -939,6 +939,18 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+     def search_rec_name(cls, name, clause):
+         return [('statement.rec_name',) + tuple(clause[1:])]
+
++    @classmethod
++    def delete(cls, lines):
++        for line in lines:
++            if line.statement_state != {'cancelled', 'draft'}:
++                raise AccessError(
++                    gettext(
++                        'account_statement.'
++                        'msg_statement_line_delete_cancel_draft',
++                        line=line.rec_name,
++                        sale=line.statement.rec_name))
++        super().delete(lines)
++
+     @classmethod
+     def copy(cls, lines, default=None):
+         if default is None:
+@@ -1168,6 +1180,18 @@ class Origin(origin_mixin(_states), ModelSQL, ModelView):
+                 group_by=table.id))
+         return [('id', 'in', query)]
+
++    @classmethod
++    def delete(cls, origins):
++        for origin in origins:
++            if origin.statement_state != {'cancelled', 'draft'}:
++                raise AccessError(
++                    gettext(
++                        'account_statement.'
++                        'msg_statement_origin_delete_cancel_draft',
++                        origin=origin.rec_name,
++                        sale=origin.statement.rec_name))
++        super().delete(origins)
++
+     @classmethod
+     def copy(cls, origins, default=None):
+         default = default.copy() if default is not None else {}
