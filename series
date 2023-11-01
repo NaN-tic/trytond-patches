@@ -67,3 +67,5 @@ issue12626.diff # [account] Do not fail when reconciling an empty list
 issue12653.diff # [purchase] Depend on product supplier unit to compute unit on price
 
 issue12678.diff # [account_statement] Not delete statement lines when statament is not draft state
+
+account_statement_second_currency.diff # [account_statement] Support second currency on statement line

@@ -1,0 +1,456 @@
+diff --git a/tryton/modules/account_payment/account.py b/tryton/modules/account_payment/account.py
+index 801a0e674e..236d5ef56e 100644
+--- a/tryton/modules/account_payment/account.py
++++ b/tryton/modules/account_payment/account.py
+@@ -574,7 +574,9 @@ class StatementLine(metaclass=PoolMeta):
+                 ('party', '=', Eval('party')),
+                 ()),
+             ('state', 'in', ['processing', 'succeeded', 'failed']),
+-            ('currency', '=', Eval('currency', -1)),
++            If(Eval('second_currency'),
++                ('currency', '=', Eval('second_currency', -1)),
++                ('currency', '=', Eval('currency', -1))),
+             ('kind', '=',
+                 If(Eval('amount', 0) > 0, 'receivable',
+                     If(Eval('amount', 0) < 0, 'payable', ''))),
+diff --git a/tryton/modules/account_payment_clearing/statement.py b/tryton/modules/account_payment_clearing/statement.py
+index 60e8f4955d..d76430fd44 100644
+--- a/tryton/modules/account_payment_clearing/statement.py
++++ b/tryton/modules/account_payment_clearing/statement.py
+@@ -110,7 +110,9 @@ class StatementLine(metaclass=PoolMeta):
+             ]
+         cls.related_to.domain['account.payment.group'] = [
+             ('company', '=', Eval('company', -1)),
+-            ('currency', '=', Eval('currency', -1)),
++            If(Eval('second_currency'),
++                ('currency', '=', Eval('second_currency', -1)),
++                ('currency', '=', Eval('currency', -1))),
+             If(Eval('statement_state') == 'draft',
+                 ('clearing_reconciled', '!=', True),
+                 ()),
+diff --git a/tryton/modules/account_statement/message.xml b/tryton/modules/account_statement/message.xml
+index bab7027298..0d19d9439b 100644
+--- a/tryton/modules/account_statement/message.xml
++++ b/tryton/modules/account_statement/message.xml
+@@ -36,6 +36,9 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_statement_post_pending_amount">
+             <field name="text">To post statement "%(statement)s" you must create lines for pending %(amount)s of origin "%(origin)s".</field>
+         </record>
++        <record model="ir.message" id="msg_statement_line_second_currency_sign">
++            <field name="text">You must set the same sign for second currency than amount.</field>
++        </record>
+         <record model="ir.message" id="msg_post_statement_move">
+             <field name="text">To post the move "%(move)s" you must post the statement "%(statement)s".</field>
+         </record>
+diff --git a/tryton/modules/account_statement/statement.py b/tryton/modules/account_statement/statement.py
+index d3227e77a5..aa93ceebdb 100644
+--- a/tryton/modules/account_statement/statement.py
++++ b/tryton/modules/account_statement/statement.py
+@@ -12,7 +12,7 @@ from sql.operators import Concat
+ from trytond.config import config
+ from trytond.i18n import gettext
+ from trytond.model import (
+-    DictSchemaMixin, Index, ModelSQL, ModelView, Workflow, fields,
++    Check, DictSchemaMixin, Index, ModelSQL, ModelView, Workflow, fields,
+     sequence_ordered)
+ from trytond.model.exceptions import AccessError
+ from trytond.modules.company import CompanyReport
+@@ -672,6 +672,9 @@ def origin_mixin(_states):
+         company = fields.Function(
+             fields.Many2One('company.company', "Company"),
+             'on_change_with_company', searcher='search_company')
++        company_currency = fields.Function(
++            fields.Many2One('currency.currency', "Company Currency"),
++            'on_change_with_company_currency')
+         number = fields.Char("Number")
+         date = fields.Date(
+             "Date", required=True, states=_states)
+@@ -680,6 +683,25 @@ def origin_mixin(_states):
+             states=_states)
+         currency = fields.Function(fields.Many2One(
+                 'currency.currency', "Currency"), 'on_change_with_currency')
++        amount_second_currency = Monetary(
++            "Amount Second Currency",
++            currency='second_currency', digits='second_currency',
++            states={
++                'required': Bool(Eval('second_currency')),
++                'readonly': _states['readonly'],
++                })
++        second_currency = fields.Many2One(
++            'currency.currency', "Second Currency",
++            domain=[
++                ('id', '!=', Eval('currency', -1)),
++                If(Eval('currency', -1) != Eval('company_currency', -1),
++                    ('id', '=', Eval('company_currency', -1)),
++                    ()),
++                ],
++            states={
++                'required': Bool(Eval('amount_second_currency')),
++                'readonly': _states['readonly'],
++                })
+         party = fields.Many2One(
+             'party.party', "Party", states=_states,
+             context={
+@@ -723,6 +745,10 @@ def origin_mixin(_states):
+         def search_company(cls, name, clause):
+             return [('statement.' + clause[0],) + tuple(clause[1:])]
+ 
++        @fields.depends('statement', '_parent_statement.company')
++        def on_change_with_company_currency(self, name=None):
++            return self.statement.company.currency if self.statement else None
++
+         @fields.depends('statement', '_parent_statement.journal')
+         def on_change_with_currency(self, name=None):
+             if self.statement and self.statement.journal:
+@@ -750,7 +776,10 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+         domain={
+             'account.invoice': [
+                 ('company', '=', Eval('company', -1)),
+-                ('currency', '=', Eval('currency', -1)),
++                If(Eval('second_currency'),
++                    ('currency', '=', Eval('second_currency', -1)),
++                    ('currency', '=', Eval('currency', -1))
++                    ),
+                 If(Bool(Eval('party')),
+                     ['OR',
+                         ('party', '=', Eval('party', -1)),
+@@ -782,6 +811,7 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+     @classmethod
+     def __setup__(cls):
+         super(Line, cls).__setup__()
++        table = cls.__table__()
+         cls.date.states = {
+             'readonly': (
+                 (Eval('statement_state') != 'draft')
+@@ -792,6 +822,14 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+             'required': (Eval('party_required', False)
+                 & (Eval('statement_state') == 'draft')),
+             }
++        cls._sql_constraints += [
++            ('second_currency_sign',
++                Check(
++                    table,
++                    Coalesce(table.amount_second_currency, 0)
++                    * table.amount >= 0),
++                'account_statement.msg_statement_line_second_currency_sign'),
++            ]
+ 
+     @classmethod
+     def __register__(cls, module):
+@@ -1029,24 +1067,29 @@ class Line(origin_mixin(_states), sequence_ordered(), ModelSQL, ModelView):
+         pool = Pool()
+         MoveLine = pool.get('account.move.line')
+         Currency = Pool().get('currency.currency')
+-        zero = Decimal("0.0")
+         if not self.amount:
+             return
+-        with Transaction().set_context(date=self.date):
+-            amount = Currency.compute(self.statement.journal.currency,
+-                self.amount, self.statement.company.currency)
+-        if self.statement.journal.currency != self.statement.company.currency:
+-            second_currency = self.statement.journal.currency.id
++        if self.second_currency == self.company_currency:
++            amount = self.amount_second_currency
++        else:
++            with Transaction().set_context(date=self.date):
++                amount = Currency.compute(
++                    self.currency, self.amount, self.company_currency)
++        if self.currency != self.company_currency:
++            second_currency = self.currency
+             amount_second_currency = -self.amount
++        elif self.second_currency:
++            second_currency = self.second_currency
++            amount_second_currency = -self.amount_second_currency
+         else:
+-            amount_second_currency = None
+             second_currency = None
++            amount_second_currency = None
+ 
+         return MoveLine(
+             origin=self,
+             description=self.description,
+-            debit=amount < zero and -amount or zero,
+-            credit=amount >= zero and amount or zero,
++            debit=abs(amount) if amount < 0 else 0,
++            credit=abs(amount) if amount > 0 else 0,
+             account=self.account,
+             party=self.party if self.account.party_required else None,
+             second_currency=second_currency,
+@@ -1070,6 +1113,10 @@ class LineGroup(ModelSQL, ModelView):
+         "Amount", currency='currency', digits='currency')
+     currency = fields.Function(fields.Many2One('currency.currency',
+             'Currency'), 'get_currency')
++    amount_second_currency = Monetary(
++        "Amount Second Currency",
++        currency='second_currency', digits='second_currency')
++    second_currency = fields.Many2One('currency.currency', "Second Currency")
+     party = fields.Many2One('party.party', 'Party')
+     move = fields.Many2One('account.move', 'Move')
+ 
+@@ -1086,6 +1133,7 @@ class LineGroup(ModelSQL, ModelView):
+             Max(line.number).as_('number'),
+             Max(line.date).as_('date'),
+             Sum(line.amount).as_('amount'),
++            Sum(line.amount_second_currency).as_('amount_second_currency'),
+             Max(line.party).as_('party'),
+             ]
+ 
+@@ -1103,6 +1151,7 @@ class LineGroup(ModelSQL, ModelView):
+             move.create_date,
+             move.write_uid,
+             move.write_date,
++            line.second_currency,
+             ]
+ 
+         columns = (std_columns + [move.id.as_('move')]
+diff --git a/tryton/modules/account_statement/tests/scenario_account_statement_second_currency_invoice.rst b/tryton/modules/account_statement/tests/scenario_account_statement_second_currency_invoice.rst
+new file mode 100644
+index 0000000000..5209accc58
+--- /dev/null
++++ b/tryton/modules/account_statement/tests/scenario_account_statement_second_currency_invoice.rst
+@@ -0,0 +1,103 @@
++=========================================
++Account Statement Second Currency Invoice
++=========================================
++
++Imports::
++
++    >>> from decimal import Decimal
++    >>> import datetime as dt
++
++    >>> from proteus import Model
++    >>> from trytond.tests.tools import activate_modules
++    >>> from trytond.modules.currency.tests.tools import get_currency
++    >>> from trytond.modules.company.tests.tools import create_company
++    >>> from trytond.modules.account.tests.tools import (
++    ...     create_fiscalyear, create_chart, get_accounts)
++    >>> from trytond.modules.account_invoice.tests.tools import (
++    ...     set_fiscalyear_invoice_sequences)
++
++    >>> today = dt.date.today()
++
++Activate modules::
++
++    >>> config = activate_modules(['account_statement', 'account_invoice'])
++
++    >>> AccountConfiguration = Model.get('account.configuration')
++    >>> AccountJournal = Model.get('account.journal')
++    >>> Invoice = Model.get('account.invoice')
++    >>> Party = Model.get('party.party')
++    >>> Statement = Model.get('account.statement')
++    >>> StatementJournal = Model.get('account.statement.journal')
++
++Create company::
++
++    >>> usd = get_currency('USD')
++    >>> eur = get_currency('EUR')
++    >>> _ = create_company(currency=usd)
++
++Create fiscal year::
++
++    >>> fiscalyear = set_fiscalyear_invoice_sequences(create_fiscalyear())
++    >>> fiscalyear.click('create_period')
++
++Create chart of accounts::
++
++    >>> _ = create_chart()
++    >>> accounts = get_accounts()
++
++Configure currency exchange::
++
++    >>> currency_exchange_account, = (
++    ...     accounts['revenue'].duplicate(
++    ...         default={'name': "Currency Exchange"}))
++    >>> account_configuration = AccountConfiguration(1)
++    >>> account_configuration.currency_exchange_debit_account = (
++    ...     currency_exchange_account)
++    >>> account_configuration.save()
++
++Create party::
++
++    >>> customer = Party(name="Customer")
++    >>> customer.save()
++
++Create customer invoice in alternate currency::
++
++    >>> invoice = Invoice(type='out')
++    >>> invoice.party = customer
++    >>> invoice.currency = eur
++    >>> line = invoice.lines.new()
++    >>> line.quantity = 1
++    >>> line.unit_price = Decimal('50.0000')
++    >>> line.account = accounts['revenue']
++    >>> invoice.click('post')
++    >>> invoice.state
++    'posted'
++
++Post statement in company currency with second currency::
++
++    >>> account_journal, = AccountJournal.find([('code', '=', 'STA')], limit=1)
++    >>> statement_journal = StatementJournal(
++    ...     name="Statement Journal", journal=account_journal,
++    ...     currency=usd, account=accounts['cash'])
++    >>> statement_journal.save()
++
++    >>> statement = Statement(
++    ...     name="Test", journal=statement_journal,
++    ...     start_balance=Decimal('0.00'), end_balance=Decimal('20.00'))
++    >>> line = statement.lines.new()
++    >>> line.number = "1"
++    >>> line.date = today
++    >>> line.party = customer
++    >>> line.amount = Decimal('20.00')
++    >>> line.amount_second_currency = Decimal('50.00')
++    >>> line.second_currency = eur
++    >>> line.related_to = invoice
++    >>> statement.click('validate_statement')
++    >>> statement.state
++    'validated'
++
++Check invoice is paid::
++
++    >>> invoice.reload()
++    >>> invoice.state
++    'paid'
+diff --git a/tryton/modules/account_statement/view/line_group_form.xml b/tryton/modules/account_statement/view/line_group_form.xml
+index 24c045781e..f66bd0fd82 100644
+--- a/tryton/modules/account_statement/view/line_group_form.xml
++++ b/tryton/modules/account_statement/view/line_group_form.xml
+@@ -5,14 +5,17 @@ this repository contains the full copyright notices and license terms. -->
+     <label name="statement"/>
+     <field name="statement"/>
+     <label name="journal"/>
+-    <field name="journal"/>
++    <field name="journal" widget="selection"/>
++
+     <label name="number"/>
+     <field name="number"/>
+     <label name="date"/>
+     <field name="date"/>
++
+     <label name="amount"/>
+     <field name="amount"/>
+-    <newline/>
++    <label name="amount_second_currency"/>
++    <field name="amount_second_currency"/>
+ 
+     <label name="party"/>
+     <field name="party"/>
+diff --git a/tryton/modules/account_statement/view/line_group_list.xml b/tryton/modules/account_statement/view/line_group_list.xml
+index f8cd12b965..70d2516098 100644
+--- a/tryton/modules/account_statement/view/line_group_list.xml
++++ b/tryton/modules/account_statement/view/line_group_list.xml
+@@ -7,6 +7,7 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="number"/>
+     <field name="date"/>
+     <field name="amount"/>
++    <field name="amount_second_currency" optional="1"/>
+     <field name="party"/>
+     <field name="move"/>
+ </tree>
+diff --git a/tryton/modules/account_statement/view/statement_line_form.xml b/tryton/modules/account_statement/view/statement_line_form.xml
+index 04420e065c..077b9cd768 100644
+--- a/tryton/modules/account_statement/view/statement_line_form.xml
++++ b/tryton/modules/account_statement/view/statement_line_form.xml
+@@ -8,19 +8,29 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="number"/>
+     <label name="sequence"/>
+     <field name="sequence"/>
++
+     <label name="date"/>
+     <field name="date"/>
+     <label name="amount"/>
+     <field name="amount"/>
++
++    <label name="amount_second_currency"/>
++    <field name="amount_second_currency"/>
++    <label name="second_currency"/>
++    <field name="second_currency"/>
++
+     <label name="party"/>
+     <field name="party"/>
+     <label name="account"/>
+     <field name="account"/>
++
+     <label name="related_to"/>
+     <field name="related_to"/>
+     <newline/>
++
+     <label name="description"/>
+     <field name="description" colspan="3"/>
++
+     <label name="move"/>
+     <field name="move"/>
+     <label name="origin"/>
+diff --git a/tryton/modules/account_statement/view/statement_line_tree.xml b/tryton/modules/account_statement/view/statement_line_tree.xml
+index e8b5a4fbf8..c89f272a07 100644
+--- a/tryton/modules/account_statement/view/statement_line_tree.xml
++++ b/tryton/modules/account_statement/view/statement_line_tree.xml
+@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="number"/>
+     <field name="date"/>
+     <field name="amount"/>
++    <field name="amount_second_currency" optional="1"/>
+     <field name="party" expand="1"/>
+     <field name="account" expand="1"/>
+     <field name="related_to" expand="1"/>
+diff --git a/tryton/modules/account_statement/view/statement_line_tree_editable.xml b/tryton/modules/account_statement/view/statement_line_tree_editable.xml
+index eae041607a..f8fec861c2 100644
+--- a/tryton/modules/account_statement/view/statement_line_tree_editable.xml
++++ b/tryton/modules/account_statement/view/statement_line_tree_editable.xml
+@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="number"/>
+     <field name="date"/>
+     <field name="amount" sum="Amount"/>
++    <field name="amount_second_currency" optional="1"/>
+     <field name="party" expand="1"/>
+     <field name="related_to" expand="1"/>
+     <field name="account" expand="1"/>
+diff --git a/tryton/modules/account_statement/view/statement_origin_form.xml b/tryton/modules/account_statement/view/statement_origin_form.xml
+index 538487109b..e08d18bff8 100644
+--- a/tryton/modules/account_statement/view/statement_origin_form.xml
++++ b/tryton/modules/account_statement/view/statement_origin_form.xml
+@@ -6,20 +6,31 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="statement"/>
+     <label name="company"/>
+     <field name="company"/>
++
+     <label name="number"/>
+     <field name="number"/>
+     <label name="date"/>
+     <field name="date"/>
++
+     <label name="amount"/>
+     <field name="amount"/>
+     <label name="pending_amount"/>
+     <field name="pending_amount"/>
++
++    <label name="amount_second_currency"/>
++    <field name="amount_second_currency"/>
++    <label name="second_currency"/>
++    <field name="second_currency"/>
++
+     <label name="party"/>
+     <field name="party"/>
+     <label name="account"/>
+     <field name="account"/>
++
+     <label name="description"/>
+     <field name="description" colspan="3"/>
++
+     <field name="information" colspan="4"/>
++
+     <field name="lines" colspan="4"/>
+ </form>
+diff --git a/tryton/modules/account_statement/view/statement_origin_tree.xml b/tryton/modules/account_statement/view/statement_origin_tree.xml
+index 4f53a009ae..d3c1707362 100644
+--- a/tryton/modules/account_statement/view/statement_origin_tree.xml
++++ b/tryton/modules/account_statement/view/statement_origin_tree.xml
+@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="number"/>
+     <field name="date"/>
+     <field name="amount" sum="Amount"/>
++    <field name="amount_second_currency" optional="1"/>
+     <field name="pending_amount"/>
+     <field name="party" expand="1"/>
+     <field name="account" expand="1"/>
