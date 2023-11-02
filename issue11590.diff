@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/bank/party.py b/tryton/modules/bank/party.py
+index e7857ba5fb..4b07258f93 100644
+--- a/tryton/modules/bank/party.py
++++ b/tryton/modules/bank/party.py
+@@ -8,7 +8,7 @@ from trytond.transaction import Transaction
+ class Party(metaclass=PoolMeta):
+     __name__ = 'party.party'
+     bank_accounts = fields.Many2Many('bank.account-party.party', 'owner',
+-        'account', 'Bank Accounts')
++        'account', 'Bank Accounts', filter=[('active', '=', True)])
+
+     @classmethod
+     def search_rec_name(cls, name, clause):
