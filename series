@@ -54,14 +54,6 @@ issue12576.diff # [account_stock_eu] Could not find the intrastat countries for 
 
 issue7672.diff # [stock] Always fill product and template of cost price revision
 
-issue12590.diff # [account_payment] Do not test active clause of dunning being in a set
-
-issue12567.diff # [account_invoice_defer] Defer invoice line only once
-
-issue12626.diff # [account] Do not fail when reconciling an empty list
-
-issue12653.diff # [purchase] Depend on product supplier unit to compute unit on price
-
 issue12678.diff # [account_statement] Not delete statement lines when statament is not draft state
 
 account_statement_second_currency.diff # [account_statement] Support second currency on statement line
