@@ -81,3 +81,5 @@ strftime_format.diff # [ir] Fix problem with strftime format, reducing the time 
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
 
 issue12319.diff # [sale_advance_payment] Only create an advance line if the invoice dont have already one.
+
+issue12702.diff # [sale] [purchase] No compute unit_price when change the product
