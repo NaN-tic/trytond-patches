@@ -129,3 +129,5 @@ issue12678.diff # [account_statement] Not delete statement lines when statament 
 issue11590.diff # [bank] Hide inactive accounts from party bank accounts
 
 issue7697.diff # [stock] Do not compute internal quantity for stock move created without product nor unit
+
+issue12553.diff # [sao] Select first visible siblings when page is hidden
