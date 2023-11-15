@@ -127,3 +127,5 @@ issue12653.diff # [purchase] Depend on product supplier unit to compute unit on 
 issue12678.diff # [account_statement] Not delete statement lines when statament is not draft state
 
 issue11590.diff # [bank] Hide inactive accounts from party bank accounts
+
+issue7697.diff # [stock] Do not compute internal quantity for stock move created without product nor unit
