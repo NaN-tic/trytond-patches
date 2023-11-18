@@ -58,6 +58,4 @@ issue12678.diff # [account_statement] Not delete statement lines when statament 
 
 account_statement_second_currency.diff # [account_statement] Support second currency on statement line
 
-issue7697.diff # [stock] Do not compute internal quantity for stock move created without product nor unit
-
 issue12553.diff # [sao] Select first visible siblings when page is hidden
