@@ -1,8 +1,8 @@
-diff --git a/tryton/sao/src/sao.js b/sao/src/sao.js
-index 05d86252..fcedb792 100644
+diff --git a/tryton/sao/src/sao.js b/tryton/sao/src/sao.js
+index 9e5807824e..21bb43ccfa 100644
 --- a/tryton/sao/src/sao.js
 +++ b/tryton/sao/src/sao.js
-@@ -1081,10 +1081,6 @@ var Sao = {};
+@@ -1120,10 +1120,6 @@ var Sao = {
                  shortcut: 'ctrl+p',
                  label: Sao.i18n.gettext('Print'),
                  id: 'print',
@@ -13,8 +13,8 @@ index 05d86252..fcedb792 100644
              }, {
                  shortcut: 'alt+shift+tab',
                  label: Sao.i18n.gettext('Previous tab'),
-diff --git a/src/tab.js b/src/tab.js
-index f9186bc9..47987500 100644
+diff --git a/tryton/sao/src/tab.js b/tryton/sao/src/tab.js
+index 411b61a9b6..a47e21f586 100644
 --- a/tryton/sao/src/tab.js
 +++ b/tryton/sao/src/tab.js
 @@ -91,11 +91,6 @@
@@ -47,10 +47,10 @@ index f9186bc9..47987500 100644
                  var button = dropdown.find('button');
                  this.buttons[menu_action[0]] = button;
                  dropdown
-@@ -1433,7 +1428,7 @@
-                     name += '#' + selected;
-                 }
+@@ -1442,7 +1437,7 @@
              }
+             const view_type = this.screen.current_view.view_type;
+             const has_views = this.screen.number_of_views > 1;
 -            var buttons = ['print', 'relate', 'email', 'attach'];
 +            var buttons = ['print', 'relate', 'attach'];
              for (const button_id of buttons) {
