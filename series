@@ -131,3 +131,5 @@ issue11590.diff # [bank] Hide inactive accounts from party bank accounts
 issue7697.diff # [stock] Do not compute internal quantity for stock move created without product nor unit
 
 issue12553.diff # [sao] Select first visible siblings when page is hidden
+
+update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
