@@ -11,3 +11,29 @@ index 312c014d4e..4cfdd9b2c9 100644
 
  msgctxt "model:ir.message,text:msg_erase_party_pending_invoice"
  msgid ""
+diff --git a/tryton/modules/project_invoice/locale/es.po b/tryton/modules/project_invoice/locale/es.po
+index 2f3580e1cb..b60b878324 100644
+--- a/tryton/modules/project_invoice/locale/es.po
++++ b/tryton/modules/project_invoice/locale/es.po
+@@ -76,7 +76,7 @@ msgstr "No puede eliminar una línea facturada."
+ msgctxt "model:ir.message,text:msg_missing_account_revenue"
+ msgid "To invoice work \"%(work)s\" you must configure a default account revenue."
+ msgstr ""
+-"Para facturar el trabajo \"%(works)\" debéis configurar una cuenta de "
++"Para facturar el trabajo \"%(work)s\" debéis configurar una cuenta de "
+ "ingressos por defecto."
+ 
+ msgctxt "model:ir.message,text:msg_missing_list_price"
+diff --git a/tryton/modules/purchase/locale/ca.po b/tryton/modules/purchase/locale/ca.po
+index d02f1a8a2f..129a59e3a7 100644
+--- a/tryton/modules/purchase/locale/ca.po
++++ b/tryton/modules/purchase/locale/ca.po
+@@ -716,7 +716,7 @@ msgid ""
+ "To invoice purchase \"%(purchase)s\" you must configure a default account "
+ "expense."
+ msgstr ""
+-"Per facturar la compra \"%(purchase)\" heu de configurar un compte de "
++"Per facturar la compra \"%(purchase)s\" heu de configurar un compte de "
+ "despeses per defecte."
+ 
+ msgctxt "model:ir.message,text:msg_purchase_modify_header_draft"
