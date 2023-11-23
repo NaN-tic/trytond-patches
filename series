@@ -61,3 +61,5 @@ account_statement_second_currency.diff # [account_statement] Support second curr
 issue12553.diff # [sao] Select first visible siblings when page is hidden
 
 update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
+
+issue7707.diff # [sao] Improve tree view #163452
