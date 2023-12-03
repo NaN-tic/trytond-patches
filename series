@@ -59,5 +59,3 @@ issue12678.diff # [account_statement] Not delete statement lines when statament 
 account_statement_second_currency.diff # [account_statement] Support second currency on statement line
 
 update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
-
-issue7707.diff # [sao] Improve tree view #163452
