@@ -1,0 +1,35 @@
+--- a/sao/src/view/form.js
++++ b/sao/src/view/form.js
+@@ -4415,15 +4418,20 @@ function eval_pyson(value){
+             this.el = jQuery('<div/>', {
+                 'class': this.class_,
+             });
+-
++            this.object = null;
++        },
++        create_object: function() {
++            if (this.object) {
++                this.object.remove();
++            }
+             this.object = jQuery('<object/>', {
+                 'class': 'center-block',
+             }).appendTo(this.el);
+-            if (attributes.height) {
+-                this.object.css('height', parseInt(attributes.height, 10));
++            if (this.attributes.height) {
++                this.object.css('height', parseInt(this.attributes.height, 10));
+             }
+-            if (attributes.width) {
+-                this.object.css('width', parseInt(attributes.width, 10));
++            if (this.attributes.width) {
++                this.object.css('width', parseInt(this.attributes.width, 10));
+             }
+         },
+         display: function() {
+@@ -4456,6 +4464,7 @@ function eval_pyson(value){
+                     });
+                     url = window.URL.createObjectURL(blob);
+                 }
++                this.create_object();
+                 this.object.attr('data', url);
+                 this.object.get(0).onload = function() {
