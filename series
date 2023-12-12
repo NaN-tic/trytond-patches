@@ -8,10 +8,8 @@ issue4506.diff # [account_invoice] Add credit invoices keyword from account.invo
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
 issue8618.diff # [account_invoice] Allow changing amount in manual invoice taxes
 issue4030.diff # [analytic_account] Not selected root accounts in analytic account lines
-analitic_line_company_rules.diff # [analytic_account] Not selected root accounts in analytic account lines
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
-issue4482.diff # [stock] stock inventory misses company access rule
 search_warehouse.diff # [stock] search function for warehouse
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
@@ -53,6 +51,16 @@ issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extensio
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
 
 issue12576.diff # [account_stock_eu] Could not find the intrastat countries for moves
+
+issue7672.diff # [stock] Always fill product and template of cost price revision
+
+issue12678.diff # [account_statement] Not delete statement lines when statament is not draft state
+
+account_statement_second_currency.diff # [account_statement] Support second currency on statement line
+
+update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
+
+sao_document_field.diff # [sao] fix issue with loading of 'document' fields in sao
 
 product_cost_price_migration.diff # [product] Add missing column in product_cost_price
 
