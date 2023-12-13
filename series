@@ -133,3 +133,5 @@ issue7697.diff # [stock] Do not compute internal quantity for stock move created
 issue12553.diff # [sao] Select first visible siblings when page is hidden
 
 update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
+
+issue12799.diff # [sao] Convert negative id value as None when set by the client
