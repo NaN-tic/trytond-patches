@@ -1,7 +1,7 @@
-diff --git a/sao/src/model.js b/sao/src/model.js
+diff --git a/tryton/sao/src/model.js b/tryton/sao/src/model.js
 index 81e8639d9e..8b55441294 100644
---- a/sao/src/model.js
-+++ b/sao/src/model.js
+--- a/tryton/sao/src/model.js
++++ b/tryton/sao/src/model.js
 @@ -2071,6 +2071,10 @@
                      rec_name = '';
                  }
