@@ -63,3 +63,5 @@ update_trees_chart_accounts.diff # [account_account] Update trees of chart of ac
 sao_document_field.diff # [sao] fix issue with loading of 'document' fields in sao
 
 issue12799.diff # [sao] Convert negative id value as None when set by the client
+
+issue12547.diff # [stock_lot] Check lot required only when changing move to done
