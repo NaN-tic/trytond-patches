@@ -1,0 +1,15 @@
+diff --git a/tryton/trytond/trytond/modules/product_price_list/price_list.py b/trytond/trytond/modules/product_price_list/price_list.py
+index 8d7299ed58..4c68662e1d 100644
+--- a/tryton/trytond/trytond/modules/product_price_list/price_list.py
++++ b/tryton/trytond/trytond/modules/product_price_list/price_list.py
+@@ -85,8 +85,8 @@ class PriceList(DeactivableMixin, ModelSQL, ModelView):
+         return {
+             'names': {
+                 'unit_price': unit_price if unit_price is not None else Null(),
+-                'cost_price': cost_price if unit_price is not None else Null(),
+-                'list_price': list_price if unit_price is not None else Null(),
++                'cost_price': cost_price if cost_price is not None else Null(),
++                'list_price': list_price if list_price is not None else Null(),
+                 },
+             }
+
