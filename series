@@ -14,7 +14,7 @@ search_warehouse.diff # [stock] search function for warehouse
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
-sao_colors.diff # [sao] Use the same colors as 5.4 version
+#sao_colors.diff # [sao] Use the same colors as 5.4 version
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
