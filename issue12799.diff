@@ -6,7 +6,7 @@ index 81e8639d9e..8b55441294 100644
                      rec_name = '';
                  }
              }
-+            if (value < 0) && (this.name != record.group.parent_name)) {
++            if ((value < 0) && (this.name != record.group.parent_name)) {
 +                value = null;
 +                rec_name = '';
 +            }
