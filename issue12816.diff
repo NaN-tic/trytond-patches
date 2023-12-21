@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_payment_clearing/payment.py b/tryton/modules/account_payment_clearing/payment.py
+index aacd386c9a..cf7c68d9b8 100644
+--- a/tryton/modules/account_payment_clearing/payment.py
++++ b/tryton/modules/account_payment_clearing/payment.py
+@@ -358,7 +358,7 @@ class Group(metaclass=PoolMeta):
+         Payment = pool.get('account.payment')
+         payment = Payment.__table__()
+         cursor = Transaction().connection.cursor()
+-        result = defaultdict()
++        result = dict((x.id, False) for x in groups)
+         column = Coalesce(payment.clearing_reconciled, False)
+         if backend.name == 'sqlite':
+             column = Min(column)

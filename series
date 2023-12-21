@@ -145,3 +145,5 @@ issue12823.diff # [account] Use 0 as fallback for missing debit or credit in on_
 product_price_list.diff # [product_price_list] Fix cost_price and list_price values
 
 issues12838.diff # [sao] Failing to update selection leads to read error: Add None value to selection for nullable_widget when search_read fails + Do not read record name for value None for inactive selection
+
+issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
