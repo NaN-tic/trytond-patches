@@ -75,3 +75,5 @@ issue12842.diff # [sale_shipment_cost] Missing cost_method in return shipments w
 issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
 
 issue12867.diff # [stock] [production] Update planned date of assigned move from shipment and production
+
+issue12781.diff # [trytond] Check selection of dict schema when selection or help selection are modified
