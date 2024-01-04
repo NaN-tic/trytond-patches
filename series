@@ -66,6 +66,4 @@ issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled
 
 issue12867.diff # [stock] [production] Update planned date of assigned move from shipment and production
 
-issue12781.diff # [trytond] Check selection of dict schema when selection or help selection are modified
-
 issue12803.diff # [trytond] Do not check access when retrieving action ID
