@@ -60,8 +60,6 @@ issue12799.diff # [sao] Convert negative id value as None when set by the client
 
 product_price_list.diff # [product_price_list] Fix cost_price and list_price values
 
-issues12838.diff # [sao] Failing to update selection leads to read error: Add None value to selection for nullable_widget when search_read fails + Do not read record name for value None for inactive selection
-
 issue12842.diff # [sale_shipment_cost] Missing cost_method in return shipments when try with shipment grouping fields
 
 issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
