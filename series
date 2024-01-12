@@ -149,3 +149,5 @@ issues12838.diff # [sao] Failing to update selection leads to read error: Add No
 issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
 
 issue12781.diff # [trytond] Check selection of dict schema when selection or help selection are modified
+
+issue11263.diff # [sale] [commission] Add rec_name searcher on reporting models

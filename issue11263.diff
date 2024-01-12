@@ -1,0 +1,187 @@
+diff --git a/tryton/modules/commission/commission_reporting.py b/tryton/modules/commission/commission_reporting.py
+index 1d966d932f..3aeec2d2d6 100644
+--- a/tryton/modules/commission/commission_reporting.py
++++ b/tryton/modules/commission/commission_reporting.py
+@@ -150,6 +150,13 @@ class Agent(ModelView, ModelSQL):
+     def get_currency(self, name):
+         return self.agent.currency.id
+
++    def get_rec_name(self, name):
++        return self.agent.rec_name
++
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('agent.rec_name', *clause[1:])]
++
+
+ class AgentTimeseries(Agent):
+     "Commission Reporting per Agent"
+diff --git a/tryton/modules/sale/sale_reporting.py b/tryton/modules/sale/sale_reporting.py
+index f36cfc2ad7..d527f8d93c 100644
+--- a/tryton/modules/sale/sale_reporting.py
++++ b/tryton/modules/sale/sale_reporting.py
+@@ -345,6 +345,10 @@ class CustomerMixin(object):
+     def get_rec_name(self, name):
+         return self.customer.rec_name
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('customer.rec_name', *clause[1:])]
++
+
+ class Customer(CustomerMixin, Abstract, ModelView):
+     "Sale Reporting per Customer"
+@@ -428,6 +432,10 @@ class CustomerCategoryMixin:
+     def get_rec_name(self, name):
+         return self.category.rec_name if self.category else None
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('category.rec_name', *clause[1:])]
++
+
+ class CustomerCategory(CustomerCategoryMixin, Abstract, ModelView):
+     "Sale Reporting per Customer Category"
+@@ -458,7 +466,7 @@ class CustomerCategoryTree(ModelSQL, ModelView):
+     "Sale Reporting per Customer Category"
+     __name__ = 'sale.reporting.customer.category.tree'
+
+-    name = fields.Function(fields.Char("Name"), 'get_name')
++    name = fields.Function(fields.Char("Name"), 'get_name', searcher='search_name')
+     parent = fields.Many2One('sale.reporting.customer.category.tree', "Parent")
+     children = fields.One2Many(
+         'sale.reporting.customer.category.tree', 'parent', "Children")
+@@ -486,6 +494,13 @@ class CustomerCategoryTree(ModelSQL, ModelView):
+         categories = Category.browse(categories)
+         return {c.id: c.name for c in categories}
+
++    @classmethod
++    def search_name(cls, name, clause):
++        pool = Pool()
++        Category = pool.get('party.category')
++
++        return [('id', 'in', Category.search([clause], query=True))]
++
+     @classmethod
+     def order_name(cls, tables):
+         pool = Pool()
+@@ -599,6 +614,10 @@ class ProductMixin(object):
+     def get_rec_name(self, name):
+         return self.product.rec_name if self.product else None
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('product.rec_name', *clause[1:])]
++
+
+ class Product(ProductMixin, Abstract, ModelView):
+     "Sale Reporting per Product"
+@@ -687,6 +706,10 @@ class ProductCategoryMixin(object):
+     def get_rec_name(self, name):
+         return self.category.rec_name if self.category else None
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('category.rec_name', *clause[1:])]
++
+
+ class ProductCategory(ProductCategoryMixin, Abstract, ModelView):
+     "Sale Reporting per Product Category"
+@@ -717,7 +740,7 @@ class ProductCategoryTree(ModelSQL, ModelView):
+     "Sale Reporting per Product Category"
+     __name__ = 'sale.reporting.product.category.tree'
+
+-    name = fields.Function(fields.Char("Name"), 'get_name')
++    name = fields.Function(fields.Char("Name"), 'get_name', searcher='search_name')
+     parent = fields.Many2One('sale.reporting.product.category.tree', "Parent")
+     children = fields.One2Many(
+         'sale.reporting.product.category.tree', 'parent', "Children")
+@@ -745,6 +768,12 @@ class ProductCategoryTree(ModelSQL, ModelView):
+         categories = Category.browse(categories)
+         return {c.id: c.name for c in categories}
+
++    @classmethod
++    def search_name(cls, name, clause):
++        pool = Pool()
++        Category = pool.get('product.category')
++        return [('id', 'in', Category.search([clause], query=True))]
++
+     @classmethod
+     def order_name(cls, tables):
+         pool = Pool()
+@@ -862,6 +891,13 @@ class CountryMixin(object):
+         where &= address.country != Null
+         return where
+
++    def get_rec_name(self, name):
++        return self.country.rec_name
++
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('country.rec_name', *clause[1:])]
++
+
+ class Country(CountryMixin, Abstract):
+     "Sale Reporting per Country"
+@@ -888,6 +924,13 @@ class CountryTimeseries(CountryMixin, AbstractTimeseries, ModelView):
+     "Sale Reporting per Country"
+     __name__ = 'sale.reporting.country.time_series'
+
++    def get_rec_name(self, name):
++        return self.subdivision.rec_name
++
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('subdivision.rec_name', *clause[1:])]
++
+
+ class SubdivisionMixin(CountryMixin):
+     __slots__ = ()
+diff --git a/tryton/modules/stock/stock_reporting_margin.py b/tryton/modules/stock/stock_reporting_margin.py
+index a760b32ac5..94764e52aa 100644
+--- a/tryton/modules/stock/stock_reporting_margin.py
++++ b/tryton/modules/stock/stock_reporting_margin.py
+@@ -413,6 +413,10 @@ class ProductMixin:
+     def get_rec_name(self, name):
+         return self.product.rec_name
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('product.rec_name', *clause[1:])]
++
+     def get_quantity(self, name):
+         return self.unit.round(self.internal_quantity)
+
+@@ -500,6 +504,10 @@ class CategoryMixin:
+     def get_rec_name(self, name):
+         return self.category.rec_name if self.category else None
+
++    @classmethod
++    def search_rec_name(cls, name, clause):
++        return [('category.rec_name', *clause[1:])]
++
+
+ class Category(CategoryMixin, Abstract, ModelView):
+     "Stock Reporting Margin per Category"
+@@ -529,7 +537,7 @@ class CategoryTree(ModelSQL, ModelView):
+     "Stock Reporting Margin per Category"
+     __name__ = 'stock.reporting.margin.category.tree'
+
+-    name = fields.Function(fields.Char("Name"), 'get_name')
++    name = fields.Function(fields.Char("Name"), 'get_name', searcher='search_name')
+     parent = fields.Many2One('stock.reporting.margin.category.tree', "Parent")
+     children = fields.One2Many(
+         'stock.reporting.margin.category.tree', 'parent', "Children")
+@@ -573,6 +581,12 @@ class CategoryTree(ModelSQL, ModelView):
+         categories = Category.browse(categories)
+         return {c.id: c.name for c in categories}
+
++    @classmethod
++    def search_name(cls, name, clause):
++        pool = Pool()
++        Category = pool.get('product.category')
++        return [('id', 'in', Category.search([clause], query=True))]
++
+     @classmethod
+     def order_name(cls, tables):
+         pool = Pool()
