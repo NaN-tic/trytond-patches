@@ -56,8 +56,6 @@ account_statement_second_currency.diff # [account_statement] Support second curr
 
 product_price_list.diff # [product_price_list] Fix cost_price and list_price values
 
-issue12842.diff # [sale_shipment_cost] Missing cost_method in return shipments when try with shipment grouping fields
-
 issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
 
 issue12867.diff # [stock] [production] Update planned date of assigned move from shipment and production
