@@ -1,0 +1,30 @@
+diff --git a/tryton/trytond/trytond/cache.py b/tryton/trytond/trytond/cache.py
+index e7faee73d2..f4e75b44cb 100644
+--- a/tryton/trytond/trytond/cache.py
++++ b/tryton/trytond/trytond/cache.py
+@@ -8,6 +8,7 @@ import selectors
+ import threading
+ import time
+ from collections import OrderedDict, defaultdict
++from copy import deepcopy
+ from weakref import WeakKeyDictionary
+
+ from sql import Table
+@@ -178,7 +179,7 @@ class MemoryCache(BaseCache):
+                 return default
+             cache[key] = (expire, result)
+             self.hit += 1
+-            return result
++            return deepcopy(result)
+         except (KeyError, TypeError):
+             self.miss += 1
+             return default
+@@ -191,7 +192,7 @@ class MemoryCache(BaseCache):
+         else:
+             expire = None
+         try:
+-            cache[key] = (expire, value)
++            cache[key] = (expire, deepcopy(value))
+         except TypeError:
+             pass
+         return value
