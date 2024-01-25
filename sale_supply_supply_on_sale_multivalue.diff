@@ -1,5 +1,5 @@
-diff --git a/__init__.py b/__init__.py
-index c5c21fb..484a6de 100644
+diff --git a/tryton/modules/sale_supply/__init__.py b/tryton/modules/sale_supply/__init__.py
+index bdb0dfb946..943581c579 100644
 --- a/tryton/modules/sale_supply/__init__.py
 +++ b/tryton/modules/sale_supply/__init__.py
 @@ -14,6 +14,7 @@ def register():
@@ -10,11 +10,11 @@ index c5c21fb..484a6de 100644
          product.Product,
          module='sale_supply', type_='model')
      Pool.register(
-diff --git a/product.py b/product.py
-index 08537ed..34ccc24 100644
+diff --git a/tryton/modules/sale_supply/product.py b/tryton/modules/sale_supply/product.py
+index 469869ee54..9c5a6434e2 100644
 --- a/tryton/modules/sale_supply/product.py
 +++ b/tryton/modules/sale_supply/product.py
-@@ -4,23 +4,34 @@
+@@ -4,23 +4,72 @@
  from sql import Literal
 
  from trytond.i18n import gettext
@@ -25,12 +25,12 @@ index 08537ed..34ccc24 100644
 +    CompanyValueMixin)
  from trytond.pyson import Eval
  from trytond.transaction import Transaction
- 
- 
+
+
 -class Template(metaclass=PoolMeta):
 +class Template(CompanyMultiValueMixin, metaclass=PoolMeta):
      __name__ = 'product.template'
- 
+
 -    supply_on_sale = fields.Selection([
 +    supply_on_sale = fields.MultiValue(fields.Selection([
              (None, "Never"),
@@ -50,13 +50,35 @@ index 08537ed..34ccc24 100644
 +        if field == 'supply_on_sale':
 +            return pool.get('product.template.supply_on_sale')
 +        return super(Template, cls).multivalue_model(field)
-
-     @classmethod
-     def __resgister__(cls, module):
-@@ -71,5 +82,16 @@ class Template(metaclass=PoolMeta):
-                         order_points=names))
-
-
++
++    @fields.depends(methods=['_notify_order_point'])
++    def on_change_notify(self):
++        notifications = super().on_change_notify()
++        notifications.extend(self._notify_order_point())
++        return notifications
++
++    @fields.depends('id', 'supply_on_sale')
++    def _notify_order_point(self):
++        pool = Pool()
++        try:
++            OrderPoint = pool.get('stock.order_point')
++        except KeyError:
++            return
++        if self.supply_on_sale and self.id is not None and self.id >= 0:
++            order_points = OrderPoint.search([
++                    ('product.template.id', '=', self.id),
++                    ('type', '=', 'purchase'),
++                    ], limit=6)
++            if order_points:
++                names = ', '.join(o.rec_name for o in order_points[:5])
++                if len(order_points) > 5:
++                    names + '...'
++                yield ('warning', gettext(
++                        'sale_supply'
++                        '.msg_template_supply_on_sale_order_point',
++                        order_points=names))
++
++
 +class TemplateSupplyOnSale(ModelSQL, CompanyValueMixin):
 +    "Template Supply On Sale"
 +    __name__ = 'product.template.supply_on_sale'
@@ -66,7 +88,40 @@ index 08537ed..34ccc24 100644
 +            ('stock_first', "Stock First"),
 +            ('always', "Always"),
 +            ], "Supply On Sale")
-+
-+
+
+     @classmethod
+     def __register__(cls, module):
+@@ -59,33 +108,6 @@ class Template(metaclass=PoolMeta):
+                     where=h_table._temp_supply_on_sale == Literal(True)))
+             h_table_h.drop_column('_temp_supply_on_sale')
+
+-    @fields.depends(methods=['_notify_order_point'])
+-    def on_change_notify(self):
+-        notifications = super().on_change_notify()
+-        notifications.extend(self._notify_order_point())
+-        return notifications
+-
+-    @fields.depends('id', 'supply_on_sale')
+-    def _notify_order_point(self):
+-        pool = Pool()
+-        try:
+-            OrderPoint = pool.get('stock.order_point')
+-        except KeyError:
+-            return
+-        if self.supply_on_sale and self.id is not None and self.id >= 0:
+-            order_points = OrderPoint.search([
+-                    ('product.template.id', '=', self.id),
+-                    ('type', '=', 'purchase'),
+-                    ], limit=6)
+-            if order_points:
+-                names = ', '.join(o.rec_name for o in order_points[:5])
+-                if len(order_points) > 5:
+-                    names + '...'
+-                yield ('warning', gettext(
+-                        'sale_supply'
+-                        '.msg_template_supply_on_sale_order_point',
+-                        order_points=names))
+-
+
  class Product(metaclass=PoolMeta):
      __name__ = 'product.product'
