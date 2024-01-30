@@ -59,5 +59,3 @@ product_price_list.diff # [product_price_list] Fix cost_price and list_price val
 issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
 
 issue12803.diff # [trytond] Do not check access when retrieving action ID
-
-issues9558.diff # [trytond] Prevent modify mutable cached value
