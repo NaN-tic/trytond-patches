@@ -1,0 +1,17 @@
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index 8988a67492..209df8077c 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -872,7 +872,11 @@ function eval_pyson(value){
+         hide: function() {
+             Sao.View.Form.Page._super.hide.call(this);
+             if (this.el.hasClass('active')) {
+-                this.el.siblings(':visible').first().find('a').tab('show');
++                window.setTimeout(() => {
++                    if (this.el.hasClass('active') && this.el.is(':hidden')) {
++                        this.el.siblings(':visible').first().find('a').tab('show');
++                    }
++                });
+             }
+         }
+     });
