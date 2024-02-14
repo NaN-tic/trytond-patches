@@ -153,3 +153,5 @@ issue12781.diff # [trytond] Check selection of dict schema when selection or hel
 issue11263.diff # [sale] [commission] Add rec_name searcher on reporting models
 
 issues9558.diff # [trytond] Prevent modify mutable cached value
+
+issue13031.diff # [account_payment] Forbid payment of zero amount

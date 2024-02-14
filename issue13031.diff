@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_payment/payment.py b/tryton/modules/account_payment/payment.py
+index 52de371dc7..5e8f02ce7b 100644
+--- a/tryton/modules/account_payment/payment.py
++++ b/tryton/modules/account_payment/payment.py
+@@ -301,6 +301,7 @@ class Payment(Workflow, ModelSQL, ModelView):
+     date = fields.Date('Date', required=True, states=_STATES)
+     amount = Monetary(
+         "Amount", currency='currency', digits='currency', required=True,
++        domain=[('amount', '!=', 0)],
+         states={
+             'readonly': ~Eval('state').in_(
+                 If(Eval('process_method') == 'manual',
