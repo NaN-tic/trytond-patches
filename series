@@ -64,8 +64,6 @@ issue13031.diff # [account_payment] Forbid payment of zero amount
 
 issue13024.diff # [sao] Delay the selection of first visible sibling tab
 
-issue12823.diff # [account] Use 0 as fallback for missing debit or credit in on_change functions
-
 product_cost_price_migration.diff # [product] Add missing column in product_cost_price
 
 sequence_exist.diff # [trytond] Search sequences using pg_sequences instead of information_schema.sequences
