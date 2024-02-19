@@ -1,0 +1,21 @@
+diff --git a/tryton/trytond/trytond/ir/action.py b/tryton/trytond/trytond/ir/action.py
+index c2e46bd0b1..9c3de2f662 100644
+--- a/tryton/trytond/trytond/ir/action.py
++++ b/tryton/trytond/trytond/ir/action.py
+@@ -19,7 +19,7 @@ from trytond.pool import Pool
+ from trytond.pyson import PYSON, Eval, PYSONDecoder, PYSONEncoder
+ from trytond.rpc import RPC
+ from trytond.tools import file_open
+-from trytond.transaction import Transaction, inactive_records
++from trytond.transaction import Transaction, inactive_records, without_check_access
+
+ if not config.get('html', 'plugins-ir.action.report-report_content_html'):
+     config.set(
+@@ -92,6 +92,7 @@ class Action(DeactivableMixin, ModelSQL, ModelView):
+
+     @classmethod
+     @inactive_records
++    @without_check_access
+     def get_action_id(cls, action_id):
+         pool = Pool()
+         if cls.search([

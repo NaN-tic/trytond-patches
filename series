@@ -14,8 +14,6 @@ search_warehouse.diff # [stock] search function for warehouse
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
-sao_colors.diff # [sao] Use the same colors as 5.4 version
-
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
@@ -50,21 +48,21 @@ issue12480.diff # [trytond] Support GIN index with btree_gin PostgreSQL extensio
 
 merge_request779.diff # [account_payment] Warn when submitting, approving or proceeding payment with reconciled line
 
-issue12576.diff # [account_stock_eu] Could not find the intrastat countries for moves
-
 issue7672.diff # [stock] Always fill product and template of cost price revision
 
 issue12678.diff # [account_statement] Not delete statement lines when statament is not draft state
 
 account_statement_second_currency.diff # [account_statement] Support second currency on statement line
 
-update_trees_chart_accounts.diff # [account_account] Update trees of chart of accounts with 2 passes
+product_price_list.diff # [product_price_list] Fix cost_price and list_price values
 
-sao_document_field.diff # [sao] fix issue with loading of 'document' fields in sao
+issue12816.diff # [account_payment_clearing] Error when read clearing_reconciled field in account payment group
 
-issue12799.diff # [sao] Convert negative id value as None when set by the client
+issue12803.diff # [trytond] Do not check access when retrieving action ID
 
-issue12547.diff # [stock_lot] Check lot required only when changing move to done
+issue13031.diff # [account_payment] Forbid payment of zero amount
+
+issue13024.diff # [sao] Delay the selection of first visible sibling tab
 
 issue12823.diff # [account] Use 0 as fallback for missing debit or credit in on_change functions
 
@@ -73,3 +71,5 @@ product_cost_price_migration.diff # [product] Add missing column in product_cost
 sequence_exist.diff # [trytond] Search sequences using pg_sequences instead of information_schema.sequences
 
 sale_supply_supply_on_sale.diff # [sale_supply] Dont try to supply_on_sale field selection.
+
+issue12968.diff # [stock] Reduce contextual ids in table query for product quantities by warehouse
