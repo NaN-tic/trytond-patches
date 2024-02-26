@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale/sale.py b/tryton/modules/sale/sale.py
+index efda6174af..800511502e 100644
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
+@@ -1071,7 +1071,7 @@ class Sale(
+             if shipments:
+                 shipments_return[sale] = shipments
+ 
+-        shipments = sum((v for v in shipments_out.values()), [])
++        shipments = list(set(sum((v for v in shipments_out.values()), [])))
+         ShipmentOut.save(shipments)
+         ShipmentOut.wait(shipments)
+         for sale, shipments in shipments_out.items():
