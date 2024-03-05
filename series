@@ -69,5 +69,3 @@ issue12968.diff # [stock] Reduce contextual ids in table query for product quant
 issue13059.diff # [sale] sale_shipment_grouping can cause a crash on sale process
 
 issue12542.diff # [trytond] Allow to delay index creation & Use one commit per DB update
-
-merge_request1270.diff # [account] Set empty currency when reconcile no lines
