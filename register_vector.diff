@@ -1,0 +1,15 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
+index 3c891d48f3..15a5f38e2a 100644
+--- a/tryton/trytond/trytond/backend/postgresql/database.py
++++ b/tryton/trytond/trytond/backend/postgresql/database.py
+@@ -280,6 +280,10 @@ class Database(DatabaseInterface):
+                     autocommit=autocommit)
+                 # Detect disconnection
+                 conn.cursor().execute('SELECT 1')
++                records = conn.cursor().execute("SELECT extname FROM pg_extension WHERE extname='vector'")
++                if records:
++                    from pgvector.psycopg2 import register_vector
++                    register_vector(conn)
+             except DatabaseOperationalError:
+                 self._connpool.putconn(conn, close=True)
+                 continue
