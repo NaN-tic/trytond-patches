@@ -1,0 +1,38 @@
+diff --git a/tryton/modules/account/tax.py b/tryton/modules/account/tax.py
+index a7e8495ead..5c3a3b7d59 100644
+--- a/tryton/modules/account/tax.py
++++ b/tryton/modules/account/tax.py
+@@ -1249,11 +1249,23 @@ class TaxableMixin(object):
+         return _TaxKey(**line)
+
+     def _round_taxes(self, taxes):
++        Tax = Pool().get('account.tax')
++
+         if not self.currency:
+             return
+
++        taxes_ids = list(set([k['tax'] for k in taxes.values()]))
++        round_taxes = [t.id for t in Tax.browse(taxes_ids)
++                        if ((t.type == 'percentage' and t.rate != Decimal(0.))
++                        or (t.type == 'fixed' and t.amount != Decimal(0.)))]
++
++        taxes_to_round = []
++        for t in taxes.values():
++            if t['tax'] in round_taxes:
++                taxes_to_round.append(t)
++
+         remainder = 0
+-        for taxline in taxes.values():
++        for taxline in taxes_to_round:
+             rounded_amount = self.currency.round(taxline['amount'])
+             remainder += rounded_amount - taxline['amount']
+             taxline['amount'] = rounded_amount
+@@ -1263,7 +1275,7 @@ class TaxableMixin(object):
+         if abs(remainder) >= self.currency.rounding:
+             offset_amount = self.currency.rounding.copy_sign(remainder)
+
+-            for tax in cycle(taxes.values()):
++            for tax in cycle(taxes_to_round):
+                 tax['amount'] -= offset_amount
+                 remainder -= offset_amount
+                 if abs(remainder) < self.currency.rounding:

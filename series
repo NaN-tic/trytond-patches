@@ -73,3 +73,5 @@ issue11306.diff # [analytic_invoice] Fill analytic when defer invoice
 issue12542.diff # [trytond] Allow to delay index creation & Use one commit per DB update
 
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
+
+issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed amount is 0
