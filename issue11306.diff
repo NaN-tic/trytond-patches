@@ -1,0 +1,65 @@
+diff --git a/tryton/modules/analytic_invoice/__init__.py b/tryton/modules/analytic_invoice/__init__.py
+index e5b724200d..f9746d1472 100644
+--- a/tryton/modules/analytic_invoice/__init__.py
++++ b/tryton/modules/analytic_invoice/__init__.py
+@@ -19,3 +19,7 @@ def register():
+         asset.UpdateAsset,
+         module='analytic_invoice', type_='wizard',
+         depends=['account_asset'])
++    Pool.register(
++        invoice.InvoiceDeferred,
++        module='analytic_invoice', type_='model',
++        depends=['account_invoice_defer'])
+diff --git a/tryton/modules/analytic_invoice/invoice.py b/tryton/modules/analytic_invoice/invoice.py
+index f4d9a6fae6..f6959a0f36 100644
+--- a/tryton/modules/analytic_invoice/invoice.py
++++ b/tryton/modules/analytic_invoice/invoice.py
+@@ -53,6 +53,23 @@ class InvoiceLine(AnalyticMixin, metaclass=PoolMeta):
+         return lines
+
+
++class InvoiceDeferred(metaclass=PoolMeta):
++    __name__ = 'account.invoice.deferred'
++
++    def get_move(self, period=None):
++        move = super().get_move(period=period)
++        if self.invoice_line.analytic_accounts:
++            for line in move.lines:
++                if line.account.type.statement != 'income':
++                    continue
++                analytic_lines = []
++                for entry in self.invoice_line.analytic_accounts:
++                    analytic_lines.extend(
++                        entry.get_analytic_lines(line, move.date))
++                line.analytic_lines = analytic_lines
++        return move
++
++
+ class AnalyticAccountEntry(metaclass=PoolMeta):
+     __name__ = 'analytic.account.entry'
+
+diff --git a/tryton/modules/analytic_invoice/tests/test_module.py b/tryton/modules/analytic_invoice/tests/test_module.py
+index a373c65f28..da2afd0213 100644
+--- a/tryton/modules/analytic_invoice/tests/test_module.py
++++ b/tryton/modules/analytic_invoice/tests/test_module.py
+@@ -7,7 +7,7 @@ from trytond.tests.test_tryton import ModuleTestCase
+ class AnalyticInvoiceTestCase(ModuleTestCase):
+     'Test AnalyticInvoice module'
+     module = 'analytic_invoice'
+-    extras = ['account_asset']
++    extras = ['account_asset', 'account_invoice_defer']
+
+
+ del ModuleTestCase
+diff --git a/tryton/modules/analytic_invoice/tryton.cfg b/tryton/modules/analytic_invoice/tryton.cfg
+index ecb1275a71..fc90588b43 100644
+--- a/tryton/modules/analytic_invoice/tryton.cfg
++++ b/tryton/modules/analytic_invoice/tryton.cfg
+@@ -5,6 +5,7 @@ depends:
+     analytic_account
+ extras_depend:
+     account_asset
++    account_invoice_defer
+ xml:
+     invoice.xml
+     asset.xml

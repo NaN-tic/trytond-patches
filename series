@@ -68,6 +68,8 @@ issue12968.diff # [stock] Reduce contextual ids in table query for product quant
 
 issue13059.diff # [sale] sale_shipment_grouping can cause a crash on sale process
 
+issue11306.diff # [analytic_invoice] Fill analytic when defer invoice
+
 issue12542.diff # [trytond] Allow to delay index creation & Use one commit per DB update
 
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
