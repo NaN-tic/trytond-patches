@@ -77,3 +77,5 @@ register_vector.diff # [trytond] Add register_vector postgreSQL extension
 issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed amount is 0
 
 165452.diff # [account_invoice_defer] Change sign debit and balance when create moves and amount_remainder
+
+merge_request1270.diff # [account] Set empty currency when reconcile no lines
