@@ -1,41 +1,20 @@
 diff --git a/tryton/modules/account/tax.py b/tryton/modules/account/tax.py
-index a7e8495ead..c5ffb1ebad 100644
+index a7e8495ead..eebdf46314 100644
 --- a/tryton/modules/account/tax.py
 +++ b/tryton/modules/account/tax.py
-@@ -1249,13 +1249,26 @@ class TaxableMixin(object):
-         return _TaxKey(**line)
-
-     def _round_taxes(self, taxes):
-+        Tax = Pool().get('account.tax')
-+
-         if not self.currency:
-             return
-
-+        taxes_ids = list(set([k['tax'] for k in taxes.values()]))
-+        taxes_to_remainder = [t.id for t in Tax.browse(taxes_ids)
-+                        if ((t.type == 'percentage' and t.rate != Decimal(0.))
-+                        or (t.type == 'fixed' and t.amount != Decimal(0.)))]
-+
-+        taxline_to_remainder = []
-+        for taxline in taxes.values():
-+            if taxline['tax'] in taxes_to_remainder:
-+                taxline_to_remainder.append(taxline)
-+
-         remainder = 0
-         for taxline in taxes.values():
-             rounded_amount = self.currency.round(taxline['amount'])
--            remainder += rounded_amount - taxline['amount']
-+            if taxline['tax'] in taxes_to_remainder:
-+                remainder += rounded_amount - taxline['amount']
-             taxline['amount'] = rounded_amount
-
-         # We need to compensate the rounding we did
-@@ -1263,7 +1276,7 @@ class TaxableMixin(object):
-         if abs(remainder) >= self.currency.rounding:
+@@ -1264,10 +1264,11 @@ class TaxableMixin(object):
              offset_amount = self.currency.rounding.copy_sign(remainder)
 
--            for tax in cycle(taxes.values()):
-+            for tax in cycle(taxline_to_remainder):
-                 tax['amount'] -= offset_amount
-                 remainder -= offset_amount
-                 if abs(remainder) < self.currency.rounding:
+             for tax in cycle(taxes.values()):
+-                tax['amount'] -= offset_amount
+-                remainder -= offset_amount
+-                if abs(remainder) < self.currency.rounding:
+-                    break
++                if tax['amount']:
++                    tax['amount'] -= offset_amount
++                    remainder -= offset_amount
++                    if abs(remainder) < self.currency.rounding:
++                        break
+
+     @fields.depends('company', methods=['_get_tax_context', '_round_taxes'])
+     def _get_taxes(self):
