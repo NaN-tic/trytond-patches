@@ -1,11 +1,20 @@
 diff --git a/tryton/modules/stock_product_location/location.py b/tryton/modules/stock_product_location/location.py
-index 42b0e68470..5a82d5d6cc 100644
+index 42b0e68470..7aae942de8 100644
 --- a/tryton/modules/stock_product_location/location.py
 +++ b/tryton/modules/stock_product_location/location.py
+@@ -57,7 +57,7 @@ class Move(metaclass=PoolMeta):
+
+     def set_product_location(self, field='to_location', **pattern):
+         assert field in {'from_location', 'to_location'}
+-        if getattr(self, 'shipment', None):
++        if getattr(self, 'shipment', None) and self.shipment.warehouse:
+             pattern.setdefault('warehouse', self.shipment.warehouse.id)
+
+         if self.product:
 @@ -70,6 +70,13 @@ class Move(metaclass=PoolMeta):
                  setattr(self, field, product_location.location)
                  break
- 
+
 +    def pick_product(self, quantities):
 +        if self.product.consumable and self.warehouse:
 +            self.set_product_location(field='from_location',
@@ -13,3 +22,6 @@ index 42b0e68470..5a82d5d6cc 100644
 +        to_pick = super().pick_product(quantities)
 +        return to_pick
 +
+
+ class ShipmentIn(metaclass=PoolMeta):
+     __name__ = 'stock.shipment.in'
