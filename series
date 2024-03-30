@@ -78,8 +78,6 @@ issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed
 
 165452.diff # [account_invoice_defer] Change sign debit and balance when create moves and amount_remainder
 
-merge_request1270.diff # [account] Set empty currency when reconcile no lines
-
 # issue11401.diff # [trytond] Make pool initialization atomic
 
 issue12315.diff # [stock_product_location] Make production entry move from_location configurable
