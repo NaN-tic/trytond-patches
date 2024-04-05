@@ -81,3 +81,5 @@ issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed
 # issue11401.diff # [trytond] Make pool initialization atomic
 
 issue12315.diff # [stock_product_location] Make production entry move from_location configurable
+
+issue13114.diff # [sale_opportunity] Opportunity reporting should include the employee's name when an opportunity has employee

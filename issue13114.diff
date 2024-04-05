@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale_opportunity/opportunity_reporting.py b/tryton/modules/sale_opportunity/opportunity_reporting.py
+index e04cd8e573..06e9c5aac2 100644
+--- a/tryton/modules/sale_opportunity/opportunity_reporting.py
++++ b/tryton/modules/sale_opportunity/opportunity_reporting.py
+@@ -431,7 +431,7 @@ class EmployeeMixin:
+             opportunity.employee]
+
+     def get_rec_name(self, name):
+-        return self.employee.rec_name
++        return self.employee and self.employee.rec_name or '--'
+
+     @classmethod
+     def search_rec_name(cls, name, clause):
