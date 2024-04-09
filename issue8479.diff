@@ -8,7 +8,7 @@ diff -r 80d34e8f57a0 trytond/tryton/trytond/modules/account_invoice/invoice.xml
 +
 +        <record model="ir.rule.group" id="rule_group_invoice_payment_method">
 +            <field name="name">User in company</field>
-+            <field name="model" search="[('model', '=', 'account.invoice.payment.method')]"/>
++            <field name="model">account.invoice.payment.method</field>
 +            <field name="global_p" eval="True"/>
 +        </record>
 +        <record model="ir.rule" id="rule_invoice_payment_method1">

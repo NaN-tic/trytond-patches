@@ -9,7 +9,7 @@ diff -r d5e2bdf73e16 account.xml
 +
 +        <record model="ir.rule.group" id="rule_group_account_journal_period">
 +          <field name="name">Account Journal Period</field>
-+            <field name="model" search="[('model', '=', 'account.journal.period')]"/>
++            <field name="model">account.journal.period</field>
 +            <field name="global_p" eval="True"/>
 +        </record>
 +        <record model="ir.rule" id="rule_account_journal_period">
@@ -35,7 +35,7 @@ diff -r d5e2bdf73e16 move.xml
 +        <!-- ir rule account move and account move line by company -->
 +        <record model="ir.rule.group" id="rule_group_account_move">
 +            <field name="name">Account Move Grup</field>
-+            <field name="model" search="[('model', '=', 'account.move')]"/>
++            <field name="model">account.move</field>
 +            <field name="global_p" eval="True"/>
 +        </record>
 +        <record model="ir.rule" id="rule_account_move1">
@@ -47,7 +47,7 @@ diff -r d5e2bdf73e16 move.xml
 +
 +        <record model="ir.rule.group" id="rule_group_account_move_line">
 +          <field name="name">Account Move Line Grup</field>
-+            <field name="model" search="[('model', '=', 'account.move.line')]"/>
++            <field name="model">account.move.line</field>
 +            <field name="global_p" eval="True"/>
 +        </record>
 +        <record model="ir.rule" id="rule_account_move_line1">
