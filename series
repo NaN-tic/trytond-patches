@@ -159,3 +159,6 @@ issue13031.diff # [account_payment] Forbid payment of zero amount
 issue13024.diff # [sao] Delay the selection of first visible sibling tab
 
 issue12968.diff # [stock] Reduce contextual ids in table query for product quantities by warehouse
+
+issue13110.diff # [project_revenue] Do not try to round or convert list price of project revenue
+issue13111.diff # [project_invoice] Do not fail when testing if account is set on invoice line for project
