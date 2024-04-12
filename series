@@ -86,3 +86,5 @@ issue13114.diff # [sale_opportunity] Opportunity reporting should include the em
 
 issue13110.diff # [project_revenue] Do not try to round or convert list price of project revenue
 issue13111.diff # [project_invoice] Do not fail when testing if account is set on invoice line for project
+
+issue13179.diff # [sao] Fix call to warn method of logger
