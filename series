@@ -92,3 +92,5 @@ issue13133.diff # [trytond] Test if queue batch is boolean
 issue13170.diff # [trytond] Use function to not copy custom report content
 issue13174.diff # [company] Test if user has a company before using it in letter report
 issue13178.diff # [sao] Test if current view is defined on screen before using it
+
+issue13197.diff # [trytond] FIX Prevent storing Decimal with too much trailing zero (eventual patch)
