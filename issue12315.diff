@@ -1,17 +1,8 @@
 diff --git a/tryton/modules/stock_product_location/location.py b/tryton/modules/stock_product_location/location.py
-index e837912ba3..645ecf7108 100644
+index 453e6a6e5b..e6b4d378c6 100644
 --- a/tryton/modules/stock_product_location/location.py
 +++ b/tryton/modules/stock_product_location/location.py
-@@ -57,7 +57,7 @@ class Move(metaclass=PoolMeta):
-
-     def set_product_location(self, field='to_location', **pattern):
-         assert field in {'from_location', 'to_location'}
--        if getattr(self, 'shipment', None):
-+        if getattr(self, 'shipment', None) and self.shipment.warehouse:
-             pattern.setdefault('warehouse', self.shipment.warehouse.id)
-         elif getattr(self, 'production', None):
-             pattern.setdefault('warehouse', self.production.warehouse.id)
-@@ -72,6 +72,13 @@ class Move(metaclass=PoolMeta):
+@@ -73,6 +73,13 @@ class Move(metaclass=PoolMeta):
                  setattr(self, field, product_location.location)
                  break
 

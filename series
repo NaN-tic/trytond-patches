@@ -82,16 +82,7 @@ issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed
 
 issue12315.diff # [stock_product_location] Make production entry move from_location configurable
 
-issue13114.diff # [sale_opportunity] Opportunity reporting should include the employee's name when an opportunity has employee
-
-issue13110.diff # [project_revenue] Do not try to round or convert list price of project revenue
-issue13111.diff # [project_invoice] Do not fail when testing if account is set on invoice line for project
-
 issue13179.diff # [sao] Fix call to warn method of logger
-issue13133.diff # [trytond] Test if queue batch is boolean
-issue13170.diff # [trytond] Use function to not copy custom report content
-issue13174.diff # [company] Test if user has a company before using it in letter report
-issue13178.diff # [sao] Test if current view is defined on screen before using it
 
 issue13197.diff # [trytond] FIX Prevent storing Decimal with too much trailing zero (eventual patch)
 issue13212.diff # [purchase_request_quotation] Remove default value for unknown request_quotations field
