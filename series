@@ -94,3 +94,4 @@ issue13174.diff # [company] Test if user has a company before using it in letter
 issue13178.diff # [sao] Test if current view is defined on screen before using it
 
 issue13197.diff # [trytond] FIX Prevent storing Decimal with too much trailing zero (eventual patch)
+issue13212.diff # [purchase_request_quotation] Remove default value for unknown request_quotations field
