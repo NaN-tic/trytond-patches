@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale/product.py b/tryton/modules/sale/product.py
+index 283ca99615..132750c0e1 100644
+--- a/tryton/modules/sale/product.py
++++ b/tryton/modules/sale/product.py
+@@ -197,7 +197,7 @@ class Product(metaclass=PoolMeta):
+                 if uom and product.default_uom.category == uom.category:
+                     unit_price = Uom.compute_price(
+                         product.default_uom, unit_price, uom)
+-                else:
++                elif product.sale_uom:
+                     unit_price = Uom.compute_price(
+                         product.default_uom, unit_price, product.sale_uom)
+             if currency and company and unit_price is not None:
