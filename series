@@ -85,7 +85,6 @@ issue12315.diff # [stock_product_location] Make production entry move from_locat
 issue13179.diff # [sao] Fix call to warn method of logger
 
 issue13197.diff # [trytond] FIX Prevent storing Decimal with too much trailing zero (eventual patch)
-issue13212.diff # [purchase_request_quotation] Remove default value for unknown request_quotations field
 
 issue7805.diff # [account] Raise user error when description of move template can not be formatted
 issue13213.diff # [sale] Do not convert sale unit price to sale unit of measure if empty
