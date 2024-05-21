@@ -86,3 +86,5 @@ issue13179.diff # [sao] Fix call to warn method of logger
 
 issue7805.diff # [account] Raise user error when description of move template can not be formatted
 issue13213.diff # [sale] Do not convert sale unit price to sale unit of measure if empty
+
+issue13268.diff # [account] Posting moves on reconciled account with and without party fails
