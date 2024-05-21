@@ -162,3 +162,5 @@ issue12968.diff # [stock] Reduce contextual ids in table query for product quant
 
 issue13110.diff # [project_revenue] Do not try to round or convert list price of project revenue
 issue13111.diff # [project_invoice] Do not fail when testing if account is set on invoice line for project
+
+issue13268.diff # [account] Posting moves on reconciled account with and without party fails
