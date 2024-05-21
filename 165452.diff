@@ -1,0 +1,31 @@
+diff --git a/tryton/modules/account_invoice_defer/account.py b/tryton/modules/account_invoice_defer/account.py
+index 2503ef92b7..8e2a225f21 100644
+--- a/tryton/modules/account_invoice_defer/account.py
++++ b/tryton/modules/account_invoice_defer/account.py
+@@ -291,10 +291,9 @@ class InvoiceDeferred(Workflow, ModelSQL, ModelView):
+                     if remainder:
+                         for line in last_move.lines:
+                             if line.debit:
+-                                line.debit -= remainder
++                                line.debit += remainder
+                             else:
+                                 line.credit -= remainder
+-                        last_move.lines = last_move.lines
+                         to_save.append(last_move)
+         Move.save(to_save)
+         Move.post(moves)
+@@ -306,12 +305,12 @@ class InvoiceDeferred(Workflow, ModelSQL, ModelView):
+
+     @property
+     def amount_remainder(self):
+-        balance = 0
++        balance = self.amount
+         for move in self.moves:
+             income_account = self.invoice_line.account.current(move.date)
+             for line in move.lines:
+                 if line.account == income_account:
+-                    balance += line.debit - line.credit
++                    balance -= line.debit - line.credit
+         return balance
+
+     def get_move(self, period=None):
