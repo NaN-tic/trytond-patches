@@ -1,0 +1,48 @@
+diff --git a/tryton/modules/production/stock.py b/tryton/modules/production/stock.py
+index 1be9a38bdd..102cf3e0fa 100644
+--- a/tryton/modules/production/stock.py
++++ b/tryton/modules/production/stock.py
+@@ -60,7 +60,7 @@ class Move(metaclass=PoolMeta):
+             states={
+                 'invisible': ~Eval('production'),
+                 }),
+-        'on_change_with_production')
++        'on_change_with_production', searcher='search_production')
+     production_cost_price_updated = fields.Boolean(
+         "Cost Price Updated", readonly=True,
+         states={
+@@ -87,6 +87,19 @@ class Move(metaclass=PoolMeta):
+         elif self.production_output:
+             return self.production_output
+
++    @classmethod
++    def search_production(cls, name, clause):
++        _, operator, operand, *extra = clause
++        if operator.startswith('!') or operator.startswith('not '):
++            bool_op = 'AND'
++        else:
++            bool_op = 'OR'
++        nested = clause[0][len(name):]
++        return [bool_op,
++            ('production_input' + nested, operator, operand, *extra),
++            ('production_output' + nested, operator, operand, *extra),
++            ]
++
+     def set_effective_date(self):
+         if not self.effective_date and self.production_input:
+             self.effective_date = self.production_input.effective_start_date
+diff --git a/tryton/modules/stock_supply_production/stock.py b/tryton/modules/stock_supply_production/stock.py
+index b8c02da385..21c8760c42 100644
+--- a/tryton/modules/stock_supply_production/stock.py
++++ b/tryton/modules/stock_supply_production/stock.py
+@@ -82,6 +82,10 @@ class StockSupply(metaclass=PoolMeta):
+                     ('to_location.type', '=', 'storage'),
+                     ('state', '=', 'draft'),
+                     ('planned_date', '<', today),
++                    ('production', 'not where', [
++                            ('state', '=', 'request'),
++                            ('origin', 'like', 'stock.order_point,%'),
++                            ]),
+                     ], order=[]):
+             key = '%s@%s' % (self.__name__, today)
+             if Warning.check(key):
