@@ -97,3 +97,5 @@ merge_request1496.diff # [sao] Test if main menu screen is not empty before usin
 issue13287.diff # [sao] Button/icons and entry trigger events on form without record
 
 issue13280.diff # [sao] Update completion does not return promise
+
+merge_requests1492.diff # [trytond] Improve import data experience

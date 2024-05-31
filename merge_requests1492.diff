@@ -1,0 +1,677 @@
+diff --git a/tryton/tryton/tryton/gui/window/win_import.py b/tryton/tryton/tryton/gui/window/win_import.py
+index f9b37a2868..02f0149b68 100644
+--- a/tryton/tryton/tryton/gui/window/win_import.py
++++ b/tryton/tryton/tryton/gui/window/win_import.py
+@@ -184,7 +184,8 @@ class WinImport(WinCSV):
+
+             fname = self.import_csv_file.get_filename()
+             if fname:
+-                self.import_csv(fname, fields)
++                if not self.import_csv(fname, fields):
++                    return
+         self.destroy()
+
+     def import_csv(self, fname, fields):
+@@ -235,3 +236,4 @@ class WinImport(WinCSV):
+             common.message(_('%d record imported.') % count)
+         else:
+             common.message(_('%d records imported.') % count)
++        return count
+
+diff --git a/tryton/trytond/trytond/ir/message.xml b/tryton/trytond/trytond/ir/message.xml
+index e09910d8e5..487f002907 100644
+--- a/tryton/trytond/trytond/ir/message.xml
++++ b/tryton/trytond/trytond/ir/message.xml
+@@ -148,20 +148,23 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_base_config_record">
+             <field name="text">This record is part of the base configuration.</field>
+         </record>
++        <record model="ir.message" id="msg_import_data_missing_column">
++            <field name="text">Missing values for last column at row %(row)d.</field>
++        </record>
++        <record model="ir.message" id="msg_import_data_missing_columns">
++            <field name="text">Missing values for %(n)s last columns at row %(row)d.</field>
++        </record>
+         <record model="ir.message" id="msg_relation_not_found">
+-            <field name="text">Relation not found: %(value)r in "%(model)s" (%(column)s).</field>
++            <field name="text">Could not find relation for %(value)r in "%(model)s" at row %(row)d and column %(column)d.</field>
+         </record>
+         <record model="ir.message" id="msg_too_many_relations_found">
+-            <field name="text">Too many relations found: %(value)r in "%(model)s" (%(column)s).</field>
++            <field name="text">Found too many relation for %(value)r in "%(model)s" at row %(row)d and column %(column)d.</field>
+         </record>
+         <record model="ir.message" id="msg_value_syntax_error">
+-            <field name="text">Syntax error for value: %(value)r in "%(field)s" of "%(model)s" (%(column)s).</field>
++            <field name="text">Syntax error for %(value)r in "%(field)s" of "%(model)s" at row %(row)d and column %(column)d.</field>
+         </record>
+         <record model="ir.message" id="msg_reference_syntax_error">
+-            <field name="text">Syntax error for reference: %(value)r in "%(field)s" of "%(model)s" (%(column)s).</field>
+-        </record>
+-        <record model="ir.message" id="msg_xml_id_syntax_error">
+-            <field name="text">Syntax error for XML id: %(value)r in "%(field)s" of "%(model)s" (%(column)s).</field>
++            <field name="text">Syntax error for %(value)r in "%(field)s" of "%(model)s" at row %(row)d and column %(column)d.</field>
+         </record>
+         <record model="ir.message" id="msg_domain_validation_record">
+             <field name="text">The value "%(value)s" for field "%(field)s" in "%(record)s" of "%(model)s" is not valid according to its domain.</field>
+
+diff --git a/tryton/trytond/trytond/model/modelstorage.py b/tryton/trytond/trytond/model/modelstorage.py
+index 7941d52b23..188a42482a 100644
+--- a/tryton/trytond/trytond/model/modelstorage.py
++++ b/tryton/trytond/trytond/model/modelstorage.py
+@@ -809,8 +809,27 @@ class ModelStorage(Model):
+         '''
+         pool = Pool()
+
++        row_index = data.index
++
++        class _Error(Exception):
++            def __init__(self, msg_id, **variables):
++                self.msg_id = msg_id
++                self.variables = variables
++
++        def error(func):
++            def wrapper(line, index, *args, **kwargs):
++                try:
++                    return func(line[index], *args, **kwargs)
++                except _Error as e:
++                    raise ImportDataError(gettext(
++                            e.msg_id, **e.variables,
++                            row=row_index(line) + 1,
++                            column=index + 1)) from e
++            return wrapper
++
++        @error
+         @lru_cache(maxsize=1000)
+-        def get_many2one(relation, value, column):
++        def get_many2one(value, relation):
+             if not value:
+                 return None
+             Relation = pool.get(relation)
+@@ -818,23 +837,22 @@ class ModelStorage(Model):
+                 ('rec_name', '=', value),
+                 ], limit=2)
+             if len(res) < 1:
+-                raise ImportDataError(gettext(
+-                        'ir.msg_relation_not_found',
+-                        value=value,
+-                        column=column,
+-                        **Relation.__names__()))
++                raise _Error(
++                    'ir.msg_relation_not_found',
++                    value=value,
++                    **Relation.__names__())
+             elif len(res) > 1:
+-                raise ImportDataError(
+-                    gettext('ir.msg_too_many_relations_found',
+-                        value=value,
+-                        column=column,
+-                        **Relation.__names__()))
++                raise _Error(
++                    'ir.msg_too_many_relations_found',
++                    value=value,
++                    **Relation.__names__())
+             else:
+                 res = res[0].id
+             return res
+
++        @error
+         @lru_cache(maxsize=1000)
+-        def get_many2many(relation, value, column):
++        def get_many2many(value, relation):
+             if not value:
+                 return None
+             res = []
+@@ -845,96 +863,54 @@ class ModelStorage(Model):
+                     ('rec_name', '=', word),
+                     ], limit=2)
+                 if len(res2) < 1:
+-                    raise ImportDataError(
+-                        gettext('ir.msg_relation_not_found',
+-                            value=word,
+-                            column=column,
+-                            **Relation.__names__()))
++                    raise _Error(
++                        'ir.msg_relation_not_found',
++                        value=word,
++                        **Relation.__names__())
+                 elif len(res2) > 1:
+-                    raise ImportDataError(
+-                        gettext('ir.msg_too_many_relations_found',
+-                            value=word,
+-                            column=column,
+-                            **Relation.__names__()))
++                    raise _Error(
++                        'ir.msg_too_many_relations_found',
++                        value=word,
++                        **Relation.__names__())
+                 else:
+                     res.extend(res2)
+             if len(res):
+                 res = [('add', [x.id for x in res])]
+             return res
+
+-        def get_one2one(relation, value, column):
+-            return ('add', get_many2one(relation, value, column))
++        def get_one2one(*args, **kwargs):
++            return ('add', get_many2one(*args, **kwargs))
+
++        @error
+         @lru_cache(maxsize=1000)
+-        def get_reference(value, field, klass, column):
++        def get_reference(value, field, klass):
+             if not value:
+                 return None
+             try:
+                 relation, value = value.split(',', 1)
+                 Relation = pool.get(relation)
+             except (ValueError, KeyError) as e:
+-                raise ImportDataError(
+-                    gettext('ir.msg_reference_syntax_error',
+-                        value=value,
+-                        column=column,
+-                        **klass.__names__(field))) from e
++                raise _Error(
++                    'ir.msg_reference_syntax_error',
++                    value=value,
++                    **klass.__names__(field)) from e
+             res = Relation.search([
+                 ('rec_name', '=', value),
+                 ], limit=2)
+             if len(res) < 1:
+-                raise ImportDataError(gettext(
+-                        'ir.msg_relation_not_found',
+-                        value=value,
+-                        column=column,
+-                        **Relation.__names__()))
++                raise _Error(
++                    'ir.msg_relation_not_found',
++                    value=value,
++                    **Relation.__names__())
+             elif len(res) > 1:
+-                raise ImportDataError(
+-                    gettext('ir.msg_too_many_relations_found',
+-                        value=value,
+-                        column=column,
+-                        **Relation.__names__()))
++                raise _Error(
++                    'ir.msg_too_many_relations_found',
++                    value=value,
++                    **Relation.__names__())
+             else:
+                 res = '%s,%s' % (relation, res[0].id)
+             return res
+
+-        @lru_cache(maxsize=1000)
+-        def get_by_id(value, ftype, field, klass, column):
+-            if not value:
+-                return None
+-            relation = None
+-            if ftype == 'many2many':
+-                value = next(csv.reader(value.splitlines(), delimiter=',',
+-                        quoting=csv.QUOTE_NONE, escapechar='\\'))
+-            elif ftype == 'reference':
+-                try:
+-                    relation, value = value.split(',', 1)
+-                except ValueError as e:
+-                    raise ImportDataError(
+-                        gettext('ir.msg_reference_syntax_error',
+-                            value=value,
+-                            column=column,
+-                            **klass.__names__(field))) from e
+-                value = [value]
+-            else:
+-                value = [value]
+-            res_ids = []
+-            for word in value:
+-                try:
+-                    module, xml_id = word.rsplit('.', 1)
+-                    db_id = ModelData.get_id(module, xml_id)
+-                except (ValueError, KeyError) as e:
+-                    raise ImportDataError(
+-                        gettext('ir.msg_xml_id_syntax_error',
+-                            value=word,
+-                            column=column,
+-                            **klass.__names__(field))) from e
+-                res_ids.append(db_id)
+-            if ftype == 'many2many' and res_ids:
+-                return [('add', res_ids)]
+-            elif ftype == 'reference' and res_ids:
+-                return '%s,%s' % (relation, str(res_ids[0]))
+-            return res_ids and res_ids[0] or False
+-
+         def dispatch(create, write, row, Relation=cls):
+             id_ = row.pop('id', None)
+             if id_:
+@@ -944,7 +920,8 @@ class ModelStorage(Model):
+                 create.append(row)
+             return id_
+
+-        def convert(value, ftype, field, klass, column):
++        @error
++        def convert(value, ftype, field, klass):
+             def convert_boolean(value):
+                 if value.lower() == 'true':
+                     return True
+@@ -1006,15 +983,16 @@ class ModelStorage(Model):
+                     return value
+
+             try:
+-                return locals()['convert_%s' % ftype](value)
++                func = locals()['convert_%s' % ftype]
+             except KeyError:
+                 return value
++            try:
++                return func(value)
+             except (ValueError, TypeError, decimal.InvalidOperation) as e:
+-                raise ImportDataError(
+-                    gettext('ir.msg_value_syntax_error',
+-                        value=value,
+-                        column=column,
+-                        **klass.__names__(field))) from e
++                raise _Error(
++                    'ir.msg_value_syntax_error',
++                    value=value,
++                    **klass.__names__(field)) from e
+
+         def process_lines(data, prefix, fields_def, position=0, klass=cls):
+             line = data[position]
+@@ -1022,23 +1000,23 @@ class ModelStorage(Model):
+             translate = {}
+             todo = set()
+             prefix_len = len(prefix)
++            if len(fields_names) > len(line):
++                n = len(fields_names) - len(line)
++                if n > 1:
++                    raise ImportDataError(gettext(
++                            'ir.msg_import_data_missing_columns',
++                            n=n,
++                            row=row_index(line) + 1))
++                else:
++                    raise ImportDataError(gettext(
++                            'ir.msg_import_data_missing_column',
++                            row=row_index(line) + 1))
+             # Import normal fields_names
+             for i, field in enumerate(fields_names):
+-                if i >= len(line):
+-                    raise Exception('ImportError',
+-                        'Please check that all your lines have %d cols.'
+-                        % len(fields_names))
+                 is_prefix_len = (len(field) == (prefix_len + 1))
+-                value = line[i]
+-                column = '/'.join(field)
+-                if is_prefix_len and field[-1].endswith(':id'):
+-                    field_name = field[-1][:-3]
+-                    ftype = fields_def[field_name]['type']
+-                    row[field[0][:-3]] = get_by_id(
+-                        value, ftype, field_name, klass, column)
+-                elif is_prefix_len and ':lang=' in field[-1]:
++                if is_prefix_len and ':lang=' in field[-1]:
+                     field_name, lang = field[-1].split(':lang=')
+-                    translate.setdefault(lang, {})[field_name] = value or False
++                    translate.setdefault(lang, {})[field_name] = line[i]
+                 elif is_prefix_len and prefix == field[:-1]:
+                     field_name = field[-1]
+                     this_field_def = fields_def[field_name]
+@@ -1046,23 +1024,20 @@ class ModelStorage(Model):
+                     res = None
+                     if field_name == 'id':
+                         try:
+-                            res = int(value)
++                            res = int(line[i])
+                         except ValueError:
+-                            res = get_many2one(klass.__name__, value, column)
++                            res = get_many2one(line, i, klass.__name__)
+                     elif field_type == 'many2one':
+-                        res = get_many2one(
+-                            this_field_def['relation'], value, column)
++                        res = get_many2one(line, i, this_field_def['relation'])
+                     elif field_type == 'many2many':
+                         res = get_many2many(
+-                            this_field_def['relation'], value, column)
++                            line, i, this_field_def['relation'])
+                     elif field_type == 'one2one':
+-                        res = get_one2one(
+-                            this_field_def['relation'], value, column)
++                        res = get_one2one(line, i, this_field_def['relation'])
+                     elif field_type == 'reference':
+-                        res = get_reference(value, field_name, klass, column)
++                        res = get_reference(line, i, field_name, klass)
+                     else:
+-                        res = convert(
+-                            value, field_type, field_name, klass, column)
++                        res = convert(line, i, field_type, field_name, klass)
+                     row[field[-1]] = res
+                 elif prefix == field[0:prefix_len]:
+                     todo.add(field[prefix_len])
+@@ -1103,17 +1078,14 @@ class ModelStorage(Model):
+                     data.pop(0)
+             return (row, nbrmax, translate)
+
+-        ModelData = pool.get('ir.model.data')
+-
+-        len_fields_names = len(fields_names)
+-        assert all(len(x) == len_fields_names for x in data)
+         fields_names = [x.split('/') for x in fields_names]
+         fields_def = cls.fields_get()
+
+         to_create, to_create_translations = [], []
+         to_write, to_write_translations = [], []
+         languages = set()
+-        while len(data):
++        data = data.copy()
++        while data:
+             (row, _, translate) = \
+                 process_lines(data, [], fields_def)
+             if dispatch(to_create, to_write, row):
+
+diff --git a/tryton/trytond/trytond/tests/import_data.py b/tryton/trytond/trytond/tests/import_data.py
+index 6c7a333436..4520f53acd 100644
+--- a/tryton/trytond/trytond/tests/import_data.py
++++ b/tryton/trytond/trytond/tests/import_data.py
+@@ -5,6 +5,13 @@ from trytond.model import ModelSQL, fields
+ from trytond.pool import Pool
+
+
++class ImportData(ModelSQL):
++    "Import Data"
++    __name__ = 'test.import_data'
++    name = fields.Char("Name")
++    value = fields.Integer("Value")
++
++
+ class ImportDataBoolean(ModelSQL):
+     "Import Data Boolean"
+     __name__ = 'test.import_data.boolean'
+@@ -170,6 +177,7 @@ class ImportDataUpdate(ModelSQL):
+
+ def register(module):
+     Pool.register(
++        ImportData,
+         ImportDataBoolean,
+         ImportDataInteger,
+         ImportDataFloat,
+
+diff --git a/tryton/trytond/trytond/tests/test_importdata.py b/tryton/trytond/trytond/tests/test_importdata.py
+index 1f0ef93506..ff3e8dcf5a 100644
+--- a/tryton/trytond/trytond/tests/test_importdata.py
++++ b/tryton/trytond/trytond/tests/test_importdata.py
+@@ -17,6 +17,20 @@ class ImportDataTestCase(unittest.TestCase):
+     def setUpClass(cls):
+         activate_module('tests')
+
++    @with_transaction()
++    def test_missing_values(self):
++        "Test error is raised when missing values"
++        pool = Pool()
++        Model = pool.get('test.import_data')
++
++        with self.assertRaisesRegex(
++                ImportDataError, "for last column at row 2"):
++            Model.import_data(['name'], [["Test"], []])
++
++        with self.assertRaisesRegex(
++                ImportDataError, "for 2 last columns at row 2"):
++            Model.import_data(['name', 'value'], [["Test", 1], []])
++
+     @with_transaction()
+     def test_boolean(self):
+         'Test boolean'
+@@ -43,7 +57,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Boolean = pool.get('test.import_data.boolean')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "at row 1 and column 1"):
+             Boolean.import_data(['boolean'], [['foo']])
+
+     @with_transaction()
+@@ -74,7 +89,8 @@ class ImportDataTestCase(unittest.TestCase):
+
+         for value in ['1.1', '-1.1', 'foo']:
+             with self.subTest(value=value):
+-                with self.assertRaises(ImportDataError):
++                with self.assertRaisesRegex(
++                        ImportDataError, "at row 1 and column 1"):
+                     Integer.import_data(['integer'], [[value]])
+
+     @with_transaction()
+@@ -95,7 +111,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Float = pool.get('test.import_data.float')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "'foo' .* at row 1 and column 1"):
+             Float.import_data(['float'], [['foo']])
+
+     @with_transaction()
+@@ -116,7 +133,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Numeric = pool.get('test.import_data.numeric')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "'foo' .* at row 1 and column 1"):
+             Numeric.import_data(['numeric'], [['foo']])
+
+     @with_transaction()
+@@ -185,7 +203,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Date = pool.get('test.import_data.date')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "'foo' .* at row 1 and column 1"):
+             Date.import_data(['date'], [['foo']])
+
+     @with_transaction()
+@@ -217,7 +236,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Datetime = pool.get('test.import_data.datetime')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "'foo' .* at row 1 and column 1"):
+             Datetime.import_data(['datetime'], [['foo']])
+
+     @with_transaction()
+@@ -241,7 +261,8 @@ class ImportDataTestCase(unittest.TestCase):
+         pool = Pool()
+         Timedelta = pool.get('test.import_data.timedelta')
+
+-        with self.assertRaises(ImportDataError):
++        with self.assertRaisesRegex(
++                ImportDataError, "'foo' .* at row 1 and column 1"):
+             Timedelta.import_data(['timedelta'], [['foo']])
+
+     @with_transaction()
+@@ -270,28 +291,23 @@ class ImportDataTestCase(unittest.TestCase):
+         'Test many2one'
+         pool = Pool()
+         Many2one = pool.get('test.import_data.many2one')
++        Target = pool.get('test.import_data.many2one.target')
++
++        Target.create([{'name': "Test"}])
+
+         for value in ['Test', '']:
+             with self.subTest(value=value):
+                 self.assertEqual(
+                     Many2one.import_data(['many2one'], [[value]]), 1)
+
+-    @with_transaction()
+-    def test_many2one_id(self):
+-        "Test many2one with id"
+-        pool = Pool()
+-        Many2one = pool.get('test.import_data.many2one')
+-
+-        self.assertEqual(
+-            Many2one.import_data(
+-                ['many2one:id'], [['tests.import_data_many2one_target_test']]),
+-            1)
+-
+     @with_transaction()
+     def test_many2one_many_rows(self):
+         "Test many2one many rows"
+         pool = Pool()
+         Many2one = pool.get('test.import_data.many2one')
++        Target = pool.get('test.import_data.many2one.target')
++
++        Target.create([{'name': "Test"}])
+
+         self.assertEqual(
+             Many2one.import_data(['many2one'], [['Test'], ['Test']]), 2)
+@@ -304,25 +320,22 @@ class ImportDataTestCase(unittest.TestCase):
+
+         for value in ['foo', 'Duplicate']:
+             with self.subTest(value=value):
+-                with self.assertRaises(ImportDataError):
++                with self.assertRaisesRegex(
++                        ImportDataError, "at row 1 and column 1"):
+                     Many2one.import_data(['many2one'], [[value]])
+
+-    @with_transaction()
+-    def test_many2one_id_invalid(self):
+-        "Test many2one invalid id"
+-        pool = Pool()
+-        Many2one = pool.get('test.import_data.many2one')
+-
+-        for value in ['foo', 'tests.foo']:
+-            with self.subTest(value=value):
+-                with self.assertRaises(ImportDataError):
+-                    Many2one.import_data(['many2one:id'], [[value]])
+-
+     @with_transaction()
+     def test_many2many(self):
+         'Test many2many'
+         pool = Pool()
+         Many2many = pool.get('test.import_data.many2many')
++        Target = pool.get('test.import_data.many2many.target')
++
++        Target.create([
++                {'name': "Test 1"},
++                {'name': "Test 2"},
++                {'name': "Test, comma"},
++                ])
+
+         for value in [
+                 'Test 1', 'Test\\, comma', 'Test\\, comma,Test 1',
+@@ -331,25 +344,18 @@ class ImportDataTestCase(unittest.TestCase):
+                 self.assertEqual(
+                     Many2many.import_data(['many2many'], [[value]]), 1)
+
+-    @with_transaction()
+-    def test_many2many_id(self):
+-        "Test many2many with id"
+-        pool = Pool()
+-        Many2many = pool.get('test.import_data.many2many')
+-
+-        for value in [
+-                'tests.import_data_many2many_target_test1',
+-                'tests.import_data_many2many_target_test1,'
+-                'tests.import_data_many2many_target_test2']:
+-            with self.subTest(value=value):
+-                self.assertEqual(
+-                    Many2many.import_data(['many2many:id'], [[value]]), 1)
+-
+     @with_transaction()
+     def test_many2many_many_rows(self):
+         "Test many2many many rows"
+         pool = Pool()
+         Many2many = pool.get('test.import_data.many2many')
++        Target = pool.get('test.import_data.many2many.target')
++
++        Target.create([
++                {'name': "Test 1"},
++                {'name': "Test 2"},
++                {'name': "Test, comma"},
++                ])
+
+         self.assertEqual(
+             Many2many.import_data(['many2many'], [['Test 1'], ['Test 2']]), 2)
+@@ -362,7 +368,8 @@ class ImportDataTestCase(unittest.TestCase):
+
+         for value in ['foo', 'Test 1,foo', 'Duplicate', 'Test 1,Duplicate']:
+             with self.subTest(value=value):
+-                with self.assertRaises(ImportDataError):
++                with self.assertRaisesRegex(
++                        ImportDataError, "at row 1 and column 1"):
+                     Many2many.import_data(['many2many'], [[value]])
+
+     @with_transaction()
+@@ -451,6 +458,9 @@ class ImportDataTestCase(unittest.TestCase):
+         'Test reference'
+         pool = Pool()
+         Reference = pool.get('test.import_data.reference')
++        Selection = pool.get('test.import_data.reference.selection')
++
++        Selection.create([{'name': "Test"}])
+
+         self.assertEqual(Reference.import_data(['reference'],
+             [['test.import_data.reference.selection,Test']]), 1)
+@@ -458,19 +468,6 @@ class ImportDataTestCase(unittest.TestCase):
+         self.assertEqual(reference.reference.__name__,
+             'test.import_data.reference.selection')
+
+-    @with_transaction()
+-    def test_reference_id(self):
+-        "Test reference with id"
+-        pool = Pool()
+-        Reference = pool.get('test.import_data.reference')
+-
+-        self.assertEqual(Reference.import_data(['reference:id'],
+-            [['test.import_data.reference.selection,'
+-                'tests.import_data_reference_selection_test']]), 1)
+-        reference, = Reference.search([])
+-        self.assertEqual(reference.reference.__name__,
+-            'test.import_data.reference.selection')
+-
+     @with_transaction()
+     def test_reference_empty(self):
+         "Test reference empty"
+@@ -487,6 +484,9 @@ class ImportDataTestCase(unittest.TestCase):
+         "Test reference many rows"
+         pool = Pool()
+         Reference = pool.get('test.import_data.reference')
++        Selection = pool.get('test.import_data.reference.selection')
++
++        Selection.create([{'name': "Test"}])
+
+         self.assertEqual(Reference.import_data(['reference'],
+             [['test.import_data.reference.selection,Test'],
+@@ -506,20 +506,10 @@ class ImportDataTestCase(unittest.TestCase):
+                 'test.import_data.reference.selection,Duplicate',
+                 'test.import_data.reference.selection,test.foo']:
+             with self.subTest(value=value):
+-                with self.assertRaises(ImportDataError):
++                with self.assertRaisesRegex(
++                        ImportDataError, "at row 1 and column 1"):
+                     Reference.import_data(['reference'], [[value]])
+
+-    @with_transaction()
+-    def test_reference_id_invalid(self):
+-        "Test reference invalid id"
+-        pool = Pool()
+-        Reference = pool.get('test.import_data.reference')
+-
+-        with self.assertRaises(ImportDataError):
+-            Reference.import_data(
+-                ['reference:id'],
+-                [['test.import_data.reference.selection,foo']])
+-
+     @with_transaction()
+     def test_binary_bytes(self):
+         "Test binary bytes"
+
+diff --git a/tryton/trytond/trytond/tests/tryton.cfg b/tryton/trytond/trytond/tests/tryton.cfg
+index 67ad062c15..3ccff9290e 100644
+--- a/tryton/trytond/trytond/tests/tryton.cfg
++++ b/tryton/trytond/trytond/tests/tryton.cfg
+@@ -3,7 +3,6 @@ depends:
+     ir
+     res
+ xml:
+-    import_data.xml
+     sequence.xml
+     workflow.xml
+     wizard.xml
