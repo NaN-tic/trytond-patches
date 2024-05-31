@@ -93,3 +93,5 @@ issue13268.diff # [account] Posting moves on reconciled account with and without
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
+
+issue13287.diff # [sao] Button/icons and entry trigger events on form without record
