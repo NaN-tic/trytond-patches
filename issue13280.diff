@@ -1,0 +1,44 @@
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index dbcb11c168..f0b6ad5f8e 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -2851,7 +2851,7 @@ function eval_pyson(value){
+         _update_completion: function(text) {
+             var record = this.record;
+             if (!record) {
+-                return;
++                return jQuery.when();
+             }
+             var field = this.field;
+             var value = field.get(record);
+@@ -3687,7 +3687,7 @@ function eval_pyson(value){
+         },
+         _update_completion: function(text) {
+             if (!this.record) {
+-                return;
++                return jQuery.when();
+             }
+             var model = this.attributes.relation;
+             var domain = this.field.get_domain(this.record);
+@@ -4041,7 +4041,7 @@ function eval_pyson(value){
+         },
+         _update_completion: function(text) {
+             if (!this.record) {
+-                return;
++                return jQuery.when();
+             }
+             var model = this.attributes.relation;
+             var domain = this.field.get_domain(this.record);
+@@ -4947,10 +4947,10 @@ function eval_pyson(value){
+         },
+         _update_completion: function(text) {
+             if (this.wid_text.prop('disabled')) {
+-                return;
++                return jQuery.when();
+             }
+             if (!this.record) {
+-                return;
++                return jQuery.when();
+             }
+             return Sao.common.update_completion(
+                 this.wid_text, this.record, this.field, this.schema_model);

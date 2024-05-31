@@ -95,3 +95,5 @@ issue13269.diff # [stock_supply_production] Ignore production request when searc
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
 
 issue13287.diff # [sao] Button/icons and entry trigger events on form without record
+
+issue13280.diff # [sao] Update completion does not return promise
