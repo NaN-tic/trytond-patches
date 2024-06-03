@@ -185,8 +185,8 @@ index dbcb11c168..1b7e465e7e 100644
                  !this._position);
              this.but_open.prop(
                  'disabled',
-                 !this._position ||
 +                !record ||
+                 !this._position ||
                  !this.read_access);
              this.but_next.prop(
                  'disabled',
@@ -220,17 +220,18 @@ index dbcb11c168..1b7e465e7e 100644
 +                    this.screen.screen_container.hide_filter();
                      return;
                  }
- 
+
 @@ -3862,10 +3907,10 @@ function eval_pyson(value){
                          (m2m_size >= field_size) && (field_size >= 0));
              }
  
 -            this.entry.prop('disabled', this._readonly);
 -            this.but_add.prop('disabled', this._readonly || size_limit);
+-            this.but_remove.prop('disabled', this._readonly ||
+-                this._position === 0);
 +            this.entry.prop('disabled', this._readonly || !record);
 +            this.but_add.prop('disabled', this._readonly || !record || size_limit);
-             this.but_remove.prop('disabled', this._readonly ||
--                this._position === 0);
++            this.but_remove.prop(
 +                'disabled', this._readonly || !record || this._position === 0);
          },
          record_message: function(position, size) {
@@ -258,18 +259,19 @@ index dbcb11c168..1b7e465e7e 100644
              }
          }
      });
-@@ -4370,8 +4418,8 @@ function eval_pyson(value){
+@@ -4370,8 +4418,9 @@ function eval_pyson(value){
          },
          set_readonly: function(readonly) {
              Sao.View.Form.Image._super.set_readonly.call(this, readonly);
 -            this.but_select.prop('disabled', readonly);
 -            this.but_clear.prop('disabled', readonly);
++            var record = this.record;
 +            this.but_select.prop('disabled', readonly || !record);
 +            this.but_clear.prop('disabled', readonly || !record);
          },
          clear: function() {
              Sao.View.Form.Image._super.clear.call(this);
-@@ -4569,7 +4617,7 @@ function eval_pyson(value){
+@@ -4569,7 +4618,7 @@ function eval_pyson(value){
                  'class': this.class_,
              });
              this.button = jQuery('<a/>', {
@@ -278,7 +280,7 @@ index dbcb11c168..1b7e465e7e 100644
                  'target': '_blank',
                  'rel': 'noreferrer noopener',
              }).text(attributes.string).appendTo(this.el);
-@@ -4606,7 +4654,7 @@ function eval_pyson(value){
+@@ -4606,7 +4655,7 @@ function eval_pyson(value){
          },
          set_readonly: function(readonly) {
              Sao.View.Form.HTML._super.set_readonly.call(this, readonly);
@@ -287,7 +289,7 @@ index dbcb11c168..1b7e465e7e 100644
              if (readonly) {
                  this.el.find('a').hide();
              } else {
-@@ -4818,9 +4866,10 @@ function eval_pyson(value){
+@@ -4818,9 +4867,10 @@ function eval_pyson(value){
                  var widget = this.fields[key];
                  widget.set_readonly(readonly);
              }
@@ -299,8 +301,12 @@ index dbcb11c168..1b7e465e7e 100644
              var create = this.attributes.create;
              if (create === undefined) {
                  create = 1;
-@@ -4836,7 +4885,7 @@ function eval_pyson(value){
-             this.but_add.prop('disabled', this._readonly || !create);
+@@ -4833,10 +4883,10 @@ function eval_pyson(value){
+             } else if (typeof delete_ == 'string') {
+                 delete_ = Boolean(parseInt(delete_, 10));
+             }
+-            this.but_add.prop('disabled', this._readonly || !create);
++            this.but_add.prop('disabled', this._readonly || !create || !record);
              for (var key in this.fields) {
                  var button = this.fields[key].button;
 -                button.prop('disabled', this._readonly || !delete_);
@@ -308,7 +314,7 @@ index dbcb11c168..1b7e465e7e 100644
              }
          },
          add_line: function(key) {
-@@ -5260,8 +5309,9 @@ function eval_pyson(value){
+@@ -5260,8 +5310,9 @@ function eval_pyson(value){
                  }
              });
              if (this.input_date[0].type == this._input) {
