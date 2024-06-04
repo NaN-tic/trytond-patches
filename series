@@ -99,3 +99,5 @@ issue13287.diff # [sao] Button/icons and entry trigger events on form without re
 issue13280.diff # [sao] Update completion does not return promise
 
 merge_requests1492.diff # [trytond] Improve import data experience
+
+issue13297.diff # [sale_opportunity] Missing taxes when create sale from opportunity
