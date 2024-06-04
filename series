@@ -26,3 +26,5 @@ register_vector.diff # [trytond] Add register_vector postgreSQL extension
 165452.diff # [account_invoice_defer] Change sign debit and balance when create moves and amount_remainder
 
 issue13297.diff # [sale_opportunity] Missing taxes when create sale from opportunity
+
+b2ck7834.diff # [trytond] Crash due to missing graft in 7.2 branch
