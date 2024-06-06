@@ -2,7 +2,7 @@ diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
 index dbcb11c168..1b7e465e7e 100644
 --- a/tryton/sao/src/view/form.js
 +++ b/tryton/sao/src/view/form.js
-@@ -1545,13 +1552,16 @@ function eval_pyson(value){
+@@ -1545,7 +1552,10 @@ function eval_pyson(value){
                  this.group.css('width', '100%');
              }
              if (this.attributes.translate) {
@@ -10,17 +10,10 @@ index dbcb11c168..1b7e465e7e 100644
 +                jQuery('<button/>', {
 +                    'class': 'btn btn-link',
 +                    'type': 'button',
-+                }).append(Sao.common.ICONFACTORY.get_icon_img('tryton-translate')
++                }).append(Sao.common.ICONFACTORY.get_icon_img('tryton-translate'))
                      .appendTo(jQuery('<div/>', {
                          'class': 'icon-input icon-secondary',
                          'aria-label': Sao.i18n.gettext('Translate'),
-                         'title': Sao.i18n.gettext('Translate'),
-                     }).appendTo(
--                        this.group.addClass('input-icon input-icon-secondary')))
-+                        this.group.addClass('input-icon input-icon-secondary'))))
-                 .click(this.translate.bind(this));
-             }
-         },
 @@ -1615,7 +1625,10 @@ function eval_pyson(value){
          },
          set_readonly: function(readonly) {
