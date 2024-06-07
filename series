@@ -28,3 +28,5 @@ register_vector.diff # [trytond] Add register_vector postgreSQL extension
 issue13297.diff # [sale_opportunity] Missing taxes when create sale from opportunity
 
 b2ck7834.diff # [trytond] Crash due to missing graft in 7.2 branch
+
+issue13031.diff # [account_payment] Forbid payment of zero amount
