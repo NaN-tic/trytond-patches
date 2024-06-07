@@ -1,0 +1,37 @@
+diff --git a/tryton/modules/account/message.xml b/tryton/modules/account/message.xml
+index df42c1d760..50b8dc4eda 100644
+--- a/tryton/modules/account/message.xml
++++ b/tryton/modules/account/message.xml
+@@ -139,6 +139,9 @@ this repository contains the full copyright notices and license terms. -->
+ Use the current period to cancel the move?</field>
+         </record>
+
++        <record model="ir.message" id="msg_move_template_invalid_description">
++            <field name="text">Failed to evaluate the description "%(description)s" from template "%(template)s" with error: "%(error)s"</field>
++        </record>
+         <record model="ir.message" id="msg_move_template_invalid_expression">
+             <field name="text">Failed to evaluate expression "%(expression)s" from template "%(template)s" with error:
+ "%(error)s"</field>
+diff --git a/tryton/modules/account/move_template.py b/tryton/modules/account/move_template.py
+index 9699caa7ea..304ec9e2c9 100644
+--- a/tryton/modules/account/move_template.py
++++ b/tryton/modules/account/move_template.py
+@@ -58,8 +58,16 @@ class MoveTemplate(DeactivableMixin, ModelSQL, ModelView):
+         if self.date:
+             move.date = values.get(self.date)
+         if self.description:
+-            move.description = self.description.format(
+-                **dict(Keyword.format_values(self, values)))
++            try:
++                move.description = self.description.format(
++                    **dict(Keyword.format_values(self, values)))
++            except (KeyError, ValueError) as e:
++                raise MoveTemplateExpressionError(
++                    gettext(
++                        'account.msg_move_template_invalid_description',
++                        description=self.description,
++                        template=self.rec_name,
++                        error=e)) from e
+         move.lines = [l.get_line(values) for l in self.lines]
+
+         return move

@@ -5,6 +5,7 @@ tax_update_unit_price.diff # [account] Add the update_unit_price control on pare
 
 issue4506.diff # [account_invoice] Add credit invoices keyword from account.invoice
 issue8479.diff # [account_invoice] missing invoice payment method rule by company
+# issue7805.diff # [account] Raise user error when description of move template can not be formatted # require fix path patch when create new branches
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
