@@ -1,8 +1,8 @@
 diff --git a/tryton/modules/sale_opportunity/opportunity.py b/tryton/modules/sale_opportunity/opportunity.py
-index 982810a42d..43ec0abf74 100644
+index b195e4f2ba..5ebf9d6328 100644
 --- a/tryton/modules/sale_opportunity/opportunity.py
 +++ b/tryton/modules/sale_opportunity/opportunity.py
-@@ -552,6 +552,10 @@ class SaleOpportunityLine(sequence_ordered(), ModelSQL, ModelView):
+@@ -575,12 +575,18 @@ class SaleOpportunityLine(sequence_ordered(), ModelSQL, ModelView):
                  ('salable', '=', True),
                  ()),
              ],
@@ -11,19 +11,18 @@ index 982810a42d..43ec0abf74 100644
 +            },
 +        depends={'company'},
          states=_states)
-     product_uom_category = fields.Function(
-         fields.Many2One(
-@@ -573,6 +577,9 @@ class SaleOpportunityLine(sequence_ordered(), ModelSQL, ModelView):
-     description = fields.Text("Description", states=_states)
-     summary = fields.Function(fields.Char("Summary"), 'on_change_with_summary')
-     note = fields.Text("Note")
+     quantity = fields.Float(
+         "Quantity", digits='unit', required=True, states=_states)
+     unit = fields.Many2One('product.uom', 'Unit', required=True,
+         states=_states)
+-
 +    company = fields.Function(
 +        fields.Many2One('company.company', "Company"),
 +        'on_change_with_company')
-
      del _states
 
-@@ -600,6 +607,10 @@ class SaleOpportunityLine(sequence_ordered(), ModelSQL, ModelView):
+     @classmethod
+@@ -599,6 +605,10 @@ class SaleOpportunityLine(sequence_ordered(), ModelSQL, ModelView):
          if self.opportunity:
              return self.opportunity.state
 

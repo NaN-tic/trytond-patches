@@ -36,3 +36,5 @@ issue13268.diff # [account] Posting moves on reconciled account with and without
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
 issue13280.diff # [sao] Update completion does not return promise
+
+issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
