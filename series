@@ -105,3 +105,5 @@ issue13297.diff # [sale_opportunity] Missing taxes when create sale from opportu
 issue12744.diff # [product_image] Preserve image ratio of product
 
 issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
+
+b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
