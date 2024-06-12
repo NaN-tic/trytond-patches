@@ -1,0 +1,11 @@
+--- a/tryton/modules/sale_supply_drop_shipment/sale.py	2020-02-07 14:35:27.890115027 +0100
++++ b/tryton/modules/sale_supply_drop_shipment/sale.py	2020-02-07 14:36:59.910004249 +0100
+@@ -142,7 +142,7 @@
+                 product_supplier = request.find_best_product_supplier(
+                     self.product, self.shipping_date,
+                     **self._get_purchase_request_product_supplier_pattern())
+-                if product_supplier.drop_shipment:
++                if product_supplier and product_supplier.drop_shipment:
+                     request.customer = (
+                         self.sale.shipment_party or self.sale.party)
+                     request.delivery_address = self.sale.shipment_address
