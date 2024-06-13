@@ -107,3 +107,5 @@ issue12744.diff # [product_image] Preserve image ratio of product
 issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
 
 b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
+
+issue12323.diff # [purchase_request] Add Quotation and Received Action

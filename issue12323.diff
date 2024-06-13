@@ -1,0 +1,75 @@
+diff --git a/tryton/modules/purchase_request/purchase_request.xml b/tryton/modules/purchase_request/purchase_request.xml
+--- a/tryton/modules/purchase_request/purchase_request.xml
++++ b/tryton/modules/purchase_request/purchase_request.xml
+@@ -47,7 +47,7 @@
+         <record model="ir.action.act_window.domain"
+             id="act_purchase_request_form_domain_exception">
+             <field name="name">Exception</field>
+-            <field name="sequence" eval="20"/>
++            <field name="sequence" eval="40"/>
+             <field name="domain" eval="[('state', '=', 'exception')]" 
+                 pyson="1"/>
+             <field name="count" eval="True"/>
+diff --git a/tryton/modules/purchase_request_quotation/purchase_request.xml b/tryton/modules/purchase_request_quotation/purchase_request.xml
+--- a/tryton/modules/purchase_request_quotation/purchase_request.xml
++++ b/tryton/modules/purchase_request_quotation/purchase_request.xml
+@@ -22,5 +22,19 @@
+             <field name="group" ref="purchase_request.group_purchase_request"/>
+         </record>
+ 
++        <record model="ir.action.act_window.domain" id="act_purchase_request_form_domain_quotation">
++            <field name="name">Quotation</field>
++            <field name="sequence" eval="20"/>
++            <field name="domain" eval="[('state', '=', 'quotation')]" pyson="1"/>
++            <field name="count" eval="True"/>
++            <field name="act_window" ref="purchase_request.act_purchase_request_form"/>
++        </record>
++        <record model="ir.action.act_window.domain" id="act_purchase_request_form_domain_received">
++            <field name="name">Received</field>
++            <field name="sequence" eval="30"/>
++            <field name="domain" eval="[('state', '=', 'received')]" pyson="1"/>
++            <field name="count" eval="True"/>
++            <field name="act_window" ref="purchase_request.act_purchase_request_form"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/purchase_request_quotation/locale/ca.po b/tryton/modules/purchase_request_quotation/locale/ca.po
+--- a/tryton/modules/purchase_request_quotation/locale/ca.po
++++ b/tryton/modules/purchase_request_quotation/locale/ca.po
+@@ -186,6 +186,16 @@
+ msgid "Sent"
+ msgstr "Enviada"
+ 
++msgctxt ""
++"model:ir.action.act_window.domain,name:act_purchase_request_form_domain_quotation"
++msgid "Quotation"
++msgstr "Pressupost"
++
++msgctxt ""
++"model:ir.action.act_window.domain,name:act_purchase_request_form_domain_received"
++msgid "Received"
++msgstr "Rebut"
++
+ msgctxt "model:ir.message,text:msg_previous_quotation"
+ msgid "A quotation was already made for request \"%(request)s\"."
+ msgstr "Ja s'ha realitzat un pressupost per la sol·licitud \"%(request)s\"."
+diff --git a/tryton/modules/purchase_request_quotation/locale/es.po b/tryton/modules/purchase_request_quotation/locale/es.po
+--- a/tryton/modules/purchase_request_quotation/locale/es.po
++++ b/tryton/modules/purchase_request_quotation/locale/es.po
+@@ -186,6 +186,16 @@
+ msgid "Sent"
+ msgstr "Enviada"
+ 
++msgctxt ""
++"model:ir.action.act_window.domain,name:act_purchase_request_form_domain_quotation"
++msgid "Quotation"
++msgstr "Presupuesto"
++
++msgctxt ""
++"model:ir.action.act_window.domain,name:act_purchase_request_form_domain_received"
++msgid "Received"
++msgstr "Recibido"
++
+ msgctxt "model:ir.message,text:msg_previous_quotation"
+ msgid "A quotation was already made for request \"%(request)s\"."
+ msgstr "Ya se ha realizado una presupuesto para la solicitud \"%(request)s\"."
