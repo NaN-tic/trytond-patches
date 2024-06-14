@@ -43,3 +43,5 @@ issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar v
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
 
 # merge_requests1492.diff # [trytond] Improve import data experience # #167075 waiting to commit from core
+
+issue13300.diff # [sao] Calendar view based on Date field crashes with ValueError: Date field can not have time
