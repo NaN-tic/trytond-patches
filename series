@@ -34,8 +34,6 @@ b2ck7834.diff # [trytond] Crash due to missing graft in 7.2 branch
 
 issue13031.diff # [account_payment] Forbid payment of zero amount
 
-issue13268.diff # [account] Posting moves on reconciled account with and without party fails
-
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
 issue13280.diff # [sao] Update completion does not return promise
