@@ -46,3 +46,4 @@ b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product suppli
 issue13182.diff # [sao] Bind callback to the attachment window when dropping file as attachment
 
 issue13300.diff # [sao] Calendar view based on Date field crashes with ValueError: Date field can not have time
+issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
