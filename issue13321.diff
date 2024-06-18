@@ -1,0 +1,31 @@
+diff --git a/tryton/sao/src/window.js b/tryton/sao/src/window.js
+index ac0a44eeea..a20ca50696 100644
+--- a/tryton/sao/src/window.js
++++ b/tryton/sao/src/window.js
+@@ -179,7 +179,7 @@
+                 }
+             });
+
+-            var readonly = this.screen.readonly || this.screen.group.readonly;
++            var readonly = this.screen.group.readonly;
+
+             this.but_ok = null;
+             this.but_new = null;
+@@ -395,7 +395,7 @@
+             var name = '_';
+             var access = Sao.common.MODELACCESS.get(this.screen.model_name);
+             var deletable = this.screen.deletable;
+-            var readonly = this.screen.readonly || this.screen.group.readonly;
++            var readonly = this.screen.group.readonly;
+             if (position >= 1) {
+                 name = position;
+                 if (this.domain) {
+@@ -485,7 +485,7 @@
+         response: function(response_id) {
+             var result;
+             this.screen.current_view.set_value();
+-            var readonly = this.screen.readonly || this.screen.group.readonly;
++            var readonly = this.screen.group.readonly;
+             if (~['RESPONSE_OK', 'RESPONSE_ACCEPT'].indexOf(response_id) &&
+                     !readonly &&
+                     this.screen.current_record) {
