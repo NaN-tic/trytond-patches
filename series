@@ -112,3 +112,5 @@ issue12323.diff # [purchase_request] Add Quotation and Received Action
 
 issue13182.diff # [sao] Bind callback to the attachment window when dropping file as attachment
 issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
+
+merge_request1548.diff # [trytond] Improve stock quantity computation
