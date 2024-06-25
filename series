@@ -47,3 +47,5 @@ issue13182.diff # [sao] Bind callback to the attachment window when dropping fil
 
 issue13300.diff # [sao] Calendar view based on Date field crashes with ValueError: Date field can not have time
 issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
+
+merge_request1548.diff # [trytond] Improve stock quantity computation
