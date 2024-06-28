@@ -1,0 +1,24 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
+index 3c891d48f3..e5ef92947c 100644
+--- a/tryton/trytond/trytond/backend/postgresql/database.py
++++ b/tryton/trytond/trytond/backend/postgresql/database.py
+@@ -676,13 +676,12 @@ class Database(DatabaseInterface):
+ 
+     def sequence_exist(self, connection, name):
+         cursor = connection.cursor()
+-        for schema in self.search_path:
+-            cursor.execute('SELECT 1 '
+-                'FROM information_schema.sequences '
+-                'WHERE sequence_name = %s AND sequence_schema = %s',
+-                (name, schema))
+-            if cursor.rowcount:
+-                return True
++        cursor.execute('SELECT 1 '
++            'FROM pg_sequences '
++            'WHERE sequencename = %s',
++            (name,))
++        if cursor.rowcount:
++            return True
+         return False
+ 
+     def sequence_create(
