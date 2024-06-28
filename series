@@ -49,3 +49,5 @@ issue13300.diff # [sao] Calendar view based on Date field crashes with ValueErro
 issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
 
 merge_request1548.diff # [trytond] Improve stock quantity computation
+
+issue13320.diff # [sao] Set 100% width to input-group of form-text and form-richtext
