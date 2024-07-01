@@ -32,10 +32,10 @@ index 1be9a38bdd..102cf3e0fa 100644
          if not self.effective_date and self.production_input:
              self.effective_date = self.production_input.effective_start_date
 diff --git a/tryton/modules/stock_supply_production/stock.py b/tryton/modules/stock_supply_production/stock.py
-index b8c02da385..21c8760c42 100644
+index ba395ced12..212bbebdee 100644
 --- a/tryton/modules/stock_supply_production/stock.py
 +++ b/tryton/modules/stock_supply_production/stock.py
-@@ -82,6 +82,10 @@ class StockSupply(metaclass=PoolMeta):
+@@ -84,6 +84,10 @@ class StockSupply(metaclass=PoolMeta):
                      ('to_location.type', '=', 'storage'),
                      ('state', '=', 'draft'),
                      ('planned_date', '<', today),
@@ -43,6 +43,7 @@ index b8c02da385..21c8760c42 100644
 +                            ('state', '=', 'request'),
 +                            ('origin', 'like', 'stock.order_point,%'),
 +                            ]),
-                     ], order=[]):
+                     ], order=[])
+         if moves:
              key = '%s@%s' % (self.__name__, today)
-             if Warning.check(key):
+

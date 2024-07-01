@@ -36,16 +36,10 @@ issue13031.diff # [account_payment] Forbid payment of zero amount
 
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
-issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
 
 # merge_requests1492.diff # [trytond] Improve import data experience # #167075 waiting to commit from core
 
 b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
-
-issue13182.diff # [sao] Bind callback to the attachment window when dropping file as attachment
-
-issue13300.diff # [sao] Calendar view based on Date field crashes with ValueError: Date field can not have time
-issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
 
 merge_request1548.diff # [trytond] Improve stock quantity computation
