@@ -7,7 +7,7 @@ index daf8714912..ab6918aebf 100644
          pool = Pool()
          Company = pool.get('company.company')
 -        if self.carrier_cost_method == 'product':
-+        if self.carrier_cost_method == 'product' and self.carrier_product._context.get('company') is not None):
++        if self.carrier_cost_method == 'product' and self.carrier_product._context.get('company') is not None:
              list_price = self.carrier_product.list_price_used
              if list_price is not None:
                  company = Company(self.carrier_product._context['company'])
@@ -16,7 +16,7 @@ index daf8714912..ab6918aebf 100644
          pool = Pool()
          Company = pool.get('company.company')
 -        if self.carrier_cost_method == 'product':
-+        if self.carrier_cost_method == 'product' and self.carrier_product._context.get('company') is not None):
++        if self.carrier_cost_method == 'product' and self.carrier_product._context.get('company') is not None:
              cost_price = self.carrier_product.cost_price
              if cost_price is not None:
                  company = Company(self.carrier_product._context['company'])
