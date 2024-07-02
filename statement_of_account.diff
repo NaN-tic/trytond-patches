@@ -1,8 +1,8 @@
 diff --git a/tryton/modules/account/account.py b/tryton/modules/account/account.py
-index 11225ae174..b5f981085f 100644
+index b1168b8f6a..2960d84541 100644
 --- a/tryton/modules/account/account.py
 +++ b/tryton/modules/account/account.py
-@@ -2123,7 +2123,7 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2141,7 +2141,7 @@ class GeneralLedgerAccountContext(ModelView):
      'General Ledger Account Context'
      __name__ = 'account.general_ledger.account.context'
      fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
@@ -11,7 +11,7 @@ index 11225ae174..b5f981085f 100644
          domain=[
              ('company', '=', Eval('company')),
              ],
-@@ -2134,7 +2134,8 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2152,7 +2152,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '<=', (Eval('end_period'), 'start_date')),
              ],
          states={
@@ -21,7 +21,7 @@ index 11225ae174..b5f981085f 100644
              })
      end_period = fields.Many2One('account.period', 'End Period',
          domain=[
-@@ -2142,7 +2143,8 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2160,7 +2161,8 @@ class GeneralLedgerAccountContext(ModelView):
              ('start_date', '>=', (Eval('start_period'), 'start_date'))
              ],
          states={
@@ -31,7 +31,30 @@ index 11225ae174..b5f981085f 100644
              })
      from_date = fields.Date("From Date",
          domain=[
-@@ -2378,7 +2380,7 @@ class GeneralLedgerLine(DescriptionOriginMixin, ModelSQL, ModelView):
+@@ -2205,13 +2207,6 @@ class GeneralLedgerAccountContext(ModelView):
+         elif period_id is not None and period_id >= 0:
+             period = Period(period_id)
+             return period.fiscalyear.id
+-        else:
+-            try:
+-                fiscalyear = FiscalYear.find(
+-                    context.get('company'), test_state=False)
+-            except FiscalYearNotFoundError:
+-                return None
+-            return fiscalyear.id
+
+     @classmethod
+     def default_start_period(cls):
+@@ -2248,7 +2243,7 @@ class GeneralLedgerAccountContext(ModelView):
+         if not self.company:
+             self.fiscalyear = None
+             self.on_change_fiscalyear()
+-        elif not self.fiscalyear or self.fiscalyear.company != self.company:
++        elif self.fiscalyear and self.fiscalyear.company != self.company:
+             try:
+                 self.fiscalyear = FiscalYear.find(
+                     self.company, test_state=False)
+@@ -2405,7 +2400,7 @@ class GeneralLedgerLine(DescriptionOriginMixin, ModelSQL, ModelView):
      def __setup__(cls):
          super(GeneralLedgerLine, cls).__setup__()
          cls.__access__.add('account')
