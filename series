@@ -45,3 +45,5 @@ b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product suppli
 merge_request1548.diff # [trytond] Improve stock quantity computation
 
 issue13364.diff # [carrier] Do not compute carrier price without a company in the context
+
+issue13363.diff # [sao] Test if main_menu_screen is filled before using it when destroying wizard dialog
