@@ -43,3 +43,5 @@ merge_request1496.diff # [sao] Test if main menu screen is not empty before usin
 b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
 
 merge_request1548.diff # [trytond] Improve stock quantity computation
+
+issue13364.diff # [carrier] Do not compute carrier price without a company in the context
