@@ -1,8 +1,37 @@
 diff --git a/tryton/modules/account/account.py b/tryton/modules/account/account.py
-index afc1e93b06..f72314f1e2 100644
+index b1168b8f6a..2960d84541 100644
 --- a/tryton/modules/account/account.py
 +++ b/tryton/modules/account/account.py
-@@ -2205,13 +2205,6 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2141,7 +2141,7 @@ class GeneralLedgerAccountContext(ModelView):
+     'General Ledger Account Context'
+     __name__ = 'account.general_ledger.account.context'
+     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+-        required=True,
++        required=False,
+         domain=[
+             ('company', '=', Eval('company')),
+             ],
+@@ -2152,7 +2152,8 @@ class GeneralLedgerAccountContext(ModelView):
+             ('start_date', '<=', (Eval('end_period'), 'start_date')),
+             ],
+         states={
+-            'invisible': Eval('from_date', False) | Eval('to_date', False),
++            'invisible': (Eval('from_date', False) | Eval('to_date', False)
++                | ~Eval('fiscalyear', False))
+             })
+     end_period = fields.Many2One('account.period', 'End Period',
+         domain=[
+@@ -2160,7 +2161,8 @@ class GeneralLedgerAccountContext(ModelView):
+             ('start_date', '>=', (Eval('start_period'), 'start_date'))
+             ],
+         states={
+-            'invisible': Eval('from_date', False) | Eval('to_date', False),
++            'invisible': (Eval('from_date', False) | Eval('to_date', False)
++                | ~Eval('fiscalyear', False))
+             })
+     from_date = fields.Date("From Date",
+         domain=[
+@@ -2205,13 +2207,6 @@ class GeneralLedgerAccountContext(ModelView):
          elif period_id is not None and period_id >= 0:
              period = Period(period_id)
              return period.fiscalyear.id
@@ -16,7 +45,7 @@ index afc1e93b06..f72314f1e2 100644
 
      @classmethod
      def default_start_period(cls):
-@@ -2248,7 +2241,7 @@ class GeneralLedgerAccountContext(ModelView):
+@@ -2248,7 +2243,7 @@ class GeneralLedgerAccountContext(ModelView):
          if not self.company:
              self.fiscalyear = None
              self.on_change_fiscalyear()
@@ -25,32 +54,12 @@ index afc1e93b06..f72314f1e2 100644
              try:
                  self.fiscalyear = FiscalYear.find(
                      self.company, test_state=False)
-@@ -2679,7 +2672,7 @@ class IncomeStatementContext(ModelView):
-     'Income Statement Context'
-     __name__ = 'account.income_statement.context'
-     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
--        required=True,
-+        required=False,
-         domain=[
-             ('company', '=', Eval('company')),
-             ])
-@@ -2689,7 +2682,8 @@ class IncomeStatementContext(ModelView):
-             ('start_date', '<=', (Eval('end_period'), 'start_date'))
-             ],
-         states={
--            'invisible': Eval('from_date', False) | Eval('to_date', False),
-+            'invisible': (Eval('from_date', False) | Eval('to_date', False)
-+                | ~Eval('fiscalyear', False))
-             })
-     end_period = fields.Many2One('account.period', 'End Period',
-         domain=[
-@@ -2697,7 +2691,8 @@ class IncomeStatementContext(ModelView):
-             ('start_date', '>=', (Eval('start_period'), 'start_date')),
-             ],
-         states={
--            'invisible': Eval('from_date', False) | Eval('to_date', False),
-+            'invisible': (Eval('from_date', False) | Eval('to_date', False)
-+                | ~Eval('fiscalyear', False))
-             })
-     from_date = fields.Date("From Date",
-         domain=[
+@@ -2405,7 +2400,7 @@ class GeneralLedgerLine(DescriptionOriginMixin, ModelSQL, ModelView):
+     def __setup__(cls):
+         super(GeneralLedgerLine, cls).__setup__()
+         cls.__access__.add('account')
+-        cls._order.insert(0, ('date', 'ASC'))
++        cls._order = [('date', 'DESC'), ('id', 'DESC')]
+         cls.description_used.setter = None
+
+     @classmethod
