@@ -1,0 +1,107 @@
+diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
+index 765eba658b..3b72c73525 100644
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
+@@ -331,24 +331,27 @@ class Move(Workflow, ModelSQL, ModelView):
+         cls._sql_indexes.update({
+                 Index(
+                     t,
++                    (t.company, Index.Equality()),
+                     (t.from_location, Index.Range()),
+-                    (t.product, Index.Range()),
+                     (Coalesce(
+                             t.effective_date,
+                             t.planned_date,
+                             datetime.date.max),
+-                        Index.Range())),
++                        Index.Range()),
++                    (t.product, Index.Range())),
+                 Index(
+                     t,
++                    (t.company, Index.Equality()),
+                     (t.to_location, Index.Range()),
+-                    (t.product, Index.Range()),
+                     (Coalesce(
+                             t.effective_date,
+                             t.planned_date,
+                             datetime.date.max),
+-                        Index.Range())),
++                        Index.Range()),
++                    (t.product, Index.Range())),
+                 Index(
+                     t,
++                    (t.company, Index.Equality()),
+                     (t.state, Index.Equality()),
+                     where=t.state.in_(['staging', 'draft', 'assigned'])),
+                 })
+@@ -1430,7 +1433,10 @@ class Move(Workflow, ModelSQL, ModelView):
+
+                 def state_date_clause():
+                     return (
+-                        Coalesce(move_date, datetime.date.max) > period.date)
++                        Coalesce(
++                            move.effective_date,
++                            move.planned_date,
++                            datetime.date.max) > period.date)
+                 state_date_clause_in &= state_date_clause()
+                 state_date_clause_out &= state_date_clause()
+
+@@ -1476,13 +1482,20 @@ class Move(Workflow, ModelSQL, ModelView):
+         # because we already know that there will be no duplicates.
+         move_keys_alias = [get_column(key, move).as_(key) for key in grouping]
+         move_keys = [get_column(key, move) for key in grouping]
++
++        if company:
++            company_clause = move.company == company.id
++        elif not Transaction().user:
++            company_clause = Literal(True)
++        else:
++            company_clause = Literal(False)
+         query = move.select(move.to_location.as_('location'),
+             Sum(move.internal_quantity).as_('quantity'),
+             *move_keys_alias,
+             where=state_date_clause_in
+             & where
+             & move.to_location.in_(location_query)
+-            & ((move.company == company.id) if company else Literal(True))
++            & company_clause
+             & dest_clause_from,
+             group_by=[move.to_location] + move_keys)
+         query = Union(query, move.select(move.from_location.as_('location'),
+@@ -1491,19 +1504,18 @@ class Move(Workflow, ModelSQL, ModelView):
+                 where=state_date_clause_out
+                 & where
+                 & move.from_location.in_(location_query)
+-                & ((move.company == company.id) if company else Literal(True))
++                & company_clause
+                 & dest_clause_to,
+                 group_by=[move.from_location] + move_keys),
+             all_=True)
+-        if PeriodCache:
++        if PeriodCache and period:
+             period_keys = [Column(period_cache, key).as_(key)
+                 for key in grouping]
+             query = Union(query, from_period.select(
+                     period_cache.location.as_('location'),
+                     period_cache.internal_quantity.as_('quantity'),
+                     *period_keys,
+-                    where=(period_cache.period
+-                        == (period.id if period else None))
++                    where=(period_cache.period == period.id)
+                     & where_period
+                     & period_cache.location.in_(location_query)
+                     & dest_clause_period),
+diff --git a/tryton/modules/stock/period.py b/tryton/modules/stock/period.py
+index 64d8603a72..76c77f59b0 100644
+--- a/tryton/modules/stock/period.py
++++ b/tryton/modules/stock/period.py
+@@ -190,7 +190,8 @@ class Cache(ModelSQL, ModelView):
+                 Index(
+                     t,
+                     (t.period, Index.Equality()),
+-                    (t.product, Index.Equality()),
++                    (t.location, Index.Range()),
++                    (t.product, Index.Range()),
+                     include=[t.internal_quantity]),
+                 Index(
+                     t,
