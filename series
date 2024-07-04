@@ -118,3 +118,5 @@ merge_request1548.diff # [trytond] Improve stock quantity computation
 issue13364.diff # [carrier] Do not compute carrier price without a company in the context
 
 issue13363.diff # [sao] Test if main_menu_screen is filled before using it when destroying wizard dialog
+
+issue12795.diff # [trytond] Unecessary order by Many2One order name

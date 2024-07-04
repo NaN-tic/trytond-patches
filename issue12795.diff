@@ -1,0 +1,55 @@
+diff --git a/tryton/trytond/trytond/model/fields/many2many.py b/tryton/trytond/trytond/model/fields/many2many.py
+index 901125acf9..1602bc43da 100644
+--- a/tryton/trytond/trytond/model/fields/many2many.py
++++ b/tryton/trytond/trytond/model/fields/many2many.py
+@@ -15,7 +15,6 @@ from .field import (
+     Field, context_validate, domain_method, domain_validate, get_eval_fields,
+     instanciate_values, instantiate_context, search_order_validate,
+     size_validate)
+-from .function import Function
+ 
+ 
+ class Many2Many(Field):
+@@ -141,9 +140,11 @@ class Many2Many(Field):
+         Relation = self.get_relation()
+         origin_field = Relation._fields[self.origin]
+ 
+-        if (not isinstance(origin_field, Function)
+-                or hasattr(Relation, 'order_' + self.field)):
+-            order = [(self.origin, None)]
++        if origin_field.sortable(Relation):
++            if origin_field._type == 'reference':
++                order = [(self.origin, None)]
++            else:
++                order = [(self.origin + '.id', None)]
+         else:
+             order = []
+         if self.order is None:
+
+diff --git a/tryton/trytond/trytond/model/fields/one2many.py b/tryton/trytond/trytond/model/fields/one2many.py
+index 0cd7b65926..d106db7da1 100644
+--- a/tryton/trytond/trytond/model/fields/one2many.py
++++ b/tryton/trytond/trytond/model/fields/one2many.py
+@@ -17,7 +17,6 @@ from .field import (
+     Field, context_validate, domain_method, domain_validate, get_eval_fields,
+     instanciate_values, instantiate_context, search_order_validate,
+     size_validate)
+-from .function import Function
+ 
+ _subquery_threshold = config.getint('database', 'subquery_threshold')
+ 
+@@ -147,9 +146,11 @@ class One2Many(Field):
+         for i in ids:
+             res[i] = []
+ 
+-        if (not isinstance(field, Function)
+-                or hasattr(Target, 'order_' + self.field)):
+-            order = [(self.field, None)]
++        if field.sortable(Target):
++            if field._type == 'reference':
++                order = [(self.field, None)]
++            else:
++                order = [(self.field + '.id', None)]
+         else:
+             order = []
+         if self.order:
