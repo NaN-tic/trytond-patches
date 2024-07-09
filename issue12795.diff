@@ -53,3 +53,21 @@ index 0cd7b65926..d106db7da1 100644
          else:
              order = []
          if self.order:
+
+diff --git a/tryton/trytond/trytond/model/fields/field.py b/tryton/trytond/trytond/model/fields/field.py
+index 104c673a71..f86703f2eb 100644
+--- a/tryton/trytond/trytond/model/fields/field.py
++++ b/tryton/trytond/trytond/model/fields/field.py
+@@ -458,9 +458,10 @@ class Field(object):
+ 
+     def convert_order(self, name, tables, Model):
+         "Return a SQL expression to order"
+-        assert name == self.name
++        fname, _, oexpr = name.partition('.')
++        assert fname == self.name
+         table, _ = tables[None]
+-        method = getattr(Model, 'order_%s' % name, None)
++        method = getattr(Model, 'order_%s' % fname, None)
+         if method:
+             return method(tables)
+         else:
