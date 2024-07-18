@@ -1,0 +1,24 @@
+diff --git a/tryton/trytond/trytond/modules/__init__.py b/tryton/trytond/trytond/modules/__init__.py
+index 6fb60e599e..1e71b891fd 100644
+--- a/tryton/trytond/trytond/modules/__init__.py
++++ b/tryton/trytond/trytond/modules/__init__.py
+@@ -233,10 +233,6 @@ def load_module_graph(graph, pool, update=None, lang=None, indexes=True):
+                             [[0, CurrentTimestamp(), module, 'activated'],
+                                 ]))
+                 module2state[module] = 'activated'
+-            elif not update and indexes:
+-                for model in classes['model']:
+-                    if hasattr(model, '_update_sql_indexes'):
+-                        models_with_indexes.add(model.__name__)
+ 
+         if not update:
+             pool.setup()
+@@ -274,8 +270,6 @@ def load_module_graph(graph, pool, update=None, lang=None, indexes=True):
+                     model._update_history_table()
+             transaction.commit()
+         elif indexes:
+-            # Release any lock
+-            transaction.commit()
+             with transaction.new_transaction(autocommit=True):
+                 create_indexes(concurrently=True)
+ 
