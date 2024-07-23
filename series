@@ -120,3 +120,5 @@ issue13364.diff # [carrier] Do not compute carrier price without a company in th
 issue13363.diff # [sao] Test if main_menu_screen is filled before using it when destroying wizard dialog
 
 issue12795.diff # [trytond] Unecessary order by Many2One order name
+
+account-move-reconcile-account-missing.diff # [account] Improve error management when reconciling
