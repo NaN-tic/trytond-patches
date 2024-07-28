@@ -45,3 +45,5 @@ b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product suppli
 merge_request1548.diff # [trytond] Improve stock quantity computation
 
 revert-issue13347.diff # [trytond] Revert patch created by issue13347 because it causes any trytond process (not only trytond-admin) to try to update indexes
+
+b2ck7889.diff # [product] Necessary rebrowse before sync_code()

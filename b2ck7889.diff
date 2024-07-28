@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/product/product.py b/modules/product/product.py
+index 20c9e58db1..ca82726dcb 100644
+--- a/tryton/modules/product/product.py
++++ b/tryton/modules/product/product.py
+@@ -261,7 +261,7 @@ class Template(
+         Product = pool.get('product.product')
+         super().write(*args)
+         templates = sum(args[0:None:2], [])
+-        products = sum((t.products for t in templates), ())
++        products = Product.search([('template', 'in', templates)])
+         Product.sync_code(products)
+ 
+     @classmethod
