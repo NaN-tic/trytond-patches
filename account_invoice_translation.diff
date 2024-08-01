@@ -1,0 +1,26 @@
+diff --git a/modules/account_invoice/locale/ca.po b/modules/account_invoice/locale/ca.po
+index 4671e6df84..8f0723ad5a 100644
+--- a/tryton/modules/account_invoice/locale/ca.po
++++ b/tryton/modules/account_invoice/locale/ca.po
+@@ -990,7 +994,7 @@ msgstr "Les factures \"%(invoices)s\" tenen una data de facturació en el futur.
+ msgctxt "model:ir.message,text:msg_invoice_default_taxes"
+ msgid "The invoice \"%(invoice)s\" does not have the default taxes for %(lines)s."
+ msgstr ""
+-"Les factures \"%(invoices)s\" no tenen els impostos per defecte per les "
++"Les factures \"%(invoice)s\" no tenen els impostos per defecte per les "
+ "línies %(lines)s."
+ 
+ msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
+diff --git a/modules/account_invoice/locale/es.po b/modules/account_invoice/locale/es.po
+index f2524f69d9..3c50015c1c 100644
+--- a/tryton/modules/account_invoice/locale/es.po
++++ b/tryton/modules/account_invoice/locale/es.po
+@@ -989,7 +993,7 @@ msgstr ""
+ msgctxt "model:ir.message,text:msg_invoice_default_taxes"
+ msgid "The invoice \"%(invoice)s\" does not have the default taxes for %(lines)s."
+ msgstr ""
+-"Las facturas \"%(invoices)s\" no tiene los impuestos por defecto para "
++"Las facturas \"%(invoice)s\" no tiene los impuestos por defecto para "
+ "%(lines)s."
+ 
+ msgctxt "model:ir.message,text:msg_invoice_delete_cancel"

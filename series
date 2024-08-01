@@ -47,3 +47,5 @@ merge_request1548.diff # [trytond] Improve stock quantity computation
 revert-issue13347.diff # [trytond] Revert patch created by issue13347 because it causes any trytond process (not only trytond-admin) to try to update indexes
 
 b2ck7889.diff # [product] Necessary rebrowse before sync_code()
+
+account_invoice_translation.diff # [account_invoice]
