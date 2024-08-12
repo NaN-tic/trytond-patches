@@ -122,3 +122,5 @@ issue13363.diff # [sao] Test if main_menu_screen is filled before using it when 
 issue12795.diff # [trytond] Unecessary order by Many2One order name
 
 account-move-reconcile-account-missing.diff # [account] Improve error management when reconciling
+
+issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
