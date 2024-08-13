@@ -1,0 +1,320 @@
+diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9jay9tb3ZlLnB5..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9jay9tb3ZlLnB5 100644
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
+@@ -282,6 +282,11 @@
+             },
+         help="The company the stock move is associated with.")
+     unit_price = fields.Numeric('Unit Price', digits=price_digits,
++        domain=[
++            If(~Eval('unit_price_required'),
++                ('unit_price', '=', None),
++                ()),
++            ],
+         states={
+             'invisible': ~Eval('unit_price_required'),
+             'required': Bool(Eval('unit_price_required')),
+@@ -301,6 +306,11 @@
+             })
+     cost_price = fields.Numeric(
+         "Cost Price", digits=price_digits, readonly=True,
++        domain=[
++            If(~Eval('cost_price_required'),
++                ('cost_price', '=', None),
++                ()),
++            ],
+         states={
+             'invisible': ~Eval('cost_price_required'),
+             'required': (
+@@ -309,4 +319,9 @@
+             })
+     product_cost_price = fields.Numeric(
+         "Product Cost Price", digits=price_digits, readonly=True,
++        domain=[
++            If(~Eval('cost_price_required'),
++                ('product_cost_price', '=', None),
++                ()),
++            ],
+         states={
+@@ -312,6 +327,6 @@
+         states={
+-            'invisible': ~Eval('cost_price'),
++            'invisible': ~Eval('cost_price_required'),
+             },
+         help="The cost price of the product "
+         "when different from the cost price of the move.")
+     currency = fields.Many2One('currency.currency', 'Currency',
+@@ -314,7 +329,12 @@
+             },
+         help="The cost price of the product "
+         "when different from the cost price of the move.")
+     currency = fields.Many2One('currency.currency', 'Currency',
++        domain=[
++            If(~Eval('unit_price_required'),
++                ('id', '=', None),
++                ()),
++            ],
+         states={
+             'invisible': ~Eval('unit_price_required'),
+             'required': Bool(Eval('unit_price_required')),
+diff --git a/tryton/modules/stock/tests/scenario_stock_reporting.rst b/tryton/modules/stock/tests/scenario_stock_reporting.rst
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9jay90ZXN0cy9zY2VuYXJpb19zdG9ja19yZXBvcnRpbmcucnN0..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9jay90ZXN0cy9zY2VuYXJpb19zdG9ja19yZXBvcnRpbmcucnN0 100644
+--- a/tryton/modules/stock/tests/scenario_stock_reporting.rst
++++ b/tryton/modules/stock/tests/scenario_stock_reporting.rst
+@@ -147,8 +147,6 @@
+     >>> move.from_location = storage_loc
+     >>> move.to_location = lost_loc
+     >>> move.company = company
+-    >>> move.unit_price = Decimal('1')
+-    >>> move.currency = company.currency
+     >>> shipment_internal.save()
+     >>> shipment_internal.click('wait')
+     >>> shipment_internal.click('assign_try')
+diff --git a/modules/stock/tests/scenario_stock_shipment_internal.rst b/modules/stock/tests/scenario_stock_shipment_internal.rst
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9jay90ZXN0cy9zY2VuYXJpb19zdG9ja19zaGlwbWVudF9pbnRlcm5hbC5yc3Q=..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9jay90ZXN0cy9zY2VuYXJpb19zdG9ja19zaGlwbWVudF9pbnRlcm5hbC5yc3Q= 100644
+--- a/tryton/modules/stock/tests/scenario_stock_shipment_internal.rst
++++ b/tryton/modules/stock/tests/scenario_stock_shipment_internal.rst
+@@ -81,7 +81,6 @@
+     >>> move.quantity = 1
+     >>> move.from_location = internal_loc
+     >>> move.to_location = storage_loc
+-    >>> move.currency = company.currency
+     >>> shipment.save()
+     >>> shipment.number
+     >>> shipment.assigned_by
+@@ -114,7 +113,6 @@
+     >>> move.quantity = 2
+     >>> move.from_location = lost_found_loc
+     >>> move.to_location = internal_loc
+-    >>> move.currency = company.currency
+     >>> lost_found_shipment.click('wait')
+     >>> lost_found_shipment.click('assign_try')
+     >>> lost_found_shipment.state
+diff --git a/tryton/modules/stock/tests/test_module.py b/tryton/modules/stock/tests/test_module.py
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9jay90ZXN0cy90ZXN0X21vZHVsZS5weQ==..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9jay90ZXN0cy90ZXN0X21vZHVsZS5weQ== 100644
+--- a/tryton/modules/stock/tests/test_module.py
++++ b/tryton/modules/stock/tests/test_module.py
+@@ -1150,8 +1150,6 @@
+                         'from_location': from_.id,
+                         'to_location': to.id,
+                         'company': company.id,
+-                        'unit_price': Decimal(1),
+-                        'currency': company.currency.id,
+                         } for from_, to in [
+                         (storage, storage2),
+                         (storage2, storage3)]])
+@@ -1204,8 +1202,6 @@
+                         'from_location': storage.id,
+                         'to_location': child.id,
+                         'company': company.id,
+-                        'unit_price': Decimal(1),
+-                        'currency': company.currency.id,
+                         }])
+ 
+             self.assertFalse(Move.assign_try([move]))
+diff --git a/tryton/modules/stock_consignment/stock.py b/tryton/modules/stock_consignment/stock.py
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9ja19jb25zaWdubWVudC9zdG9jay5weQ==..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9ja19jb25zaWdubWVudC9zdG9jay5weQ== 100644
+--- a/tryton/modules/stock_consignment/stock.py
++++ b/tryton/modules/stock_consignment/stock.py
+@@ -56,29 +56,33 @@
+             ]
+ 
+ 
+-def set_origin_consignment(func):
+-    @wraps(func)
+-    def wrapper(cls, moves):
+-        pool = Pool()
+-        InvoiceLine = pool.get('account.invoice.line')
+-        to_save = []
+-        move2line = {}
+-        for move in moves:
+-            if not move.consignment_invoice_lines:
+-                lines = move.get_invoice_lines_consignment()
+-                if lines:
+-                    to_save.extend(lines)
+-                    move2line[move] = lines[0]
+-        if to_save:
+-            InvoiceLine.save(to_save)
+-            for move, line in move2line.items():
+-                if not move.origin:
+-                    move.origin = line
+-                if move.unit_price is None:
+-                    move.unit_price = line.unit_price
+-                    move.currency = line.currency
+-            cls.save(list(move2line.keys()))
+-        return func(cls, moves)
+-    return wrapper
++def set_origin_consignment(state):
++    def decorator(func):
++        @wraps(func)
++        def wrapper(cls, moves):
++            pool = Pool()
++            InvoiceLine = pool.get('account.invoice.line')
++            to_save = []
++            move2line = {}
++            for move in moves:
++                if not move.consignment_invoice_lines:
++                    lines = move.get_invoice_lines_consignment()
++                    if lines:
++                        to_save.extend(lines)
++                        move2line[move] = lines[0]
++            if to_save:
++                InvoiceLine.save(to_save)
++                for move, line in move2line.items():
++                    move.state = state
++                    if not move.origin:
++                        move.origin = line
++                    if (move.on_change_with_unit_price_required()
++                            and move.unit_price is None):
++                        move.unit_price = line.unit_price
++                        move.currency = line.currency
++                cls.save(list(move2line.keys()))
++            return func(cls, moves)
++        return wrapper
++    return decorator
+ 
+ 
+@@ -83,22 +87,31 @@
+ 
+ 
+-def unset_origin_consignment(func):
+-    @wraps(func)
+-    def wrapper(cls, moves):
+-        pool = Pool()
+-        InvoiceLine = pool.get('account.invoice.line')
+-        lines, to_save = [], []
+-        for move in moves:
+-            for invoice_line in move.consignment_invoice_lines:
+-                lines.append(invoice_line)
+-                if move.origin == move:
+-                    move.origin = None
+-                to_save.append(move)
+-        if lines:
+-            InvoiceLine.delete(lines)
+-            cls.save(to_save)
+-        return func(cls, moves)
+-    return wrapper
++def unset_origin_consignment(state):
++    def decorator(func):
++        @wraps(func)
++        def wrapper(cls, moves):
++            pool = Pool()
++            InvoiceLine = pool.get('account.invoice.line')
++            lines, to_save = [], set()
++            for move in moves:
++                move.state = state
++                for invoice_line in move.consignment_invoice_lines:
++                    lines.append(invoice_line)
++                    if move.origin == move:
++                        move.origin = None
++                    to_save.add(move)
++                if (not move.on_change_with_unit_price_required()
++                        and (move.unit_price or move.currency)):
++                    move.unit_price = None
++                    move.currency = None
++                    to_save.add(move)
++            if lines:
++                InvoiceLine.delete(lines)
++            if to_save:
++                cls.save(list(to_save))
++            return func(cls, moves)
++        return wrapper
++    return decorator
+ 
+ 
+ class Move(metaclass=PoolMeta):
+@@ -231,10 +244,10 @@
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('draft')
+-    @unset_origin_consignment
++    @unset_origin_consignment('draft')
+     def draft(cls, moves):
+         super(Move, cls).draft(moves)
+ 
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('assigned')
+@@ -235,13 +248,13 @@
+     def draft(cls, moves):
+         super(Move, cls).draft(moves)
+ 
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('assigned')
+-    @set_origin_consignment
++    @set_origin_consignment('assigned')
+     def assign(cls, moves):
+         super(Move, cls).assign(moves)
+ 
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('done')
+@@ -242,13 +255,13 @@
+     def assign(cls, moves):
+         super(Move, cls).assign(moves)
+ 
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('done')
+-    @set_origin_consignment
++    @set_origin_consignment('done')
+     def do(cls, moves):
+         super(Move, cls).do(moves)
+ 
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('cancelled')
+@@ -252,7 +252,7 @@ class Move(metaclass=PoolMeta):
+     @classmethod
+     @ModelView.button
+     @Workflow.transition('cancelled')
+-    @unset_origin_consignment
++    @unset_origin_consignment('cancelled')
+     def cancel(cls, moves):
+         super(Move, cls).cancel(moves)
+ 
+@@ -260,6 +273,30 @@
+     def copy(cls, moves, default=None):
+         pool = Pool()
+         InvoiceLine = pool.get('account.invoice.line')
++
++        default = default.copy() if default is not None else {}
++        consigment_moves = {
++            m.id for m in moves if isinstance(m.origin, InvoiceLine)}
++
++        def consigment_moves_cleared(name, default):
++            default = default.copy()
++
++            def default_value(data):
++                if data['id'] in consigment_moves:
++                    return None
++                elif name in default:
++                    if callable(default[name]):
++                        return default[name](data)
++                    else:
++                        return default[name]
++                else:
++                    return data.get(name)
++            return default_value
++
++        default['origin'] = consigment_moves_cleared('origin', default)
++        default['unit_price'] = consigment_moves_cleared('unit_price', default)
++        default['currency'] = consigment_moves_cleared('currency', default)
++
+         moves = super(Move, cls).copy(moves, default=default)
+         if not Transaction().context.get('_stock_move_split'):
+             to_save = []
+diff --git a/tryton/modules/stock_lot_sled/tests/test_module.py b/tryton/modules/stock_lot_sled/tests/test_module.py
+index fdda32ed9d49ce4f5a3d257d7a1d36b15eb91da3_bW9kdWxlcy9zdG9ja19sb3Rfc2xlZC90ZXN0cy90ZXN0X21vZHVsZS5weQ==..a40def60790ea28402bc643334bd39fe7cd43fba_bW9kdWxlcy9zdG9ja19sb3Rfc2xlZC90ZXN0cy90ZXN0X21vZHVsZS5weQ== 100644
+--- a/tryton/modules/stock_lot_sled/tests/test_module.py
++++ b/tryton/modules/stock_lot_sled/tests/test_module.py
+@@ -40,7 +40,7 @@
+         product.save()
+ 
+         supplier, = Location.search([('code', '=', 'SUP')])
+-        storage, = Location.search([('code', '=', 'CUS')])
++        storage, = Location.search([('code', '=', 'STO')])
+ 
+         company = create_company()
+         with set_company(company):

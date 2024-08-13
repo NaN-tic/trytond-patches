@@ -51,3 +51,5 @@ b2ck7889.diff # [product] Necessary rebrowse before sync_code()
 account_invoice_translation.diff # [account_invoice]
 
 issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
+
+issue13382.diff # [stock] Enforce empty price on stock move when not required
