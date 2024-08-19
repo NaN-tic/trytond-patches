@@ -39,6 +39,7 @@ issue13269.diff # [stock_supply_production] Ignore production request when searc
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
 issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
 issue13399.diff # [sao] URL button toggle visibility between display calls
+issue3370.diff # [sao] Set popup property to false when opening Many2One in a new tab
 
 # merge_requests1492.diff # [trytond] Improve import data experience # #167075 waiting to commit from core
 
