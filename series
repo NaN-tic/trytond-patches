@@ -37,6 +37,8 @@ issue13031.diff # [account_payment] Forbid payment of zero amount
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
+issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
+issue13399.diff # [sao] URL button toggle visibility between display calls
 
 # merge_requests1492.diff # [trytond] Improve import data experience # #167075 waiting to commit from core
 
@@ -49,7 +51,5 @@ revert-issue13347.diff # [trytond] Revert patch created by issue13347 because it
 b2ck7889.diff # [product] Necessary rebrowse before sync_code()
 
 account_invoice_translation.diff # [account_invoice]
-
-issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
 
 issue13382.diff # [stock] Enforce empty price on stock move when not required
