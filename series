@@ -83,6 +83,14 @@ issue13098.diff # [account] Not round taxes when tax percentage of 0,0% or fixed
 issue12315.diff # [stock_product_location] Make production entry move from_location configurable
 
 issue13179.diff # [sao] Fix call to warn method of logger
+#issue13287.diff # [sao] Button/icons and entry trigger events on form without record
+issue13280.diff # [sao] Update completion does not return promise
+issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
+issue13182.diff # [sao] Bind callback to the attachment window when dropping file as attachment
+issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
+issue13363.diff # [sao] Test if main_menu_screen is filled before using it when destroying wizard dialog
+issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
+issue13414.diff # [sao] Consider as stringable domain with empty clause
 
 issue13197.diff # [trytond] FIX Prevent storing Decimal with too much trailing zero (eventual patch)
 
@@ -94,35 +102,22 @@ issue13269.diff # [stock_supply_production] Ignore production request when searc
 
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
 
-#issue13287.diff # [sao] Button/icons and entry trigger events on form without record
-
-issue13280.diff # [sao] Update completion does not return promise
-
 merge_requests1492.diff # [trytond] Improve import data experience
 
 issue13297.diff # [sale_opportunity] Missing taxes when create sale from opportunity
 
 issue12744.diff # [product_image] Preserve image ratio of product
 
-issue13302.diff # [sao] Exclude records without dtstart or dtend from calendar view
-
 b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
 
 issue12323.diff # [purchase_request] Add Quotation and Received Action
-
-issue13182.diff # [sao] Bind callback to the attachment window when dropping file as attachment
-issue13321.diff # [sao] Window Form does not save screen on close if any deleted records is selected
 
 merge_request1548.diff # [trytond] Improve stock quantity computation
 
 issue13364.diff # [carrier] Do not compute carrier price without a company in the context
 
-issue13363.diff # [sao] Test if main_menu_screen is filled before using it when destroying wizard dialog
-
 issue12795.diff # [trytond] Unecessary order by Many2One order name
 
 account-move-reconcile-account-missing.diff # [account] Improve error management when reconciling
-
-issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
 
 issue13425.diff # [account] Prevent reconcile lines using write-off with the same account
