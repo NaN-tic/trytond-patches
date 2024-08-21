@@ -54,3 +54,5 @@ b2ck7889.diff # [product] Necessary rebrowse before sync_code()
 account_invoice_translation.diff # [account_invoice]
 
 issue13382.diff # [stock] Enforce empty price on stock move when not required
+
+issue13425.diff # [account] Prevent reconcile lines using write-off with the same account

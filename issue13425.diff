@@ -1,0 +1,31 @@
+diff --git a/tryton/modules/account/message.xml b/tryton/modules/account/message.xml
+index 95cbc75df3..2146351085 100644
+--- a/tryton/modules/account/message.xml
++++ b/tryton/modules/account/message.xml
+@@ -181,6 +181,9 @@ You may need to cancel its move "%(move)s".</field>
+         <record model="ir.message" id="msg_reconciliation_write_off_missing">
+             <field name="text">To reconcile lines with "%(amount)s" write-off, you must select a write-off method.</field>
+         </record>
++        <record model="ir.message" id="msg_reconciliation_write_off_same_account">
++            <field name="text">You cannot reconcile lines using the write-off "%(write_off)s" with the same "%(account)s".</field>
++        </record>
+         <record model="ir.message" id="msg_reconciliation_currency_exchange_journal_missing">
+             <field name="text">To reconcile lines, you must define a currency exchange journal for "%(company)s".</field>
+         </record>
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+index cb7909c456..0d7edbb6a5 100644
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -1649,6 +1649,12 @@ class Line(DescriptionOriginMixin, MoveLineMixin, ModelSQL, ModelView):
+             account = writeoff.debit_account
+         else:
+             account = writeoff.credit_account
++        if account == reconcile_account:
++            raise ReconciliationError(gettext(
++                    'account.msg_reconciliation_write_off_same_account',
++                    write_off=writeoff.rec_name,
++                    account=account.rec_name))
++
+         journal = writeoff.journal
+
+         if currency != company.currency:
