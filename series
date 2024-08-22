@@ -121,3 +121,5 @@ issue12795.diff # [trytond] Unecessary order by Many2One order name
 account-move-reconcile-account-missing.diff # [account] Improve error management when reconciling
 
 issue13425.diff # [account] Prevent reconcile lines using write-off with the same account
+
+issue13464.diff # [stock] Search on location of inventory when searching the inventory location of lines
