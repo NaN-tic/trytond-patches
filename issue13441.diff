@@ -1,0 +1,22 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
+index 7d92bdb96fc65e34f23cc033bbb3202e9593362d_dHJ5dG9uZC90cnl0b25kL2JhY2tlbmQvcG9zdGdyZXNxbC9kYXRhYmFzZS5weQ==..18a811563d659b025b09973157f9d90a7dea8e6f_dHJ5dG9uZC90cnl0b25kL2JhY2tlbmQvcG9zdGdyZXNxbC9kYXRhYmFzZS5weQ== 100644
+--- a/tryton/trytond/trytond/backend/postgresql/database.py
++++ b/tryton/trytond/trytond/backend/postgresql/database.py
+@@ -360,7 +360,7 @@
+                         'Test failed for "%s"', db_name, exc_info=True)
+                     continue
+         finally:
+-            self.put_connection(connection)
++            self.put_connection(connection, close=True)
+ 
+         self.__class__._list_cache[hostname] = res
+         self.__class__._list_cache_timestamp[hostname] = now
+@@ -405,7 +405,7 @@
+         try:
+             return self._test(connection, hostname=hostname)
+         finally:
+-            self.put_connection(connection)
++            self.put_connection(connection, close=True)
+ 
+     @classmethod
+     def _test(cls, connection, hostname=None):
