@@ -1,0 +1,13 @@
+diff --git a/trytond/trytond/backend/postgresql/table.py b/trytond/trytond/backend/postgresql/table.py
+index 769f07ccd5..f2e29e0527 100644
+--- a/trytond/trytond/backend/postgresql/table.py
++++ b/trytond/trytond/backend/postgresql/table.py
+@@ -607,7 +607,7 @@ class IndexMixin:
+ 
+ 
+ class HashTranslator(IndexMixin, IndexTranslatorInterface):
+-    _type = 'HASH'
++    _type = 'BTREE'
+ 
+     @classmethod
+     def score(cls, index):
