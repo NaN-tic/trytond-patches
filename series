@@ -37,14 +37,8 @@ issue13031.diff # [account_payment] Forbid payment of zero amount
 issue13269.diff # [stock_supply_production] Ignore production request when searching for draft production moves in the past
 
 merge_request1496.diff # [sao] Test if main menu screen is not empty before using it in callback
-issue13440.diff # [sao] Crash when clicking on graph with date or datetime as x axis
-issue13399.diff # [sao] URL button toggle visibility between display calls
-issue3370.diff # [sao] Set popup property to false when opening Many2One in a new tab
-issue13414.diff # [sao] Consider as stringable domain with empty clause
 
 # merge_requests1492.diff # [trytond] Improve import data experience # #167075 waiting to commit from core
-
-b2ck7837.diff # [sale_supply_drop_shipment] Prevent crash when no product supplier is found
 
 merge_request1548.diff # [trytond] Improve stock quantity computation
 
@@ -59,5 +53,3 @@ issue13382.diff # [stock] Enforce empty price on stock move when not required
 issue13425.diff # [account] Prevent reconcile lines using write-off with the same account
 
 issue13464.diff # [stock] Search on location of inventory when searching the inventory location of lines
-
-issue13441.diff # [trytond] Database listing left pending connection to template1
