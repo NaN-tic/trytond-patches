@@ -8,7 +8,7 @@ index 9e5807824e..21bb43ccfa 100644
                  id: 'print',
 -            }, {
 -                shortcut: 'ctrl+shift+e',
--                label: Sao.i18n.gettext('E-Mail'),
+-                label: Sao.i18n.gettext('Email'),
 -                id: 'email',
              }, {
                  shortcut: 'alt+shift+tab',
@@ -24,8 +24,8 @@ index 411b61a9b6..a47e21f586 100644
 -                }, {
 -                    id: 'email',
 -                    icon: 'tryton-email',
--                    label: Sao.i18n.gettext('E-Mail...'),
--                    tooltip: Sao.i18n.gettext('Send an e-mail using the record'),
+-                    label: Sao.i18n.gettext('Email...'),
+-                    tooltip: Sao.i18n.gettext('Send an email using the record'),
                  }, null, {
                      id: 'export',
                      icon: 'tryton-export',
