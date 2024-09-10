@@ -1,0 +1,32 @@
+diff --git a/sao/src/sao.less b/sao/src/sao.less
+index 6d471f3417b941c52aca71f5876d9064b3272b8d_c2FvL3NyYy9zYW8ubGVzcw==..4e71b09543570bc7f4514ac7ec959d62bbfd20eb_c2FvL3NyYy9zYW8ubGVzcw== 100644
+--- a/sao/src/sao.less
++++ b/sao/src/sao.less
+@@ -3,5 +3,9 @@
+ @import "bootstrap";
+ @import "bootstrap-rtl";
+ @import "sao-variables";
++html {
++    user-select: none;
++}
++
+ html[theme="default"] {
+     @import "theme";
+@@ -6,6 +10,5 @@
+ html[theme="default"] {
+     @import "theme";
+-    user-select: none;
+ }
+ 
+ // Fix double rtl prefix
+@@ -116,6 +119,10 @@
+     }
+ }
+ 
++.alert {
++    user-select: text;
++}
++
+ #tablist {
+     display: flex;
+     overflow-x: auto;
