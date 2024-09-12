@@ -57,3 +57,5 @@ issue13464.diff # [stock] Search on location of inventory when searching the inv
 psql_index_btree.diff # [trytond] Replace HashTranslator psql backend type HASH to BTREE
 
 issue7560.diff # [sao] Make message dialog content selectable
+
+issue13497.diff # [sao] Race condition when reload modified record but saved
