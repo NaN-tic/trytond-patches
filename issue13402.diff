@@ -1,0 +1,31 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+index 9346836352..5767892289 100644
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -3126,7 +3126,7 @@ class InvoiceTax(sequence_ordered(), ModelSQL, ModelView):
+         for invoice in Invoice.browse(list(invoice_ids)):
+             if invoice.state != 'draft':
+                 raise AccessError(
+-                    gettext('account_invoice.msg_invoice_tax_create',
++                    gettext('account_invoice.msg_invoice_tax_create_draft',
+                         invoice=invoice.rec_name))
+         return super(InvoiceTax, cls).create(vlist)
+
+diff --git a/tryton/modules/account_invoice/message.xml b/tryton/modules/account_invoice/message.xml
+index 9120aec352..e4bf74014d 100644
+--- a/tryton/modules/account_invoice/message.xml
++++ b/tryton/modules/account_invoice/message.xml
+@@ -54,7 +54,7 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_invoice_tax_modify">
+             <field name="text">You cannot modify tax "%(tax)s" because its invoice "%(invoice)s" is posted, paid or cancelled.</field>
+         </record>
+-        <record model="ir.message" id="msg_invoice_tax_create">
++        <record model="ir.message" id="msg_invoice_tax_create_draft">
+             <field name="text">You cannot add taxes to invoice "%(invoice)s" because it is no longer in a draft state.</field>
+         </record>
+         <record model="ir.message" id="msg_invoice_line_tax_unique">
+@@ -98,4 +98,3 @@ this repository contains the full copyright notices and license terms. -->
+         </record>
+     </data>
+ </tryton>
+-
