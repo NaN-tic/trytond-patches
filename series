@@ -125,3 +125,5 @@ issue13425.diff # [account] Prevent reconcile lines using write-off with the sam
 issue13464.diff # [stock] Search on location of inventory when searching the inventory location of lines
 
 psql_index_btree.diff # [trytond] Replace HashTranslator psql backend type HASH to BTREE
+
+issue13396.diff # [sale] [purchase] [purchase_requisition] Use a separate browse list to compute amounts from non cached states

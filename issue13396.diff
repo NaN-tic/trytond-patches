@@ -1,0 +1,69 @@
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
+index c8661308f2..adea9de46a 100644
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
+@@ -552,11 +552,14 @@ class Purchase(
+             compute_taxes = True
+         else:
+             compute_taxes = False
+-        # Sort cached first and re-instanciate to optimize cache management
+-        purchases = sorted(purchases,
+-            key=lambda p: p.state in cls._states_cached, reverse=True)
+-        purchases = cls.browse(purchases)
++        # Browse separately not cached to limit number of lines read
++        cached, not_cached = [], []
+         for purchase in purchases:
++            if purchase.state in cls._states_cached:
++                cached.append(purchase)
++            else:
++                not_cached.append(purchase)
++        for purchase in chain(cached, cls.browse(not_cached)):
+             if (purchase.state in cls._states_cached
+                     and purchase.untaxed_amount_cache is not None
+                     and purchase.tax_amount_cache is not None
+diff --git a/tryton/modules/purchase_requisition/purchase.py b/tryton/modules/purchase_requisition/purchase.py
+index 06b248fd6f..61ae9748d7 100644
+--- a/tryton/modules/purchase_requisition/purchase.py
++++ b/tryton/modules/purchase_requisition/purchase.py
+@@ -272,11 +272,14 @@ class PurchaseRequisition(Workflow, ModelSQL, ModelView):
+     def get_amount(cls, requisitions, name):
+         total_amount = {}
+
+-        # Sort cached first and re-instantiate to optimize cache management
+-        requisitions = sorted(requisitions,
+-            key=lambda r: r.state in cls._states_cached, reverse=True)
+-        requisitions = cls.browse(requisitions)
++        # Browse separately not cached to limit number of lines read
++        cached, not_cached = [], []
+         for requisition in requisitions:
++            if requisition.state in cls._states_cached:
++                cached.append(requisition)
++            else:
++                not_cached.append(requisition)
++        for requisition in chain(cached, cls.browse(not_cached)):
+             if (requisition.state in cls._states_cached
+                     and requisition.total_amount_cache is not None):
+                 total_amount[requisition.id] = requisition.total_amount_cache
+diff --git a/tryton/modules/sale/sale.py b/tryton/modules/sale/sale.py
+index f161f91194..762996bef3 100644
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
+@@ -562,11 +562,14 @@ class Sale(
+             compute_taxes = True
+         else:
+             compute_taxes = False
+-        # Sort cached first and re-instanciate to optimize cache management
+-        sales = sorted(sales, key=lambda s: s.state in cls._states_cached,
+-            reverse=True)
+-        sales = cls.browse(sales)
++        # Browse separately not cached to limit number of lines read
++        cached, not_cached = [], []
+         for sale in sales:
++            if sale.state in cls._states_cached:
++                cached.append(sale)
++            else:
++                not_cached.append(sale)
++        for sale in chain(cached, cls.browse(not_cached)):
+             if (sale.state in cls._states_cached
+                     and sale.untaxed_amount_cache is not None
+                     and sale.tax_amount_cache is not None
