@@ -1,0 +1,18 @@
+diff --git a/tryton/modules/account_invoice/message.xml b/tryton/modules/account_invoice/message.xml
+index 0b40ac01ca..055065ff3a 100644
+--- a/tryton/modules/account_invoice/message.xml
++++ b/tryton/modules/account_invoice/message.xml
+@@ -54,7 +54,7 @@ this repository contains the full copyright notices and license terms. -->
+         <record model="ir.message" id="msg_invoice_tax_modify">
+             <field name="text">You cannot modify tax "%(tax)s" because its invoice "%(invoice)s" is posted, paid or cancelled.</field>
+         </record>
+-        <record model="ir.message" id="msg_invoice_tax_create">
++        <record model="ir.message" id="msg_invoice_tax_create_draft">
+             <field name="text">You cannot add taxes to invoice "%(invoice)s" because it is no longer in a draft state.</field>
+         </record>
+         <record model="ir.message" id="msg_invoice_line_tax_unique">
+@@ -89,4 +89,3 @@ this repository contains the full copyright notices and license terms. -->
+         </record>
+     </data>
+ </tryton>
+-
