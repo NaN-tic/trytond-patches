@@ -129,3 +129,5 @@ psql_index_btree.diff # [trytond] Replace HashTranslator psql backend type HASH 
 issue13396.diff # [sale] [purchase] [purchase_requisition] Use a separate browse list to compute amounts from non cached states
 
 issue13402.diff # [account_invoice] Fix message ID when creating invoice tax on non draft invoice
+
+issue13466.diff # [sale] Add searcher for name of sale reporting per region
