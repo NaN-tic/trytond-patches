@@ -56,7 +56,7 @@ psql_index_btree.diff # [trytond] Replace HashTranslator psql backend type HASH 
 
 issue7560.diff # [sao] Make message dialog content selectable
 
-issue13497.diff # [sao] Race condition when reload modified record but saved
+#issue13497.diff # [sao] Race condition when reload modified record but saved
 
 issue13396.diff # [sale] [purchase] [purchase_requisition] Use a separate browse list to compute amounts from non cached states
 
