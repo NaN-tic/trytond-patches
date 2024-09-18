@@ -1,0 +1,224 @@
+diff --git a/tryton/modules/stock/shipment.py b/tryton/modules/stock/shipment.py
+index e04cd42d365e1c80a7df4e2bd881385d5dd05bed_bW9kdWxlcy9zdG9jay9zaGlwbWVudC5weQ==..803392769f65800e2807bf7171f1ccb7b23ee070_bW9kdWxlcy9zdG9jay9zaGlwbWVudC5weQ== 100644
+--- a/tryton/modules/stock/shipment.py
++++ b/tryton/modules/stock/shipment.py
+@@ -549,5 +549,4 @@
+         return self.supplier.supplier_location if self.supplier else None
+ 
+     def get_incoming_moves(self, name):
+-        moves = sort(self.moves, self.__class__.incoming_moves.order)
+         if self.warehouse_input == self.warehouse_storage:
+@@ -553,3 +552,3 @@
+         if self.warehouse_input == self.warehouse_storage:
+-            return [m.id for m in moves]
++            moves = self.moves
+         else:
+@@ -555,6 +554,7 @@
+         else:
+-            return [
+-                m.id for m in moves if m.to_location == self.warehouse_input]
++            moves = filter(
++                lambda m: m.to_location == self.warehouse_input, self.moves)
++        return sort(moves, self.__class__.incoming_moves.order)
+ 
+     @classmethod
+     def set_incoming_moves(cls, shipments, name, value):
+@@ -565,8 +565,9 @@
+                 })
+ 
+     def get_inventory_moves(self, name):
+-        moves = sort(self.moves, self.__class__.inventory_moves.order)
+-        return [m.id for m in moves if m.from_location == self.warehouse_input]
++        moves = filter(
++            lambda m: m.from_location == self.warehouse_input, self.moves)
++        return sort(moves, self.__class__.inventory_moves.order)
+ 
+     @classmethod
+     def set_inventory_moves(cls, shipments, name, value):
+@@ -1436,5 +1437,4 @@
+         return self.customer.customer_location if self.customer else None
+ 
+     def get_outgoing_moves(self, name):
+-        moves = sort(self.moves, self.__class__.outgoing_moves.order)
+         if self.warehouse_output == self.warehouse_storage:
+@@ -1440,3 +1440,3 @@
+         if self.warehouse_output == self.warehouse_storage:
+-            return [m.id for m in moves]
++            moves = self.moves
+         else:
+@@ -1442,7 +1442,7 @@
+         else:
+-            return [
+-                m.id for m in moves
+-                if m.from_location == self.warehouse_output]
++            moves = filter(
++                lambda m: m.from_location == self.warehouse_output, self.moves)
++        return sort(moves, self.__class__.outgoing_moves.order)
+ 
+     @classmethod
+     def set_outgoing_moves(cls, shipments, name, value):
+@@ -1453,8 +1453,9 @@
+                 })
+ 
+     def get_inventory_moves(self, name):
+-        moves = sort(self.moves, self.__class__.inventory_moves.order)
+-        return [m.id for m in moves if m.to_location == self.warehouse_output]
++        moves = filter(
++            lambda m: m.to_location == self.warehouse_output, self.moves)
++        return sort(moves, self.__class__.inventory_moves.order)
+ 
+     @classmethod
+     def set_inventory_moves(cls, shipments, name, value):
+@@ -2079,5 +2080,4 @@
+         return self.customer.customer_location if self.customer else None
+ 
+     def get_incoming_moves(self, name):
+-        moves = sort(self.moves, self.__class__.incoming_moves.order)
+         if self.warehouse_input == self.warehouse_storage:
+@@ -2083,3 +2083,3 @@
+         if self.warehouse_input == self.warehouse_storage:
+-            return [m.id for m in moves]
++            moves = self.moves
+         else:
+@@ -2085,7 +2085,7 @@
+         else:
+-            return [
+-                m.id for m in moves
+-                if m.to_location == self.warehouse_input]
++            moves = filter(
++                lambda m: m.to_location == self.warehouse_input, self.moves)
++        return sort(moves, self.__class__.incoming_moves.order)
+ 
+     @classmethod
+     def set_incoming_moves(cls, shipments, name, value):
+@@ -2096,8 +2096,9 @@
+                 })
+ 
+     def get_inventory_moves(self, name):
+-        moves = sort(self.moves, self.__class__.inventory_moves.order)
+-        return [m.id for m in moves if m.from_location == self.warehouse_input]
++        moves = filter(
++            lambda m: m.from_location == self.warehouse_input, self.moves)
++        return sort(moves, self.__class__.inventory_moves.order)
+ 
+     @classmethod
+     def set_inventory_moves(cls, shipments, name, value):
+@@ -2594,5 +2595,4 @@
+         return self.planned_date
+ 
+     def get_outgoing_moves(self, name):
+-        moves = sort(self.moves, self.__class__.outgoing_moves.order)
+         if not self.transit_location:
+@@ -2598,3 +2598,3 @@
+         if not self.transit_location:
+-            return [m.id for m in moves]
++            moves = self.moves
+         else:
+@@ -2600,5 +2600,6 @@
+         else:
+-            return [
+-                m.id for m in moves if m.to_location == self.transit_location]
++            moves = filter(
++                lambda m: m.to_location == self.transit_location, self.moves)
++        return sort(moves, self.__class__.outgoing_moves.order)
+ 
+     def get_incoming_moves(self, name):
+@@ -2603,4 +2604,3 @@
+ 
+     def get_incoming_moves(self, name):
+-        moves = sort(self.moves, self.__class__.incoming_moves.order)
+         if not self.transit_location:
+@@ -2606,3 +2606,3 @@
+         if not self.transit_location:
+-            return [m.id for m in moves]
++            moves = self.moves
+         else:
+@@ -2608,7 +2608,7 @@
+         else:
+-            return [
+-                m.id for m in moves
+-                if m.from_location == self.transit_location]
++            moves = filter(
++                lambda m: m.from_location == self.transit_location, self.moves)
++        return sort(moves, self.__class__.incoming_moves.order)
+ 
+     @classmethod
+     def set_moves(cls, shipments, name, value):
+diff --git a/tryton/trytond/trytond/model/order.py b/tryton/trytond/trytond/model/order.py
+index bd9fa98d30..6fe8a04ea8 100644
+--- a/tryton/trytond/trytond/model/order.py
++++ b/tryton/trytond/trytond/model/order.py
+@@ -1,5 +1,6 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the toplevel of this
+ # repository contains the full copyright notices and license terms.
++from functools import total_ordering
+ 
+ from sql import Column
+ 
+@@ -32,12 +32,31 @@ def sequence_ordered(
+     return SequenceOrderedMixin
+ 
+ 
++@total_ordering
++class _reversor:
++    __slots__ = ('_obj',)
++
++    def __init__(self, obj):
++        self._obj = obj
++
++    def __eq__(self, other):
++        if not isinstance(other, _reversor):
++            return NotImplemented
++        return self._obj == other._obj
++
++    def __lt__(self, other):
++        if not isinstance(other, _reversor):
++            return NotImplemented
++        return self._obj > other._obj
++
++
+ class _attrgetter:
+-    __slots__ = ('_attr', '_null')
++    __slots__ = ('_attr', '_null', '_reverse')
+ 
+-    def __init__(self, attr, null=None):
++    def __init__(self, attr, null=None, reverse=False):
+         self._attr = attr
+         self._null = null
++        self._reverse = reverse
+ 
+     def __call__(self, obj):
+         for name in self._attr.split('.'):
+@@ -60,14 +79,18 @@ class _attrgetter:
+                 null = self._null
+             else:
+                 null = not self._null
+-        return (null, obj)
++        value = (null, obj)
++        if self._reverse:
++            value = _reversor(value)
++        return value
+ 
+ 
+ def sort(records, order):
+     "Return a new list of records ordered"
+     if not order:
+         return records
+-    for oexpr, otype in reversed(order):
++    getters = []
++    for oexpr, otype in order:
+         try:
+             otype, null_ordering = otype.split(' ', 1)
+         except ValueError:
+@@ -79,6 +102,8 @@ def sort(records, order):
+             null = not reverse
+         else:
+             null = None
+-        records = sorted(
+-            records, key=_attrgetter(oexpr, null), reverse=reverse)
+-    return records
++        getters.append(_attrgetter(oexpr, null, reverse))
++
++    def func(obj):
++        return tuple(getter(obj) for getter in getters)
++    return sorted(records, key=func)
