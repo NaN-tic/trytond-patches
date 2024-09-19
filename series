@@ -69,3 +69,5 @@ b2ck7923.diff # [purchase] Crash on _invoice_remining_quantity if invoice line h
 issue13525-13526.diff # [trytond] [stock] Improve sorting records
 
 issue13531.diff # [sale_discount] Use currency from sale.line instead from sale to get discount currency format
+
+issue7912.diff # [account_stock_eu] Use the intrastat country of inventory and production
