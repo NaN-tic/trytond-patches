@@ -1,0 +1,95 @@
+diff --git a/tryton/modules/account_stock_eu/__init__.py b/tryton/modules/account_stock_eu/__init__.py
+index c511154eff..3794d375cb 100644
+--- a/tryton/modules/account_stock_eu/__init__.py
++++ b/tryton/modules/account_stock_eu/__init__.py
+@@ -29,6 +29,10 @@ def register():
+         stock.ShipmentOutReturn,
+         stock.ShipmentInternal,
+         module='account_stock_eu', type_='model')
++    Pool.register(
++        stock.Move_Production,
++        module='account_stock_eu', type_='model',
++        depends=['production'])
+     Pool.register(
+         account_stock_eu.IntrastatDeclarationLine_Incoterm,
+         stock.Move_Incoterm,
+diff --git a/tryton/modules/account_stock_eu/stock.py b/tryton/modules/account_stock_eu/stock.py
+index 2cccc9a179..dcef16e9a2 100644
+--- a/tryton/modules/account_stock_eu/stock.py
++++ b/tryton/modules/account_stock_eu/stock.py
+@@ -139,6 +139,9 @@ class Move(metaclass=PoolMeta):
+             elif (self.from_location.type in {'supplier', 'customer'}
+                     and hasattr(self.shipment, 'intrastat_from_country')):
+                 return self.shipment.intrastat_from_country
++            elif self.from_location.type == 'lost_found':
++                if self.to_location.type != 'lost_found':
++                    return self.intrastat_to_country
+
+     @property
+     @fields.depends('to_location', 'shipment')
+@@ -149,6 +152,9 @@ class Move(metaclass=PoolMeta):
+             elif (self.to_location.type in {'supplier', 'customer'}
+                     and hasattr(self.shipment, 'intrastat_to_country')):
+                 return self.shipment.intrastat_to_country
++            elif self.to_location.type == 'lost_found':
++                if self.from_location.type != 'lost_found':
++                    return self.intrastat_from_country
+
+     @classmethod
+     @without_check_access
+@@ -472,6 +478,30 @@ class Move(metaclass=PoolMeta):
+             return self.shipment.customer
+
+
++class Move_Production(metaclass=PoolMeta):
++    __name__ = 'stock.move'
++
++    @property
++    @fields.depends('from_location', 'production')
++    def intrastat_from_country(self):
++        country = super().intrastat_from_country
++        if self.from_location:
++            if (self.from_location.type == 'production'
++                    and self.production and self.production.warehouse.address):
++                country = self.production.warehouse.address.country
++        return country
++
++    @property
++    @fields.depends('to_location', 'production')
++    def intrastat_to_country(self):
++        country = super().intrastat_to_country
++        if self.to_location:
++            if (self.to_location.type == 'production'
++                    and self.production and self.production.warehouse.address):
++                country = self.production.warehouse.address.country
++        return country
++
++
+ class Move_Incoterm(metaclass=PoolMeta):
+     __name__ = 'stock.move'
+
+diff --git a/tryton/modules/account_stock_eu/tests/test_module.py b/tryton/modules/account_stock_eu/tests/test_module.py
+index 7e0facc970..20b9469199 100644
+--- a/tryton/modules/account_stock_eu/tests/test_module.py
++++ b/tryton/modules/account_stock_eu/tests/test_module.py
+@@ -6,7 +6,7 @@ from trytond.tests.test_tryton import ModuleTestCase
+ class AccountStockEuTestCase(ModuleTestCase):
+     "Test Account Stock Eu module"
+     module = 'account_stock_eu'
+-    extras = ['carrier', 'incoterm', 'stock_consignment']
++    extras = ['carrier', 'incoterm', 'production', 'stock_consignment']
+
+
+ del ModuleTestCase
+diff --git a/tryton/modules/account_stock_eu/tryton.cfg b/tryton/modules/account_stock_eu/tryton.cfg
+index a70efee85e..92047ca5fa 100644
+--- a/tryton/modules/account_stock_eu/tryton.cfg
++++ b/tryton/modules/account_stock_eu/tryton.cfg
+@@ -16,6 +16,7 @@ extras_depend:
+     carrier
+     carrier_carriage
+     incoterm
++    production
+     purchase
+     sale
+     sale_supply_drop_shipment
