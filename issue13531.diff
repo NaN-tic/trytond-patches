@@ -1,0 +1,14 @@
+diff --git a/tryton/modules/sale_discount/sale.py b/tryton/modules/sale_discount/sale.py
+index 8669fde34f..3fc1d612fa 100644
+--- a/tryton/modules/sale_discount/sale.py
++++ b/tryton/modules/sale_discount/sale.py
+@@ -133,8 +133,8 @@ class Line(metaclass=PoolMeta):
+         if not rate or rate % Decimal('0.01'):
+             amount = self.on_change_with_discount_amount()
+             if amount:
+-                return lang.currency(
+-                    amount, self.sale.currency, digits=price_digits[1])
++                return lang.currency(amount, self.currency,
++                    digits=price_digits[1]) if self.currency else amount
+         else:
+             return lang.format('%i', rate * 100) + '%'

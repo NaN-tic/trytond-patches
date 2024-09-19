@@ -67,3 +67,5 @@ issue13466.diff # [sale] Add searcher for name of sale reporting per region
 b2ck7923.diff # [purchase] Crash on _invoice_remining_quantity if invoice line has no invoice
 
 issue13525-13526.diff # [trytond] [stock] Improve sorting records
+
+issue13531.diff # [sale_discount] Use currency from sale.line instead from sale to get discount currency format
