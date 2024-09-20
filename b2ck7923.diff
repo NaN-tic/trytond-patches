@@ -1,13 +1,32 @@
 diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
-index 2b08db6758..f3756e913d 100644
+index e04cd42d365e1c80a7df4e2bd881385d5dd05bed_bW9kdWxlcy9wdXJjaGFzZS9wdXJjaGFzZS5weQ==..08aba5efb73fd987f4b2802d165103a959b5c12e_bW9kdWxlcy9wdXJjaGFzZS9wdXJjaGFzZS5weQ== 100644
 --- a/tryton/modules/purchase/purchase.py
 +++ b/tryton/modules/purchase/purchase.py
-@@ -1395,7 +1395,7 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
+@@ -1440,8 +1440,9 @@
          for invoice_line in self.invoice_lines:
              if invoice_line.type != 'line':
                  continue
 -            if (invoice_line.invoice.state == 'paid'
-+            if (invoice_line.invoice and invoice_line.invoice.state == 'paid'
-                     or invoice_line.invoice in skips):
+-                    or invoice_line.invoice in skips):
++            if (invoice_line.invoice
++                    and (invoice_line.invoice.state == 'paid'
++                        or invoice_line.invoice in skips)):
                  quantity -= UoM.compute_qty(
                      invoice_line.unit or self.unit, invoice_line.quantity,
+                     self.unit)
+diff --git a/tryton/modules/sale/sale.py b/modules/sale/sale.py
+index e04cd42d365e1c80a7df4e2bd881385d5dd05bed_bW9kdWxlcy9zYWxlL3NhbGUucHk=..08aba5efb73fd987f4b2802d165103a959b5c12e_bW9kdWxlcy9zYWxlL3NhbGUucHk= 100644
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
+@@ -1519,8 +1519,9 @@
+         for invoice_line in self.invoice_lines:
+             if invoice_line.type != 'line':
+                 continue
+-            if (invoice_line.invoice.state == 'paid'
+-                    or invoice_line.invoice in skips):
++            if (invoice_line.invoice
++                    and (invoice_line.invoice.state == 'paid'
++                        or invoice_line.invoice in skips)):
+                 quantity -= UoM.compute_qty(
+                     invoice_line.unit or self.unit, invoice_line.quantity,
+                     self.unit)
