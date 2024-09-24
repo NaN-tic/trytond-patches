@@ -37,3 +37,29 @@ index 2057efd15d..de299bd5eb 100644
   " \"%(model)s\" es massa llarg (%(size)i > %(max_size)i)."
 
   msgctxt "model:ir.message,text:msg_size_validation_record"
+diff --git a/tryton/modules/account_invoice/locale/fr.po b/tryton/modules/account_invoice/locale/fr.po
+index fad03e6b69..de85bcae0d 100644
+--- a/tryton/modules/account_invoice/locale/fr.po
++++ b/tryton/modules/account_invoice/locale/fr.po
+@@ -992,7 +992,7 @@ msgstr "La facture « %(invoices)s » a une date de facture dans le futur."
+ msgctxt "model:ir.message,text:msg_invoice_default_taxes"
+ msgid "The invoice \"%(invoice)s\" does not have the default taxes for %(lines)s."
+ msgstr ""
+-"La facture « %(invoice)s » n'a pas les taxes par défaut pour %(line)s."
++"La facture « %(invoice)s » n'a pas les taxes par défaut pour %(lines)s."
+ 
+ msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
+ msgid "To delete invoice \"%(invoice)s\" you must cancel it."
+diff --git a/tryton/modules/purchase_amendment/locale/es.po b/tryton/modules/purchase_amendment/locale/es.po
+index dc49e40836..725cb507ed 100644
+--- a/tryton/modules/purchase_amendment/locale/es.po
++++ b/tryton/modules/purchase_amendment/locale/es.po
+@@ -119,7 +119,7 @@ msgid ""
+ "\"%(purchase)s\"."
+ msgstr ""
+ "No puedes validar a la vez mas de una corrección de la misma compra "
+-"\"%(compra)s\"."
++"\"%(purchase)s\"."
+ 
+ msgctxt ""
+ "model:ir.model.button,confirm:purchase_amendment_validation_amendment_button"
