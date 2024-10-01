@@ -73,3 +73,5 @@ issue13531.diff # [sale_discount] Use currency from sale.line instead from sale 
 issue7912.diff # [account_stock_eu] Use the intrastat country of inventory and production
 
 merge_request1784.diff # [trytond] Fill the source value of fmany2one in create and write methods
+
+issue13535.diff # [account] Add depends on periods when changing company of tax code context
