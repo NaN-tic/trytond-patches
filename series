@@ -24,5 +24,3 @@ issue11731.diff # [currency] currency test don't pass when Currency Rates Source
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
 
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
-
-165452.diff # [account_invoice_defer] Change sign debit and balance when create moves and amount_remainder
