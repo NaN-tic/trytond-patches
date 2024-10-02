@@ -71,3 +71,5 @@ issue7912.diff # [account_stock_eu] Use the intrastat country of inventory and p
 merge_request1784.diff # [trytond] Fill the source value of fmany2one in create and write methods
 
 issue13535.diff # [account] Add depends on periods when changing company of tax code context
+
+issue13555.diff # [stock]  Do not copy origin of stock moves in each shipment
