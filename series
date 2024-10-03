@@ -73,3 +73,5 @@ merge_request1784.diff # [trytond] Fill the source value of fmany2one in create 
 issue13535.diff # [account] Add depends on periods when changing company of tax code context
 
 issue13555.diff # [stock]  Do not copy origin of stock moves in each shipment
+
+revert13497.diff # [sao] Revert: Always validate record synchronously
