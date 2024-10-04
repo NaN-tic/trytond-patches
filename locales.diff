@@ -121,3 +121,16 @@ index da454cb386..cb5aff2367 100644
 
  msgctxt "model:ir.message,text:msg_write_error"
  msgid ""
+ diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.po
+ index 2915021994..90dda29010 100644
+ --- a/tryton/modules/party/locale/ca.po
+ +++ b/tryton/modules/party/locale/ca.po
+ @@ -547,7 +547,7 @@ msgstr "El codi del tercer ha de ser únic."
+
+  msgctxt "model:ir.message,text:msg_party_identifier_duplicate"
+  msgid "The party \"%(party)s\" has the same %(type)s \"%(code)s\"."
+ -msgstr "El tercer \"%(party)\" té el mateix \"%(type)s\" \"%(code)s\"."
+ +msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
+
+  msgctxt "model:ir.message,text:msg_party_set_contact_mechanism"
+  msgid ""
