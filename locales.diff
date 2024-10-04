@@ -1,8 +1,17 @@
 diff --git a/tryton/modules/account_invoice/locale/es.po b/tryton/modules/account_invoice/locale/es.po
-index 312c014d4e..4cfdd9b2c9 100644
+index ee348f2ece..e4eca3e544 100644
 --- a/tryton/modules/account_invoice/locale/es.po
 +++ b/tryton/modules/account_invoice/locale/es.po
-@@ -815,7 +815,7 @@ msgstr "Validada"
+@@ -865,7 +865,7 @@ msgctxt "model:ir.message,text:msg_cancel_invoice_move"
+ msgid "The moves \"%(moves)s\" have the posted invoices \"%(invoices)s\" as origin."
+ msgstr ""
+ "Los asientos \"(moves)s\" tiene como origen las facturas contabilizadas "
+-"\"%(facturas)s\"."
++"\"%(invoices)s\"."
+
+ msgctxt "model:ir.message,text:msg_cancel_invoice_move_description"
+ msgid ""
+@@ -877,7 +877,7 @@ msgstr ""
 
  msgctxt "model:ir.message,text:msg_close_period_non_posted_invoices"
  msgid "To close the periods you must post the invoices \"%(invoices)s\"."
