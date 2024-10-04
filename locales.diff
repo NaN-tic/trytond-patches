@@ -22,7 +22,7 @@ index 2f3580e1cb..b60b878324 100644
 -"Para facturar el trabajo \"%(works)\" debéis configurar una cuenta de "
 +"Para facturar el trabajo \"%(work)s\" debéis configurar una cuenta de "
  "ingressos por defecto."
- 
+
  msgctxt "model:ir.message,text:msg_missing_list_price"
 diff --git a/tryton/modules/purchase/locale/ca.po b/tryton/modules/purchase/locale/ca.po
 index d02f1a8a2f..129a59e3a7 100644
@@ -35,5 +35,18 @@ index d02f1a8a2f..129a59e3a7 100644
 -"Per facturar la compra \"%(purchase)\" heu de configurar un compte de "
 +"Per facturar la compra \"%(purchase)s\" heu de configurar un compte de "
  "despeses per defecte."
- 
+
  msgctxt "model:ir.message,text:msg_purchase_modify_header_draft"
+ diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
+ index 69c9602cac..3f54ef417f 100644
+ --- a/tryton/modules/stock/locale/ca.po
+ +++ b/tryton/modules/stock/locale/ca.po
+ @@ -1976,7 +1976,7 @@ msgid ""
+  "Invalid cost price \"%(cost_price)s\" for product \"%(product)s\" with "
+  "exception \"%(exception)s\"."
+  msgstr ""
+ -"El preu de cost \"%(cost_price)s\" del producte \"%(producte)\" és invalid "
+ +"El preu de cost \"%(cost_price)s\" del producte \"%(product)\" és invalid "
+  "amb l'excepció \"%(exception)s\"."
+
+  msgctxt "model:ir.message,text:msg_inventory_count_create_line"
