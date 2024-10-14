@@ -139,3 +139,5 @@ issue13525-13526.diff # [trytond] [stock] Improve sorting records
 issue13535.diff # [account] Add depends on periods when changing company of tax code context
 
 issue13596.diff # [account_credit_limit] Do not use negative company ID from context to compute credit limit
+
+issue13595.diff # [sao] Prevent clicking on screen when record is reloading

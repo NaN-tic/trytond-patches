@@ -1,0 +1,89 @@
+diff --git a/tryton/sao/src/sao.less b/tryton/sao/src/sao.less
+index 6aa192801a..f2e152f12f 100644
+--- a/sao/src/sao.less
++++ b/sao/src/sao.less
+@@ -400,6 +400,17 @@ img.icon {
+     }
+ }
+
++.overlay-mask {
++    background: black;
++    bottom: 0;
++    left: 0;
++    opacity: 5%;
++    position: absolute;
++    right: 0;
++    top: 0;
++    z-index: 500;
++}
++
+ .filter-box {
+     margin: 5px 0;
+ }
+diff --git a/tryton/sao/src/screen.js b/tryton/sao/src/screen.js
+index aa866f60b2..b235ec3575 100644
+--- a/tryton/sao/src/screen.js
++++ b/tryton/sao/src/screen.js
+@@ -17,6 +17,9 @@
+             this.el = jQuery('<div/>', {
+                 'class': 'screen-container'
+             });
++            this.overlay_mask = jQuery('<div/>', {
++                'class': 'overlay-mask',
++            }).appendTo(this.el);
+             this.filter_box = jQuery('<form/>', {
+                 'class': 'filter-box'
+             }).submit(e => {
+@@ -220,6 +223,12 @@
+             }
+             this.el.append(this.content_box);
+         },
++        disable: function() {
++            this.overlay_mask.show();
++        },
++        enable: function() {
++            this.overlay_mask.hide();
++        },
+         set_text: function(value) {
+             this.search_entry.val(value);
+             this.bookmark_match();
+@@ -1357,6 +1366,7 @@
+             return jQuery.when.apply(jQuery, deferreds).then(
+                 () => this.set_tree_state().then(() => {
+                     this.current_record = this.current_record;
++                    this.screen_container.enable();
+                     // set_cursor must be called after set_tree_state because
+                     // set_tree_state redraws the tree
+                     if (set_cursor) {
+@@ -1578,13 +1588,14 @@
+             }
+         },
+         cancel_current: function(initial_value) {
++            this.screen_container.disable();
+             var prms = [];
+             if (this.current_record) {
+                 this.current_record.cancel();
+                 if (this.current_record.id < 0) {
+                     if (initial_value) {
+                         this.current_record.reset(initial_value);
+-                        this.display();
++                        prms.push(this.display());
+                     } else {
+                         prms.push(this.remove(
+                             false, false, false, [this.current_record]));
+@@ -1609,6 +1620,7 @@
+                 this.current_view.set_value();
+                 var fields = this.current_view.get_fields();
+             }
++            this.screen_container.disable();
+             var path = current_record.get_path(this.group);
+             var prm = jQuery.Deferred();
+             if (this.current_view && (this.current_view.view_type == 'tree')) {
+@@ -1915,6 +1927,7 @@
+             return this.current_record.get_on_change_value();
+         },
+         reload: function(ids, written) {
++            this.screen_container.disable();
+             this.group.reload(ids);
+             var promises = [];
+             if (written) {
