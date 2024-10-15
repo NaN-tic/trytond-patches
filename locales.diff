@@ -47,7 +47,7 @@ index d02f1a8a2f..129a59e3a7 100644
 
  msgctxt "model:ir.message,text:msg_purchase_modify_header_draft"
  diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
- index 69c9602cac..3f54ef417f 100644
+ index 69c9602cac..f2151bb084 100644
  --- a/tryton/modules/stock/locale/ca.po
  +++ b/tryton/modules/stock/locale/ca.po
  @@ -1976,7 +1976,7 @@ msgid ""
@@ -55,7 +55,7 @@ index d02f1a8a2f..129a59e3a7 100644
   "exception \"%(exception)s\"."
   msgstr ""
  -"El preu de cost \"%(cost_price)s\" del producte \"%(producte)\" és invalid "
- +"El preu de cost \"%(cost_price)s\" del producte \"%(product)\" és invalid "
+ +"El preu de cost \"%(cost_price)s\" del producte \"%(product)s\" és invalid "
   "amb l'excepció \"%(exception)s\"."
 
   msgctxt "model:ir.message,text:msg_inventory_count_create_line"
@@ -134,3 +134,61 @@ index da454cb386..cb5aff2367 100644
 
   msgctxt "model:ir.message,text:msg_party_set_contact_mechanism"
   msgid ""
+diff --git a/tryton/modules/account_invoice/locale/fr.po b/tryton/modules/account_invoice/locale/fr.po
+index 2d3c044dda..a88820debd 100644
+--- a/tryton/modules/account_invoice/locale/fr.po
++++ b/tryton/modules/account_invoice/locale/fr.po
+@@ -905,7 +905,7 @@ msgstr ""
+ 
+ msgctxt "model:ir.message,text:msg_invoice_date_future"
+ msgid "The invoices \"%(invoices)s\" have an invoice date in the future."
+-msgstr "La facture « %(invoice)s » a une date de facture dans le futur."
++msgstr "La facture « %(invoices)s » a une date de facture dans le futur."
+ 
+ msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
+ msgid "To delete invoice \"%(invoice)s\" you must cancel it."
+diff --git a/tryton/modules/sale_supply/locale/ca.po b/tryton/modules/sale_supply/locale/ca.po
+index 437d39ce53..6b7ebc71b5 100644
+--- a/tryton/modules/sale_supply/locale/ca.po
++++ b/tryton/modules/sale_supply/locale/ca.po
+@@ -33,7 +33,7 @@ msgstr "El producte \"%(product)s\" es subministra a la venda."
+ msgctxt "model:ir.message,text:msg_template_supply_on_sale_order_point"
+ msgid "The product has purchase order points \"%(order_points)s\" defined."
+ msgstr ""
+-"El producte te regles d'aprovisionament de compra \"%(order_point)s\" "
++"El producte te regles d'aprovisionament de compra \"%(order_points)s\" "
+ "definits."
+ 
+ msgctxt "selection:product.product,supply_on_sale:"
+diff --git a/tryton/modules/sale_supply/locale/es.po b/tryton/modules/sale_supply/locale/es.po
+index 08cad7c95d..1abe3c4ca9 100644
+--- a/tryton/modules/sale_supply/locale/es.po
++++ b/tryton/modules/sale_supply/locale/es.po
+@@ -33,7 +33,7 @@ msgstr "El producto \"%(product)s\" se subministra en la venta."
+ msgctxt "model:ir.message,text:msg_template_supply_on_sale_order_point"
+ msgid "The product has purchase order points \"%(order_points)s\" defined."
+ msgstr ""
+-"El producto tiene reglas de abastecimientod e compra \"%(order_point)s\" "
++"El producto tiene reglas de abastecimientod e compra \"%(order_points)s\" "
+ "definidos."
+ 
+ msgctxt "selection:product.product,supply_on_sale:"
+diff --git a/tryton/modules/sale_supply_drop_shipment/locale/ca.po b/tryton/modules/sale_supply_drop_shipment/locale/ca.po
+index 3d5751af58..b006d517a8 100644
+--- a/tryton/modules/sale_supply_drop_shipment/locale/ca.po
++++ b/tryton/modules/sale_supply_drop_shipment/locale/ca.po
+@@ -189,12 +189,12 @@ msgid ""
+ "To get a quotation for purchase \"%(purchase)s\" you must provide a delivery"
+ " address."
+ msgstr ""
+-"Per obtenir un pressupost de la compra \"%(compra)s\" heu de proporcionar "
++"Per obtenir un pressupost de la compra \"%(purchase)s\" heu de proporcionar "
+ "una direcció d'entrega."
+ 
+ msgctxt "model:ir.message,text:msg_drop_shipment_delete_cancel"
+ msgid "To delete drop shipment \"%(shipment)s\" you must cancel it."
+-msgstr "Per eliminar l'enviament directe \"%(shipmetn)s\" heu de cancel·lar-lo."
++msgstr "Per eliminar l'enviament directe \"%(shipment)s\" heu de cancel·lar-lo."
+ 
+ msgctxt "model:ir.message,text:msg_reset_move"
+ msgid ""
