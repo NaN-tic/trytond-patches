@@ -66,8 +66,6 @@ issue13525-13526.diff # [trytond] [stock] Improve sorting records
 
 issue7912.diff # [account_stock_eu] Use the intrastat country of inventory and production
 
-issue13535.diff # [account] Add depends on periods when changing company of tax code
-
 issue13596.diff # [account_credit_limit] Do not use negative company ID from context to compute credit limit
 
 issue13544.diff # [purchase] [sale] Return location instance in getter of sale and purchase
