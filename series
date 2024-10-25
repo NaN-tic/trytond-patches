@@ -73,3 +73,5 @@ issue13544.diff # [purchase] [sale] Return location instance in getter of sale a
 issue13561.diff # [account_invoice_stock] Do not update unit price of stock move when it is not required
 
 issue10322.diff # [product] Do not replace redefined product field with template function field
+
+issue13585.diff # [stock_supply] Not Include NULL value for negative search on nested Many2One
