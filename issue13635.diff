@@ -1,0 +1,24 @@
+diff --git a/tryton/modules/party/configuration.py b/tryton/modules/party/configuration.py
+index 44161bb18e..d96756653f 100644
+--- a/tryton/modules/party/configuration.py
++++ b/tryton/modules/party/configuration.py
+@@ -29,19 +29,6 @@ class Configuration(ModelSingleton, ModelSQL, ModelView, MultiValueMixin):
+         help="Defines which identifier types are available.\n"
+         "Leave empty for all of them.")
+
+-    @classmethod
+-    def __register__(cls, module):
+-        super().__register__(module)
+-
+-        # Migration from 6.8: Use vat alias
+-        configuration = cls(1)
+-        if configuration.identifier_types:
+-            identifier_types = list(map(
+-                    replace_vat, configuration.identifier_types))
+-            if configuration.identifier_types != identifier_types:
+-                configuration.identifier_types = identifier_types
+-                configuration.save()
+-
+     @classmethod
+     def default_party_sequence(cls, **pattern):
+         pool = Pool()
