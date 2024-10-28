@@ -145,3 +145,5 @@ issue13595.diff # [sao] Prevent clicking on screen when record is reloading
 issue13544.diff # [purchase] [sale] Return location instance in getter of sale and purchase
 
 issue13561.diff # [account_invoice_stock] Do not update unit price of stock move when it is not required
+
+issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
