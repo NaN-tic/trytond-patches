@@ -1,0 +1,22 @@
+diff --git a/tryton/modules/account_stock_eu/stock.py b/tryton/modules/account_stock_eu/stock.py
+index 992bde4e4d..35b73a91e1 100644
+--- a/tryton/modules/account_stock_eu/stock.py
++++ b/tryton/modules/account_stock_eu/stock.py
+@@ -131,7 +131,7 @@ class Move(metaclass=PoolMeta):
+             return self.intrastat_tariff_code.intrastat_uom
+
+     @property
+-    @fields.depends('from_location', 'shipment')
++    @fields.depends('from_location', 'shipment', methods=['intrastat_to_country'])
+     def intrastat_from_country(self):
+         if self.from_location:
+             if self.from_warehouse and self.from_warehouse.address:
+@@ -144,7 +144,7 @@ class Move(metaclass=PoolMeta):
+                     return self.intrastat_to_country
+
+     @property
+-    @fields.depends('to_location', 'shipment')
++    @fields.depends('to_location', 'shipment', methods=['intrastat_from_country'])
+     def intrastat_to_country(self):
+         if self.to_location:
+             if self.to_warehouse and self.to_warehouse.address:
