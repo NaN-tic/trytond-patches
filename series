@@ -149,3 +149,5 @@ issue13561.diff # [account_invoice_stock] Do not update unit price of stock move
 issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
 
 move_origin_general_ledge_lines.diff # [account] Add move origin value in the account general ledge line view
+
+issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or purchase has not unit
