@@ -73,3 +73,5 @@ issue13585.diff # [stock_supply] Not Include NULL value for negative search on n
 issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or purchase has not unit
 
 issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
+
+b2ck7965.diff # [stock] Inventory confirmation very slow with >1000 records
