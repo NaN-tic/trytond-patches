@@ -1,0 +1,15 @@
+diff --git a/tryton/modules/stock/inventory.py b/tryton/modules/stock/inventory.py
+index 8f11b7d2bd..571ef4b627 100644
+--- a/tryton/modules/stock/inventory.py
++++ b/tryton/modules/stock/inventory.py
+@@ -218,7 +218,9 @@ class Inventory(Workflow, ModelSQL, ModelView):
+         if moves:
+             Move.save(moves)
+             with transaction.set_context(_skip_warnings=True):
+-                Move.do(moves)
++                for grouped_moves in grouped_slice(moves):
++                    grouped_moves = Move.browse(grouped_moves)
++                    Move.do(grouped_moves)
+ 
+     @classmethod
+     @ModelView.button
