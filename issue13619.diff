@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+index 632449c6c9..e4bf2eb2cb 100644
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -412,7 +412,6 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin, InvoiceReportMixin):
+                 ('validated', 'cancelled'),
+                 ('posted', 'cancelled'),
+                 ('cancelled', 'draft'),
+-                ('cancelled', 'posted'),
+                 ))
+         cls._buttons.update({
+                 'cancel': {
