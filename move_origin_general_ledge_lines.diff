@@ -1,0 +1,75 @@
+diff --git a/tryton/modules/account/account.py b/tryton/modules/account/account.py
+index a3a2fe39a1..45899fe736 100644
+--- a/tryton/modules/account/account.py
++++ b/tryton/modules/account/account.py
+@@ -2367,6 +2367,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+             "Balance", currency='currency', digits='currency'),
+         'get_balance')
+     origin = fields.Reference('Origin', selection='get_origin')
++    move_origin = fields.Reference("Move Origin", selection='get_move_origin')
+     description = fields.Char('Description')
+     move_description = fields.Char('Move Description')
+     amount_second_currency = Monetary(
+@@ -2423,6 +2424,8 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+                     column = (line.debit - line.credit).as_('internal_balance')
+             elif fname == 'move_description':
+                 column = Column(move, 'description').as_(fname)
++            elif fname == 'move_origin':
++                column = Column(move, 'origin').as_(fname)
+             elif fname == 'party_required':
+                 column = Column(account, 'party_required').as_(fname)
+             elif (not field_line
+@@ -2451,6 +2454,11 @@ class GeneralLedgerLine(ModelSQL, ModelView):
+         Line = Pool().get('account.move.line')
+         return Line.get_origin()
+
++    @classmethod
++    def get_move_origin(cls):
++        Move = Pool().get('account.move')
++        return Move.get_origin()
++
+     def get_balance(self, name):
+         pool = Pool()
+         LedgerLineContext = pool.get(
+diff --git a/tryton/modules/account/view/general_ledger_line_list.xml b/tryton/modules/account/view/general_ledger_line_list.xml
+index 285b7fadd7..c7fe17d473 100644
+--- a/tryton/modules/account/view/general_ledger_line_list.xml
++++ b/tryton/modules/account/view/general_ledger_line_list.xml
+@@ -9,6 +9,7 @@ this repository contains the full copyright notices and license terms. -->
+     <field name="description" expand="1" optional="1"/>
+     <field name="move_description" expand="1" optional="1"/>
+     <field name="origin" optional="1"/>
++    <field name="move_origin" optional="1"/>
+     <field name="reconciliation" optional="1"/>
+     <field name="state" optional="1"/>
+     <field name="debit" sum="Debit" optional="0"/>
+diff --git a/tryton/modules/account/locale/ca.po b/tryton/modules/account/locale/ca.po
+index 90d6dc8fe1..14f4830345 100644
+--- a/tryton/modules/account/locale/ca.po
++++ b/tryton/modules/account/locale/ca.po
+@@ -979,6 +979,10 @@ msgctxt "field:account.general_ledger.line,move:"
+ msgid "Move"
+ msgstr "Assentament"
+ 
++msgctxt "field:account.general_ledger.line,move_origin:"
++msgid "Move Origin"
++msgstr "Origen de l'assentament"
++
+ msgctxt "field:account.general_ledger.line,move_description:"
+ msgid "Move Description"
+ msgstr "Descripció de l'assentament"
+diff --git a/tryton/modules/account/locale/es.po b/tryton/modules/account/locale/es.po
+index 4c6b6672d4..5806468b40 100644
+--- a/tryton/modules/account/locale/es.po
++++ b/tryton/modules/account/locale/es.po
+@@ -979,6 +979,10 @@ msgctxt "field:account.general_ledger.line,move:"
+ msgid "Move"
+ msgstr "Asiento"
+ 
++msgctxt "field:account.general_ledger.line,move_origin:"
++msgid "Move Origin"
++msgstr "Origen del asiento"
++
+ msgctxt "field:account.general_ledger.line,move_description:"
+ msgid "Move Description"
+ msgstr "Descripción del asiento"
