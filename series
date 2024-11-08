@@ -74,10 +74,10 @@ issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or 
 
 issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
 
+b2ck7962.diff # [account] Add move origin value in the account general ledge line view
+
 b2ck7965.diff # [stock] Inventory confirmation very slow with >1000 records
 
 issue13661.diff # [trytond] Connection pool exhausted when retrying on locking table
 
 b2ck7966.diff # [trytond] sendmail does not always retry when it should
-
-move_origin_general_ledge_lines.diff # [account] Add move origin value in the account general ledge line view
