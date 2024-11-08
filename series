@@ -24,3 +24,5 @@ issue11731.diff # [currency] currency test don't pass when Currency Rates Source
 counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the possiblity to have a party in the counterpart move when reconcile on a payment.
 
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
+
+b2ck7962.diff # [account] Add move origin value in the account general ledge line view
