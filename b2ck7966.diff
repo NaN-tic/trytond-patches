@@ -1,0 +1,13 @@
+diff --git a/tryton/trytond/trytond/sendmail.py b/tryton/trytond/trytond/sendmail.py
+index 66a5bbb378..e0f704a538 100644
+--- a/tryton/trytond/trytond/sendmail.py
++++ b/tryton/trytond/trytond/sendmail.py
+@@ -67,7 +67,7 @@ def send_message(
+             if strict:
+                 raise
+             logger.error('fail to send email', exc_info=True)
+-        except smtplib.SMTPResponseException as e:
++        except (smtplib.SMTPResponseException, smtplib.SMTPSenderRefused) as e:
+             if count and 400 <= e.smtp_code <= 499 and hasattr(server, 'uri'):
+                 server.quit()
+                 server = get_smtp_server(server.uri, strict=strict)
