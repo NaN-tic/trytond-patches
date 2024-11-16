@@ -151,3 +151,5 @@ issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrasta
 move_origin_general_ledge_lines.diff # [account] Add move origin value in the account general ledge line view
 
 issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or purchase has not unit
+
+b2ck7987.diff # [sale_credit_limit] Crash on quote and process with line without uom and sale_credit_limit
