@@ -22,7 +22,7 @@ index 2cccc9a179..dcef16e9a2 100644
                      and hasattr(self.shipment, 'intrastat_from_country')):
                  return self.shipment.intrastat_from_country
 +            elif self.from_location.type == 'lost_found':
-+                if self.to_location.type != 'lost_found':
++                if self.to_location and self.to_location.type != 'lost_found':
 +                    return self.intrastat_to_country
 
      @property
@@ -32,7 +32,7 @@ index 2cccc9a179..dcef16e9a2 100644
                      and hasattr(self.shipment, 'intrastat_to_country')):
                  return self.shipment.intrastat_to_country
 +            elif self.to_location.type == 'lost_found':
-+                if self.from_location.type != 'lost_found':
++                if self.to_location and self.from_location.type != 'lost_found':
 +                    return self.intrastat_from_country
 
      @classmethod
