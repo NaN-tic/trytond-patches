@@ -7,7 +7,7 @@ index 992bde4e4d..35b73a91e1 100644
 
      @property
 -    @fields.depends('from_location', 'shipment')
-+    @fields.depends('from_location', 'shipment', methods=['intrastat_to_country'])
++    @fields.depends('from_location', 'to_location', 'shipment', methods=['intrastat_to_country'])
      def intrastat_from_country(self):
          if self.from_location:
              if self.from_warehouse and self.from_warehouse.address:
@@ -16,7 +16,7 @@ index 992bde4e4d..35b73a91e1 100644
 
      @property
 -    @fields.depends('to_location', 'shipment')
-+    @fields.depends('to_location', 'shipment', methods=['intrastat_from_country'])
++    @fields.depends('to_location', 'from_location', 'shipment', methods=['intrastat_from_country'])
      def intrastat_to_country(self):
          if self.to_location:
              if self.to_warehouse and self.to_warehouse.address:
