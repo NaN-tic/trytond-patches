@@ -147,3 +147,9 @@ issue13544.diff # [purchase] [sale] Return location instance in getter of sale a
 issue13561.diff # [account_invoice_stock] Do not update unit price of stock move when it is not required
 
 issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
+
+move_origin_general_ledge_lines.diff # [account] Add move origin value in the account general ledge line view
+
+issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or purchase has not unit
+
+b2ck7987.diff # [sale_credit_limit] Crash on quote and process with line without uom and sale_credit_limit
