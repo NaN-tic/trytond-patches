@@ -1,0 +1,136 @@
+diff --git a/tryton/modules/analytic_sale/__init__.py b/tryton/modules/analytic_sale/__init__.py
+index db366afffa..b8f04c7a3e 100644
+--- a/tryton/modules/analytic_sale/__init__.py
++++ b/tryton/modules/analytic_sale/__init__.py
+@@ -8,6 +8,7 @@ from . import sale
+ 
+ def register():
+     Pool.register(
++        sale.Sale,
+         sale.Line,
+         sale.AnalyticAccountEntry,
+         module='analytic_sale', type_='model')
+diff --git a/modules/analytic_sale/sale.py b/modules/analytic_sale/sale.py
+index eba47b42e9..d36c2a5171 100644
+--- a/tryton/modules/analytic_sale/sale.py
++++ b/tryton/modules/analytic_sale/sale.py
+@@ -6,6 +6,31 @@ from trytond.pool import Pool, PoolMeta
+ from trytond.pyson import Eval
+ 
+ 
++class Sale(metaclass=PoolMeta):
++    __name__ = 'sale.sale'
++
++    def create_invoice(self):
++        pool = Pool()
++        AnalyticAccountEntry = pool.get('analytic.account.entry')
++        SaleLine = pool.get('sale.line')
++
++        invoice = super().create_invoice()
++        to_copy = []
++        for line in invoice.lines:
++            if not isinstance(line.origin, SaleLine):
++                continue
++            for account in line.origin.analytic_accounts:
++                to_copy.append((line, account))
++        accounts = AnalyticAccountEntry.copy([x[1] for x in to_copy], default={
++                'origin': None,
++                })
++        for line, account in zip([x[0] for x in to_copy], accounts):
++            if not hasattr(line, 'analytic_accounts'):
++                line.analytic_accounts = tuple()
++            line.analytic_accounts += (account,)
++        return invoice
++
++
+ class Line(AnalyticMixin, metaclass=PoolMeta):
+     __name__ = 'sale.line'
+ 
+@@ -20,19 +45,6 @@ class Line(AnalyticMixin, metaclass=PoolMeta):
+             'readonly': Eval('sale_state') != 'draft',
+             }
+ 
+-    def get_invoice_line(self):
+-        pool = Pool()
+-        AnalyticAccountEntry = pool.get('analytic.account.entry')
+-
+-        invoice_lines = super().get_invoice_line()
+-        for invoice_line in invoice_lines:
+-            new_entries = AnalyticAccountEntry.copy(self.analytic_accounts,
+-                default={
+-                    'origin': None,
+-                    })
+-            invoice_line.analytic_accounts = new_entries
+-        return invoice_lines
+-
+ 
+ class AnalyticAccountEntry(metaclass=PoolMeta):
+     __name__ = 'analytic.account.entry'
+diff --git a/tryton/modules/analytic_purchase/__init__.py b/tryton/modules/analytic_purchase/__init__.py
+index c0799645a7..102d8dc8ac 100644
+--- a/tryton/modules/analytic_purchase/__init__.py
++++ b/tryton/modules/analytic_purchase/__init__.py
+@@ -8,6 +8,7 @@ from . import purchase
+ 
+ def register():
+     Pool.register(
++        purchase.Purchase,
+         purchase.PurchaseLine,
+         purchase.AnalyticAccountEntry,
+         module='analytic_purchase', type_='model')
+diff --git a/modules/analytic_purchase/purchase.py b/modules/analytic_purchase/purchase.py
+index 16b5e22cad..71ed9a680e 100644
+--- a/tryton/modules/analytic_purchase/purchase.py
++++ b/tryton/modules/analytic_purchase/purchase.py
+@@ -6,6 +6,31 @@ from trytond.pool import Pool, PoolMeta
+ from trytond.pyson import Eval
+ 
+ 
++class Purchase(metaclass=PoolMeta):
++    __name__ = 'purchase.purchase'
++
++    def create_invoice(self):
++        pool = Pool()
++        AnalyticAccountEntry = pool.get('analytic.account.entry')
++        PurchaseLine = pool.get('purchase.line')
++
++        invoice = super().create_invoice()
++        to_copy = []
++        for line in invoice.lines:
++            if not isinstance(line.origin, PurchaseLine):
++                continue
++            for account in line.origin.analytic_accounts:
++                to_copy.append((line, account))
++        accounts = AnalyticAccountEntry.copy([x[1] for x in to_copy], default={
++                'origin': None,
++                })
++        for line, account in zip([x[0] for x in to_copy], accounts):
++            if not hasattr(line, 'analytic_accounts'):
++                line.analytic_accounts = tuple()
++            line.analytic_accounts += (account,)
++        return invoice
++
++
+ class PurchaseLine(AnalyticMixin, metaclass=PoolMeta):
+     __name__ = 'purchase.line'
+ 
+@@ -20,19 +45,6 @@ class PurchaseLine(AnalyticMixin, metaclass=PoolMeta):
+             'readonly': Eval('purchase_state') != 'draft',
+             }
+ 
+-    def get_invoice_line(self):
+-        pool = Pool()
+-        AnalyticAccountEntry = pool.get('analytic.account.entry')
+-
+-        invoice_lines = super(PurchaseLine, self).get_invoice_line()
+-        for invoice_line in invoice_lines:
+-            new_entries = AnalyticAccountEntry.copy(self.analytic_accounts,
+-                default={
+-                    'origin': None,
+-                    })
+-            invoice_line.analytic_accounts = new_entries
+-        return invoice_lines
+-
+ 
+ class AnalyticAccountEntry(metaclass=PoolMeta):
+     __name__ = 'analytic.account.entry'
