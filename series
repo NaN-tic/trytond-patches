@@ -85,3 +85,5 @@ b2ck7966.diff # [trytond] sendmail does not always retry when it should
 issue13619.diff # [account_invoice] Remove unnecessary invoice transition from cancelled to posted
 
 b2ck7987.diff # [sale_credit_limit] Crash on quote and process with line without uom and sale_credit_limit
+
+b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_purchase make invoicing extremely slow
