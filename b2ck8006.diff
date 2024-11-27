@@ -14,7 +14,7 @@ diff --git a/modules/analytic_sale/sale.py b/modules/analytic_sale/sale.py
 index eba47b42e9..d36c2a5171 100644
 --- a/tryton/modules/analytic_sale/sale.py
 +++ b/tryton/modules/analytic_sale/sale.py
-@@ -6,6 +6,31 @@ from trytond.pool import Pool, PoolMeta
+@@ -6,6 +6,33 @@ from trytond.pool import Pool, PoolMeta
  from trytond.pyson import Eval
  
  
@@ -27,6 +27,8 @@ index eba47b42e9..d36c2a5171 100644
 +        SaleLine = pool.get('sale.line')
 +
 +        invoice = super().create_invoice()
++        if not invoice:
++            return
 +        to_copy = []
 +        for line in invoice.lines:
 +            if not isinstance(line.origin, SaleLine):
@@ -82,7 +84,7 @@ diff --git a/modules/analytic_purchase/purchase.py b/modules/analytic_purchase/p
 index 16b5e22cad..71ed9a680e 100644
 --- a/tryton/modules/analytic_purchase/purchase.py
 +++ b/tryton/modules/analytic_purchase/purchase.py
-@@ -6,6 +6,31 @@ from trytond.pool import Pool, PoolMeta
+@@ -6,6 +6,33 @@ from trytond.pool import Pool, PoolMeta
  from trytond.pyson import Eval
  
  
@@ -95,6 +97,8 @@ index 16b5e22cad..71ed9a680e 100644
 +        PurchaseLine = pool.get('purchase.line')
 +
 +        invoice = super().create_invoice()
++        if not invoice:
++            return
 +        to_copy = []
 +        for line in invoice.lines:
 +            if not isinstance(line.origin, PurchaseLine):
