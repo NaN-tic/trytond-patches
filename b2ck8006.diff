@@ -33,15 +33,15 @@ index eba47b42e9..d36c2a5171 100644
 +        for line in invoice.lines:
 +            if not isinstance(line.origin, SaleLine):
 +                continue
++            line.analytic_accounts = tuple()
 +            for account in line.origin.analytic_accounts:
 +                to_copy.append((line, account))
 +        accounts = AnalyticAccountEntry.copy([x[1] for x in to_copy], default={
 +                'origin': None,
 +                })
 +        for line, account in zip([x[0] for x in to_copy], accounts):
-+            if not hasattr(line, 'analytic_accounts'):
-+                line.analytic_accounts = tuple()
 +            line.analytic_accounts += (account,)
++        invoice.lines = invoice.lines
 +        return invoice
 +
 +
@@ -103,15 +103,15 @@ index 16b5e22cad..71ed9a680e 100644
 +        for line in invoice.lines:
 +            if not isinstance(line.origin, PurchaseLine):
 +                continue
++	     line.analytic_accounts = tuple()
 +            for account in line.origin.analytic_accounts:
 +                to_copy.append((line, account))
 +        accounts = AnalyticAccountEntry.copy([x[1] for x in to_copy], default={
 +                'origin': None,
 +                })
 +        for line, account in zip([x[0] for x in to_copy], accounts):
-+            if not hasattr(line, 'analytic_accounts'):
-+                line.analytic_accounts = tuple()
 +            line.analytic_accounts += (account,)
++        invoice.lines = invoice.lines
 +        return invoice
 +
 +
