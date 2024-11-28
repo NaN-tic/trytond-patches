@@ -47,7 +47,7 @@ index fad03e6b69..de85bcae0d 100644
  msgstr ""
 -"La facture « %(invoice)s » n'a pas les taxes par défaut pour %(line)s."
 +"La facture « %(invoice)s » n'a pas les taxes par défaut pour %(lines)s."
- 
+
  msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
  msgid "To delete invoice \"%(invoice)s\" you must cancel it."
 diff --git a/tryton/modules/purchase_amendment/locale/es.po b/tryton/modules/purchase_amendment/locale/es.po
@@ -60,6 +60,19 @@ index dc49e40836..725cb507ed 100644
  "No puedes validar a la vez mas de una corrección de la misma compra "
 -"\"%(compra)s\"."
 +"\"%(purchase)s\"."
- 
+
  msgctxt ""
  "model:ir.model.button,confirm:purchase_amendment_validation_amendment_button"
+ diff --git a/tryton/modules/sale_supply/locale/es.po b/tryton/modules/sale_supply/locale/es.po
+ index 08cad7c95d..1abe3c4ca9 100644
+ --- a/tryton/modules/sale_supply/locale/es.po
+ +++ b/tryton/modules/sale_supply/locale/es.po
+ @@ -33,7 +33,7 @@ msgstr "El producto \"%(product)s\" se subministra en la venta."
+  msgctxt "model:ir.message,text:msg_template_supply_on_sale_order_point"
+  msgid "The product has purchase order points \"%(order_points)s\" defined."
+  msgstr ""
+ -"El producto tiene reglas de abastecimientod e compra \"%(order_point)s\" "
+ +"El producto tiene reglas de abastecimientod e compra \"%(order_points)s\" "
+  "definidos."
+
+  msgctxt "selection:product.product,supply_on_sale:"
