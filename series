@@ -68,8 +68,6 @@ issue7912.diff # [account_stock_eu] Use the intrastat country of inventory and p
 
 issue10322.diff # [product] Do not replace redefined product field with template function field
 
-issue13585.diff # [stock_supply] Not Include NULL value for negative search on nested Many2One
-
 issue13593.diff # [sale] [purchase] Do not convert invoiced quantity if sale or purchase has not unit
 
 issue13634.diff # [account_stock_eu] Add missing depends to counterpart intrastat property
