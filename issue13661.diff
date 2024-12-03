@@ -7,7 +7,7 @@ index d04350f23f..76f8282ec1 100644
              self._datamanagers = []
  
 +            self.connection = database.get_connection(readonly=readonly,
-+                autocommit=autocommit, statement_timeout=timeout)
++                autocommit=autocommit)
              count = 0
              while True:
                  if count:
