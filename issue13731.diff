@@ -1,0 +1,22 @@
+diff --git a/tryton/modules/production/production.py b/tryton/modules/production/production.py
+index 5bff2f6b96..43846712fb 100644
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
+@@ -367,6 +367,7 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+         Move = pool.get('stock.move')
+         assert type in {'input', 'output'}
+         move = Move(
++            state='draft',
+             product=product,
+             unit=unit,
+             quantity=quantity,
+@@ -379,7 +380,8 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+             move.from_location = self.location
+             move.to_location = self.output_location
+             move.production_output = self
+-        if move.on_change_with_unit_price_required():
++        move.unit_price_required = move.on_change_with_unit_price_required()
++        if move.unit_price_required:
+             move.unit_price = Decimal(0)
+             if self.company:
+                 move.currency = self.company.currency
