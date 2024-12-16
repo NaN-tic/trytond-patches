@@ -10,8 +10,6 @@ issue7805.diff # [account] Raise user error when description of move template ca
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
-search_warehouse.diff # [stock] search function for warehouse
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
