@@ -155,3 +155,5 @@ b2ck7987.diff # [sale_credit_limit] Crash on quote and process with line without
 issue13615.diff # [account_invoice] Forbid to set ratio and divisor to zero for percentage payment term
 
 issue13661.diff # [trytond] Connection pool exhausted when retrying on locking table
+
+issue13702.diff # [company] Test if contextual company id is positive before using it to get the timezone
