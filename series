@@ -77,3 +77,5 @@ b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_p
 issue13615.diff # [account_invoice] Forbid to set ratio and divisor to zero for percentage payment term
 
 issue13731.diff # [production] Unit Price field not visible in output move after exploded BOM in the Production
+
+issue13702.diff # [company] Test if contextual company id is positive before using it to get the timezone
