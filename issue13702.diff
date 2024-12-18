@@ -11,3 +11,16 @@ index 6b4e890489..7822c2e65c 100644
              company = Company(company_id)
              if company.timezone:
                  timezone = tz.ZoneInfo(company.timezone)
+diff --git a/tryton/modules/purchase_request/purchase_request.py b/tryton/modules/purchase_request/purchase_request.py
+index b5d3b9a3e2..7018771da2 100644
+--- a/tryton/modules/purchase_request/purchase_request.py
++++ b/tryton/modules/purchase_request/purchase_request.py
+@@ -502,7 +502,7 @@ class CreatePurchase(Wizard):
+         for key, grouped_requests in groupby(requests, key=keyfunc):
+             grouped_requests = list(grouped_requests)
+             key = dict(key)
+-            with Transaction().set_context(company=key['company']):
++            with Transaction().set_context(company=int(key['company'])):
+                 today = Date.today()
+             try:
+                 purchase_date = min(r.purchase_date
