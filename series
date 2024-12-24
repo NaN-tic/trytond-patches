@@ -80,7 +80,7 @@ issue13731.diff # [production] Unit Price field not visible in output move after
 
 issue13702.diff # [company] Test if contextual company id is positive before using it to get the timezone
 
-issue13777.diff # [account] Add Invoice Line with different taxes raise Duplicate tax line keys
+issue13777.diff # [account] Merge tax line with the same key but computed separately raise Duplicate tax line keys
 
 issue13767.diff # [stock] Read only cost price from the history product when computing cost value
 
