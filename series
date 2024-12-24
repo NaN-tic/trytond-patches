@@ -83,3 +83,5 @@ issue13702.diff # [company] Test if contextual company id is positive before usi
 issue13777.diff # [account] Add Invoice Line with different taxes raise Duplicate tax line keys
 
 issue13767.diff # [stock] Read only cost price from the history product when computing cost value
+
+issue13768.diff # [sale_opportunity] Do not historize unecessary model
