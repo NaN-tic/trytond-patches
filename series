@@ -159,3 +159,5 @@ issue13661.diff # [trytond] Connection pool exhausted when retrying on locking t
 issue13702.diff # [company] Test if contextual company id is positive before using it to get the timezone
 
 issue13767.diff # [stock] Read only cost price from the history product when computing cost value
+
+issue13768.diff # [sale_opportunity] Do not historize unecessary model
