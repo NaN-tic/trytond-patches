@@ -1,0 +1,14 @@
+diff --git a/tryton/modules/account/tax.py b/tryton/modules/account/tax.py
+index 3b72bb508f..003858e9e6 100644
+--- a/tryton/modules/account/tax.py
++++ b/tryton/modules/account/tax.py
+@@ -1319,8 +1319,8 @@ class TaxableMixin(object):
+                         self._round_taxes(current_taxes)
+                 if tax_rounding == 'document':
+                     self._round_taxes(taxes)
+-                if all_taxes.keys() & taxes.keys():
+-                    raise ValueError("Duplicate tax line keys")
++                # if all_taxes.keys() & taxes.keys():
++                #     raise ValueError("Duplicate tax line keys")
+                 all_taxes.update(taxes)
+         return all_taxes
