@@ -161,3 +161,5 @@ issue13702.diff # [company] Test if contextual company id is positive before usi
 issue13767.diff # [stock] Read only cost price from the history product when computing cost value
 
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
+
+b2ck8043.diff # [party_relationship] Error in party_relationship if 'date' is an empty string
