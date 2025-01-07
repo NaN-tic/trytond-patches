@@ -85,3 +85,5 @@ issue13777.diff # [account] Merge tax line with the same key but computed separa
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
 
 b2ck8043.diff # [party_relationship] Error in party_relationship if 'date' is an empty string
+
+issue13779.diff # [trytond]  Limit the worker retry delay to maximum 1 hour
