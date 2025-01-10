@@ -60,9 +60,18 @@ index d02f1a8a2f..129a59e3a7 100644
 
   msgctxt "model:ir.message,text:msg_inventory_count_create_line"
 diff --git a/tryton/trytond/trytond/ir/locale/ca.po b/tryton/trytond/trytond/ir/locale/ca.po
-index 5463ea4611..9e60d4d93e 100644
+index 5463ea4611..57755a81a5 100644
 --- a/tryton/trytond/trytond/ir/locale/ca.po
 +++ b/tryton/trytond/trytond/ir/locale/ca.po
+@@ -2847,7 +2847,7 @@ msgstr ""
+
+ msgctxt "model:ir.message,text:msg_sequence_invalid_prefix"
+ msgid "Invalid prefix \"%(affix)s\" for sequence \"%(sequence)s\"."
+-msgstr "El prefix \"%(prefix)s\" de la seqüència \"%(sequence)s\" es invàlid."
++msgstr "El prefix \"%(affix)s\" de la seqüència \"%(sequence)s\" es invàlid."
+
+ msgctxt "model:ir.message,text:msg_sequence_invalid_suffix"
+ msgid "Invalid suffix \"%(affix)s\" for sequence \"%(sequence)s\"."
 @@ -2874,7 +2874,7 @@ msgid ""
  "The value \"%(value)s\" for field \"%(field)s\" in \"%(model)s\" is too long"
  " (%(size)i > %(max_size)i)."
@@ -91,9 +100,18 @@ index 5463ea4611..9e60d4d93e 100644
 
  msgctxt "model:ir.message,text:msg_write_error"
 diff --git a/tryton/trytond/trytond/ir/locale/es.po b/tryton/trytond/trytond/ir/locale/es.po
-index da454cb386..cb5aff2367 100644
+index da454cb386..d485516c4b 100644
 --- a/tryton/trytond/trytond/ir/locale/es.po
 +++ b/tryton/trytond/trytond/ir/locale/es.po
+@@ -2855,7 +2855,7 @@ msgstr ""
+
+ msgctxt "model:ir.message,text:msg_sequence_invalid_prefix"
+ msgid "Invalid prefix \"%(affix)s\" for sequence \"%(sequence)s\"."
+-msgstr "El prefijo \"%(prefix)s\" de la secuencia \"%(sequence)s\" es inválido."
++msgstr "El prefijo \"%(affix)s\" de la secuencia \"%(sequence)s\" es inválido."
+
+ msgctxt "model:ir.message,text:msg_sequence_invalid_suffix"
+ msgid "Invalid suffix \"%(affix)s\" for sequence \"%(sequence)s\"."
 @@ -2882,7 +2882,7 @@ msgid ""
  "The value \"%(value)s\" for field \"%(field)s\" in \"%(model)s\" is too long"
  " (%(size)i > %(max_size)i)."
@@ -139,12 +157,12 @@ index 2d3c044dda..a88820debd 100644
 --- a/tryton/modules/account_invoice/locale/fr.po
 +++ b/tryton/modules/account_invoice/locale/fr.po
 @@ -905,7 +905,7 @@ msgstr ""
- 
+
  msgctxt "model:ir.message,text:msg_invoice_date_future"
  msgid "The invoices \"%(invoices)s\" have an invoice date in the future."
 -msgstr "La facture « %(invoice)s » a une date de facture dans le futur."
 +msgstr "La facture « %(invoices)s » a une date de facture dans le futur."
- 
+
  msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
  msgid "To delete invoice \"%(invoice)s\" you must cancel it."
 diff --git a/tryton/modules/sale_supply/locale/ca.po b/tryton/modules/sale_supply/locale/ca.po
@@ -158,7 +176,7 @@ index 437d39ce53..6b7ebc71b5 100644
 -"El producte te regles d'aprovisionament de compra \"%(order_point)s\" "
 +"El producte te regles d'aprovisionament de compra \"%(order_points)s\" "
  "definits."
- 
+
  msgctxt "selection:product.product,supply_on_sale:"
 diff --git a/tryton/modules/sale_supply/locale/es.po b/tryton/modules/sale_supply/locale/es.po
 index 08cad7c95d..1abe3c4ca9 100644
@@ -171,7 +189,7 @@ index 08cad7c95d..1abe3c4ca9 100644
 -"El producto tiene reglas de abastecimientod e compra \"%(order_point)s\" "
 +"El producto tiene reglas de abastecimientod e compra \"%(order_points)s\" "
  "definidos."
- 
+
  msgctxt "selection:product.product,supply_on_sale:"
 diff --git a/tryton/modules/sale_supply_drop_shipment/locale/ca.po b/tryton/modules/sale_supply_drop_shipment/locale/ca.po
 index 3d5751af58..b006d517a8 100644
@@ -184,11 +202,11 @@ index 3d5751af58..b006d517a8 100644
 -"Per obtenir un pressupost de la compra \"%(compra)s\" heu de proporcionar "
 +"Per obtenir un pressupost de la compra \"%(purchase)s\" heu de proporcionar "
  "una direcció d'entrega."
- 
+
  msgctxt "model:ir.message,text:msg_drop_shipment_delete_cancel"
  msgid "To delete drop shipment \"%(shipment)s\" you must cancel it."
 -msgstr "Per eliminar l'enviament directe \"%(shipmetn)s\" heu de cancel·lar-lo."
 +msgstr "Per eliminar l'enviament directe \"%(shipment)s\" heu de cancel·lar-lo."
- 
+
  msgctxt "model:ir.message,text:msg_reset_move"
  msgid ""
