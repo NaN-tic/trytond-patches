@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/purchase_request/purchase_request.py b/tryton/modules/purchase_request/purchase_request.py
+index a2ded88dc8..1694b580f6 100644
+--- a/tryton/modules/purchase_request/purchase_request.py
++++ b/tryton/modules/purchase_request/purchase_request.py
+@@ -453,7 +453,7 @@ class CreatePurchase(Wizard):
+         for key, grouped_requests in groupby(requests, key=keyfunc):
+             grouped_requests = list(grouped_requests)
+             key = dict(key)
+-            with Transaction().set_context(company=key['company']):
++            with Transaction().set_context(company=int(key['company'])):
+                 today = Date.today()
+             try:
+                 purchase_date = min(r.purchase_date
