@@ -48,7 +48,7 @@ index f8141ec84d..061f01a17e 100644
 +            emailinfo = _validate_email(
 +                email, check_deliverability=False,
 +                test_environment=Pool.test)
-+            return emailinfo.ascii_email
++            return emailinfo.ascii_email or emailinfo.normalized
 +        except EmailNotValidError:
 +            return email
 +
