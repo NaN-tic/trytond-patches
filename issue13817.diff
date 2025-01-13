@@ -1,0 +1,13 @@
+diff --git a/tryton/trytond/trytond/model/fields/one2one.py b/tryton/trytond/trytond/model/fields/one2one.py
+index 9d7207a62a..72ed23add6 100644
+--- a/tryton/trytond/trytond/model/fields/one2one.py
++++ b/tryton/trytond/trytond/model/fields/one2one.py
+@@ -8,6 +8,8 @@ from trytond.pool import Pool
+
+ class One2One(Many2Many):
+     _type = 'one2one'
++    _py_type = None
++    _sql_type = 'INTEGER'
+
+     def get(self, ids, model, name, values=None):
+         '''
