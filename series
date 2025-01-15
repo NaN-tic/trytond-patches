@@ -25,8 +25,4 @@ register_vector.diff # [trytond] Add register_vector postgreSQL extension
 
 b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_purchase make invoicing extremely slow
 
-issue13702.diff # [company] Test if contextual company id is positive before using it to get the timezone
-
-b2ck8043.diff # [party_relationship] Error in party_relationship if 'date' is an empty string
-
 issue13817.diff # [trytond] Missing _py_type in one2one model fields
