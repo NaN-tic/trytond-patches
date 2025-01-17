@@ -1,5 +1,7 @@
 babi_multiprocess.diff # [trytond] babi multiprocess
 locales.diff # [locales]
+locale-de.diff # [locale DE]
+locale-pt.diff # [locale PT]
 
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
@@ -81,4 +83,3 @@ issue13731.diff # [production] Unit Price field not visible in output move after
 issue13777.diff # [account] Merge tax line with the same key but computed separately raise Duplicate tax line keys
 
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
-

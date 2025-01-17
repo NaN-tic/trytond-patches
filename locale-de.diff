@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/account_invoice/locale/de.po b/tryton/modules/account_invoice/locale/de.po
+index 6f40b99984..ebd2689b3a 100644
+--- a/tryton/modules/account_invoice/locale/de.po
++++ b/tryton/modules/account_invoice/locale/de.po
+@@ -997,7 +997,7 @@ msgstr "Die Rechnungen \"%(invoices)s\" haben ein Rechnungsdatum in der Zukunft.
+ msgctxt "model:ir.message,text:msg_invoice_default_taxes"
+ msgid "The invoice \"%(invoice)s\" does not have the default taxes for %(lines)s."
+ msgstr ""
+-"Bei der Rechnungsposition %(line)s der Rechnung \"%(invoices)s\" weichen die"
++"Bei der Rechnungsposition %(lines)s der Rechnung \"%(invoice)s\" weichen die"
+ " Steuern vom Standard ab."
+
+ msgctxt "model:ir.message,text:msg_invoice_delete_cancel"
