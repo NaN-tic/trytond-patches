@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale_opportunity/sale.py b/tryton/modules/sale_opportunity/sale.py
+index a5d4b98d29..7d4befd057 100644
+--- a/tryton/modules/sale_opportunity/sale.py
++++ b/tryton/modules/sale_opportunity/sale.py
+@@ -38,6 +38,8 @@ class Sale(metaclass=PoolMeta):
+         for sales, values in zip(actions, actions):
+             if 'origin' in values:
+                 origin = values['origin']
++                if not origin:
++                    continue
+                 if not isinstance(origin, str):
+                     origin = '%s,%s' % tuple(origin)
+                 for sale in sales:
