@@ -163,3 +163,5 @@ issue13767.diff # [stock] Read only cost price from the history product when com
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
 
 b2ck8043.diff # [party_relationship] Error in party_relationship if 'date' is an empty string
+
+issue12290.diff # [stock] Fallback to original copied value of assigned stock move

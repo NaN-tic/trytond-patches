@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
+index 17385e0999..01263168a2 100644
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
+@@ -1023,7 +1023,7 @@ class Move(Workflow, ModelSQL, ModelView):
+         def default_values(values):
+             def get_value(name):
+                 def get_default(data):
+-                    return values[data['id']][name]
++                    return values[data['id']].get(name, data[name])
+                 return get_default
+             default = {}
+             for name in set().union(*(v.keys() for v in values.values())):
