@@ -85,3 +85,5 @@ issue13777.diff # [account] Merge tax line with the same key but computed separa
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
 
 issue13832.diff # [sale_opportunity] Do not check modification on origin opportunity if there is none
+
+issue13848.diff # [sao] Fix save method to avoid multiple creation or save
