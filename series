@@ -28,3 +28,5 @@ b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_p
 issue13817.diff # [trytond] Missing _py_type in one2one model fields
 
 issue13832.diff # [sale_opportunity] Do not check modification on origin opportunity if there is none
+
+issue13848.diff # [sao] Fix save method to avoid multiple creation or save
