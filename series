@@ -82,6 +82,4 @@ issue13731.diff # [production] Unit Price field not visible in output move after
 
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
 
-issue13832.diff # [sale_opportunity] Do not check modification on origin opportunity if there is none
-
 issue13848.diff # [sao] Fix save method to avoid multiple creation or save
