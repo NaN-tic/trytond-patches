@@ -80,8 +80,6 @@ issue13615.diff # [account_invoice] Forbid to set ratio and divisor to zero for 
 
 issue13731.diff # [production] Unit Price field not visible in output move after exploded BOM in the Production
 
-issue13777.diff # [account] Merge tax line with the same key but computed separately raise Duplicate tax line keys
-
 issue13768.diff # [sale_opportunity] Do not historize unecessary model
 
 issue13832.diff # [sale_opportunity] Do not check modification on origin opportunity if there is none
