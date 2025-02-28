@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
+index df04d5677e..874b3df09e 100644
+--- a/tryton/modules/stock/move.py
++++ b/tryton/modules/stock/move.py
+@@ -367,7 +367,7 @@ class Move(Workflow, ModelSQL, ModelView):
+         cls._deny_modify_done_cancel = (cls._deny_modify_assigned
+             | set(['planned_date', 'effective_date']))
+         cls._allow_modify_closed_period = {
+-            'cost_price', 'unit_price', 'unit_price_updated', 'currency'}
++            'cost_price', 'unit_price', 'unit_price_updated', 'currency', 'production_cost_price_updated'}
+
+         t = cls.__table__()
+         cls._sql_constraints += [
