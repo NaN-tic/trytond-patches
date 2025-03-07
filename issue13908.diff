@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale_opportunity/view/opportunity_line_form.xml b/tryton/modules/sale_opportunity/view/opportunity_line_form.xml
+index 39fee2b69d..d1bf335e29 100644
+--- a/tryton/modules/sale_opportunity/view/opportunity_line_form.xml
++++ b/tryton/modules/sale_opportunity/view/opportunity_line_form.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0"?>
+ <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+ this repository contains the full copyright notices and license terms. -->
+-<form>
++<form cursor="quantity">
+     <label name="opportunity"/>
+     <field name="opportunity"/>
+     <label name="sequence"/>
