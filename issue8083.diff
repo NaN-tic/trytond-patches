@@ -1,0 +1,31 @@
+diff --git a/tryton/trytond/trytond/model/fields/many2one.py b/tryton/trytond/trytond/model/fields/many2one.py
+index ee57aabcac..840a0f5fd7 100644
+--- a/tryton/trytond/trytond/model/fields/many2one.py
++++ b/tryton/trytond/trytond/model/fields/many2one.py
+@@ -278,7 +278,10 @@ class Many2One(Field):
+             target_table, _ = target_tables[None]
+             _, expression = Target.search_domain(
+                 target_domain, tables=target_tables)
+-        if operator.startswith('not') or operator == '!=':
++        if ((operator.startswith('not') and not (
++                        operator == 'not in'
++                        and None in value))
++                or (operator == '!=' and value is not None)):
+             expression |= column == Null
+         return expression
+
+diff --git a/tryton/trytond/trytond/model/fields/reference.py b/tryton/trytond/trytond/model/fields/reference.py
+index 520b4cf38e..306513a2a6 100644
+--- a/tryton/trytond/trytond/model/fields/reference.py
++++ b/tryton/trytond/trytond/model/fields/reference.py
+@@ -217,7 +217,10 @@ class Reference(SelectionMixin, Field):
+         expression = (
+             self.sql_id(column, Model).in_(query)
+             & column.like(target + ',%'))
+-        if operator.startswith('not') or operator == '!=':
++        if ((operator.startswith('not') and not (
++                        operator == 'not in'
++                        and None in value))
++                or (operator == '!=' and value is not None)):
+             expression |= column == Null
+         return expression

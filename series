@@ -28,3 +28,5 @@ b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_p
 b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_closed_period
 
 issue13908.diff # [sale_opportunity] Set cursor in the quantity field in sale opportunity line form view
+
+issue8083.diff # [trytond] Do not include record with NULL field in nested negative clause on None
