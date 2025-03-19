@@ -87,3 +87,5 @@ b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_close
 issue13908.diff # [sale_opportunity] Set cursor in the quantity field in sale opportunity line form view
 
 issue13335.diff # [sao] Remove favorite management
+
+issue8083.diff # [trytond] Do not include record with NULL field in nested negative clause on None
