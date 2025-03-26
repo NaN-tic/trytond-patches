@@ -32,3 +32,5 @@ issue13908.diff # [sale_opportunity] Set cursor in the quantity field in sale op
 issue8083.diff # [trytond] Do not include record with NULL field in nested negative clause on None
 
 issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
+
+issue13940.diff # [sao] Concurrency exceptions are no more manageable on save
