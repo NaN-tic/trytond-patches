@@ -29,12 +29,8 @@ b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_close
 
 issue13908.diff # [sale_opportunity] Set cursor in the quantity field in sale opportunity line form view
 
-issue8083.diff # [trytond] Do not include record with NULL field in nested negative clause on None
-
 issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
 
 issue13940.diff # [sao] Concurrency exceptions are no more manageable on save
 
 issue13939.diff # [sao] Change current record for the first selected only if there is no current record
-
-issue13845.diff # [sao] Do not use instanceof on value of Date and DateTime of Dict field
