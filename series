@@ -93,3 +93,5 @@ issue13942.diff # [sao] Allow .rec_name in the context for search_value with ili
 issue13940.diff # [sao] Concurrency exceptions are no more manageable on save
 
 issue13939.diff # [sao] Change current record for the first selected only if there is no current record
+
+b2ck8098.diff # [sao + trytond] Do not fill mode and views for relation field without views

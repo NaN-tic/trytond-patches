@@ -1,0 +1,29 @@
+diff --git a/tryton/sao/src/model.js b/tryton/sao/src/model.js
+index ec4b9b3501..d8a00486cf 100644
+--- a/tryton/sao/src/model.js
++++ b/tryton/sao/src/model.js
+@@ -4,7 +4,7 @@
+     'use strict';
+
+     function get_x2m_sub_fields(f_attrs, prefix) {
+-        if (f_attrs.visible && f_attrs.views) {
++        if (f_attrs.visible && !jQuery.isEmptyObject(f_attrs.views)) {
+             // There's only one key but we don't know its value
+             const [[, view],] = Object.entries(f_attrs.views);
+
+diff --git a/tryton/trytond/trytond/model/modelview.py b/tryton/trytond/trytond/model/modelview.py
+index 49383fa44b..e83b5a3adf 100644
+--- a/tryton/trytond/trytond/model/modelview.py
++++ b/tryton/trytond/trytond/model/modelview.py
+@@ -623,8 +623,9 @@ class ModelView(Model):
+                     element.attrib.pop('mode', None) or 'tree,form').split(',')
+                 widget = element.attrib.get('widget', field._type)
+                 views = get_views(relation, widget, view_ids, mode)
+-                element.attrib['mode'] = ','.join(mode)
+-                fields_attrs[fname].setdefault('views', {}).update(views)
++                if views:
++                    element.attrib['mode'] = ','.join(mode)
++                    fields_attrs[fname].setdefault('views', {}).update(views)
+
+             if type == 'tree':
+                 if element.get('name') in fields_width:
