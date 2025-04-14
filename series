@@ -99,3 +99,5 @@ b2ck8098.diff # [sao + trytond] Do not fill mode and views for relation field wi
 issue13946.diff # [sao] Check for new record only when saving an actual current record
 
 account_asset.diff # [account_asset] dissable account.asset translations by lang
+
+issue13868.diff # [modules] Ensure the contextual company is not None and positive before using it
