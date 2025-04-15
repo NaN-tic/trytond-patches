@@ -90,8 +90,6 @@ issue13335.diff # [sao] Remove favorite management
 
 issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
 
-b2ck8098.diff # [sao + trytond] Do not fill mode and views for relation field without views
-
 issue13946.diff # [sao] Check for new record only when saving an actual current record
 
 account_asset.diff # [account_asset] dissable account.asset translations by lang
