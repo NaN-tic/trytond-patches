@@ -30,5 +30,3 @@ b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_close
 issue13908.diff # [sale_opportunity] Set cursor in the quantity field in sale opportunity line form view
 
 issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
-
-issue13868.diff # [modules] Ensure the contextual company is not None and positive before using it
