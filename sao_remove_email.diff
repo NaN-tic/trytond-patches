@@ -1,8 +1,8 @@
 diff --git a/tryton/sao/src/sao.js b/tryton/sao/src/sao.js
-index 9e5807824e..21bb43ccfa 100644
+index c33cd423ad..080c0615fb 100644
 --- a/tryton/sao/src/sao.js
 +++ b/tryton/sao/src/sao.js
-@@ -1120,10 +1120,6 @@ var Sao = {
+@@ -1165,10 +1165,6 @@ var Sao = {
                  shortcut: 'ctrl+p',
                  label: Sao.i18n.gettext('Print'),
                  id: 'print',
@@ -14,10 +14,10 @@ index 9e5807824e..21bb43ccfa 100644
                  shortcut: 'alt+shift+tab',
                  label: Sao.i18n.gettext('Previous tab'),
 diff --git a/tryton/sao/src/tab.js b/tryton/sao/src/tab.js
-index 411b61a9b6..a47e21f586 100644
+index 4739d0da70..67ea7298f7 100644
 --- a/tryton/sao/src/tab.js
 +++ b/tryton/sao/src/tab.js
-@@ -91,11 +91,6 @@
+@@ -103,11 +103,6 @@
                      id: 'print',
                      icon: 'tryton-print',
                      label: Sao.i18n.gettext('Print'),
@@ -29,7 +29,7 @@ index 411b61a9b6..a47e21f586 100644
                  }, null, {
                      id: 'export',
                      icon: 'tryton-export',
-@@ -532,7 +527,7 @@
+@@ -591,7 +586,7 @@
                      Sao.i18n.gettext('Open related records')],
                  ['print', 'tryton-print',
                      Sao.i18n.gettext('Print report')]
@@ -38,7 +38,7 @@ index 411b61a9b6..a47e21f586 100644
                  var dropdown = jQuery('<div/>', {
                      'class': 'btn-group dropdown',
                      'role': 'group'
-@@ -558,7 +553,7 @@
+@@ -617,7 +612,7 @@
                          'role': 'menu',
                          'aria-labelledby': menu_action[0]
                      }))
@@ -47,12 +47,12 @@ index 411b61a9b6..a47e21f586 100644
                  var button = dropdown.find('button');
                  this.buttons[menu_action[0]] = button;
                  dropdown
-@@ -1442,7 +1437,7 @@
-             }
+@@ -1534,7 +1529,7 @@
              const view_type = this.screen.current_view.view_type;
+             var next_view_type = this.screen.next_view_type;
              const has_views = this.screen.number_of_views > 1;
--            var buttons = ['print', 'relate', 'email', 'attach'];
-+            var buttons = ['print', 'relate', 'attach'];
+-            var buttons = ['print', 'relate', 'email', 'attach', 'chat'];
++            var buttons = ['print', 'relate', 'attach', 'chat'];
              for (const button_id of buttons) {
                  const button = this.buttons[button_id];
-                 let can_be_sensitive = button._can_be_sensitive;
+                 if (!button) {
