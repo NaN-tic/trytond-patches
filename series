@@ -93,3 +93,5 @@ issue13942.diff # [sao] Allow .rec_name in the context for search_value with ili
 account_asset.diff # [account_asset] dissable account.asset translations by lang
 
 issue13597.diff # [account_stock_continental] Cancel account move when stock move is cancelled
+
+issue13990.diff  # [production] Get cost price in case is none
