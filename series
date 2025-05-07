@@ -164,3 +164,5 @@ issue13110.diff # [project_revenue] Do not try to round or convert list price of
 issue13111.diff # [project_invoice] Do not fail when testing if account is set on invoice line for project
 
 issue13268.diff # [account] Posting moves on reconciled account with and without party fails
+
+sale_shipment_cost.diff # [sale_shipment_cost] Add missing depends already present in latest versions
