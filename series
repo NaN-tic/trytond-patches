@@ -22,3 +22,5 @@ counterpart_party_payment_clearing.diff # [account_payment_clearing] Add the pos
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
 
 b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_purchase make invoicing extremely slow
+
+issue14002.diff # [sale] [purchase] use line.sale_state in Line.check_modification()

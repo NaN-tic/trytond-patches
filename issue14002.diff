@@ -1,0 +1,26 @@
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
+index 2677916bc9..5752e93a0c 100644
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
+@@ -2116,7 +2116,7 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
+             mode, lines, values=values, external=external)
+         if mode == 'create':
+             for line in lines:
+-                if line.purchase.state != 'draft':
++                if line.purchase_state != 'draft':
+                     raise AccessError(gettext(
+                             'purchase.msg_purchase_line_create_draft',
+                             purchase=line.purchase.rec_name))
+diff --git a/tryton/modules/sale/sale.py b/tryton/modules/sale/sale.py
+index abeeebaa31..f884b5e7ab 100644
+--- a/tryton/modules/sale/sale.py
++++ b/tryton/modules/sale/sale.py
+@@ -2249,7 +2249,7 @@ class SaleLine(TaxableMixin, sequence_ordered(), ModelSQL, ModelView):
+             mode, lines, values=values, external=external)
+         if mode == 'create':
+             for line in lines:
+-                if line.sale.state != 'draft':
++                if line.sale_state != 'draft':
+                     raise AccessError(gettext(
+                             'sale.msg_sale_line_create_draft',
+                             sale=line.sale.rec_name))
