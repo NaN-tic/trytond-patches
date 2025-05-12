@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/analytic_account/line.py b/tryton/modules/analytic_account/line.py
+index 942ccf880f..a489879e41 100644
+--- a/tryton/modules/analytic_account/line.py
++++ b/tryton/modules/analytic_account/line.py
+@@ -110,7 +110,7 @@ class Line(ModelSQL, ModelView):
+         MoveLine = pool.get('account.move.line')
+         super().on_modification(mode, lines, field_names=field_names)
+         if mode in {'create', 'write'}:
+-            move_lines = MoveLine.browse({l.move_line for l in lines})
++            move_lines = MoveLine.browse({l.move_line for l in lines if l.move_line})
+             MoveLine.set_analytic_state(move_lines)
+             MoveLine.save(move_lines)
