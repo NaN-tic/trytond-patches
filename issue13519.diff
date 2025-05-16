@@ -1,0 +1,14 @@
+diff --git a/tryton/modules/stock_lot/stock.py b/tryton/modules/stock_lot/stock.py
+index af1082576d..3423488373 100644
+--- a/tryton/modules/stock_lot/stock.py
++++ b/tryton/modules/stock_lot/stock.py
+@@ -460,7 +460,8 @@ class Location(metaclass=PoolMeta):
+
+ class Move(metaclass=PoolMeta):
+     __name__ = 'stock.move'
+-    lot = fields.Many2One('stock.lot', 'Lot',
++    lot = fields.Many2One(
++        'stock.lot', "Lot", ondelete='RESTRICT',
+         domain=[
+             ('product', '=', Eval('product')),
+             ],

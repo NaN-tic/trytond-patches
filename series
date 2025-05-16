@@ -99,3 +99,5 @@ issue13990.diff # [production] Get cost price in case is none
 issue13623.diff # [stock_consignment] Set and unset consignment origin without changing the state of the move
 
 issue14024.diff # [sao] Can not autocomplete filter toolbar in case has number with locale
+
+issue13519.diff # [stock_lot] Prevent deletion of stock lot used for stock move
