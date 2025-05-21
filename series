@@ -30,3 +30,5 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 issue14016.diff # [stock_supply] pbl locations that are parents and childs. Expression tree is too large (maximum depth 1000)
 
 issue2415.diff # [sao] Store URL to open before getting the preferences
+
+slugify.diff # [trytond] Make slugify return lowercase string
