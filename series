@@ -101,3 +101,6 @@ issue13623.diff # [stock_consignment] Set and unset consignment origin without c
 issue14024.diff # [sao] Can not autocomplete filter toolbar in case has number with locale
 
 issue13519.diff # [stock_lot] Prevent deletion of stock lot used for stock move
+
+slugify.diff # Make slugify return lowercase string
+
