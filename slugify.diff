@@ -1,0 +1,13 @@
+diff --git a/trytond/trytond/tools/misc.py b/trytond/trytond/tools/misc.py
+index a66f56c33c..c3622ed2c3 100644
+--- a/tryton/trytond/trytond/tools/misc.py
++++ b/tryton/trytond/trytond/tools/misc.py
+@@ -282,7 +282,7 @@ def slugify(value, hyphenate='-'):
+         value = str(value)
+     value = unicodedata.normalize('NFKD', value)
+     value = str(_slugify_strip_re.sub('', value).strip())
+-    return _slugify_hyphenate_re.sub(hyphenate, value)
++    return _slugify_hyphenate_re.sub(hyphenate, value).lower()
+ 
+ 
+ def sortable_values(func):
