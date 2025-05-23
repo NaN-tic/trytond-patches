@@ -1,41 +1,17 @@
 diff --git a/tryton/sao/src/common.js b/tryton/sao/src/common.js
-index 9d431ebb4f..8d8b5e4084 100644
+index 8d8b5e4084..92fccb3ba8 100644
 --- a/tryton/sao/src/common.js
 +++ b/tryton/sao/src/common.js
-@@ -2015,7 +2015,7 @@
+@@ -2014,8 +2014,11 @@
+                 }
                  let { format } = new Intl.NumberFormat(
                      Sao.i18n.BC47(Sao.i18n.getlang()));
++                let [, thousandSeparator] = /^1(.)?000/.exec(format(1000));
                  let [, decimalSign] = /^0(.)1$/.exec(format(0.1));
--                return Number(string.replace(decimalSign, '.'));
-+                return Number(string);
+-                return Number(string);
++                return Number(string
++                    .replaceAll(thousandSeparator, '')
++                    .replace(decimalSign, '.'));
              }
              var convert_selection = function() {
                  if (typeof value == 'string') {
-@@ -2145,12 +2145,7 @@
-                 }
-                 var factor = Number(field.factor || 1);
-                 digit -= Math.round(Math.log10(factor));
--                return (value * factor).toLocaleString(
--                    Sao.i18n.BC47(Sao.i18n.getlang()), {
--                        useGrouping: true,
--                        minimumFractionDigits: digit,
--                        maximumFractionDigits: digit,
--                    });
-+                return (value * factor).toFixed(digit);
-             };
-             var format_selection = function() {
-                 if (field.selection instanceof Array) {
-diff --git a/tryton/sao/src/screen.js b/tryton/sao/src/screen.js
-index 49164deaf6..97f24d10a7 100644
---- a/tryton/sao/src/screen.js
-+++ b/tryton/sao/src/screen.js
-@@ -745,8 +745,7 @@
-         _get_value: function(entry) {
-             let value = entry.val();
-             if (value) {
--                value = Number(value).toLocaleString(
--                    Sao.i18n.BC47(Sao.i18n.getlang()))
-+                value = Number(value);
-             }
-             return value;
-         },
