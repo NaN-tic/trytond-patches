@@ -32,3 +32,5 @@ issue14016.diff # [stock_supply] pbl locations that are parents and childs. Expr
 issue2415.diff # [sao] Store URL to open before getting the preferences
 
 issue14034.diff # [account_payment] FIX payment_amount_cache
+
+issue14004-14005.diff # [sao] Consider any field of new record as loaded + Default value not set by domain inversion when operand contains '.'

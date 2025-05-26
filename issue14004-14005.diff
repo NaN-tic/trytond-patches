@@ -1,0 +1,48 @@
+diff --git a/tryton/sao/src/model.js b/tryton/sao/src/model.js
+index 3954d9471b..48e463b843 100644
+--- a/tryton/sao/src/model.js
++++ b/tryton/sao/src/model.js
+@@ -1352,6 +1352,9 @@
+             }
+         },
+         get_loaded: function(fields) {
++            if (this.id < 0) {
++                return true;
++            }
+             if (!fields) {
+                 fields = Object.keys(this.model.fields);
+             }
+@@ -1753,7 +1756,6 @@
+                         // XXX to remove once server domains are fixed
+                         value = null;
+                     }
+-                    var setdefault = true;
+                     var original_domain;
+                     if (!jQuery.isEmptyObject(record.group.domain)) {
+                         original_domain = inversion.merge(record.group.domain);
+@@ -1761,20 +1763,12 @@
+                         original_domain = inversion.merge(domain);
+                     }
+                     var domain_readonly = original_domain[0] == 'AND';
++                    let setdefault;
+                     if (leftpart.contains('.')) {
+-                        var recordpart = leftpart.split('.', 1)[0];
+-                        var localpart = leftpart.split('.', 1)[1];
+-                        var constraintfields = [];
+-                        if (domain_readonly) {
+-                            for (const leaf of inversion.localize_domain(
+-                                original_domain.slice(1))) {
+-                                constraintfields.push(leaf);
+-                            }
+-                        }
+-                        if ((localpart != 'id') ||
+-                                !~constraintfields.indexOf(recordpart)) {
+-                            setdefault = false;
+-                        }
++                      let localpart = leftpart.split('.').slice(1).join('.');
++                      setdefault = localpart == 'id';
++                    } else {
++                      setdefault = true;
+                     }
+                     if (setdefault && jQuery.isEmptyObject(pre_validate)) {
+                         this.set_client(record, value);
