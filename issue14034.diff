@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_payment/account.py b/tryton/modules/account_payment/account.py
+index 129a10e0fc..41edf2e4e4 100644
+--- a/tryton/modules/account_payment/account.py
++++ b/tryton/modules/account_payment/account.py
+@@ -109,7 +109,7 @@ class MoveLine(metaclass=PoolMeta):
+     @classmethod
+     def __register__(cls, module):
+         table_h = cls.__table_handler__(module)
+-        set_payment_amount = not table_h.column_exist('payment_amount')
++        set_payment_amount = not table_h.column_exist('payment_amount_cache')
+
+         super().__register__(module)
