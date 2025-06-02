@@ -1,0 +1,14 @@
+diff --git a/tryton/sao/src/model.js b/tryton/sao/src/model.js
+index 7000dac80a..347b1465b8 100644
+--- a/tryton/sao/src/model.js
++++ b/tryton/sao/src/model.js
+@@ -1368,6 +1368,9 @@
+             return jQuery.when();
+         },
+         get_loaded: function(fields) {
++            if (this.id < 0) {
++                return true;
++            }
+             if (!jQuery.isEmptyObject(fields)) {
+                 var result = true;
+                 for (const field of fields) {
