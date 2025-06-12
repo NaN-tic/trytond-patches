@@ -36,3 +36,5 @@ issue13990.diff  # [production] Get cost price in case is none
 issue14034.diff # [account_payment] FIX payment_amount_cache
 
 issue14004.diff # [sao] Consider any field of new record as loaded
+
+issue14049.diff # [commission] Round commission amount using price digit in reporting
