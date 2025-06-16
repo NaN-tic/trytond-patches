@@ -1,0 +1,63 @@
+diff --git a/trytond/trytond/model/fields/many2one.py b/trytond/trytond/model/fields/many2one.py
+index 3899ec3c773815dd78935e9c3471a7c54310d0af_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9tYW55Mm9uZS5weQ==..487df5360c93a6f571f39c60b58462a1a011120a_dHJ5dG9uZC90cnl0b25kL21vZGVsL2ZpZWxkcy9tYW55Mm9uZS5weQ== 100644
+--- a/tryton/trytond/trytond/model/fields/many2one.py
++++ b/tryton/trytond/trytond/model/fields/many2one.py
+@@ -5,6 +5,7 @@
+ from sql import As, Column, Expression, Literal, Null, Query, With
+ from sql.aggregate import Max
+ from sql.conditionals import Coalesce
++from sql.functions import CharLength
+ from sql.operators import Or
+ 
+ from trytond.config import config
+@@ -134,5 +135,7 @@
+         Target = self.get_target()
+         path_column = getattr(Target, self.path).sql_column(table)
+         path_column = Coalesce(path_column, '')
+-        cursor.execute(*table.select(path_column, where=red_sql))
++        cursor.execute(*table.select(
++                path_column, where=red_sql,
++                order_by=[CharLength(path_column).desc, path_column.asc]))
+         if operator.endswith('child_of'):
+@@ -138,2 +141,10 @@
+         if operator.endswith('child_of'):
++            paths = set()
++            for path, in cursor:
++                discard = set()
++                for opath in paths:
++                    if path in opath:
++                        discard.add(opath)
++                paths -= discard
++                paths.add(path)
+             where = Or()
+@@ -139,5 +150,5 @@
+             where = Or()
+-            for path, in cursor:
++            for path in paths:
+                 where.append(path_column.like(path + '%'))
+         else:
+             ids = [int(x) for path, in cursor for x in path.split('/')[:-1]]
+@@ -156,5 +167,15 @@
+         Target = self.get_target()
+         left = getattr(Target, self.left).sql_column(table)
+         right = getattr(Target, self.right).sql_column(table)
+-        cursor.execute(*table.select(left, right, where=red_sql))
++        cursor.execute(*table.select(
++                left, right, where=red_sql,
++                order_by=[(right - left).asc, left.asc]))
++        ranges = set()
++        for l, r in cursor:
++            discard = set()
++            for ol, or_ in ranges:
++                if l < ol and or_ < r:
++                    discard.add((ol, or_))
++            ranges -= discard
++            ranges.add((l, r))
+         where = Or()
+@@ -160,5 +181,5 @@
+         where = Or()
+-        for l, r in cursor:
++        for l, r in ranges:
+             if operator.endswith('child_of'):
+                 where.append((left >= l) & (right <= r))
+             else:
