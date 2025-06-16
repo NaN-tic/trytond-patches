@@ -40,3 +40,5 @@ issue14004.diff # [sao] Consider any field of new record as loaded
 issue14049.diff # [commission] Round commission amount using price digit in reporting
 
 issue14069.diff # [commission] round amount value after compute plan
+
+issue14064.diff # [trytond] Reduce clauses when searching child of with common root
