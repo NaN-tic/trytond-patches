@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/production/production.py b/tryton/modules/production/production.py
+index 43846712fb..32f0b33dd5 100644
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
+@@ -463,7 +463,7 @@ class Production(ShipmentAssignMixin, Workflow, ModelSQL, ModelView):
+         for input_ in self.inputs:
+             if input_.state == 'cancelled':
+                 continue
+-            cost_price = input_.get_cost_price()
++            cost_price = input_.get_cost_price() or Decimal(0)
+             cost += (Decimal(str(input_.internal_quantity)) * cost_price)
+         return round_price(cost)

@@ -34,3 +34,11 @@ issue14034.diff # [account_payment] FIX payment_amount_cache
 issue14049.diff # [commission] Round commission amount using price digit in reporting
 
 issue14064.diff # [trytond] Reduce clauses when searching child of with common root
+
+b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_closed_period
+
+issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
+
+issue13990.diff  # [production] Get cost price in case is none
+
+issue14069.diff # [commission] round amount value after compute plan
