@@ -41,4 +41,3 @@ issue13942.diff # [sao] Allow .rec_name in the context for search_value with ili
 
 issue13990.diff  # [production] Get cost price in case is none
 
-issue14069.diff # [commission] round amount value after compute plan
