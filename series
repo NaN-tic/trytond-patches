@@ -105,3 +105,5 @@ issue13519.diff # [stock_lot] Prevent deletion of stock lot used for stock move
 issue14004.diff # [sao] Consider any field of new record as loaded
 
 issue14049.diff # [commission] Round commission amount using price digit in reporting
+
+issue13206.diff # [product_image] Standardize pictures format
