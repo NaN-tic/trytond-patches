@@ -1,0 +1,29 @@
+diff --git a/tryton/sao/src/view/tree.js b/tryton/sao/src/view/tree.js
+index 7feedec3b4..89887ade89 100644
+--- a/tryton/sao/src/view/tree.js
++++ b/tryton/sao/src/view/tree.js
+@@ -328,8 +328,9 @@
+                     }))
+                 .click(evt => {
+                     evt.preventDefault();
+-                    this.on_copy();
+-                    menu.dropdown('toggle');
++                    this.on_copy().then(() => {
++                        menu.dropdown('toggle');
++                    });
+                 })));
+         },
+         save_optional: function(store=true) {
+@@ -528,7 +529,11 @@
+                 });
+                 data.push(values.join('\t'));
+             });
+-            navigator.clipboard.writeText(data.join('\n'));
++            return navigator.clipboard.writeText(data.join('\n'))
++                .catch(error => {
++                    alert(Sao.i18n.gettext(
++                        "Failed to copy text to clipboard: %1", error));
++                });
+         },
+         _add_drag_n_drop: function() {
+             Sortable.create(this.tbody[0], {
