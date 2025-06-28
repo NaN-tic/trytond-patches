@@ -42,3 +42,5 @@ issue13942.diff # [sao] Allow .rec_name in the context for search_value with ili
 issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
+
+issue14062.diff # [stock] Define product variable to raise error when cost price expression is not a Decimal
