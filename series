@@ -111,3 +111,5 @@ issue13206.diff # [product_image] Standardize pictures format
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
 issue14062.diff # [stock] Define product variable to raise error when cost price expression is not a Decimal
+
+issue14093.diff # [trytond] Do not restore values for created records when exception is raised when saving
