@@ -27,12 +27,6 @@ issue14002.diff # [sale] [purchase] use line.sale_state in Line.check_modificati
 
 issue14013.diff # [analitic_account] Can not browse list or dict of None values
 
-issue14016.diff # [stock_supply] pbl locations that are parents and childs. Expression tree is too large (maximum depth 1000)
-
-issue14034.diff # [account_payment] FIX payment_amount_cache
-
-issue14049.diff # [commission] Round commission amount using price digit in reporting
-
 issue14064.diff # [trytond] Reduce clauses when searching child of with common root
 
 b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_closed_period
@@ -42,7 +36,5 @@ issue13942.diff # [sao] Allow .rec_name in the context for search_value with ili
 issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
-
-issue14062.diff # [stock] Define product variable to raise error when cost price expression is not a Decimal
 
 issue14093.diff # [trytond] Do not restore values for created records when exception is raised when saving
