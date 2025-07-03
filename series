@@ -31,8 +31,6 @@ issue14064.diff # [trytond] Reduce clauses when searching child of with common r
 
 b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_closed_period
 
-issue13942.diff # [sao] Allow .rec_name in the context for search_value with ilike
-
 issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
