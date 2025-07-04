@@ -1,19 +1,20 @@
-diff --git a/tryton/sao/src/view/tree.js b/tryton/sao/src/view/tree.js
-index 63ea156525..548c158b86 100644
---- a/tryton/sao/src/view/tree.js
-+++ b/tryton/sao/src/view/tree.js
-@@ -1859,13 +1859,12 @@
-                     current_record = this.tree.screen.current_record;
-                     this.tree.select_records(current_record, this.record);
-                 } else {
--                    let selected = this.is_selected();
-                     if (!(event_.ctrlKey || event_.metaKey) ||
-                         this.tree.selection_mode ==
-                         Sao.common.SELECTION_SINGLE) {
-                         this.tree.select_records(null, null);
-                     }
--                    this.set_selection(!selected);
-+                    this.set_selection(!this.is_selected());
-                 }
-                 this.selection_changed();
-                 if (current_record) {
+diff --git a/sao/src/view/tree.js b/sao/src/view/tree.js
+index 548c158b86..0b669b1d7c 100644
+--- a/sao/src/view/tree.js
++++ b/sao/src/view/tree.js
+@@ -2054,11 +2054,13 @@
+             }
+             listener.on('click.sao.editabletree', handler);
+ 
+-            Sao.View.Tree.RowEditable._super.select_row.call(this, event_);
+-
++            // do not call super when editing row because the selection must
++            // not be changed
+             if (!event_.shiftKey && !(event_.ctrlKey || event_.metaKey) &&
+                 (this.record === current_record)) {
+                 this.tree.edit_row(this);
++            } else {
++                Sao.View.Tree.RowEditable._super.select_row.call(this, event_);
+             }
+         },
+         unset_editable: function() {
