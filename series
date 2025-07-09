@@ -115,3 +115,5 @@ issue14062.diff # [stock] Define product variable to raise error when cost price
 issue14093.diff # [trytond] Do not restore values for created records when exception is raised when saving
 
 b2ck8194.diff # [sao] Cannot read properties of null (reading 'length')
+
+issue14111.diff # [carrier_weight] compute_weight_price cannot access local variable 'line' where it is not associated with a value
