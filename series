@@ -35,8 +35,6 @@ issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
-issue14093.diff # [trytond] Do not restore values for created records when exception is raised when saving
-
 issue14097.diff # [sao] Editable tree view and "new" is readonly (grafted from 9beab3cc71d067f603a133540bac10eb77ea3228)
 issue14101.diff # [sao] Filter by ID in toolbar , replaced by ID: 0 in some languages
 
