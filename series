@@ -35,6 +35,4 @@ issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
-issue14097.diff # [sao] Editable tree view and "new" is readonly (grafted from 9beab3cc71d067f603a133540bac10eb77ea3228)
-
 issue14111.diff # [carrier_weight] compute_weight_price cannot access local variable 'line' where it is not associated with a value
