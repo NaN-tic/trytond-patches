@@ -36,3 +36,5 @@ issue13990.diff  # [production] Get cost price in case is none
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
 issue14111.diff # [carrier_weight] compute_weight_price cannot access local variable 'line' where it is not associated with a value
+
+b2ck8207.diff # [sale_price_list] Wrong view design when sale_price_list is installed

@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/sale_price_list/view/sale_form.xml b/tryton/modules/sale_price_list/view/sale_form.xml
+index 9c74089b43..ab4a320194 100644
+--- a/tryton/modules/sale_price_list/view/sale_form.xml
++++ b/tryton/modules/sale_price_list/view/sale_form.xml
+@@ -2,7 +2,7 @@
+ <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+ this repository contains the full copyright notices and license terms. -->
+ <data>
+-    <xpath expr="//field[@name='sale_date']" position="before">
++    <xpath expr="//field[@name='sale_date']" position="after">
+         <label name="price_list"/>
+         <field name="price_list"/>
+         <newline/>
