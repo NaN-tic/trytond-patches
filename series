@@ -38,3 +38,5 @@ issue14064.diff # [trytond] Reduce clauses when searching child of with common r
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
 issue14111.diff # [carrier_weight] compute_weight_price cannot access local variable 'line' where it is not associated with a value
+
+issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
