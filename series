@@ -40,3 +40,5 @@ issue14082.diff # [sao] clipboard.writeText may throw an error
 issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
 
 b2ck8194.diff # [sao] Cannot read properties of null (reading 'length')
+
+account_stock_eu.diff @ [account_stock_eu] Add missing super on ShipomentIn class in on_change_supplier.
