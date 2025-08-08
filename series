@@ -1,5 +1,3 @@
-babi_multiprocess.diff # [trytond] babi multiprocess
-
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
 
