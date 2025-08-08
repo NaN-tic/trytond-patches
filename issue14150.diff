@@ -1,0 +1,26 @@
+diff --git a/tryton/modules/account_stock_eu/stock.py b/tryton/modules/account_stock_eu/stock.py
+index 5c9dff9efde9873d1e1e3ba731401e66b9a619f8_bW9kdWxlcy9hY2NvdW50X3N0b2NrX2V1L3N0b2NrLnB5..9e852aa4c98f80f176d90311db9eb602a8e37449_bW9kdWxlcy9hY2NvdW50X3N0b2NrX2V1L3N0b2NrLnB5 100644
+--- a/tryton/modules/account_stock_eu/stock.py
++++ b/tryton/modules/account_stock_eu/stock.py
+@@ -599,6 +599,10 @@
+ 
+     @fields.depends('supplier')
+     def on_change_supplier(self):
++        try:
++            super().on_change_supplier()
++        except AttributeError:
++            pass
+         if self.supplier:
+             address = self.supplier.address_get(type='delivery')
+             if address:
+@@ -662,6 +666,10 @@
+ 
+     @fields.depends('customer')
+     def on_change_customer(self):
++        try:
++            super().on_change_customer()
++        except AttributeError:
++            pass
+         if self.customer:
+             address = self.customer.address_get(type='delivery')
+             if address:

@@ -120,4 +120,4 @@ issue14111.diff # [carrier_weight] compute_weight_price cannot access local vari
 
 issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
 
-account_stock_eu.diff @ [account_stock_eu] Add missing super on ShipomentIn class in on_change_supplier.
+issue14150.diff # [account_stock_eu] Missing super call for on_change of supplier and customer on shipments for Intrastat
