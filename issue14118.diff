@@ -1,0 +1,12 @@
+diff --git a/tryton/sao/src/view/tree.js b/tryton/sao/src/view/tree.js
+index 7feedec3b4..3ae7a32ba3 100644
+--- a/tryton/sao/src/view/tree.js
++++ b/tryton/sao/src/view/tree.js
+@@ -3012,6 +3017,7 @@
+             if (states.invisible || states.readonly) {
+                 return;
+             }
++            event.stopImmediatePropagation();
+             button.el.prop('disabled', true);  // state will be reset at display
+             var row = this.view.rows.find(function(row) {
+                 return row.record == record;
