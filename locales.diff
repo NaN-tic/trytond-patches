@@ -23,19 +23,6 @@ index 2057efd15d..de299bd5eb 100644
  +"El valor \"%(value)s\" del \"%(cost_price)s\" del producte \"%(product)s\" "
   "no és un número."
 
-  msgctxt "model:ir.message,text:msg_inventory_count_create_line"
- diff --git a/tryton/trytond/trytond/ir/locale/ca.po b/tryton/trytond/trytond/ir/locale/ca.po
- index a630c7e7a6..311dd9fe0d 100644
- --- a/tryton/trytond/trytond/ir/locale/ca.po
- +++ b/tryton/trytond/trytond/ir/locale/ca.po
- @@ -3042,7 +3042,7 @@ msgid ""
-  "The value \"%(value)s\" for field \"%(field)s\" in \"%(model)s\" is too long"
-  " (%(size)i > %(max_size)i)."
-  msgstr ""
- -"El valor \"%(value)s\" del camp \"%(field)s\" del registre \"%(record)s\" de"
- +"El valor \"%(value)s\" del camp \"%(field)s\" de"
-  " \"%(model)s\" es massa llarg (%(size)i > %(max_size)i)."
-
   msgctxt "model:ir.message,text:msg_size_validation_record"
 diff --git a/tryton/modules/account_invoice/locale/fr.po b/tryton/modules/account_invoice/locale/fr.po
 index fad03e6b69..de85bcae0d 100644
