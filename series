@@ -165,3 +165,5 @@ issue13768.diff # [sale_opportunity] Do not historize unecessary model
 b2ck8043.diff # [party_relationship] Error in party_relationship if 'date' is an empty string
 
 issue12290.diff # [stock] Fallback to original copied value of assigned stock move
+
+issue14127.diff # [account] Test if party is set before using its record name for reconciliation error message
