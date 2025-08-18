@@ -38,3 +38,5 @@ issue14082.diff # [sao] clipboard.writeText may throw an error
 issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
 
 b2ck8194.diff # [sao] Cannot read properties of null (reading 'length')
+
+issue14127.diff # [account] Test if party is set before using its record name for reconciliation error message
