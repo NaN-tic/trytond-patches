@@ -123,3 +123,5 @@ issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
 issue14150.diff # [account_stock_eu] Missing super call for on_change of supplier and customer on shipments for Intrastat
 
 issue14118.diff # [sao] Buttons not working on tree view
+
+issue14127.diff # [account] Test if party is set before using its record name for reconciliation error message
