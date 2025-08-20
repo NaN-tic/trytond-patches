@@ -34,31 +34,31 @@ index 2f3580e1cb..b60b878324 100644
 
  msgctxt "model:ir.message,text:msg_missing_list_price"
 diff --git a/tryton/modules/purchase/locale/ca.po b/tryton/modules/purchase/locale/ca.po
-index d02f1a8a2f..129a59e3a7 100644
+index 97cd72447d..b9d971f4d1 100644
 --- a/tryton/modules/purchase/locale/ca.po
 +++ b/tryton/modules/purchase/locale/ca.po
-@@ -716,7 +716,7 @@ msgid ""
+@@ -845,7 +845,7 @@ msgid ""
  "To invoice purchase \"%(purchase)s\" you must configure a default account "
  "expense."
  msgstr ""
 -"Per facturar la compra \"%(purchase)\" heu de configurar un compte de "
 +"Per facturar la compra \"%(purchase)s\" heu de configurar un compte de "
  "despeses per defecte."
-
+ 
  msgctxt "model:ir.message,text:msg_purchase_modify_header_draft"
- diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
- index 69c9602cac..f2151bb084 100644
- --- a/tryton/modules/stock/locale/ca.po
- +++ b/tryton/modules/stock/locale/ca.po
- @@ -1976,7 +1976,7 @@ msgid ""
-  "Invalid cost price \"%(cost_price)s\" for product \"%(product)s\" with "
-  "exception \"%(exception)s\"."
-  msgstr ""
- -"El preu de cost \"%(cost_price)s\" del producte \"%(producte)\" és invalid "
- +"El preu de cost \"%(cost_price)s\" del producte \"%(product)s\" és invalid "
-  "amb l'excepció \"%(exception)s\"."
-
-  msgctxt "model:ir.message,text:msg_inventory_count_create_line"
+diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
+index 69c9602cac..f2151bb084 100644
+--- a/tryton/modules/stock/locale/ca.po
++++ b/tryton/modules/stock/locale/ca.po
+@@ -1976,7 +1976,7 @@ msgid ""
+ "Invalid cost price \"%(cost_price)s\" for product \"%(product)s\" with "
+ "exception \"%(exception)s\"."
+ msgstr ""
+-"El preu de cost \"%(cost_price)s\" del producte \"%(producte)\" és invalid "
++"El preu de cost \"%(cost_price)s\" del producte \"%(product)s\" és invalid "
+ "amb l'excepció \"%(exception)s\"."
+ 
+ msgctxt "model:ir.message,text:msg_inventory_count_create_line"
 diff --git a/tryton/trytond/trytond/ir/locale/ca.po b/tryton/trytond/trytond/ir/locale/ca.po
 index 5463ea4611..57755a81a5 100644
 --- a/tryton/trytond/trytond/ir/locale/ca.po
@@ -99,17 +99,17 @@ index 5463ea4611..57755a81a5 100644
  "invàlid."
 
  msgctxt "model:ir.message,text:msg_write_error"
-diff --git a/tryton/trytond/trytond/ir/locale/es.po b/tryton/trytond/trytond/ir/locale/es.po
-index da454cb386..d485516c4b 100644
---- a/tryton/trytond/trytond/ir/locale/es.po
-+++ b/tryton/trytond/trytond/ir/locale/es.po
+diff --git a/trytond/trytond/ir/locale/es.po b/trytond/trytond/ir/locale/es.po
+index da454cb386..0ac8e64c96 100644
+--- a/trytond/trytond/ir/locale/es.po
++++ b/trytond/trytond/ir/locale/es.po
 @@ -2855,7 +2855,7 @@ msgstr ""
-
+ 
  msgctxt "model:ir.message,text:msg_sequence_invalid_prefix"
  msgid "Invalid prefix \"%(affix)s\" for sequence \"%(sequence)s\"."
 -msgstr "El prefijo \"%(prefix)s\" de la secuencia \"%(sequence)s\" es inválido."
 +msgstr "El prefijo \"%(affix)s\" de la secuencia \"%(sequence)s\" es inválido."
-
+ 
  msgctxt "model:ir.message,text:msg_sequence_invalid_suffix"
  msgid "Invalid suffix \"%(affix)s\" for sequence \"%(sequence)s\"."
 @@ -2882,7 +2882,7 @@ msgid ""
@@ -117,41 +117,32 @@ index da454cb386..d485516c4b 100644
  " (%(size)i > %(max_size)i)."
  msgstr ""
 -"El valor del campo \"%(field)s\" del registro \"%(model)s\" en \"%(model)s\""
-+"El valor \"%(value)s\" del campo \"%(field)s\" en \"%(model)s\""
++"El valor \"%(value)s\" del campo \"%(field)s\" del registro \"%(model)s\" en \"%(model)s\""
  " es demasiado largo (%(size)i > %(max_size)i)."
-
+ 
  msgctxt "model:ir.message,text:msg_size_validation_record"
 @@ -2890,7 +2890,7 @@ msgid ""
  "The value \"%(value)s\" for field \"%(field)s\" in \"%(record)s\" of "
  "\"%(model)s\" is too long (%(size)i > %(max_size)i)."
  msgstr ""
 -"El valor del campo \"%(field)s\" del registro \"%(record)s\" en "
-+"El valor \"%(value)s\" del campo \"%(field)s\" en "
++"El valor \"%(value)s\" del campo \"%(field)s\" del registro \"%(record)s\" en "
  "\"%(model)s\" es demasiado largo (%(size)i > %(max_size)i)."
-
+ 
  msgctxt "model:ir.message,text:msg_time_format_validation_record"
-@@ -2967,7 +2967,7 @@ msgctxt "model:ir.message,text:msg_view_search_invalid_domain"
- msgid "Invalid domain or search criteria \"%(domain)s\" for search \"%(search)s\"."
- msgstr ""
- "El dominio o el criterio de búsqueda \"%(domain)s\" de la acción "
--"\"%(action)s\" es invalido."
-+"\"%(search)s\" es invalido."
-
- msgctxt "model:ir.message,text:msg_write_error"
+diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.po
+index 2915021994..90dda29010 100644
+--- a/tryton/modules/party/locale/ca.po
++++ b/tryton/modules/party/locale/ca.po
+@@ -547,7 +547,7 @@ msgstr "El codi del tercer ha de ser únic."
+ 
+ msgctxt "model:ir.message,text:msg_party_identifier_duplicate"
+ msgid "The party \"%(party)s\" has the same %(type)s \"%(code)s\"."
+-msgstr "El tercer \"%(party)\" té el mateix \"%(type)s\" \"%(code)s\"."
++msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
+ 
+ msgctxt "model:ir.message,text:msg_party_set_contact_mechanism"
  msgid ""
- diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.po
- index 2915021994..90dda29010 100644
- --- a/tryton/modules/party/locale/ca.po
- +++ b/tryton/modules/party/locale/ca.po
- @@ -547,7 +547,7 @@ msgstr "El codi del tercer ha de ser únic."
-
-  msgctxt "model:ir.message,text:msg_party_identifier_duplicate"
-  msgid "The party \"%(party)s\" has the same %(type)s \"%(code)s\"."
- -msgstr "El tercer \"%(party)\" té el mateix \"%(type)s\" \"%(code)s\"."
- +msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
-
-  msgctxt "model:ir.message,text:msg_party_set_contact_mechanism"
-  msgid ""
 diff --git a/tryton/modules/account_invoice/locale/fr.po b/tryton/modules/account_invoice/locale/fr.po
 index 2d3c044dda..a88820debd 100644
 --- a/tryton/modules/account_invoice/locale/fr.po
