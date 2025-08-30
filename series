@@ -34,11 +34,3 @@ b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_close
 issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
-
-b2ck8207.diff # [sale_price_list] Wrong view design when sale_price_list is installed
-
-issue14138.diff # [marketing_email] Fail to send email with non-ASCII local part
-
-b2ck8194.diff # [sao] Cannot read properties of null (reading 'length')
-
-issue14127.diff # [account] Test if party is set before using its record name for reconciliation error message
