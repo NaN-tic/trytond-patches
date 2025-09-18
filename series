@@ -30,3 +30,5 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
 
 issue14193.diff # [stock_lot] missing _parent_lot.product
+
+issue14238.diff # [trytond] It is not possible to have two accesses to the same wizard (keyword and menu)
