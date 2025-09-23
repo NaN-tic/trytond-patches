@@ -125,3 +125,5 @@ issue14150.diff # [account_stock_eu] Missing super call for on_change of supplie
 issue14118.diff # [sao] Buttons not working on tree view
 
 issue14127.diff # [account] Test if party is set before using its record name for reconciliation error message
+
+b2ck8217.diff # [trytond] Allow passing script as a parameter to trytond-console

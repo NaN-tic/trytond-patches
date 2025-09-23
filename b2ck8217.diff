@@ -1,0 +1,35 @@
+diff --git a/tryton/trytond/trytond/commandline.py b/tryton/trytond/trytond/commandline.py
+index db8343848a..90d21c0977 100644
+--- a/tryton/trytond/trytond/commandline.py
++++ b/tryton/trytond/trytond/commandline.py
+@@ -161,6 +161,9 @@ def get_parser_console():
+     parser.add_argument(
+         "--lock-table", dest="lock_tables", nargs='+', default=[],
+         metavar='TABLE', help="lock tables")
++    parser.add_argument("-f", "--file", dest="script", metavar='FILE',
++        default=[os.environ.get('TRYTOND_CONSOLE_FILE')],
++        help="Python script to execute")
+     parser.epilog = "To store changes, `transaction.commit()` must be called."
+     return parser
+ 
+diff --git a/tryton/trytond/trytond/console.py b/tryton/trytond/trytond/console.py
+index 8243f40644..f95e3a39d3 100644
+--- a/tryton/trytond/trytond/console.py
++++ b/tryton/trytond/trytond/console.py
+@@ -52,11 +52,15 @@ def run(options):
+             'pool': pool,
+             'transaction': transaction,
+             }
+-        if sys.stdin.isatty():
++        if sys.stdin.isatty() and not options.script:
+             console = Console(local, histsize=options.histsize)
+             banner = "Tryton %s, Python %s on %s" % (
+                 __version__, sys.version, sys.platform)
+             console.interact(banner=banner, exitmsg='')
++        elif options.script:
++            console = Console(local, histsize=options.histsize)  
++            with open(options.script, 'r') as f:  
++                console.runcode(f.read())  
+         else:
+             console = InteractiveConsole(local)
+             console.runcode(sys.stdin.read())
