@@ -1,0 +1,34 @@
+diff --git a/modules/production/production.py b/modules/production/production.py
+index 7c7f60798d49748d586b197a84a6ab09deec63a1_bW9kdWxlcy9wcm9kdWN0aW9uL3Byb2R1Y3Rpb24ucHk=..c417f4f32799bda80ab6ac328d28f7a8c5e34ae9_bW9kdWxlcy9wcm9kdWN0aW9uL3Byb2R1Y3Rpb24ucHk= 100644
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
+@@ -688,10 +690,12 @@
+         for production in productions:
+             dates = production._get_move_planned_date()
+             input_date, output_date = dates
+-            inputs = [m for m in production.inputs
+-                    if m.state not in {'done', 'cancelled'}]
++            inputs = [
++                m for m in production.inputs
++                if m.state not in {'done', 'cancelled'}
++                and m.planned_date != input_date]
+             if inputs:
+                 to_write.append(inputs)
+                 to_write.append({
+                         'planned_date': input_date,
+                         })
+@@ -693,10 +697,12 @@
+             if inputs:
+                 to_write.append(inputs)
+                 to_write.append({
+                         'planned_date': input_date,
+                         })
+-            outputs = [m for m in production.outputs
+-                    if m.state not in {'done', 'cancelled'}]
++            outputs = [
++                m for m in production.outputs
++                if m.state not in {'done', 'cancelled'}
++                and m.planned_date != output_date]
+             if outputs:
+                 to_write.append(outputs)
+                 to_write.append({
