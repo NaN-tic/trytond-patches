@@ -1,15 +1,15 @@
-diff --git a/__init__.py b/__init__.py
-index c5c21fb..484a6de 100644
---- a/tryton/modules/sale_supply/__init__.py
-+++ b/tryton/modules/sale_supply/__init__.py
-@@ -14,6 +14,7 @@ def register():
-         purchase.Purchase,
-         stock.ShipmentIn,
-         product.Template,
-+        product.TemplateSupplyOnSale,
-         product.Product,
-         module='sale_supply', type_='model')
-     Pool.register(
+diff --git a/tryton/modules/sale_supply/tryton.cfg b/tryton/modules/sale_supply/tryton.cfg
+index 19b393b1e7..86c16c081b 100644
+--- a/tryton/modules/sale_supply/tryton.cfg
++++ b/tryton/modules/sale_supply/tryton.cfg
+@@ -16,6 +16,7 @@ xml:
+ [register]
+ model:
+     product.Template
++    product.TemplateSupplyOnSale
+     product.Product
+     sale.Sale
+     sale.Line
 diff --git a/product.py b/product.py
 index 08537ed..34ccc24 100644
 --- a/tryton/modules/sale_supply/product.py

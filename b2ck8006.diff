@@ -1,15 +1,14 @@
-diff --git a/tryton/modules/analytic_sale/__init__.py b/tryton/modules/analytic_sale/__init__.py
-index db366afffa..b8f04c7a3e 100644
---- a/tryton/modules/analytic_sale/__init__.py
-+++ b/tryton/modules/analytic_sale/__init__.py
-@@ -8,6 +8,7 @@ from . import sale
-
- def register():
-     Pool.register(
-+        sale.Sale,
-         sale.Line,
-         sale.AnalyticAccountEntry,
-         module='analytic_sale', type_='model')
+diff --git a/tryton/modules/analytic_sale/tryton.cfg b/tryton/modules/analytic_sale/tryton.cfg
+index e8b90cf09e..3db12f7a89 100644
+--- a/tryton/modules/analytic_sale/tryton.cfg
++++ b/tryton/modules/analytic_sale/tryton.cfg
+@@ -9,5 +9,6 @@ xml:
+ 
+ [register]
+ model:
++    sale.Sale
+     sale.Line
+     sale.AnalyticAccountEntry
 diff --git a/modules/analytic_sale/sale.py b/modules/analytic_sale/sale.py
 index eba47b42e9..d36c2a5171 100644
 --- a/tryton/modules/analytic_sale/sale.py
@@ -68,18 +67,17 @@ index eba47b42e9..d36c2a5171 100644
 
  class AnalyticAccountEntry(metaclass=PoolMeta):
      __name__ = 'analytic.account.entry'
-diff --git a/tryton/modules/analytic_purchase/__init__.py b/tryton/modules/analytic_purchase/__init__.py
-index c0799645a7..102d8dc8ac 100644
---- a/tryton/modules/analytic_purchase/__init__.py
-+++ b/tryton/modules/analytic_purchase/__init__.py
-@@ -8,6 +8,7 @@ from . import purchase
-
- def register():
-     Pool.register(
-+        purchase.Purchase,
-         purchase.PurchaseLine,
-         purchase.AnalyticAccountEntry,
-         module='analytic_purchase', type_='model')
+diff --git a/tryton/modules/analytic_purchase/tryton.cfg b/tryton/modules/analytic_purchase/tryton.cfg
+index c822b4f465..50f50ca4db 100644
+--- a/tryton/modules/analytic_purchase/tryton.cfg
++++ b/tryton/modules/analytic_purchase/tryton.cfg
+@@ -9,5 +9,6 @@ xml:
+ 
+ [register]
+ model:
++    purchase.Purchase
+     purchase.PurchaseLine
+     purchase.AnalyticAccountEntry
 diff --git a/tryton/modules/analytic_purchase/purchase.py b/tryton/modules/analytic_purchase/purchase.py
 index 9b5f6c17f5..20f69225ff 100644
 --- a/tryton/modules/analytic_purchase/purchase.py
