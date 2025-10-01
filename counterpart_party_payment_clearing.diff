@@ -7,7 +7,7 @@ index 72c69df198..aacd386c9a 100644
                  counterpart.debit - counterpart.credit)
              counterpart.second_currency = self.journal.currency
 +        counterpart.party = (self.clearing_party
-+            if counterpart.account.party_required else None)
++            if counterpart.account and counterpart.account.party_required else None)
          move.lines = (line, counterpart)
          return move
  
