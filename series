@@ -34,3 +34,5 @@ b2ck8080.diff # [stock] add production_cost_price_updated in _allow_modify_close
 issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
+
+b2ck7962.diff # [account] Add move origin value in the account general ledge line view
