@@ -40,3 +40,5 @@ issue14101.diff # [sao] Filter by ID in toolbar , replaced by ID: 0 in some lang
 issue8873.diff # [production] Partially applied patch "Set planned dates in batch" to improve performance
 
 b2ck7962.diff # [account] Add move origin value in the account general ledge line view
+
+issue14197.diff # [sao] Missing horizontal scroll on the form when it is too large
