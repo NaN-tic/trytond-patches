@@ -1,0 +1,45 @@
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index c40c1c4348..7812dd92d9 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -2203,14 +2203,14 @@ function eval_pyson(value){
+             }
+         },
+         get width() {
+-            var digits = this.digits;
+-            if (digits) {
+-                return digits.reduce(function(acc, cur) {
+-                    return acc + cur;
+-                });
+-            } else {
+-                return this.attributes.width || 18;
+-            }
++            let default_ = [16, 2];
++            let digits = this.digits || [null, null];
++            return digits.reduce((acc, cur, i) => {
++                if (cur === null) {
++                    cur = default_[i];
++                }
++                return acc + cur;
++            }, 0);
+         },
+         display: function() {
+             var record = this.record;
+diff --git a/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py b/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
+index 5ac2c41538..0807ec6dfc 100644
+--- a/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
++++ b/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
+@@ -13,11 +13,8 @@ class Float(Integer):
+
+     @property
+     def width(self):
+-        digits = self.digits
+-        if digits and all(digits):
+-            return sum(digits)
+-        else:
+-            return self.attrs.get('width', 18)
++        digits = self.digits or [None, None]
++        return sum(v if v is not None else d for v, d in zip(digits, [16, 2]))
+
+     def display(self):
+         self.entry.digits = self.digits
