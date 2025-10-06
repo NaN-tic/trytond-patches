@@ -129,3 +129,5 @@ issue14127.diff # [account] Test if party is set before using its record name fo
 # b2ck8217.diff # [trytond] Allow passing script as a parameter to trytond-console
 
 issue8873.diff # [production] Partially applied patch "Set planned dates in batch" to improve performance
+
+issue14250.diff # [sao] Hide buttons and links when there is no record
