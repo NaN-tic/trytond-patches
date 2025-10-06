@@ -42,3 +42,5 @@ issue8873.diff # [production] Partially applied patch "Set planned dates in batc
 b2ck7962.diff # [account] Add move origin value in the account general ledge line view
 
 issue14197.diff # [sao] Missing horizontal scroll on the form when it is too large
+
+issue14250.diff # [sao] Hide buttons and links when there is no record
