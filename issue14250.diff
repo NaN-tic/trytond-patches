@@ -1,0 +1,26 @@
+diff --git a/tryton/sao/src/common.js b/tryton/sao/src/common.js
+index 046600c970..451fd3d022 100644
+--- a/tryton/sao/src/common.js
++++ b/tryton/sao/src/common.js
+@@ -940,7 +940,7 @@
+             if (record) {
+                 states = record.expr_eval(this.attributes.states || {});
+             } else {
+-                states = {};
++                states = {'invisible': true};
+             }
+             if (states.invisible) {
+                 this.el.hide();
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index 88f4513439..0655fa3656 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -1091,6 +1091,8 @@ function eval_pyson(value){
+                 this._current = record.id;
+             } else {
+                 this._current = null;
++                this.el.hide();
++                return;
+             }
+             pyson_ctx.context = context;
+             this.el.off('click');
