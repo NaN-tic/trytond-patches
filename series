@@ -30,3 +30,5 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
 
 b2ck7962.diff # [account] Add move origin value in the account general ledge line view
+
+issue14288.diff # [sale_discount] use list_price_used in compute_base_price()

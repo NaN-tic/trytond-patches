@@ -1,0 +1,15 @@
+diff --git a/tryton/modules/sale_discount/sale.py b/tryton/modules/sale_discount/sale.py
+index d2f2d99d36..470ff5e0e0 100644
+--- a/tryton/modules/sale_discount/sale.py
++++ b/tryton/modules/sale_discount/sale.py
+@@ -57,8 +57,8 @@ class Line(metaclass=PoolMeta):
+     def compute_base_price(self):
+         pool = Pool()
+         Uom = pool.get('product.uom')
+-        if self.product and self.product.list_price is not None:
+-            price = self.product.list_price
++        if self.product and self.product.list_price_used is not None:
++            price = self.product.list_price_used
+             if self.unit:
+                 price = Uom.compute_price(
+                     self.product.default_uom, price, self.unit)
