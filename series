@@ -35,8 +35,6 @@ issue13990.diff  # [production] Get cost price in case is none
 
 issue14082.diff # [sao] clipboard.writeText may throw an error
 
-b2ck7962.diff # [account] Add move origin value in the account general ledge line view
-
 issues14153.diff # [sao] Use the default digit values to calculate the width for float widget
 
 issue14197.diff # [sao] Missing horizontal scroll on the form when it is too large
