@@ -37,6 +37,4 @@ issue14082.diff # [sao] clipboard.writeText may throw an error
 
 issues14153.diff # [sao] Use the default digit values to calculate the width for float widget
 
-issue14197.diff # [sao] Missing horizontal scroll on the form when it is too large
-
 issue14250.diff # [sao] Hide buttons and links when there is no record
