@@ -1,0 +1,110 @@
+diff --git a/tryton/modules/account/account.py b/tryton/modules/account/account.py
+index 6964ef77f5..b97fbab694 100644
+--- a/tryton/modules/account/account.py
++++ b/tryton/modules/account/account.py
+@@ -2327,7 +2322,8 @@ class GeneralLedgerLine(DescriptionOriginMixin, ModelSQL, ModelView):
+
+     move = fields.Many2One('account.move', 'Move')
+     date = fields.Date('Date')
+-    account = fields.Many2One('account.general_ledger.account', 'Account')
++    account = fields.Many2One(
++        'account.general_ledger.account', 'Account', required=True)
+     party = fields.Many2One('party.party', 'Party',
+         states={
+             'invisible': ~Eval('party_required', False),
+
+diff --git a/tryton/modules/account_move_line_grouping/account.py b/tryton/modules/account_move_line_grouping/account.py
+index 9465a4c853..0258360a91 100644
+--- a/tryton/modules/account_move_line_grouping/account.py
++++ b/tryton/modules/account_move_line_grouping/account.py
+@@ -40,7 +40,8 @@ class MoveLine(metaclass=PoolMeta):
+ class MoveLineGroup(MoveLineMixin, ModelSQL, ModelView):
+     __name__ = 'account.move.line.group'
+
+-    move = fields.Many2One('account.move', "Move", readonly=True)
++    move = fields.Many2One(
++        'account.move', "Move", readonly=True, required=True)
+     account = fields.Many2One(
+         'account.account', "Account", readonly=True,
+         context={
+
+diff --git a/tryton/modules/account_statement/statement.py b/tryton/modules/account_statement/statement.py
+index a47a5e4f70..3ac6b0364a 100644
+--- a/tryton/modules/account_statement/statement.py
++++ b/tryton/modules/account_statement/statement.py
+@@ -1086,7 +1086,8 @@ del _states
+ class LineGroup(ModelSQL, ModelView):
+     __name__ = 'account.statement.line.group'
+     _rec_name = 'number'
+-    statement = fields.Many2One('account.statement', 'Statement')
++    statement = fields.Many2One(
++        'account.statement', 'Statement', required=True)
+     journal = fields.Function(fields.Many2One('account.statement.journal',
+             'Journal'), 'get_journal', searcher='search_journal')
+     number = fields.Char('Number')
+
+diff --git a/tryton/modules/currency/currency.py b/tryton/modules/currency/currency.py
+index 703d2dfb0f..f49baff993 100644
+--- a/tryton/modules/currency/currency.py
++++ b/tryton/modules/currency/currency.py
+@@ -265,7 +265,7 @@ class CurrencyRate(ModelSQL, ModelView):
+             ],
+         help="The floating exchange rate used to convert the currency.")
+     currency = fields.Many2One('currency.currency', 'Currency',
+-            ondelete='CASCADE',
++        required=True, ondelete='CASCADE',
+         help="The currency on which the rate applies.")
+
+     @classmethod
+
+diff --git a/tryton/modules/party/party.py b/tryton/modules/party/party.py
+index 0b40ffdeff..9af034753c 100644
+--- a/tryton/modules/party/party.py
++++ b/tryton/modules/party/party.py
+@@ -819,7 +819,7 @@ class Identifier(sequence_ordered(), DeactivableMixin, ModelSQL, ModelView):
+     @classmethod
+     def __setup__(cls):
+         super().__setup__()
+-        cls.__access__.update(['party', 'address'])
++        cls.__access__.add('party')
+
+     @classmethod
+     def __register__(cls, module_name):
+
+
+diff --git a/tryton/modules/product_image/product.py b/tryton/modules/product_image/product.py
+index 21b3fbf83e..59e0dea7a6 100644
+--- a/tryton/modules/product_image/product.py
++++ b/tryton/modules/product_image/product.py
+@@ -222,7 +222,7 @@ class Image(ImageMixin, sequence_ordered(), ModelSQL, ModelView, MatchMixin):
+     @classmethod
+     def __setup__(cls):
+         super().__setup__()
+-        cls.__access__.update(['product', 'template'])
++        cls.__access__.add('template')
+
+     def _store_cache(self, size, image):
+         cache = super()._store_cache(size, image)
+
+diff --git a/tryton/trytond/trytond/ir/action.py b/tryton/trytond/trytond/ir/action.py
+index b9a0abec38..38c9acdc61 100644
+--- a/tryton/trytond/trytond/ir/action.py
++++ b/tryton/trytond/trytond/ir/action.py
+@@ -186,7 +186,7 @@ class ActionKeyword(ModelSQL, ModelView):
+             ('graph_open', 'Open Graph'),
+             ], string='Keyword', required=True)
+     model = fields.Reference('Model', selection='models_get')
+-    action = fields.Many2One('ir.action', 'Action',
++    action = fields.Many2One('ir.action', 'Action', required=True,
+         ondelete='CASCADE')
+     groups = fields.Function(
+         fields.One2Many('res.group', None, "Groups"),
+@@ -973,7 +973,7 @@ class ActionActWindowView(
+             ('model', '=', Eval('model', None)),
+             ])
+     act_window = fields.Many2One('ir.action.act_window', 'Action',
+-            ondelete='CASCADE')
++            required=True, ondelete='CASCADE')
+     model = fields.Function(fields.Char("Model"), 'on_change_with_model')
+
+     @classmethod
