@@ -1,0 +1,22 @@
+diff --git a/tryton/modules/account/period.py b/tryton/modules/account/period.py
+index f38d4fe6cc..b1a06e73a3 100644
+--- a/tryton/modules/account/period.py
++++ b/tryton/modules/account/period.py
+@@ -2,7 +2,7 @@
+ # this repository contains the full copyright notices and license terms.
+ 
+ from sql.operators import Equal, NotEqual
+-
++from sql import Null
+ from trytond.cache import Cache
+ from trytond.const import OPERATORS
+ from trytond.i18n import gettext
+@@ -139,7 +139,7 @@ class Period(Workflow, ModelSQL, ModelView):
+                         fiscalyear.move_sequence))
+                 old2new.update(cursor)
+ 
+-            cursor.execute(*t.select(t.post_move_sequence, distinct=True))
++            cursor.execute(*t.select(t.post_move_sequence, distinct=True, where=t.post_move_sequence != Null))
+             for sequence_id, in cursor:
+                 if sequence_id not in old2new:
+                     sequence = Sequence(sequence_id)
