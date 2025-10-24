@@ -131,3 +131,5 @@ issue14127.diff # [account] Test if party is set before using its record name fo
 issue8873.diff # [production] Partially applied patch "Set planned dates in batch" to improve performance
 
 issue14250.diff # [sao] Hide buttons and links when there is no record
+
+issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
