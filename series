@@ -44,3 +44,5 @@ issue14261.diff # [trytond] Inheriting access rights from non required field yie
 issue14308.diff # [account] Migration from 7.4: use strict sequence in account.period
 
 issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
+
+issue14314.diff # [sao] Incorrect charset handling in Sao.View.Form.Document for Binary Function fields with HTML content

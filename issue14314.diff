@@ -1,0 +1,15 @@
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index 41635e010f..538f7ea22a 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -4900,6 +4900,10 @@ function eval_pyson(value){
+                     mimetype = Sao.common.guess_mimetype(filename);
+                     if (mimetype == 'application/octet-binary') {
+                         mimetype = null;
++                    } else if (mimetype == 'text/html') {
++                        mimetype = 'text/html; charset=utf-8';
++                    } else if (!mimetype) {
++                        mimetype = 'text/html; charset=utf-8';
+                     }
+                     let blob = new Blob([data], {
+                         'type': mimetype,
