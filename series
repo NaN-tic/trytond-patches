@@ -42,3 +42,5 @@ issue14250.diff # [sao] Hide buttons and links when there is no record
 issue14261.diff # [trytond] Inheriting access rights from non required field yields puzzling behaviour
 
 issue14308.diff # [account] Migration from 7.4: use strict sequence in account.period
+
+issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
