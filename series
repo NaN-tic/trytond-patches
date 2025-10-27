@@ -46,3 +46,5 @@ issue14308.diff # [account] Migration from 7.4: use strict sequence in account.p
 issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
 
 issue14296.diff # [trytond] Some translations are fuzzy
+
+issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
