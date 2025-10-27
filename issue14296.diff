@@ -1,0 +1,4893 @@
+diff --git a/tryton/modules/account/locale/ca.po b/tryton/modules/account/locale/ca.po
+index 257e66635f..23d58cd3c0 100644
+--- a/tryton/modules/account/locale/ca.po
++++ b/tryton/modules/account/locale/ca.po
+@@ -675,7 +675,6 @@ msgctxt "field:account.fiscalyear,icon:"
+ msgid "Icon"
+ msgstr "Icona"
+
+-#, fuzzy
+ msgctxt "field:account.fiscalyear,move_sequence:"
+ msgid "Move Sequence"
+ msgstr "Seqüència d'assentament comptabilitzat"
+@@ -1208,7 +1207,6 @@ msgctxt "field:account.move.cancel.default,reversal:"
+ msgid "Reversal"
+ msgstr "Inverteix"
+
+-#, fuzzy
+ msgctxt "field:account.move.context,company:"
+ msgid "Company"
+ msgstr "Empresa"
+@@ -1305,7 +1303,6 @@ msgctxt "field:account.move.line,payable_receivable_balance:"
+ msgid "Payable/Receivable Balance"
+ msgstr "Saldo a pagar/a cobrar"
+
+-#, fuzzy
+ msgctxt "field:account.move.line,payable_receivable_date:"
+ msgid "Payable/Receivable Date"
+ msgstr "Saldo a pagar/a cobrar"
+@@ -1358,7 +1355,6 @@ msgctxt "field:account.move.line.group.start,journal:"
+ msgid "Journal"
+ msgstr "Diari"
+
+-#, fuzzy
+ msgctxt "field:account.move.line.receivable_payable.context,company:"
+ msgid "Company"
+ msgstr "Empresa"
+@@ -1463,7 +1459,6 @@ msgctxt "field:account.move.line.template,taxes:"
+ msgid "Taxes"
+ msgstr "Impostos"
+
+-#, fuzzy
+ msgctxt "field:account.move.open_journal.ask,company:"
+ msgid "Company"
+ msgstr "Empresa"
+@@ -1616,7 +1611,6 @@ msgctxt "field:account.period,icon:"
+ msgid "Icon"
+ msgstr "Icona"
+
+-#, fuzzy
+ msgctxt "field:account.period,move_sequence:"
+ msgid "Move Sequence"
+ msgstr "Seqüència d'assentament comptabilitzat"
+@@ -2439,7 +2433,6 @@ msgctxt "help:account.income_statement.context,posted:"
+ msgid "Only include posted moves."
+ msgstr "Mostra només assentaments comptabilitzats."
+
+-#, fuzzy
+ msgctxt "help:account.move,number:"
+ msgid "Also known as Folio Number."
+ msgstr "També conegut com el número de foli."
+@@ -2576,102 +2569,82 @@ msgctxt "help:party.party,supplier_tax_rule:"
+ msgid "Apply this rule on taxes when party is supplier."
+ msgstr "Aplica aquesta regla als impostos quan el tercer és un proveïdor."
+
+-#, fuzzy
+ msgctxt "model:account.account,string:"
+ msgid "Account"
+ msgstr "Compte"
+
+-#, fuzzy
+ msgctxt "model:account.account-account.tax,string:"
+ msgid "Account - Account Tax"
+ msgstr "Compte - Impost"
+
+-#, fuzzy
+ msgctxt "model:account.account.context,string:"
+ msgid "Account Context"
+ msgstr "Context comptable"
+
+-#, fuzzy
+ msgctxt "model:account.account.deferral,string:"
+ msgid "Account Deferral"
+ msgstr "Tancament comptable"
+
+-#, fuzzy
+ msgctxt "model:account.account.party,string:"
+ msgid "Account Party"
+ msgstr "Compte del tercer"
+
+-#, fuzzy
+ msgctxt "model:account.account.template,string:"
+ msgid "Account Template"
+ msgstr "Plantilla de compte"
+
+-#, fuzzy
+ msgctxt "model:account.account.template-account.tax.template,string:"
+ msgid "Account Template - Account Tax Template"
+ msgstr "Plantilla de compte - Plantilla d'impost"
+
+-#, fuzzy
+ msgctxt "model:account.account.type,string:"
+ msgid "Account Type"
+ msgstr "Tipus de compte"
+
+-#, fuzzy
+ msgctxt "model:account.account.type.template,string:"
+ msgid "Account Type Template"
+ msgstr "Plantilla de tipus de compte"
+
+-#, fuzzy
+ msgctxt "model:account.aged_balance,string:"
+ msgid "Account Aged Balance"
+ msgstr "Balanç històric"
+
+-#, fuzzy
+ msgctxt "model:account.aged_balance.context,string:"
+ msgid "Account Aged Balance Context"
+ msgstr "Context del balanç històric"
+
+-#, fuzzy
+ msgctxt "model:account.balance_sheet.comparison.context,string:"
+ msgid "Account Balance Sheet Context"
+ msgstr "Context del balanç de situació"
+
+-#, fuzzy
+ msgctxt "model:account.balance_sheet.context,string:"
+ msgid "Account Balance Sheet Context"
+ msgstr "Context del balanç de situació"
+
+-#, fuzzy
+ msgctxt "model:account.configuration,string:"
+ msgid "Account Configuration"
+ msgstr "Configuració comptable"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.default_account,string:"
+ msgid "Account Configuration Default Account"
+ msgstr "Configuració de comptes per defecte"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.default_tax_rule,string:"
+ msgid "Account Configuration Default Tax Rule"
+ msgstr "Configuració de regles d'impost per defecte"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.journal,string:"
+ msgid "Account Configuration Journal"
+ msgstr "Configuració diari comptable"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.sequence,string:"
+ msgid "Account Configuration Sequence"
+ msgstr "Configuració seqüències comptables"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.tax_rounding,string:"
+ msgid "Account Configuration Tax Rounding"
+ msgstr "Configuració comptable de l'arrodoniment d'impostos"
+
+-#, fuzzy
+ msgctxt "model:account.create_chart.account,string:"
+ msgid "Account Create Chart Account"
+ msgstr "Configuració de comptes per defecte"
+@@ -2680,12 +2653,10 @@ msgctxt "model:account.create_chart.properties,string:"
+ msgid "Account Create Chart Properties"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.create_chart.start,string:"
+ msgid "Account Create Chart Start"
+ msgstr "Crea pla comptable"
+
+-#, fuzzy
+ msgctxt "model:account.fiscalyear,string:"
+ msgid "Account Fiscalyear"
+ msgstr "Exercici fiscal anterior"
+@@ -2694,42 +2665,34 @@ msgctxt "model:account.fiscalyear.balance_non_deferral.start,string:"
+ msgid "Account Fiscalyear Balance Non Deferral Start"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.fiscalyear.create_periods.start,string:"
+ msgid "Account Fiscalyear Create Periods Start"
+ msgstr "Inici crea períodes"
+
+-#, fuzzy
+ msgctxt "model:account.fiscalyear.renew.start,string:"
+ msgid "Account Fiscalyear Renew Start"
+ msgstr "Inici renovar exercici fiscal"
+
+-#, fuzzy
+ msgctxt "model:account.general_ledger.account,string:"
+ msgid "Account General Ledger Account"
+ msgstr "Compte llibre major"
+
+-#, fuzzy
+ msgctxt "model:account.general_ledger.account.context,string:"
+ msgid "Account General Ledger Account Context"
+ msgstr "Context del compte llibre major"
+
+-#, fuzzy
+ msgctxt "model:account.general_ledger.account.party,string:"
+ msgid "Account General Ledger Account Party"
+ msgstr "Tercer del compte llibre major"
+
+-#, fuzzy
+ msgctxt "model:account.general_ledger.line,string:"
+ msgid "Account General Ledger Line"
+ msgstr "Apunt llibre major"
+
+-#, fuzzy
+ msgctxt "model:account.general_ledger.line.context,string:"
+ msgid "Account General Ledger Account Context"
+ msgstr "Context del compte llibre major"
+
+-#, fuzzy
+ msgctxt "model:account.income_statement.context,string:"
+ msgid "Account Income Statement Context"
+ msgstr "Context del pèrdues i guanys"
+@@ -2758,217 +2721,174 @@ msgctxt "model:account.journal,name:journal_stock"
+ msgid "Stock"
+ msgstr "Existències"
+
+-#, fuzzy
+ msgctxt "model:account.journal,string:"
+ msgid "Account Journal"
+ msgstr "Diari comptable"
+
+-#, fuzzy
+ msgctxt "model:account.journal.open_cash.context,string:"
+ msgid "Account Journal Open Cash Context"
+ msgstr "Context del diari de caixa"
+
+-#, fuzzy
+ msgctxt "model:account.journal.period,string:"
+ msgid "Account Journal Period"
+ msgstr "Diari comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move,string:"
+ msgid "Account Move"
+ msgstr "Assentament comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.cancel.default,string:"
+ msgid "Account Move Cancel Default"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.context,string:"
+ msgid "Account Move Context"
+ msgstr "Context comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line,string:"
+ msgid "Account Move Line"
+ msgstr "Apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.delegate.start,string:"
+ msgid "Account Move Line Delegate Start"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.group.start,string:"
+ msgid "Account Move Line Group Start"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.receivable_payable.context,string:"
+ msgid "Account Move Line Receivable Payable Context"
+ msgstr "Context apunts a cobrar/a pagar"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.reschedule.preview,string:"
+ msgid "Account Move Line Reschedule Preview"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.reschedule.start,string:"
+ msgid "Account Move Line Reschedule Start"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.reschedule.term,string:"
+ msgid "Account Move Line Reschedule Term"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.template,string:"
+ msgid "Account Move Line Template"
+ msgstr "Plantilla d'apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.open_journal.ask,string:"
+ msgid "Account Move Open Journal Ask"
+ msgstr "Demana el diari a obrir"
+
+-#, fuzzy
+ msgctxt "model:account.move.reconcile.write_off,string:"
+ msgid "Account Move Reconcile Write Off"
+ msgstr "Conciliació d'apunts comptables"
+
+-#, fuzzy
+ msgctxt "model:account.move.reconcile_lines.writeoff,string:"
+ msgid "Account Move Reconcile Lines Writeoff"
+ msgstr "Línies de conciliació d'apunts comptables"
+
+-#, fuzzy
+ msgctxt "model:account.move.reconciliation,string:"
+ msgid "Account Move Reconciliation"
+ msgstr "Conciliació d'apunts comptables"
+
+-#, fuzzy
+ msgctxt "model:account.move.template,string:"
+ msgid "Account Move Template"
+ msgstr "Plantilla d'assentament comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.template.create.keywords,string:"
+ msgid "Account Move Template Create Keywords"
+ msgstr "Paraula clau de plantilla d'assentament comptable"
+
+-#, fuzzy
+ msgctxt "model:account.move.template.create.template,string:"
+ msgid "Account Move Template Create Template"
+ msgstr "Plantilla de compte - Plantilla d'impost"
+
+-#, fuzzy
+ msgctxt "model:account.move.template.keyword,string:"
+ msgid "Account Move Template Keyword"
+ msgstr "Paraula clau de plantilla d'assentament comptable"
+
+-#, fuzzy
+ msgctxt "model:account.period,string:"
+ msgid "Account Period"
+ msgstr "Compte del tercer"
+
+-#, fuzzy
+ msgctxt "model:account.reconcile.show,string:"
+ msgid "Account Reconcile Show"
+ msgstr "Compte a cobrar"
+
+-#, fuzzy
+ msgctxt "model:account.reconcile.start,string:"
+ msgid "Account Reconcile Start"
+ msgstr "Conciliació d'apunts comptables"
+
+-#, fuzzy
+ msgctxt "model:account.tax,string:"
+ msgid "Account Tax"
+ msgstr "Impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.code,string:"
+ msgid "Account Tax Code"
+ msgstr "Impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.code.context,string:"
+ msgid "Account Tax Code Context"
+ msgstr "Context codi d'impost"
+
+-#, fuzzy
+ msgctxt "model:account.tax.code.line,string:"
+ msgid "Account Tax Code Line"
+ msgstr "Apunt comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.code.line.template,string:"
+ msgid "Account Tax Code Line Template"
+ msgstr "Plantilla de línia d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.code.template,string:"
+ msgid "Account Tax Code Template"
+ msgstr "Plantilla d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.group,string:"
+ msgid "Account Tax Group"
+ msgstr "Impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.line,string:"
+ msgid "Account Tax Line"
+ msgstr "Impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.line.template,string:"
+ msgid "Account Tax Line Template"
+ msgstr "Plantilla de línia d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.rule,string:"
+ msgid "Account Tax Rule"
+ msgstr "Impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.rule.line,string:"
+ msgid "Account Tax Rule Line"
+ msgstr "Línia regla d'impost"
+
+-#, fuzzy
+ msgctxt "model:account.tax.rule.line.template,string:"
+ msgid "Account Tax Rule Line Template"
+ msgstr "Plantilla de línia d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.rule.template,string:"
+ msgid "Account Tax Rule Template"
+ msgstr "Plantilla d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.template,string:"
+ msgid "Account Tax Template"
+ msgstr "Plantilla d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.test,string:"
+ msgid "Account Tax Test"
+ msgstr "Plantilla d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.tax.test.result,string:"
+ msgid "Account Tax Test Result"
+ msgstr "Plantilla d'impost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.update_chart.start,string:"
+ msgid "Account Update Chart Start"
+ msgstr "Actualitza pla comptable"
+
+-#, fuzzy
+ msgctxt "model:account.update_chart.succeed,string:"
+ msgid "Account Update Chart Succeed"
+ msgstr "L'actualització del pla comptable s'ha realitzat correctament!"
+@@ -3302,8 +3222,7 @@ msgid ""
+ msgstr ""
+ "El assentaments \"%(moves)s\" contenen apunts agrupats, si es cancel·len es "
+ "desagrupara els apunts."
+-
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_change_fiscalyear_move_sequence"
+ msgid ""
+ "You cannot change the move sequence on fiscal year \"%(fiscalyear)s\" "
+@@ -3311,8 +3230,7 @@ msgid ""
+ msgstr ""
+ "No es pot modificar la seqüència d'assentaments comptabilitzats de "
+ "l'exercici fiscal \"%(fiscalyear)s\" perquè conté moviments comptabilitzats."
+-
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_change_period_move_sequence"
+ msgid ""
+ "You cannot change the move sequence in period \"%(period)s\" because it has "
+@@ -3396,7 +3314,6 @@ msgstr ""
+ "No podeu eliminar el tercer \"%(party)s\" mentre tingui imports a "
+ "pagar/cobrar amb l'empresa \"%(company)s\"."
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_fiscalyear_move_sequence_unique"
+ msgid "The move sequence of fiscal years must be unique."
+ msgstr ""
+@@ -3531,8 +3448,7 @@ msgid "You cannot add/modify/delete tax lines in closed period \"%(period)s\"."
+ msgstr ""
+ "No podeu afegir/modificar/eliminar línies d'impost al període tancat "
+ "\"%(period)s\"."
+-
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_move_cancel_closed_period"
+ msgid ""
+ "The period of move \"%(move)s\" is closed.\n"
+@@ -3540,8 +3456,7 @@ msgid ""
+ msgstr ""
+ "El període del assentament \"%(move)s\" està tancat.\n"
+ "Voleu utilitzar el període actual per cancel·lar l'assentament?"
+-
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_move_copy_closed_period"
+ msgid ""
+ "The period of move \"%(move)s\" is closed.\n"
+@@ -3674,7 +3589,6 @@ msgstr ""
+ "Les dates del període \"%(period)s\" han d'incloure la data "
+ "\"%(move_date)s\" del assentament \"%(move)s\"."
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_period_move_sequence_unique"
+ msgid "A move sequence can be reused only by periods in the same fiscal year."
+ msgstr ""
+@@ -4188,17 +4102,14 @@ msgctxt "model:ir.ui.menu,name:menuitem_account_configuration"
+ msgid "Configuration"
+ msgstr "Configuració"
+
+-#, fuzzy
+ msgctxt "model:party.party.account,string:"
+ msgid "Party Account"
+ msgstr "Compte del tercer"
+
+-#, fuzzy
+ msgctxt "model:res.group,name:group_account"
+ msgid "Accounting"
+ msgstr "Comptabilitat"
+
+-#, fuzzy
+ msgctxt "model:res.group,name:group_account_admin"
+ msgid "Accounting Administration"
+ msgstr "Administració de comptabilitat"
+@@ -4935,7 +4846,6 @@ msgctxt "view:account.move.line:"
+ msgid "Balance"
+ msgstr "Saldo"
+
+-#, fuzzy
+ msgctxt "view:account.move.line:"
+ msgid "Date"
+ msgstr "Data"
+@@ -5125,7 +5035,6 @@ msgctxt "wizard_button:account.reconcile,start,end:"
+ msgid "Cancel"
+ msgstr "Cancel·la"
+
+-#, fuzzy
+ msgctxt "wizard_button:account.reconcile,start,setup:"
+ msgid "Reconcile"
+ msgstr "Concilia"
+diff --git a/tryton/modules/account_asset/locale/ca.po b/tryton/modules/account_asset/locale/ca.po
+index 92e1d429c8..dfb1c5fda9 100644
+--- a/tryton/modules/account_asset/locale/ca.po
++++ b/tryton/modules/account_asset/locale/ca.po
+@@ -350,47 +350,38 @@ msgctxt "help:product.template,depreciation_duration:"
+ msgid "In months"
+ msgstr "En mesos"
+
+-#, fuzzy
+ msgctxt "model:account.asset,string:"
+ msgid "Account Asset"
+ msgstr "Compte d'actiu"
+
+-#, fuzzy
+ msgctxt "model:account.asset-update-account.move,string:"
+ msgid "Account Asset - Update - Account Move"
+ msgstr "Actiu - Actualitza - Assentament"
+
+-#, fuzzy
+ msgctxt "model:account.asset.create_moves.start,string:"
+ msgid "Account Asset Create Moves Start"
+ msgstr "Crea assentaments - Inici"
+
+-#, fuzzy
+ msgctxt "model:account.asset.line,string:"
+ msgid "Account Asset Line"
+ msgstr "Compte d'actiu"
+
+-#, fuzzy
+ msgctxt "model:account.asset.print_depreciation_table.start,string:"
+ msgid "Account Asset Print Depreciation Table Start"
+ msgstr "Taula d'amortització d'actiu - Inici"
+
+-#, fuzzy
+ msgctxt "model:account.asset.revision,string:"
+ msgid "Account Asset Revision"
+ msgstr "Revisió del actiu"
+
+-#, fuzzy
+ msgctxt "model:account.asset.update.show_depreciation,string:"
+ msgid "Account Asset Update Show Depreciation"
+ msgstr "Actualitza actius - Mostra amortització"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.asset_date,string:"
+ msgid "Account Configuration Asset Date"
+ msgstr "Configuració de les dates dels actius"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.asset_frequency,string:"
+ msgid "Account Configuration Asset Frequency"
+ msgstr "Configuració de la freqüència dels actius"
+@@ -481,7 +472,6 @@ msgstr ""
+ "Es necessita un compte d'actiu pel producte \"%(product)s\" per poder "
+ "facturar la compra \"%(purchase)s\"."
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_revision_asset_origin_unique"
+ msgid "A revision origin can be used only once per asset."
+ msgstr "La línia de factura pot ser usada una sola vegada en un actiu."
+diff --git a/tryton/modules/account_be/locale/ca.po b/tryton/modules/account_be/locale/ca.po
+index feeb06449d..d3bb71770a 100644
+--- a/tryton/modules/account_be/locale/ca.po
++++ b/tryton/modules/account_be/locale/ca.po
+@@ -30,12 +30,10 @@ msgctxt "field:account.be.vat_customer.context,fiscalyear:"
+ msgid "Fiscal Year"
+ msgstr "Exercici fiscal"
+
+-#, fuzzy
+ msgctxt "model:account.be.vat_customer,string:"
+ msgid "Account Be Vat Customer"
+ msgstr "IVA clients Bèlgica"
+
+-#, fuzzy
+ msgctxt "model:account.be.vat_customer.context,string:"
+ msgid "Account Be Vat Customer Context"
+ msgstr "Context IVA clients Bèlgica"
+diff --git a/tryton/modules/account_budget/locale/ca.po b/tryton/modules/account_budget/locale/ca.po
+index fc6b8139e2..37f8207e17 100644
+--- a/tryton/modules/account_budget/locale/ca.po
++++ b/tryton/modules/account_budget/locale/ca.po
+@@ -234,32 +234,26 @@ msgctxt "help:account.budget.line.period,total_amount:"
+ msgid "The total amount allocated to the budget and its children."
+ msgstr "L'import total assignat al pressupost i als seus fills."
+
+-#, fuzzy
+ msgctxt "model:account.budget,string:"
+ msgid "Account Budget"
+ msgstr "Pressupost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.budget.context,string:"
+ msgid "Account Budget Context"
+ msgstr "Context del pressupost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.budget.copy.start,string:"
+ msgid "Account Budget Copy Start"
+ msgstr "Context del pressupost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.budget.line,string:"
+ msgid "Account Budget Line"
+ msgstr "Línia de pressupost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.budget.line.create_periods.start,string:"
+ msgid "Account Budget Line Create Periods Start"
+ msgstr "Període de línia del pressupost comptable"
+
+-#, fuzzy
+ msgctxt "model:account.budget.line.period,string:"
+ msgid "Account Budget Line Period"
+ msgstr "Període de línia del pressupost comptable"
+diff --git a/tryton/modules/account_cash_rounding/locale/ca.po b/tryton/modules/account_cash_rounding/locale/ca.po
+index 02c2dc25cb..fe8cfbebd4 100644
+--- a/tryton/modules/account_cash_rounding/locale/ca.po
++++ b/tryton/modules/account_cash_rounding/locale/ca.po
+@@ -44,7 +44,6 @@ msgctxt "field:purchase.purchase,cash_rounding:"
+ msgid "Cash Rounding"
+ msgstr "Arrodoniment d'efectiu"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.cash_rounding_account,string:"
+ msgid "Account Configuration Cash Rounding Account"
+ msgstr "Configuració comptable d'arrodoniment d'efectiu"
+diff --git a/tryton/modules/account_consolidation/locale/ca.po b/tryton/modules/account_consolidation/locale/ca.po
+index cd5a7b333a..cc05edc977 100644
+--- a/tryton/modules/account_consolidation/locale/ca.po
++++ b/tryton/modules/account_consolidation/locale/ca.po
+@@ -118,17 +118,14 @@ msgctxt "help:account.consolidation.income_statement.context,posted:"
+ msgid "Only include posted moves."
+ msgstr "Mostra només assentaments comptabilitzats."
+
+-#, fuzzy
+ msgctxt "model:account.consolidation,string:"
+ msgid "Account Consolidation"
+ msgstr "Consolidació comptable"
+
+-#, fuzzy
+ msgctxt "model:account.consolidation.balance_sheet.context,string:"
+ msgid "Account Consolidation Balance Sheet Context"
+ msgstr "Context del balanç consolidat"
+
+-#, fuzzy
+ msgctxt "model:account.consolidation.income_statement.context,string:"
+ msgid "Account Consolidation Income Statement Context"
+ msgstr "Context del pérdues i guanys consolidat"
+diff --git a/tryton/modules/account_credit_limit/locale/ca.po b/tryton/modules/account_credit_limit/locale/ca.po
+index 560608f964..3464c424a5 100644
+--- a/tryton/modules/account_credit_limit/locale/ca.po
++++ b/tryton/modules/account_credit_limit/locale/ca.po
+@@ -48,7 +48,6 @@ msgctxt "field:party.party.credit_limit_amount,credit_limit_amount:"
+ msgid "Credit Limit Amount"
+ msgstr "Import límit de crèdit"
+
+-#, fuzzy
+ msgctxt "field:party.party.credit_limit_amount,currency:"
+ msgid "Currency"
+ msgstr "Decimals de la moneda"
+@@ -70,19 +69,18 @@ msgctxt "help:account.dunning.level,credit_limit:"
+ msgid "Has reached the credit limit."
+ msgstr "Ha arribat al límit de crèdit."
+
+-#, fuzzy
+ msgctxt "model:account.configuration.default_credit_limit_amount,string:"
+ msgid "Account Configuration Default Credit Limit Amount"
+ msgstr "Configuració del límit de crèdit per defecte"
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_party_credit_limit_amount"
+ msgid ""
+ "The party \"%(party)s\" will exceed their %(limit)s credit limit by "
+ "%(amount)s."
+ msgstr "El tercer \"%(party)s\" ha assolit el seu límit de crèdit de %(limit)s."
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_party_credit_limit_dunning"
+ msgid ""
+ "The party \"%(party)s\" has reached the credit limit level for dunning "
+@@ -91,7 +89,6 @@ msgstr ""
+ "El tercer \"%(party)s\" ha assolit el seu nivell de límit de crèdit "
+ "%(dunning)s."
+
+-#, fuzzy
+ msgctxt "model:party.party.credit_limit_amount,string:"
+ msgid "Party Credit Limit Amount"
+ msgstr "Import límit de crèdit per tercer"
+diff --git a/tryton/modules/account_dunning/locale/ca.po b/tryton/modules/account_dunning/locale/ca.po
+index c894ddf7ce..e736b624af 100644
+--- a/tryton/modules/account_dunning/locale/ca.po
++++ b/tryton/modules/account_dunning/locale/ca.po
+@@ -152,32 +152,26 @@ msgctxt "help:account.dunning.procedure,name:"
+ msgid "The main identifier of the Dunning Procedure."
+ msgstr "L'identificador principal del procediment de reclamació."
+
+-#, fuzzy
+ msgctxt "model:account.configuration.default_dunning_procedure,string:"
+ msgid "Account Configuration Default Dunning Procedure"
+ msgstr "Configuració del procediment de reclamació per defecte"
+
+-#, fuzzy
+ msgctxt "model:account.dunning,string:"
+ msgid "Account Dunning"
+ msgstr "Reclamació comptable"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.create.start,string:"
+ msgid "Account Dunning Create Start"
+ msgstr "Nivell de reclamació comptable"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.level,string:"
+ msgid "Account Dunning Level"
+ msgstr "Nivell de reclamació comptable"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.procedure,string:"
+ msgid "Account Dunning Procedure"
+ msgstr "Procediment de reclamació comptable"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.process.start,string:"
+ msgid "Account Dunning Process Start"
+ msgstr "Procediment de reclamació comptable"
+@@ -255,7 +249,6 @@ msgctxt "model:ir.ui.menu,name:menu_dunnings"
+ msgid "Dunnings"
+ msgstr "Reclamacions"
+
+-#, fuzzy
+ msgctxt "model:party.party.dunning_procedure,string:"
+ msgid "Party Dunning Procedure"
+ msgstr "Procediment de reclamació per defecte"
+diff --git a/tryton/modules/account_dunning_email/locale/ca.po b/tryton/modules/account_dunning_email/locale/ca.po
+index 30bea0ab45..295e7118fb 100644
+--- a/tryton/modules/account_dunning_email/locale/ca.po
++++ b/tryton/modules/account_dunning_email/locale/ca.po
+@@ -26,14 +26,12 @@ msgctxt "field:ir.email,dunning_level:"
+ msgid "Level"
+ msgstr "Nivell"
+
+-#, fuzzy
+ msgctxt "help:account.configuration,dunning_email_fallback:"
+ msgid "User notified when no email is found to send the dunning."
+ msgstr ""
+ "L'usuari a notificar quan no es trobi cap correu electrònic per enviar la "
+ "reclamació"
+
+-#, fuzzy
+ msgctxt "help:account.dunning.level,email_contact_mechanism:"
+ msgid "Define which email to use from the party's contact mechanisms."
+ msgstr ""
+diff --git a/tryton/modules/account_dunning_fee/locale/ca.po b/tryton/modules/account_dunning_fee/locale/ca.po
+index fc2918a362..d770470243 100644
+--- a/tryton/modules/account_dunning_fee/locale/ca.po
++++ b/tryton/modules/account_dunning_fee/locale/ca.po
+@@ -54,12 +54,10 @@ msgctxt "help:account.dunning.fee,compute_method:"
+ msgid "Method to compute the fee amount"
+ msgstr "Mètode per calcular l'import de les despeses"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.fee,string:"
+ msgid "Account Dunning Fee"
+ msgstr "Compte de les despeses de reclamació"
+
+-#, fuzzy
+ msgctxt "model:account.dunning.fee.dunning_level,string:"
+ msgid "Account Dunning Fee Dunning Level"
+ msgstr "Compte de les despeses de reclamació - Nivell"
+diff --git a/tryton/modules/account_eu/locale/ca.po b/tryton/modules/account_eu/locale/ca.po
+index 13280af584..5120a7f912 100644
+--- a/tryton/modules/account_eu/locale/ca.po
++++ b/tryton/modules/account_eu/locale/ca.po
+@@ -46,12 +46,10 @@ msgctxt "field:account.tax.template,ec_sales_list_code:"
+ msgid "EC Sales List Code"
+ msgstr "Codi llistat de ventes intracomunitaries"
+
+-#, fuzzy
+ msgctxt "model:account.ec_sales_list,string:"
+ msgid "Account Ec Sales List"
+ msgstr "Resum ventes intracomunitàries"
+
+-#, fuzzy
+ msgctxt "model:account.ec_sales_list.context,string:"
+ msgid "Account Ec Sales List Context"
+ msgstr "Context resum ventes intracomunitàries"
+diff --git a/tryton/modules/account_export/locale/ca.po b/tryton/modules/account_export/locale/ca.po
+index fa3baa5d50..5a42de548f 100644
+--- a/tryton/modules/account_export/locale/ca.po
++++ b/tryton/modules/account_export/locale/ca.po
+@@ -46,12 +46,10 @@ msgctxt "field:account.move.export,type:"
+ msgid "Type"
+ msgstr "Tipus"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.export,string:"
+ msgid "Account Configuration Export"
+ msgstr "Configuració exportacions comptables"
+
+-#, fuzzy
+ msgctxt "model:account.move.export,string:"
+ msgid "Account Move Export"
+ msgstr "Exportació asentaments comptables"
+diff --git a/tryton/modules/account_fr_chorus/locale/ca.po b/tryton/modules/account_fr_chorus/locale/ca.po
+index 05a369627d..7eb884089d 100644
+--- a/tryton/modules/account_fr_chorus/locale/ca.po
++++ b/tryton/modules/account_fr_chorus/locale/ca.po
+@@ -90,12 +90,10 @@ msgctxt "help:party.party,chorus:"
+ msgid "Send documents for this party through Chorus Pro"
+ msgstr "Envia els documents a aquest tercer a través de Chorus Pro"
+
+-#, fuzzy
+ msgctxt "model:account.credential.chorus,string:"
+ msgid "Account Credential Chorus"
+ msgstr "Credencials Comptables de Chorus"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.chorus,string:"
+ msgid "Account Invoice Chorus"
+ msgstr "Factura Chorus"
+diff --git a/tryton/modules/account_invoice/locale/ca.po b/tryton/modules/account_invoice/locale/ca.po
+index 57ee8ba2c9..ca6559a03f 100644
+--- a/tryton/modules/account_invoice/locale/ca.po
++++ b/tryton/modules/account_invoice/locale/ca.po
+@@ -763,17 +763,14 @@ msgctxt "help:company.company,purchase_taxes_expense:"
+ msgid "Check to book purchase taxes as expense."
+ msgstr "Marca per comptabilitzar els impostos de compra com a despesa."
+
+-#, fuzzy
+ msgctxt "model:account.configuration.default_payment_term,string:"
+ msgid "Account Configuration Default Payment Term"
+ msgstr "Configuració contable del termini de pagament per defecte"
+
+-#, fuzzy
+ msgctxt "model:account.fiscalyear.invoice_sequence,string:"
+ msgid "Account Fiscalyear Invoice Sequence"
+ msgstr "Seqüència de factura de proveïdor"
+
+-#, fuzzy
+ msgctxt "model:account.invoice,string:"
+ msgid "Account Invoice"
+ msgstr "Té un asentament comptable"
+@@ -782,12 +779,10 @@ msgctxt "model:account.invoice-account.move.line,string:"
+ msgid "Account Invoice - Account Move Line"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.invoice-additional-account.move,string:"
+ msgid "Account Invoice - Additional - Account Move"
+ msgstr "Assentament addicional de la factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.alternative_payee,string:"
+ msgid "Account Invoice Alternative Payee"
+ msgstr "Pagador alternatiu de la factura"
+@@ -796,27 +791,22 @@ msgctxt "model:account.invoice.credit.start,string:"
+ msgid "Account Invoice Credit Start"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.invoice.line,string:"
+ msgid "Account Invoice Line"
+ msgstr "Línia de factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.line-account.tax,string:"
+ msgid "Account Invoice Line - Account Tax"
+ msgstr "Línia de factura - Impost"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.pay.ask,string:"
+ msgid "Account Invoice Pay Ask"
+ msgstr "Pagaments factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.pay.start,string:"
+ msgid "Account Invoice Pay Start"
+ msgstr "Tercer de la factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment.method,string:"
+ msgid "Account Invoice Payment Method"
+ msgstr "Mètodes de pagament de factura"
+@@ -825,17 +815,14 @@ msgctxt "model:account.invoice.payment_term,name:payment_term_0"
+ msgid "Upon Receipt"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term,name:payment_term_30_eom"
+ msgid "Net 30 days End of Month"
+ msgstr "Dia del mes"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term,name:payment_term_60_eom"
+ msgid "Net 60 days End of Month"
+ msgstr "Dia del mes"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term,name:payment_term_eom"
+ msgid "End of Month"
+ msgstr "Dia del mes"
+@@ -860,37 +847,30 @@ msgctxt "model:account.invoice.payment_term,name:payment_term_net60"
+ msgid "Net 60 days"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term,string:"
+ msgid "Account Invoice Payment Term"
+ msgstr "Pagament factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term.line,string:"
+ msgid "Account Invoice Payment Term Line"
+ msgstr "Factura - Línia de pagament"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term.line.delta,string:"
+ msgid "Account Invoice Payment Term Line Delta"
+ msgstr "Factura - Línia de pagament"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term.test,string:"
+ msgid "Account Invoice Payment Term Test"
+ msgstr "Pagaments factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.payment_term.test.result,string:"
+ msgid "Account Invoice Payment Term Test Result"
+ msgstr "Mètodes de pagament de factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.report.revision,string:"
+ msgid "Account Invoice Report Revision"
+ msgstr "Revisió informe factura"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.tax,string:"
+ msgid "Account Invoice Tax"
+ msgstr "Impost de factura"
+@@ -1231,7 +1211,6 @@ msgstr ""
+ "Per calcular els venciments heu d'afegir una última línia de romanent al "
+ "termini de pagament \"%(payment_term)s\"."
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_payment_term_non_zero_ratio_divisor"
+ msgid "The ratio and divisor can not be both equal to zero."
+ msgstr "El rati i el divisor de la línia \"%(line)s\" no són consistents."
+@@ -1332,7 +1311,6 @@ msgctxt "model:ir.ui.menu,name:menu_payment_terms_configuration"
+ msgid "Payment Terms"
+ msgstr "Terminis de pagament"
+
+-#, fuzzy
+ msgctxt "model:party.party.payment_term,string:"
+ msgid "Party Payment Term"
+ msgstr "Termini de pagament del tercer"
+diff --git a/tryton/modules/account_invoice_defer/locale/ca.po b/tryton/modules/account_invoice_defer/locale/ca.po
+index d29e688854..0b3cf100e2 100644
+--- a/tryton/modules/account_invoice_defer/locale/ca.po
++++ b/tryton/modules/account_invoice_defer/locale/ca.po
+@@ -72,7 +72,6 @@ msgctxt "field:account.invoice.line,deferrable:"
+ msgid "Deferrable"
+ msgstr "Diferible"
+
+-#, fuzzy
+ msgctxt "model:account.invoice.deferred,string:"
+ msgid "Account Invoice Deferred"
+ msgstr "Factura diferida"
+diff --git a/tryton/modules/account_invoice_stock/locale/ca.po b/tryton/modules/account_invoice_stock/locale/ca.po
+index 74946e3c32..8768d732f3 100644
+--- a/tryton/modules/account_invoice_stock/locale/ca.po
++++ b/tryton/modules/account_invoice_stock/locale/ca.po
+@@ -43,7 +43,6 @@ msgid "Check to correct price of already posted invoice."
+ msgstr ""
+ "Marqueu per corregir el preu d'una factura que ja està comptabilitzada."
+
+-#, fuzzy
+ msgctxt "model:account.invoice.line-stock.move,string:"
+ msgid "Account Invoice Line - Stock Move"
+ msgstr "Línia de factura - Moviment d'existències"
+diff --git a/tryton/modules/account_move_line_grouping/locale/ca.po b/tryton/modules/account_move_line_grouping/locale/ca.po
+index 80ca130dee..0c49326410 100644
+--- a/tryton/modules/account_move_line_grouping/locale/ca.po
++++ b/tryton/modules/account_move_line_grouping/locale/ca.po
+@@ -90,7 +90,6 @@ msgctxt "field:account.move.line.group,payable_receivable_balance:"
+ msgid "Payable/Receivable Balance"
+ msgstr "Saldo a pagar/a cobrar"
+
+-#, fuzzy
+ msgctxt "field:account.move.line.group,payable_receivable_date:"
+ msgid "Payable/Receivable Date"
+ msgstr "Saldo a pagar/a cobrar"
+@@ -119,12 +118,10 @@ msgctxt "field:account.move.line.group-move.line,line:"
+ msgid "Line"
+ msgstr "Línia"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.group,string:"
+ msgid "Account Move Line Group"
+ msgstr "Grup de línia d'assentament de compte"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.group-move.line,string:"
+ msgid "Account Move Line Group - Move Line"
+ msgstr "Grup de línia de moviment de compte - Apunt comptable"
+diff --git a/tryton/modules/account_payment/locale/ca.po b/tryton/modules/account_payment/locale/ca.po
+index cb3fb29097..df87ca837a 100644
+--- a/tryton/modules/account_payment/locale/ca.po
++++ b/tryton/modules/account_payment/locale/ca.po
+@@ -332,17 +332,14 @@ msgctxt "help:party.party.reception_direct_debit,type:"
+ msgid "Make one payment per line."
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.configuration.payment_group_sequence,string:"
+ msgid "Account Configuration Payment Group Sequence"
+ msgstr "Configuració de la seqüencia de grups de pagament"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.payment_sequence,string:"
+ msgid "Account Configuration Payment Sequence"
+ msgstr "Configuració comptable de la seqüència de pagament"
+
+-#, fuzzy
+ msgctxt "model:account.move.line.create_direct_debit.start,string:"
+ msgid "Account Move Line Create Direct Debit Start"
+ msgstr "Crea domiciliacions bancàries fins la data"
+@@ -355,17 +352,14 @@ msgctxt "model:account.move.line.pay.start,string:"
+ msgid "Account Move Line Pay Start"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.payment,string:"
+ msgid "Account Payment"
+ msgstr "Grups de pagaments"
+
+-#, fuzzy
+ msgctxt "model:account.payment.group,string:"
+ msgid "Account Payment Group"
+ msgstr "Grups de pagaments"
+
+-#, fuzzy
+ msgctxt "model:account.payment.journal,string:"
+ msgid "Account Payment Journal"
+ msgstr "Grups de pagaments"
+@@ -692,12 +686,10 @@ msgctxt "model:ir.ui.menu,name:menu_payments"
+ msgid "Payments"
+ msgstr "Pagaments"
+
+-#, fuzzy
+ msgctxt "model:party.party.payment_direct_debit,string:"
+ msgid "Party Payment Direct Debit"
+ msgstr "Domiciliacions bancàries de tercers"
+
+-#, fuzzy
+ msgctxt "model:party.party.reception_direct_debit,string:"
+ msgid "Party Reception Direct Debit"
+ msgstr "Domiciliacions bancàries de tercers"
+@@ -810,7 +802,6 @@ msgctxt "view:account.payment:"
+ msgid "Other Info"
+ msgstr "Informació addicional"
+
+-#, fuzzy
+ msgctxt "view:account.payment:"
+ msgid "Payment"
+ msgstr "Pagament"
+diff --git a/tryton/modules/account_payment_braintree/locale/ca.po b/tryton/modules/account_payment_braintree/locale/ca.po
+index 27d1743474..a248385418 100644
+--- a/tryton/modules/account_payment_braintree/locale/ca.po
++++ b/tryton/modules/account_payment_braintree/locale/ca.po
+@@ -221,17 +221,14 @@ msgctxt "help:account.payment.braintree.account,webhook_endpoint:"
+ msgid "The URL to be called by Braintree."
+ msgstr "La URL que es cridarà desde Braintree."
+
+-#, fuzzy
+ msgctxt "model:account.payment.braintree.account,string:"
+ msgid "Account Payment Braintree Account"
+ msgstr "Compte Braintree"
+
+-#, fuzzy
+ msgctxt "model:account.payment.braintree.customer,string:"
+ msgid "Account Payment Braintree Customer"
+ msgstr "Crear client Braintree"
+
+-#, fuzzy
+ msgctxt "model:account.payment.braintree.customer.identical,string:"
+ msgid "Account Payment Braintree Customer Identical"
+ msgstr "Client Braintree idèntic"
+@@ -241,7 +238,6 @@ msgctxt ""
+ msgid "Account Payment Braintree Customer Payment Method Delete Ask"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.payment.braintree.refund,string:"
+ msgid "Account Payment Braintree Refund"
+ msgstr "Obtenir devolucions Braintree"
+diff --git a/tryton/modules/account_payment_sepa/locale/ca.po b/tryton/modules/account_payment_sepa/locale/ca.po
+index 5852862f69..65793ecb8c 100644
+--- a/tryton/modules/account_payment_sepa/locale/ca.po
++++ b/tryton/modules/account_payment_sepa/locale/ca.po
+@@ -35,7 +35,6 @@ msgctxt "field:account.payment,sepa_mandate_sequence_type:"
+ msgid "Mandate Sequence Type"
+ msgstr "Tipus de seqüència mandat"
+
+-#, fuzzy
+ msgctxt "field:account.payment,sepa_payable_bank_account_number:"
+ msgid "Bank Account Number"
+ msgstr "Número de compte bancari"
+@@ -220,7 +219,6 @@ msgctxt "model:ir.action,name:report_mandate"
+ msgid "Mandate"
+ msgstr "Mandat"
+
+-#, fuzzy
+ msgctxt "model:ir.action,name:report_message"
+ msgid "Message"
+ msgstr "Missatge"
+@@ -615,7 +613,6 @@ msgctxt "view:account.payment:"
+ msgid "Return Reason"
+ msgstr "Motiu retorn"
+
+-#, fuzzy
+ msgctxt "view:account.payment:"
+ msgid "SEPA"
+ msgstr "SEPA"
+diff --git a/tryton/modules/account_payment_stripe/locale/ca.po b/tryton/modules/account_payment_stripe/locale/ca.po
+index ebd14bf293..0f307651db 100644
+--- a/tryton/modules/account_payment_stripe/locale/ca.po
++++ b/tryton/modules/account_payment_stripe/locale/ca.po
+@@ -305,32 +305,26 @@ msgctxt "help:account.payment.stripe.account,webhook_signing_secret:"
+ msgid "The Stripe's signing secret of the webhook."
+ msgstr "El secret de firma de Stripe per al Webhook."
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.account,string:"
+ msgid "Account Payment Stripe Account"
+ msgstr "Compte Stripe"
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.customer,string:"
+ msgid "Account Payment Stripe Customer"
+ msgstr "Crea clients de Stripe"
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.customer.fingerprint,string:"
+ msgid "Account Payment Stripe Customer Fingerprint"
+ msgstr "Empremta digital del client de Strip"
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.customer.identical,string:"
+ msgid "Account Payment Stripe Customer Identical"
+ msgstr "Client de Stripe idèntic"
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.customer.source.detach.ask,string:"
+ msgid "Account Payment Stripe Customer Source Detach Ask"
+ msgstr "Origen client Stripe"
+
+-#, fuzzy
+ msgctxt "model:account.payment.stripe.refund,string:"
+ msgid "Account Payment Stripe Refund"
+ msgstr "Crea devolucions de Stripe"
+@@ -403,7 +397,7 @@ msgctxt "model:ir.message,text:msg_customer_fingerprint_unique"
+ msgid "The fingerprint must be unique by customer."
+ msgstr "L'empremta digital ha de ser única per client."
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_no_stripe_token"
+ msgid ""
+ "To process payment \"%(payment)s\" you must set a Stripe token, payment "
+@@ -490,7 +484,6 @@ msgctxt "report:account.payment.stripe.checkout:"
+ msgid "Stripe Checkout"
+ msgstr "Procés de pagament de Stripe"
+
+-#, fuzzy
+ msgctxt "report:account.payment.stripe.checkout:"
+ msgid "Submit"
+ msgstr "Envia"
+diff --git a/tryton/modules/account_product/locale/ca.po b/tryton/modules/account_product/locale/ca.po
+index f241d3451b..e06358a76d 100644
+--- a/tryton/modules/account_product/locale/ca.po
++++ b/tryton/modules/account_product/locale/ca.po
+@@ -166,22 +166,18 @@ msgctxt "model:ir.rule.group,name:rule_group_category_default"
+ msgid "Not accounting category"
+ msgstr "Categoria no comptable"
+
+-#, fuzzy
+ msgctxt "model:product.category-customer-account.tax,string:"
+ msgid "Product Category - Customer - Account Tax"
+ msgstr "Plantilla de producte - Impost client"
+
+-#, fuzzy
+ msgctxt "model:product.category-supplier-account.tax,string:"
+ msgid "Product Category - Supplier - Account Tax"
+ msgstr "Plantilla de producte - Impost proveïdor"
+
+-#, fuzzy
+ msgctxt "model:product.category.account,string:"
+ msgid "Product Category Account"
+ msgstr "Categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:product.template-product.category.account,string:"
+ msgid "Product Template - Product Category Account"
+ msgstr "Comptes de la plantilla de producte"
+diff --git a/tryton/modules/account_receivable_rule/locale/ca.po b/tryton/modules/account_receivable_rule/locale/ca.po
+index 26eb23ce32..8189a872b0 100644
+--- a/tryton/modules/account_receivable_rule/locale/ca.po
++++ b/tryton/modules/account_receivable_rule/locale/ca.po
+@@ -83,12 +83,10 @@ msgctxt "help:account.account.receivable.rule.account,only_reconcile:"
+ msgid "Distribute only to fully reconcile."
+ msgstr "Distribuir només si completament conciliat."
+
+-#, fuzzy
+ msgctxt "model:account.account.receivable.rule,string:"
+ msgid "Account Receivable Rule"
+ msgstr "Regla compte a cobrar"
+
+-#, fuzzy
+ msgctxt "model:account.account.receivable.rule.account,string:"
+ msgid "Account Receivable Rule Account"
+ msgstr "Compte de regla comptable a cobrar"
+diff --git a/tryton/modules/account_rule/locale/ca.po b/tryton/modules/account_rule/locale/ca.po
+index 2dad547b29..477140a2dc 100644
+--- a/tryton/modules/account_rule/locale/ca.po
++++ b/tryton/modules/account_rule/locale/ca.po
+@@ -42,7 +42,6 @@ msgctxt "help:account.account.rule,return_:"
+ msgid "Check to limit to return operation."
+ msgstr "Marcar per limitar només a operacions de devolució."
+
+-#, fuzzy
+ msgctxt "model:account.account.rule,string:"
+ msgid "Account Rule"
+ msgstr "Regla de comptabilització"
+diff --git a/tryton/modules/account_statement/locale/ca.po b/tryton/modules/account_statement/locale/ca.po
+index a2e49446e8..5031924048 100644
+--- a/tryton/modules/account_statement/locale/ca.po
++++ b/tryton/modules/account_statement/locale/ca.po
+@@ -106,12 +106,10 @@ msgctxt "field:account.statement.journal,journal:"
+ msgid "Journal"
+ msgstr "Diari"
+
+-#, fuzzy
+ msgctxt "field:account.statement.journal,last_amount:"
+ msgid "Last Amount"
+ msgstr "Import"
+
+-#, fuzzy
+ msgctxt "field:account.statement.journal,last_date:"
+ msgid "Last Date"
+ msgstr "Data de modificació"
+@@ -304,37 +302,30 @@ msgctxt "model:account.journal,name:journal_statement"
+ msgid "Statement"
+ msgstr "Extracte"
+
+-#, fuzzy
+ msgctxt "model:account.statement,string:"
+ msgid "Account Statement"
+ msgstr "Extracte bancari"
+
+-#, fuzzy
+ msgctxt "model:account.statement.import.start,string:"
+ msgid "Account Statement Import Start"
+ msgstr "Inici importació extracte"
+
+-#, fuzzy
+ msgctxt "model:account.statement.journal,string:"
+ msgid "Account Statement Journal"
+ msgstr "Origen Extracte"
+
+-#, fuzzy
+ msgctxt "model:account.statement.line,string:"
+ msgid "Account Statement Line"
+ msgstr "Línia d'extracte bancari"
+
+-#, fuzzy
+ msgctxt "model:account.statement.line.group,string:"
+ msgid "Account Statement Line Group"
+ msgstr "Grup de línies d'extracte"
+
+-#, fuzzy
+ msgctxt "model:account.statement.origin,string:"
+ msgid "Account Statement Origin"
+ msgstr "Origen Extracte"
+
+-#, fuzzy
+ msgctxt "model:account.statement.origin.information,string:"
+ msgid "Account Statement Origin Information"
+ msgstr "Informació origen extracte"
+@@ -367,7 +358,6 @@ msgctxt "model:ir.action,name:act_statement_journal_form"
+ msgid "Statement Journals"
+ msgstr "Diaris d'extracte"
+
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_statement_journal_list_reporting"
+ msgid "Statement Journals"
+ msgstr "Diaris d'extracte"
+@@ -571,7 +561,6 @@ msgctxt "model:ir.ui.menu,name:menu_statement_journal_form"
+ msgid "Statement Journals"
+ msgstr "Diaris d'extracte"
+
+-#, fuzzy
+ msgctxt "model:ir.ui.menu,name:menu_statement_journal_reporting"
+ msgid "Statement Journals"
+ msgstr "Diaris d'extracte"
+diff --git a/tryton/modules/account_statement_mt940/locale/ca.po b/tryton/modules/account_statement_mt940/locale/ca.po
+index d4a02c19b1..27077209f0 100644
+--- a/tryton/modules/account_statement_mt940/locale/ca.po
++++ b/tryton/modules/account_statement_mt940/locale/ca.po
+@@ -1,5 +1,4 @@
+ #
+-#, fuzzy
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+diff --git a/tryton/modules/account_statement_rule/locale/ca.po b/tryton/modules/account_statement_rule/locale/ca.po
+index 311b828333..069609d12a 100644
+--- a/tryton/modules/account_statement_rule/locale/ca.po
++++ b/tryton/modules/account_statement_rule/locale/ca.po
+@@ -153,17 +153,14 @@ msgstr ""
+ "Deixeu-ho en blanc per utilitzar el grup anomenat 'party' de les expressions"
+ " regulars."
+
+-#, fuzzy
+ msgctxt "model:account.statement.rule,string:"
+ msgid "Account Statement Rule"
+ msgstr "Regla d'extracte bancari"
+
+-#, fuzzy
+ msgctxt "model:account.statement.rule.information,string:"
+ msgid "Account Statement Rule Information"
+ msgstr "Informació de la regla d'extracte bancari"
+
+-#, fuzzy
+ msgctxt "model:account.statement.rule.line,string:"
+ msgid "Account Statement Rule Line"
+ msgstr "Línia de la regla d'extracte bancari"
+diff --git a/tryton/modules/account_stock_continental/locale/ca.po b/tryton/modules/account_stock_continental/locale/ca.po
+index a452bd322b..eb53d7dc0a 100644
+--- a/tryton/modules/account_stock_continental/locale/ca.po
++++ b/tryton/modules/account_stock_continental/locale/ca.po
+@@ -42,7 +42,6 @@ msgctxt "field:stock.move,account_moves:"
+ msgid "Account Moves"
+ msgstr "Assentaments comptables"
+
+-#, fuzzy
+ msgctxt "model:account.configuration.stock_journal,string:"
+ msgid "Account Configuration Stock Journal"
+ msgstr "Configuració del diari d'existències"
+diff --git a/tryton/modules/account_stock_eu/locale/ca.po b/tryton/modules/account_stock_eu/locale/ca.po
+index f560c78bb0..eeb22f75f5 100644
+--- a/tryton/modules/account_stock_eu/locale/ca.po
++++ b/tryton/modules/account_stock_eu/locale/ca.po
+@@ -234,22 +234,18 @@ msgctxt "help:account.fiscalyear,intrastat_extended:"
+ msgid "Check to generate extended declaration."
+ msgstr "Marqueu per generar la declaració ampliada."
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.declaration,string:"
+ msgid "Account Stock Eu Intrastat Declaration"
+ msgstr "Exportar declaració Intrastat"
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.declaration.context,string:"
+ msgid "Account Stock Eu Intrastat Declaration Context"
+ msgstr "Context Declaració Intrastat"
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.declaration.export.result,string:"
+ msgid "Account Stock Eu Intrastat Declaration Export Result"
+ msgstr "Exporta declaració Intrastat"
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.declaration.line,string:"
+ msgid "Account Stock Eu Intrastat Declaration Line"
+ msgstr "Línia declaració intrastat"
+@@ -453,7 +449,6 @@ msgctxt ""
+ msgid "Other"
+ msgstr "Altres"
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.transaction,string:"
+ msgid "Account Stock Eu Intrastat Transaction"
+ msgstr "Transacció Intrastat"
+@@ -498,7 +493,6 @@ msgctxt ""
+ msgid "Own propulsion"
+ msgstr "Propulsió pròpia"
+
+-#, fuzzy
+ msgctxt "model:account.stock.eu.intrastat.transport,string:"
+ msgid "Account Stock Eu Intrastat Transport"
+ msgstr "Transport intrastat"
+diff --git a/tryton/modules/account_stock_landed_cost/locale/ca.po b/tryton/modules/account_stock_landed_cost/locale/ca.po
+index 18f13e256a..30b4dab666 100644
+--- a/tryton/modules/account_stock_landed_cost/locale/ca.po
++++ b/tryton/modules/account_stock_landed_cost/locale/ca.po
+@@ -123,32 +123,26 @@ msgctxt "model:account.configuration.landed_cost_sequence,string:"
+ msgid "Account Configuration Landed Cost Sequence"
+ msgstr "Configuració de la seqüència de cost de recepció"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost,string:"
+ msgid "Account Landed Cost"
+ msgstr "Unitat cost de recepció"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost-product.category,string:"
+ msgid "Account Landed Cost - Product Category"
+ msgstr "Cost de recepcio - Categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost-product.product,string:"
+ msgid "Account Landed Cost - Product"
+ msgstr "Cost de recepció - Producte"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost-stock.shipment.in,string:"
+ msgid "Account Landed Cost - Stock Shipment In"
+ msgstr "Cost de recepció - Albarà"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost.show,string:"
+ msgid "Account Landed Cost Show"
+ msgstr "Mostrar cost de recepció"
+
+-#, fuzzy
+ msgctxt "model:account.landed_cost.show.move,string:"
+ msgid "Account Landed Cost Show Move"
+ msgstr "Mostrar cost de recepció"
+@@ -184,7 +178,7 @@ msgctxt ""
+ msgid "Posted"
+ msgstr "Comptabilitzat"
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_landed_cost_delete_cancel"
+ msgid "To delete landed cost \"%(landed_cost)s\" you must cancel it."
+ msgstr ""
+diff --git a/tryton/modules/account_stock_shipment_cost/locale/ca.po b/tryton/modules/account_stock_shipment_cost/locale/ca.po
+index af51d46b26..b5c26b5cf9 100644
+--- a/tryton/modules/account_stock_shipment_cost/locale/ca.po
++++ b/tryton/modules/account_stock_shipment_cost/locale/ca.po
+@@ -111,32 +111,26 @@ msgctxt "help:account.shipment_cost,number:"
+ msgid "The main identifier for the shipment cost."
+ msgstr "L'identificador principal del cost d'enviament."
+
+-#, fuzzy
+ msgctxt "model:account.configuration.shipment_cost_sequence,string:"
+ msgid "Account Configuration Shipment Cost Sequence"
+ msgstr "Configuració del compte de seqüència de costos d'albarà"
+
+-#, fuzzy
+ msgctxt "model:account.shipment_cost,string:"
+ msgid "Account Shipment Cost"
+ msgstr "Comptabilitzar cost d'enviament"
+
+-#, fuzzy
+ msgctxt "model:account.shipment_cost-stock.shipment.out,string:"
+ msgid "Account Shipment Cost - Stock Shipment Out"
+ msgstr "Cost d'enviament - Albarà"
+
+-#, fuzzy
+ msgctxt "model:account.shipment_cost-stock.shipment.out.return,string:"
+ msgid "Account Shipment Cost - Stock Shipment Out Return"
+ msgstr "Cost d'enviament - Devolució d'albarà"
+
+-#, fuzzy
+ msgctxt "model:account.shipment_cost.show,string:"
+ msgid "Account Shipment Cost Show"
+ msgstr "Mostra cost d'enviament"
+
+-#, fuzzy
+ msgctxt "model:account.shipment_cost.show.shipment,string:"
+ msgid "Account Shipment Cost Show Shipment"
+ msgstr "Cost d'enviament - Albarà"
+@@ -172,7 +166,7 @@ msgctxt ""
+ msgid "Posted"
+ msgstr "Comptabilitzat"
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_shipment_cost_delete_cancel"
+ msgid "To delete shipment cost \"%(shipment_cost)s\" you must cancel it."
+ msgstr "El cost d'enviament \"%(shipment_cost)s\" no té cap albarà."
+diff --git a/tryton/modules/account_tax_cash/locale/ca.po b/tryton/modules/account_tax_cash/locale/ca.po
+index f0df9d1ff2..be1c5c8b00 100644
+--- a/tryton/modules/account_tax_cash/locale/ca.po
++++ b/tryton/modules/account_tax_cash/locale/ca.po
+@@ -76,7 +76,6 @@ msgctxt "model:account.invoice.tax.group.cash,string:"
+ msgid "Account Invoice Tax Group Cash"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:account.tax.group.cash,string:"
+ msgid "Account Tax Group Cash"
+ msgstr "Grups d'impostos amb criteri de caixa"
+diff --git a/tryton/modules/analytic_account/locale/ca.po b/tryton/modules/analytic_account/locale/ca.po
+index e3814f687e..aa31c6bfc1 100644
+--- a/tryton/modules/analytic_account/locale/ca.po
++++ b/tryton/modules/analytic_account/locale/ca.po
+@@ -170,32 +170,26 @@ msgctxt "field:analytic_account.rule,party_visible:"
+ msgid "Party Visible"
+ msgstr "Tercer visible"
+
+-#, fuzzy
+ msgctxt "model:analytic.account.entry,string:"
+ msgid "Analytic Account Entry"
+ msgstr "Assentament compte analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.account,string:"
+ msgid "Analytic Account"
+ msgstr "Compte analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.account.context,string:"
+ msgid "Analytic Account Context"
+ msgstr "Assentament compte analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.account.distribution,string:"
+ msgid "Analytic Account Distribution"
+ msgstr "Distribució de comptabilitat analítica"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.line,string:"
+ msgid "Analytic Account Line"
+ msgstr "Mida comptes analítics"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.rule,string:"
+ msgid "Analytic Account Rule"
+ msgstr "Compte analític"
+diff --git a/tryton/modules/analytic_budget/locale/ca.po b/tryton/modules/analytic_budget/locale/ca.po
+index 4f7887d668..cc9eee0004 100644
+--- a/tryton/modules/analytic_budget/locale/ca.po
++++ b/tryton/modules/analytic_budget/locale/ca.po
+@@ -146,22 +146,18 @@ msgctxt "help:analytic_account.budget.line,total_amount:"
+ msgid "The total amount allocated to the budget line and its children."
+ msgstr "L'import total assignat a la línia de pressupost i als seus fills."
+
+-#, fuzzy
+ msgctxt "model:analytic_account.budget,string:"
+ msgid "Analytic Account Budget"
+ msgstr "Pressupost analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.budget.context,string:"
+ msgid "Analytic Account Budget Context"
+ msgstr "Context del pressupost analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.budget.copy.start,string:"
+ msgid "Analytic Account Budget Copy Start"
+ msgstr "Context del pressupost analític"
+
+-#, fuzzy
+ msgctxt "model:analytic_account.budget.line,string:"
+ msgid "Analytic Account Budget Line"
+ msgstr "Context del pressupost analític"
+diff --git a/tryton/modules/attendance/locale/ca.po b/tryton/modules/attendance/locale/ca.po
+index 701e2aaaa3..35c2ba9274 100644
+--- a/tryton/modules/attendance/locale/ca.po
++++ b/tryton/modules/attendance/locale/ca.po
+@@ -98,22 +98,18 @@ msgctxt "help:attendance.period,state:"
+ msgid "The current state of the attendance period."
+ msgstr "L'estat actual del període d'assistència."
+
+-#, fuzzy
+ msgctxt "model:attendance.line,string:"
+ msgid "Attendance Line"
+ msgstr "Linia d'assitència"
+
+-#, fuzzy
+ msgctxt "model:attendance.period,string:"
+ msgid "Attendance Period"
+ msgstr "Període d'assistència"
+
+-#, fuzzy
+ msgctxt "model:attendance.sheet,string:"
+ msgid "Attendance Sheet"
+ msgstr "Full d'assistència"
+
+-#, fuzzy
+ msgctxt "model:attendance.sheet.line,string:"
+ msgid "Attendance Sheet Line"
+ msgstr "Línia de full d'assistència"
+diff --git a/tryton/modules/bank/locale/ca.po b/tryton/modules/bank/locale/ca.po
+index 2e6348f005..55f0e6a473 100644
+--- a/tryton/modules/bank/locale/ca.po
++++ b/tryton/modules/bank/locale/ca.po
+@@ -26,7 +26,6 @@ msgctxt "field:bank.account,owners:"
+ msgid "Owners"
+ msgstr "Titulars"
+
+-#, fuzzy
+ msgctxt "field:bank.account,owners_sequence:"
+ msgid "Owners Sequence"
+ msgstr "Seqüència"
+@@ -59,7 +58,6 @@ msgctxt "field:party.party,bank_accounts:"
+ msgid "Bank Accounts"
+ msgstr "Comptes bancaris"
+
+-#, fuzzy
+ msgctxt "field:party.party,bank_accounts_used:"
+ msgid "Bank Accounts Used"
+ msgstr "Comptes bancaris"
+@@ -80,22 +78,18 @@ msgctxt "help:bank.account.number,account:"
+ msgid "The bank account which is identified by the number."
+ msgstr "El compte bancari que està identificat per aquest nombre."
+
+-#, fuzzy
+ msgctxt "model:bank,string:"
+ msgid "Bank"
+ msgstr "Banc"
+
+-#, fuzzy
+ msgctxt "model:bank.account,string:"
+ msgid "Bank Account"
+ msgstr "Compte bancari"
+
+-#, fuzzy
+ msgctxt "model:bank.account-party.party,string:"
+ msgid "Bank Account - Party"
+ msgstr "Compte bancari - Tercer"
+
+-#, fuzzy
+ msgctxt "model:bank.account.number,string:"
+ msgid "Bank Account Number"
+ msgstr "Número de compte bancari"
+diff --git a/tryton/modules/carrier/locale/ca.po b/tryton/modules/carrier/locale/ca.po
+index fd61204b66..82574b5b06 100644
+--- a/tryton/modules/carrier/locale/ca.po
++++ b/tryton/modules/carrier/locale/ca.po
+@@ -62,12 +62,10 @@ msgstr ""
+ "Aplica només quan s'envia a aquest país.\n"
+ "Deixeu en blanc per tots els països."
+
+-#, fuzzy
+ msgctxt "model:carrier,string:"
+ msgid "Carrier"
+ msgstr "Transportista"
+
+-#, fuzzy
+ msgctxt "model:carrier.selection,string:"
+ msgid "Carrier Selection"
+ msgstr "Selecció del transportista"
+diff --git a/tryton/modules/carrier_carriage/locale/ca.po b/tryton/modules/carrier_carriage/locale/ca.po
+index 0c76b254d5..0f929f4e91 100644
+--- a/tryton/modules/carrier_carriage/locale/ca.po
++++ b/tryton/modules/carrier_carriage/locale/ca.po
+@@ -223,12 +223,10 @@ msgctxt "model:ir.message,text:msg_shipment_carriage_delete"
+ msgid "You cannot delete the carriage \"%(carriage)s\"."
+ msgstr "No es pot eliminar el transport \"%(carriage)s\"."
+
+-#, fuzzy
+ msgctxt "model:sale.carriage,string:"
+ msgid "Sale Carriage"
+ msgstr "Transport de venda"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.carriage,string:"
+ msgid "Stock Shipment Carriage"
+ msgstr "Transport de l'albarà"
+diff --git a/tryton/modules/carrier_weight/locale/ca.po b/tryton/modules/carrier_weight/locale/ca.po
+index ec5dfe12f6..b2a57a31cb 100644
+--- a/tryton/modules/carrier_weight/locale/ca.po
++++ b/tryton/modules/carrier_weight/locale/ca.po
+@@ -68,7 +68,6 @@ msgctxt "help:carrier.weight_price_list,weight_uom:"
+ msgid "The Unit of Measure of the weight."
+ msgstr "La unitat de mesura del pes."
+
+-#, fuzzy
+ msgctxt "model:carrier.weight_price_list,string:"
+ msgid "Carrier Weight Price List"
+ msgstr "Tarifa pes transportista"
+diff --git a/tryton/modules/commission/locale/ca.po b/tryton/modules/commission/locale/ca.po
+index 3dd2b8418f..b098331fba 100644
+--- a/tryton/modules/commission/locale/ca.po
++++ b/tryton/modules/commission/locale/ca.po
+@@ -402,47 +402,38 @@ msgctxt "model:account.journal,name:journal_commission"
+ msgid "Commission"
+ msgstr "Comissions"
+
+-#, fuzzy
+ msgctxt "model:commission,string:"
+ msgid "Commission"
+ msgstr "Comissions"
+
+-#, fuzzy
+ msgctxt "model:commission.agent,string:"
+ msgid "Commission Agent"
+ msgstr "Agent comissió"
+
+-#, fuzzy
+ msgctxt "model:commission.agent.selection,string:"
+ msgid "Commission Agent Selection"
+ msgstr "Agent comissió"
+
+-#, fuzzy
+ msgctxt "model:commission.create_invoice.ask,string:"
+ msgid "Commission Create Invoice Ask"
+ msgstr "Crea factures de comissió"
+
+-#, fuzzy
+ msgctxt "model:commission.plan,string:"
+ msgid "Commission Plan"
+ msgstr "Pla comissió"
+
+-#, fuzzy
+ msgctxt "model:commission.plan.line,string:"
+ msgid "Commission Plan Line"
+ msgstr "Línia de pla comissió"
+
+-#, fuzzy
+ msgctxt "model:commission.reporting.agent,string:"
+ msgid "Commission Reporting Agent"
+ msgstr "Informe de comissions per Agent"
+
+-#, fuzzy
+ msgctxt "model:commission.reporting.agent.time_series,string:"
+ msgid "Commission Reporting Agent"
+ msgstr "Informe de comissions per Agent"
+
+-#, fuzzy
+ msgctxt "model:commission.reporting.context,string:"
+ msgid "Commission Reporting Context"
+ msgstr "Context informes comissions"
+@@ -564,7 +555,6 @@ msgctxt "model:ir.ui.menu,name:menu_reporting_commission"
+ msgid "Commissions"
+ msgstr "Comissions"
+
+-#, fuzzy
+ msgctxt "model:product.template-commission.agent,string:"
+ msgid "Product Template - Commission Agent"
+ msgstr "Plantilla de producte - Agent comisionista"
+diff --git a/tryton/modules/company/locale/ca.po b/tryton/modules/company/locale/ca.po
+index 88b10d4521..9d26d2face 100644
+--- a/tryton/modules/company/locale/ca.po
++++ b/tryton/modules/company/locale/ca.po
+@@ -54,12 +54,10 @@ msgctxt "field:company.company.logo.cache,width:"
+ msgid "Width"
+ msgstr "Amplada"
+
+-#, fuzzy
+ msgctxt "field:company.company.tax_identifier,company:"
+ msgid "Company"
+ msgstr "Empresa"
+
+-#, fuzzy
+ msgctxt "field:company.company.tax_identifier,company_party:"
+ msgid "Company Party"
+ msgstr "Empresa"
+@@ -314,27 +312,22 @@ msgctxt "help:res.user,employees:"
+ msgid "Add employees to grant the user access to them."
+ msgstr "Afegeix empleats als que podrà accedir l'usuari."
+
+-#, fuzzy
+ msgctxt "model:company.company,string:"
+ msgid "Company"
+ msgstr "Empresa"
+
+-#, fuzzy
+ msgctxt "model:company.company.config.start,string:"
+ msgid "Company Config Start"
+ msgstr "Configuració empresa"
+
+-#, fuzzy
+ msgctxt "model:company.company.logo.cache,string:"
+ msgid "Company Logo Cache"
+ msgstr "Memòria cau del logotip de l'empresa"
+
+-#, fuzzy
+ msgctxt "model:company.company.tax_identifier,string:"
+ msgid "Company Tax Identifier"
+ msgstr "Filtre empresa"
+
+-#, fuzzy
+ msgctxt "model:company.employee,string:"
+ msgid "Company Employee"
+ msgstr "Empleat"
+@@ -359,7 +352,6 @@ msgctxt "model:ir.action,name:report_letter"
+ msgid "Letter"
+ msgstr "Carta"
+
+-#, fuzzy
+ msgctxt "model:ir.cron-company.company,string:"
+ msgid "Cron - Company"
+ msgstr "Planificador - Empresa"
+@@ -396,12 +388,10 @@ msgctxt "model:res.group,name:group_employee_admin"
+ msgid "Employee Administration"
+ msgstr "Administració d'empleats"
+
+-#, fuzzy
+ msgctxt "model:res.user-company.company,string:"
+ msgid "User - Company"
+ msgstr "Usuari - Empresa"
+
+-#, fuzzy
+ msgctxt "model:res.user-company.employee,string:"
+ msgid "User - Company Employee"
+ msgstr "Usuari - Emprat"
+diff --git a/tryton/modules/country/locale/ca.po b/tryton/modules/country/locale/ca.po
+index b580fdb403..b5f5bdcfb4 100644
+--- a/tryton/modules/country/locale/ca.po
++++ b/tryton/modules/country/locale/ca.po
+@@ -182,7 +182,6 @@ msgctxt "help:country.subdivision,parent:"
+ msgid "Add subdivision below the parent."
+ msgstr "Afegiu subdivisions davall del pare."
+
+-#, fuzzy
+ msgctxt "model:country.country,string:"
+ msgid "Country"
+ msgstr "País"
+@@ -263,17 +262,14 @@ msgctxt "model:country.organization,name:organization_safta"
+ msgid "South Asian Free Trade Area"
+ msgstr "Àrea de mercat lliure del sud asiàtic"
+
+-#, fuzzy
+ msgctxt "model:country.organization,string:"
+ msgid "Country Organization"
+ msgstr "Organització"
+
+-#, fuzzy
+ msgctxt "model:country.organization.member,string:"
+ msgid "Country Organization Member"
+ msgstr "Membre de la organitzaió"
+
+-#, fuzzy
+ msgctxt "model:country.postal_code,string:"
+ msgid "Country Postal Code"
+ msgstr "Codi postal"
+@@ -410,12 +406,10 @@ msgctxt "model:country.region,name:region_world"
+ msgid "World"
+ msgstr "Món"
+
+-#, fuzzy
+ msgctxt "model:country.region,string:"
+ msgid "Country Region"
+ msgstr "Països per regió"
+
+-#, fuzzy
+ msgctxt "model:country.subdivision,string:"
+ msgid "Country Subdivision"
+ msgstr "Subdivisió"
+@@ -688,7 +682,6 @@ msgctxt "selection:country.subdivision,type:"
+ msgid "Entity"
+ msgstr "Entitat"
+
+-#, fuzzy
+ msgctxt "selection:country.subdivision,type:"
+ msgid "European collectivity"
+ msgstr "Col·lectivitat d'ultramar"
+@@ -713,7 +706,6 @@ msgctxt "selection:country.subdivision,type:"
+ msgid "Federal capital territory"
+ msgstr "Territori de capital federal"
+
+-#, fuzzy
+ msgctxt "selection:country.subdivision,type:"
+ msgid "Federal entity"
+ msgstr "Territori federal"
+@@ -838,7 +830,6 @@ msgctxt "selection:country.subdivision,type:"
+ msgid "Overseas department"
+ msgstr "Departament d'ultramar"
+
+-#, fuzzy
+ msgctxt "selection:country.subdivision,type:"
+ msgid "Overseas departmental collectivity"
+ msgstr "Territori col·lectiu d'ultramar"
+@@ -859,7 +850,6 @@ msgctxt "selection:country.subdivision,type:"
+ msgid "Overseas territory"
+ msgstr "Territori d'ultamar"
+
+-#, fuzzy
+ msgctxt "selection:country.subdivision,type:"
+ msgid "Overseas unique territorial collectivity"
+ msgstr "Territori col·lectiu d'ultramar"
+@@ -972,7 +962,6 @@ msgctxt "selection:country.subdivision,type:"
+ msgid "State"
+ msgstr "Estat"
+
+-#, fuzzy
+ msgctxt "selection:country.subdivision,type:"
+ msgid "State city"
+ msgstr "Estat"
+diff --git a/tryton/modules/currency/locale/ca.po b/tryton/modules/currency/locale/ca.po
+index 0f3f506032..a32e8c7655 100644
+--- a/tryton/modules/currency/locale/ca.po
++++ b/tryton/modules/currency/locale/ca.po
+@@ -138,22 +138,18 @@ msgctxt "help:currency.currency.rate,rate:"
+ msgid "The floating exchange rate used to convert the currency."
+ msgstr "La taxa de canvi flotant que s'utilitza per a convertir la moneda."
+
+-#, fuzzy
+ msgctxt "model:currency.cron,string:"
+ msgid "Currency Cron"
+ msgstr "Tasques programades monedes"
+
+-#, fuzzy
+ msgctxt "model:currency.cron-currency.currency,string:"
+ msgid "Currency Cron - Currency"
+ msgstr "Tasques programades monedes - Monedes"
+
+-#, fuzzy
+ msgctxt "model:currency.currency,string:"
+ msgid "Currency"
+ msgstr "Moneda"
+
+-#, fuzzy
+ msgctxt "model:currency.currency.rate,string:"
+ msgid "Currency Rate"
+ msgstr "Taxa de canvi"
+diff --git a/tryton/modules/customs/locale/ca.po b/tryton/modules/customs/locale/ca.po
+index 19122f3d90..2c65458b59 100644
+--- a/tryton/modules/customs/locale/ca.po
++++ b/tryton/modules/customs/locale/ca.po
+@@ -182,12 +182,10 @@ msgctxt "help:product.template,tariff_codes_category:"
+ msgid "Use the tariff codes defined on the category."
+ msgstr "Utilitza els codis aranzelaris definits a la categoria."
+
+-#, fuzzy
+ msgctxt "model:customs.duty.rate,string:"
+ msgid "Customs Duty Rate"
+ msgstr "Taxa d'aranzel"
+
+-#, fuzzy
+ msgctxt "model:customs.tariff.code,string:"
+ msgid "Customs Tariff Code"
+ msgstr "Codi aranzelari"
+@@ -220,7 +218,6 @@ msgctxt "model:ir.ui.menu,name:menu_tariff_code_form"
+ msgid "Tariff Codes"
+ msgstr "Codis d'aranzel"
+
+-#, fuzzy
+ msgctxt "model:product-customs.tariff.code,string:"
+ msgid "Product - Customs Tariff Code"
+ msgstr "Producte - Codi aranzelari"
+diff --git a/tryton/modules/dashboard/locale/ca.po b/tryton/modules/dashboard/locale/ca.po
+index 38e511a750..d620e1fc08 100644
+--- a/tryton/modules/dashboard/locale/ca.po
++++ b/tryton/modules/dashboard/locale/ca.po
+@@ -18,7 +18,6 @@ msgctxt "field:res.user,dashboard_layout:"
+ msgid "Dashboard Layout"
+ msgstr "Organització de l'escriptori"
+
+-#, fuzzy
+ msgctxt "model:dashboard.action,string:"
+ msgid "Dashboard Action"
+ msgstr "Acció de l'escriptori"
+diff --git a/tryton/modules/document_incoming/locale/ca.po b/tryton/modules/document_incoming/locale/ca.po
+index b0b0dd2020..198ff00884 100644
+--- a/tryton/modules/document_incoming/locale/ca.po
++++ b/tryton/modules/document_incoming/locale/ca.po
+@@ -1,5 +1,4 @@
+ #
+-#, fuzzy
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+@@ -79,17 +78,14 @@ msgstr ""
+ "Llista de pagines a separar:\n"
+ "Exemple: 1-3, 4, 5-6"
+
+-#, fuzzy
+ msgctxt "model:document.incoming,string:"
+ msgid "Document Incoming"
+ msgstr "Document entrant"
+
+-#, fuzzy
+ msgctxt "model:document.incoming.configuration,string:"
+ msgid "Document Incoming Configuration"
+ msgstr "Configuració entrant"
+
+-#, fuzzy
+ msgctxt "model:document.incoming.split.start,string:"
+ msgid "Document Incoming Split Start"
+ msgstr "Document entrant"
+diff --git a/tryton/modules/document_incoming_invoice/locale/ca.po b/tryton/modules/document_incoming_invoice/locale/ca.po
+index ab5fe9aeb6..480b39a804 100644
+--- a/tryton/modules/document_incoming_invoice/locale/ca.po
++++ b/tryton/modules/document_incoming_invoice/locale/ca.po
+@@ -1,5 +1,4 @@
+ #
+-#, fuzzy
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+diff --git a/tryton/modules/document_incoming_ocr/locale/ca.po b/tryton/modules/document_incoming_ocr/locale/ca.po
+index 64d21d6415..078e60ff2c 100644
+--- a/tryton/modules/document_incoming_ocr/locale/ca.po
++++ b/tryton/modules/document_incoming_ocr/locale/ca.po
+@@ -1,5 +1,4 @@
+ #
+-#, fuzzy
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+@@ -47,7 +46,6 @@ msgstr ""
+ "L'expressió regular a coincidir amb l'origen del document.\n"
+ "Deixeu-ho en blanc per tots els origens."
+
+-#, fuzzy
+ msgctxt "model:document.incoming.ocr.service,string:"
+ msgid "Document Incoming Ocr Service"
+ msgstr "Servei OCR de documents entrants"
+diff --git a/tryton/modules/edocument_uncefact/locale/ca.po b/tryton/modules/edocument_uncefact/locale/ca.po
+index a4fb84af8d..b48c552e6e 100644
+--- a/tryton/modules/edocument_uncefact/locale/ca.po
++++ b/tryton/modules/edocument_uncefact/locale/ca.po
+@@ -2,7 +2,6 @@
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+-#, fuzzy
+ msgctxt "model:edocument.uncefact.invoice,string:"
+ msgid "Edocument Uncefact Invoice"
+ msgstr "Factura digital UN/CEFACT"
+diff --git a/tryton/modules/inbound_email/locale/ca.po b/tryton/modules/inbound_email/locale/ca.po
+index 68c5d833dd..b8c2384500 100644
+--- a/tryton/modules/inbound_email/locale/ca.po
++++ b/tryton/modules/inbound_email/locale/ca.po
+@@ -117,22 +117,18 @@ msgctxt "help:inbound.email.rule.header,value:"
+ msgid "A regular expression to match the header value."
+ msgstr "Una expresió regular a coincidir amb el valor de la capçalera."
+
+-#, fuzzy
+ msgctxt "model:inbound.email,string:"
+ msgid "Inbound Email"
+ msgstr "Correu electrònic entrant"
+
+-#, fuzzy
+ msgctxt "model:inbound.email.inbox,string:"
+ msgid "Inbound Email Inbox"
+ msgstr "Safata del correu electrònic entrant"
+
+-#, fuzzy
+ msgctxt "model:inbound.email.rule,string:"
+ msgid "Inbound Email Rule"
+ msgstr "Regla de correu electrònic"
+
+-#, fuzzy
+ msgctxt "model:inbound.email.rule.header,string:"
+ msgid "Inbound Email Rule Header"
+ msgstr "Capçaleres de les regles de correu electrònic entrant"
+diff --git a/tryton/modules/incoterm/locale/ca.po b/tryton/modules/incoterm/locale/ca.po
+index 47a9d37767..e72ca91ef8 100644
+--- a/tryton/modules/incoterm/locale/ca.po
++++ b/tryton/modules/incoterm/locale/ca.po
+@@ -138,12 +138,10 @@ msgstr ""
+ "Els incoterms que s'utilitzen amb el client.\n"
+ "Deixe-ho en blanc per a tots."
+
+-#, fuzzy
+ msgctxt "model:incoterm.incoterm,string:"
+ msgid "Incoterm"
+ msgstr "Incoterm"
+
+-#, fuzzy
+ msgctxt "model:incoterm.incoterm-company.company,string:"
+ msgid "Incoterm - Company"
+ msgstr "Incoterm - Empresa"
+@@ -195,7 +193,6 @@ msgctxt "model:ir.ui.menu,name:menu_incoterm"
+ msgid "Incoterms"
+ msgstr "Incoterms"
+
+-#, fuzzy
+ msgctxt "model:party.incoterm,string:"
+ msgid "Party Incoterm"
+ msgstr "Incoterms tercer"
+diff --git a/tryton/modules/marketing_automation/locale/ca.po b/tryton/modules/marketing_automation/locale/ca.po
+index 21546e27e5..8021ca0f0f 100644
+--- a/tryton/modules/marketing_automation/locale/ca.po
++++ b/tryton/modules/marketing_automation/locale/ca.po
+@@ -466,42 +466,34 @@ msgctxt "model:ir.ui.menu,name:menu_scenario_form"
+ msgid "Scenarios"
+ msgstr "Escenaris"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.activity,string:"
+ msgid "Marketing Automation Activity"
+ msgstr "Activitat d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.record,string:"
+ msgid "Marketing Automation Record"
+ msgstr "Automatització de màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.record.activity,string:"
+ msgid "Marketing Automation Record Activity"
+ msgstr "Activitat d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.reporting.activity,string:"
+ msgid "Marketing Automation Reporting Activity"
+ msgstr "Activitat d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.reporting.context,string:"
+ msgid "Marketing Automation Reporting Context"
+ msgstr "Context d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.reporting.scenario,string:"
+ msgid "Marketing Automation Reporting Scenario"
+ msgstr "Escenari d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.automation.scenario,string:"
+ msgid "Marketing Automation Scenario"
+ msgstr "Escenari d'informes d'automatització del màrqueting"
+
+-#, fuzzy
+ msgctxt "model:party.party-unsubscribed-marketing.automation.scenario,string:"
+ msgid "Party - Unsubscribed - Marketing Automation Scenario"
+ msgstr "Escenaris de-suscrits del tercer"
+diff --git a/tryton/modules/marketing_campaign/locale/ca.po b/tryton/modules/marketing_campaign/locale/ca.po
+index 4c4a6e75bb..6b6d0dbcfa 100644
+--- a/tryton/modules/marketing_campaign/locale/ca.po
++++ b/tryton/modules/marketing_campaign/locale/ca.po
+@@ -98,37 +98,30 @@ msgctxt "model:ir.ui.menu,name:menu_source_form"
+ msgid "Sources"
+ msgstr "Orígens"
+
+-#, fuzzy
+ msgctxt "model:marketing.campaign,string:"
+ msgid "Marketing Campaign"
+ msgstr "Campanyes de màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.medium,string:"
+ msgid "Marketing Medium"
+ msgstr "Medi de màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.source,string:"
+ msgid "Marketing Source"
+ msgstr "Orígen de màrqueting"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.marketing,string:"
+ msgid "Sale Opportunity Reporting Marketing"
+ msgstr "Informe d'oportunitats de venta per màrqueting"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.marketing.context,string:"
+ msgid "Sale Opportunity Reporting Context"
+ msgstr "Context informe d'oportunitats de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.marketing,string:"
+ msgid "Sale Reporting Marketing"
+ msgstr "Informe de vendes per màrqueting"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.marketing.context,string:"
+ msgid "Sale Reporting Context"
+ msgstr "Context informe de vendes"
+diff --git a/tryton/modules/marketing_email/locale/ca.po b/tryton/modules/marketing_email/locale/ca.po
+index 25e42fbb74..fa61fead93 100644
+--- a/tryton/modules/marketing_email/locale/ca.po
++++ b/tryton/modules/marketing_email/locale/ca.po
+@@ -149,22 +149,18 @@ msgctxt "model:ir.ui.menu,name:menu_email_list_form"
+ msgid "Mailing Lists"
+ msgstr "Llistes de correu electrònic"
+
+-#, fuzzy
+ msgctxt "model:marketing.email,string:"
+ msgid "Marketing Email"
+ msgstr "Correus electrònics de marketing"
+
+-#, fuzzy
+ msgctxt "model:marketing.email.list,string:"
+ msgid "Marketing Email List"
+ msgstr "Correus electrònics de marketing"
+
+-#, fuzzy
+ msgctxt "model:marketing.email.message,string:"
+ msgid "Marketing Email Message"
+ msgstr "Missatge de correu electrònic de màrqueting"
+
+-#, fuzzy
+ msgctxt "model:marketing.email.send_test,string:"
+ msgid "Marketing Email Send Test"
+ msgstr "Missatge de correu electrònic de màrqueting"
+diff --git a/tryton/modules/notification_email/locale/ca.po b/tryton/modules/notification_email/locale/ca.po
+index fad6ae44cb..255107a1e6 100644
+--- a/tryton/modules/notification_email/locale/ca.po
++++ b/tryton/modules/notification_email/locale/ca.po
+@@ -30,17 +30,14 @@ msgctxt "field:notification.email,content:"
+ msgid "Content"
+ msgstr "Contingut"
+
+-#, fuzzy
+ msgctxt "field:notification.email,fallback_recipients:"
+ msgid "Recipients Fallback"
+ msgstr "Usuari enviament fallada destinataris"
+
+-#, fuzzy
+ msgctxt "field:notification.email,fallback_recipients_hidden:"
+ msgid "Hidden Recipients Fallback"
+ msgstr "Usuari enviament fallada destinataris ocults"
+
+-#, fuzzy
+ msgctxt "field:notification.email,fallback_recipients_secondary:"
+ msgid "Secondary Recipients Fallback"
+ msgstr "Usuari enviament fallada destinataris secundaris"
+@@ -179,12 +176,10 @@ msgctxt "model:ir.ui.menu,name:menu_email_form"
+ msgid "Notification Emails"
+ msgstr "Notificacions per correu electrònic"
+
+-#, fuzzy
+ msgctxt "model:notification.email,string:"
+ msgid "Notification Email"
+ msgstr "Notificació per correu electrònic"
+
+-#, fuzzy
+ msgctxt "model:notification.email.attachment,string:"
+ msgid "Notification Email Attachment"
+ msgstr "Adjunts notificacions per correu electrònic"
+diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.po
+index 24e5549fb7..e9cac084b3 100644
+--- a/tryton/modules/party/locale/ca.po
++++ b/tryton/modules/party/locale/ca.po
+@@ -6,12 +6,10 @@ msgctxt "field:ir.email.template,contact_mechanism:"
+ msgid "Contact Mechanism"
+ msgstr "Mitjà de contacte"
+
+-#, fuzzy
+ msgctxt "field:party.address,building_name:"
+ msgid "Building Name"
+ msgstr "Nom de l'edifici"
+
+-#, fuzzy
+ msgctxt "field:party.address,building_number:"
+ msgid "Building Number"
+ msgstr "Nom de l'edifici"
+@@ -28,7 +26,6 @@ msgctxt "field:party.address,country:"
+ msgid "Country"
+ msgstr "País"
+
+-#, fuzzy
+ msgctxt "field:party.address,floor_number:"
+ msgid "Floor Number"
+ msgstr "Número de naixement Eslovac"
+@@ -49,7 +46,6 @@ msgctxt "field:party.address,party_name:"
+ msgid "Party Name"
+ msgstr "Nom del tercer"
+
+-#, fuzzy
+ msgctxt "field:party.address,post_box:"
+ msgid "Post Box"
+ msgstr "Codi postal"
+@@ -66,7 +62,6 @@ msgctxt "field:party.address,private_bag:"
+ msgid "Private Bag"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "field:party.address,room_number:"
+ msgid "Room Number"
+ msgstr "Identificador fiscal Romanès"
+@@ -75,7 +70,6 @@ msgctxt "field:party.address,street:"
+ msgid "Street"
+ msgstr "Carrer"
+
+-#, fuzzy
+ msgctxt "field:party.address,street_name:"
+ msgid "Street Name"
+ msgstr "Carrer"
+@@ -84,7 +78,6 @@ msgctxt "field:party.address,street_single_line:"
+ msgid "Street"
+ msgstr "Carrer"
+
+-#, fuzzy
+ msgctxt "field:party.address,street_unstructured:"
+ msgid "Street"
+ msgstr "Carrer"
+@@ -97,12 +90,10 @@ msgctxt "field:party.address,subdivision_types:"
+ msgid "Subdivision Types"
+ msgstr "Tipus de subdivisió"
+
+-#, fuzzy
+ msgctxt "field:party.address,unit_number:"
+ msgid "Unit Number"
+ msgstr "Identificador fiscal Danès"
+
+-#, fuzzy
+ msgctxt "field:party.address.format,building_number_format:"
+ msgid "Building Number Format"
+ msgstr "Nom de l'edifici"
+@@ -139,7 +130,6 @@ msgctxt "field:party.address.format,room_number_format:"
+ msgid "Room Number Format"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "field:party.address.format,street_format:"
+ msgid "Street Format"
+ msgstr "Formats de les adreces"
+@@ -403,7 +393,6 @@ msgctxt "help:party.address.format,floor_number_format:"
+ msgid "Use {} as placeholder for the number."
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "help:party.address.format,format_:"
+ msgid ""
+ "Available variables (also in upper case and street variables):\n"
+@@ -445,7 +434,6 @@ msgctxt "help:party.address.format,room_number_format:"
+ msgid "Use {} as placeholder for the number."
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "help:party.address.format,street_format:"
+ msgid ""
+ "Available variables (also in upper case):\n"
+@@ -691,7 +679,7 @@ msgctxt "model:ir.message,text:msg_party_code_unique"
+ msgid "The code on party must be unique."
+ msgstr "El codi del tercer ha de ser únic."
+
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_party_contact_mechanism_duplicate"
+ msgid "The party \"%(party)s\" has the same %(type)s \"%(value)s\"."
+ msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
+@@ -762,22 +750,18 @@ msgctxt "model:ir.ui.menu,name:menu_party_form"
+ msgid "Parties"
+ msgstr "Tercers"
+
+-#, fuzzy
+ msgctxt "model:party.address,string:"
+ msgid "Party Address"
+ msgstr "Adreça"
+
+-#, fuzzy
+ msgctxt "model:party.address.format,string:"
+ msgid "Party Address Format"
+ msgstr "Format de les adreces"
+
+-#, fuzzy
+ msgctxt "model:party.address.subdivision_type,string:"
+ msgid "Party Address Subdivision Type"
+ msgstr "Tipus de subdivisió per adreça"
+
+-#, fuzzy
+ msgctxt "model:party.category,string:"
+ msgid "Party Category"
+ msgstr "Tercer - Categoria"
+@@ -786,12 +770,10 @@ msgctxt "model:party.check_vies.result,string:"
+ msgid "Party Check Vies Result"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:party.configuration,string:"
+ msgid "Party Configuration"
+ msgstr "Configuració de tercers"
+
+-#, fuzzy
+ msgctxt "model:party.configuration.party_lang,string:"
+ msgid "Party Configuration Party Lang"
+ msgstr "Configuració de l'idioma dels tercers"
+@@ -800,37 +782,30 @@ msgctxt "model:party.configuration.party_sequence,string:"
+ msgid "Party Configuration Party Sequence"
+ msgstr "Configuració de la seqüència de tercers"
+
+-#, fuzzy
+ msgctxt "model:party.contact_mechanism,string:"
+ msgid "Party Contact Mechanism"
+ msgstr "Mitjà de contacte"
+
+-#, fuzzy
+ msgctxt "model:party.contact_mechanism.language,string:"
+ msgid "Party Contact Mechanism Language"
+ msgstr "Idioma del mitjà de contacte"
+
+-#, fuzzy
+ msgctxt "model:party.erase.ask,string:"
+ msgid "Party Erase Ask"
+ msgstr "Nom del tercer"
+
+-#, fuzzy
+ msgctxt "model:party.identifier,string:"
+ msgid "Party Identifier"
+ msgstr "Identificador del tercer"
+
+-#, fuzzy
+ msgctxt "model:party.party,string:"
+ msgid "Party"
+ msgstr "Tercer"
+
+-#, fuzzy
+ msgctxt "model:party.party-party.category,string:"
+ msgid "Party - Party Category"
+ msgstr "Tercer - Categoria"
+
+-#, fuzzy
+ msgctxt "model:party.party.lang,string:"
+ msgid "Party Lang"
+ msgstr "Idioma del tercer"
+diff --git a/tryton/modules/party_relationship/locale/ca.po b/tryton/modules/party_relationship/locale/ca.po
+index d4ecd050e4..c1a6d6a6a7 100644
+--- a/tryton/modules/party_relationship/locale/ca.po
++++ b/tryton/modules/party_relationship/locale/ca.po
+@@ -90,17 +90,14 @@ msgctxt "model:ir.ui.menu,name:menu_relation_type"
+ msgid "Relation Types"
+ msgstr "Tipus de relació"
+
+-#, fuzzy
+ msgctxt "model:party.relation,string:"
+ msgid "Party Relation"
+ msgstr "Relació entre tercers"
+
+-#, fuzzy
+ msgctxt "model:party.relation.all,string:"
+ msgid "Party Relation"
+ msgstr "Relació entre tercers"
+
+-#, fuzzy
+ msgctxt "model:party.relation.type,string:"
+ msgid "Party Relation Type"
+ msgstr "Tipus de relació entre tercers"
+diff --git a/tryton/modules/product/locale/ca.po b/tryton/modules/product/locale/ca.po
+index 912771b4e9..fbc68e2116 100644
+--- a/tryton/modules/product/locale/ca.po
++++ b/tryton/modules/product/locale/ca.po
+@@ -179,7 +179,6 @@ msgctxt "field:product.product,replaced_by:"
+ msgid "Replaced By"
+ msgstr "Substituït per"
+
+-#, fuzzy
+ msgctxt "field:product.product,replacing:"
+ msgid "Replacing"
+ msgstr "Substitueix"
+@@ -410,7 +409,6 @@ msgctxt "help:product.product,replaced_by:"
+ msgid "The product replacing this one."
+ msgstr "El producte que substitueix aquest."
+
+-#, fuzzy
+ msgctxt "help:product.product,replacing:"
+ msgid "The products that this one is replacing."
+ msgstr "El producte que substitueix."
+@@ -664,62 +662,50 @@ msgctxt "model:ir.ui.menu,name:menu_uom_form"
+ msgid "Units of Measure"
+ msgstr "Unitats de mesura"
+
+-#, fuzzy
+ msgctxt "model:product.category,string:"
+ msgid "Product Category"
+ msgstr "Categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:product.configuration,string:"
+ msgid "Product Configuration"
+ msgstr "Configuració de productes"
+
+-#, fuzzy
+ msgctxt "model:product.configuration.default_cost_price_method,string:"
+ msgid "Product Configuration Default Cost Price Method"
+ msgstr "Configuració del mètode de cost per defecte del producte"
+
+-#, fuzzy
+ msgctxt "model:product.cost_price,string:"
+ msgid "Product Cost Price"
+ msgstr "Preu de cost del producte"
+
+-#, fuzzy
+ msgctxt "model:product.cost_price_method,string:"
+ msgid "Product Cost Price Method"
+ msgstr "Mètode de cost per producte"
+
+-#, fuzzy
+ msgctxt "model:product.identifier,string:"
+ msgid "Product Identifier"
+ msgstr "Identificador de producte"
+
+-#, fuzzy
+ msgctxt "model:product.list_price,string:"
+ msgid "Product List Price"
+ msgstr "Preu de venda del producte"
+
+-#, fuzzy
+ msgctxt "model:product.product,string:"
+ msgid "Product"
+ msgstr "Producte"
+
+-#, fuzzy
+ msgctxt "model:product.product.replace.ask,string:"
+ msgid "Product Replace Ask"
+ msgstr "Plantilla de producte"
+
+-#, fuzzy
+ msgctxt "model:product.template,string:"
+ msgid "Product Template"
+ msgstr "Plantilla de producte"
+
+-#, fuzzy
+ msgctxt "model:product.template-product.category,string:"
+ msgid "Product Template - Product Category"
+ msgstr "Plantilla - Categoria"
+
+-#, fuzzy
+ msgctxt "model:product.template-product.category.all,string:"
+ msgid "Product Template - Product Category All"
+ msgstr "Plantilla - Totes les categories"
+@@ -864,7 +850,6 @@ msgctxt "model:product.uom,name:uom_yard"
+ msgid "Yard"
+ msgstr "Iarda"
+
+-#, fuzzy
+ msgctxt "model:product.uom,string:"
+ msgid "Product Uom"
+ msgstr "Producte"
+@@ -1037,7 +1022,6 @@ msgctxt "model:product.uom.category,name:uom_cat_weight"
+ msgid "Weight"
+ msgstr "Pes"
+
+-#, fuzzy
+ msgctxt "model:product.uom.category,string:"
+ msgid "Product Uom Category"
+ msgstr "Categoria d'UdM de producte"
+diff --git a/tryton/modules/product_attribute/locale/ca.po b/tryton/modules/product_attribute/locale/ca.po
+index 8ec9603f12..6098e2bf7c 100644
+--- a/tryton/modules/product_attribute/locale/ca.po
++++ b/tryton/modules/product_attribute/locale/ca.po
+@@ -75,7 +75,6 @@ msgctxt "model:ir.message,text:msg_label_value"
+ msgid "%(label)s: %(value)s"
+ msgstr "%(label)s: %(value)s"
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_product_attribute_name_unique"
+ msgid "The name of the product attribute must be unique."
+ msgstr "El identificador principal del grup d'atribut de productes."
+@@ -88,17 +87,14 @@ msgctxt "model:ir.ui.menu,name:menu_attribute_set"
+ msgid "Attribute Sets"
+ msgstr "Grups d'atributs"
+
+-#, fuzzy
+ msgctxt "model:product.attribute,string:"
+ msgid "Product Attribute"
+ msgstr "Atributs de producte"
+
+-#, fuzzy
+ msgctxt "model:product.attribute-product.attribute-set,string:"
+ msgid "Product Attribute - Product Attribute - Set"
+ msgstr "Atribut de producte - Grup"
+
+-#, fuzzy
+ msgctxt "model:product.attribute.set,string:"
+ msgid "Product Attribute Set"
+ msgstr "Grup atribut de producte"
+diff --git a/tryton/modules/product_classification/locale/ca.po b/tryton/modules/product_classification/locale/ca.po
+index 6659bc15b0..12b8d6aefb 100644
+--- a/tryton/modules/product_classification/locale/ca.po
++++ b/tryton/modules/product_classification/locale/ca.po
+@@ -38,12 +38,10 @@ msgctxt "model:ir.ui.menu,name:menu_classification"
+ msgid "Classifications"
+ msgstr "Classificacions"
+
+-#, fuzzy
+ msgctxt "model:product.classification.dummy,string:"
+ msgid "Product Classification Dummy"
+ msgstr "Classificació de productes de prova"
+
+-#, fuzzy
+ msgctxt "model:product.classification_tree.dummy,string:"
+ msgid "Product Classification Tree Dummy"
+ msgstr "Arbre de la classificació de productes de prova"
+diff --git a/tryton/modules/product_classification_taxonomic/locale/ca.po b/tryton/modules/product_classification_taxonomic/locale/ca.po
+index 887c5d5155..3dacf1998a 100644
+--- a/tryton/modules/product_classification_taxonomic/locale/ca.po
++++ b/tryton/modules/product_classification_taxonomic/locale/ca.po
+@@ -86,17 +86,14 @@ msgctxt "model:ir.ui.menu,name:menu_taxon_tree"
+ msgid "Taxons"
+ msgstr "Taxons"
+
+-#, fuzzy
+ msgctxt "model:product.cultivar,string:"
+ msgid "Product Cultivar"
+ msgstr "Cultivar"
+
+-#, fuzzy
+ msgctxt "model:product.cultivar-product.cultivar.group,string:"
+ msgid "Product Cultivar - Product Cultivar Group"
+ msgstr "Cultivar - Grup de cultivar"
+
+-#, fuzzy
+ msgctxt "model:product.cultivar.group,string:"
+ msgid "Product Cultivar Group"
+ msgstr "Grup de cultivar"
+diff --git a/tryton/modules/product_cost_history/locale/ca.po b/tryton/modules/product_cost_history/locale/ca.po
+index 3bd83d4db8..333cb60446 100644
+--- a/tryton/modules/product_cost_history/locale/ca.po
++++ b/tryton/modules/product_cost_history/locale/ca.po
+@@ -18,7 +18,6 @@ msgctxt "model:ir.action,name:act_product_cost_history_form"
+ msgid "Product Cost History"
+ msgstr "Historial de costos del producte"
+
+-#, fuzzy
+ msgctxt "model:product.product.cost_history,string:"
+ msgid "Product Cost History"
+ msgstr "Historial de costos del producte"
+diff --git a/tryton/modules/product_cost_warehouse/locale/ca.po b/tryton/modules/product_cost_warehouse/locale/ca.po
+index 205c678760..21b293fb79 100644
+--- a/tryton/modules/product_cost_warehouse/locale/ca.po
++++ b/tryton/modules/product_cost_warehouse/locale/ca.po
+@@ -68,7 +68,6 @@ msgctxt ""
+ msgid "Compute product cost price for each warehouse."
+ msgstr "Calcula el preu de cost per a cada magatzem."
+
+-#, fuzzy
+ msgctxt "model:ir.cron-stock.warehouse,string:"
+ msgid "Cron - Stock Warehouse"
+ msgstr "Tasca programada - Magatzem"
+@@ -82,7 +81,6 @@ msgstr ""
+ "Per moure productes entre les ubicacions \"%(from_)s\" i \"%(to)s\", heu "
+ "d'utilitzar la ubicació de transit dels albarans interns."
+
+-#, fuzzy
+ msgctxt "model:product.configuration.cost_price_warehouse,string:"
+ msgid "Product Configuration Cost Price Warehouse"
+ msgstr "Configuració del producte preu de cost per magatzem"
+diff --git a/tryton/modules/product_image/locale/ca.po b/tryton/modules/product_image/locale/ca.po
+index a7c2904cb8..b3831fe066 100644
+--- a/tryton/modules/product_image/locale/ca.po
++++ b/tryton/modules/product_image/locale/ca.po
+@@ -114,22 +114,18 @@ msgctxt "model:ir.message,text:msg_image_cache_size_unique"
+ msgid "The size of cached image must be unique."
+ msgstr "La mida d'una imatge en cache ha de ser única."
+
+-#, fuzzy
+ msgctxt "model:product.category.image,string:"
+ msgid "Product Category Image"
+ msgstr "Categoria Imatge"
+
+-#, fuzzy
+ msgctxt "model:product.category.image.cache,string:"
+ msgid "Product Category Image Cache"
+ msgstr "Cache imatge categoría"
+
+-#, fuzzy
+ msgctxt "model:product.image,string:"
+ msgid "Product Image"
+ msgstr "Imatge del producte"
+
+-#, fuzzy
+ msgctxt "model:product.image.cache,string:"
+ msgid "Product Image Cache"
+ msgstr "Memòria cau de la imatge del producte"
+diff --git a/tryton/modules/product_price_list/locale/ca.po b/tryton/modules/product_price_list/locale/ca.po
+index 5c8bd215b7..b7c0e9b0a1 100644
+--- a/tryton/modules/product_price_list/locale/ca.po
++++ b/tryton/modules/product_price_list/locale/ca.po
+@@ -135,17 +135,14 @@ msgctxt "model:ir.ui.menu,name:menu_price_list"
+ msgid "Price Lists"
+ msgstr "Tarifes"
+
+-#, fuzzy
+ msgctxt "model:product.price_list,string:"
+ msgid "Product Price List"
+ msgstr "Tarifa"
+
+-#, fuzzy
+ msgctxt "model:product.price_list.line,string:"
+ msgid "Product Price List Line"
+ msgstr "Línia de tarifa"
+
+-#, fuzzy
+ msgctxt "model:product.price_list.line.context,string:"
+ msgid "Product Price List Line Context"
+ msgstr "Context de la línia de tarifa"
+diff --git a/tryton/modules/product_price_list_cache/locale/ca.po b/tryton/modules/product_price_list_cache/locale/ca.po
+index 8c27da4a5c..7e69ccf80f 100644
+--- a/tryton/modules/product_price_list_cache/locale/ca.po
++++ b/tryton/modules/product_price_list_cache/locale/ca.po
+@@ -1,5 +1,4 @@
+ #
+-#, fuzzy
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+@@ -31,7 +30,6 @@ msgctxt "help:product.price_list.cache,uom:"
+ msgid "The Unit of Measure."
+ msgstr "La unitat de mesura."
+
+-#, fuzzy
+ msgctxt "model:product.price_list.cache,string:"
+ msgid "Product Price List Cache"
+ msgstr "Actualitza la cache de tarifes"
+diff --git a/tryton/modules/production/locale/ca.po b/tryton/modules/production/locale/ca.po
+index 6d52d7fef0..c1e49dabd9 100644
+--- a/tryton/modules/production/locale/ca.po
++++ b/tryton/modules/production/locale/ca.po
+@@ -66,7 +66,6 @@ msgctxt "field:production,origin:"
+ msgid "Origin"
+ msgstr "Origen"
+
+-#, fuzzy
+ msgctxt "field:production,outputs:"
+ msgid "Output Materials"
+ msgstr "Sortides"
+@@ -131,7 +130,6 @@ msgctxt "field:production.bom,output_products:"
+ msgid "Output Products"
+ msgstr "Productes de sortida"
+
+-#, fuzzy
+ msgctxt "field:production.bom,outputs:"
+ msgid "Output Materials"
+ msgstr "Sortides"
+@@ -485,27 +483,22 @@ msgctxt "model:product.product-production.bom,string:"
+ msgid "Product - Production Bom"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:production,string:"
+ msgid "Production"
+ msgstr "Producció"
+
+-#, fuzzy
+ msgctxt "model:production.bom,string:"
+ msgid "Production Bom"
+ msgstr "Producció"
+
+-#, fuzzy
+ msgctxt "model:production.bom.input,string:"
+ msgid "Production Bom Input"
+ msgstr "Entrada de la producció"
+
+-#, fuzzy
+ msgctxt "model:production.bom.output,string:"
+ msgid "Production Bom Output"
+ msgstr "Sortida de la producció"
+
+-#, fuzzy
+ msgctxt "model:production.bom.tree,string:"
+ msgid "Production Bom Tree"
+ msgstr "Temps d'espera de la producció"
+@@ -514,12 +507,10 @@ msgctxt "model:production.bom.tree.open.start,string:"
+ msgid "Production Bom Tree Open Start"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:production.bom.tree.open.tree,string:"
+ msgid "Production Bom Tree Open Tree"
+ msgstr "Seqüència de producció"
+
+-#, fuzzy
+ msgctxt "model:production.configuration,string:"
+ msgid "Production Configuration"
+ msgstr "Configuració de la producció"
+@@ -528,7 +519,6 @@ msgctxt "model:production.configuration.production_sequence,string:"
+ msgid "Production Configuration Production Sequence"
+ msgstr "Configuració de la seqüència de producció"
+
+-#, fuzzy
+ msgctxt "model:production.lead_time,string:"
+ msgid "Production Lead Time"
+ msgstr "Temps d'espera de la producció"
+diff --git a/tryton/modules/production_routing/locale/ca.po b/tryton/modules/production_routing/locale/ca.po
+index 507c06c53f..bbd573abc5 100644
+--- a/tryton/modules/production_routing/locale/ca.po
++++ b/tryton/modules/production_routing/locale/ca.po
+@@ -74,7 +74,6 @@ msgctxt "model:production.routing.operation,string:"
+ msgid "Production Routing Operation"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:production.routing.step,string:"
+ msgid "Production Routing Step"
+ msgstr "Etapa de ruta"
+diff --git a/tryton/modules/production_work/locale/ca.po b/tryton/modules/production_work/locale/ca.po
+index dffb311985..ecc1bd6651 100644
+--- a/tryton/modules/production_work/locale/ca.po
++++ b/tryton/modules/production_work/locale/ca.po
+@@ -229,22 +229,18 @@ msgctxt "model:ir.ui.menu,name:menu_work_list"
+ msgid "Works"
+ msgstr "Treballs"
+
+-#, fuzzy
+ msgctxt "model:production.work,string:"
+ msgid "Production Work"
+ msgstr "Treball de producció"
+
+-#, fuzzy
+ msgctxt "model:production.work.center,string:"
+ msgid "Production Work Center"
+ msgstr "Treball de producció"
+
+-#, fuzzy
+ msgctxt "model:production.work.center.category,string:"
+ msgid "Production Work Center Category"
+ msgstr "Categoria centre de treball"
+
+-#, fuzzy
+ msgctxt "model:production.work.cycle,string:"
+ msgid "Production Work Cycle"
+ msgstr "Treball de producció"
+diff --git a/tryton/modules/project/locale/ca.po b/tryton/modules/project/locale/ca.po
+index d0d2036c56..da8631685a 100644
+--- a/tryton/modules/project/locale/ca.po
++++ b/tryton/modules/project/locale/ca.po
+@@ -248,7 +248,6 @@ msgctxt "model:ir.ui.menu,name:menu_work_tree"
+ msgid "Works Efforts"
+ msgstr "Arbre de projectes i tasques"
+
+-#, fuzzy
+ msgctxt "model:project.work,string:"
+ msgid "Project Work"
+ msgstr "Projecte"
+@@ -261,7 +260,6 @@ msgctxt "model:project.work.status,name:work_open_status"
+ msgid "Open"
+ msgstr "Obert"
+
+-#, fuzzy
+ msgctxt "model:project.work.status,string:"
+ msgid "Project Work Status"
+ msgstr "Estat del treball"
+diff --git a/tryton/modules/project_invoice/locale/ca.po b/tryton/modules/project_invoice/locale/ca.po
+index 814325422b..f7f5f5eec8 100644
+--- a/tryton/modules/project_invoice/locale/ca.po
++++ b/tryton/modules/project_invoice/locale/ca.po
+@@ -159,7 +159,6 @@ msgctxt "model:ir.model.button,string:work_invoice_button"
+ msgid "Invoice"
+ msgstr "Factura"
+
+-#, fuzzy
+ msgctxt "model:project.work.invoiced_progress,string:"
+ msgid "Project Work Invoiced Progress"
+ msgstr "Progressos del treball facturat"
+diff --git a/tryton/modules/project_plan/locale/ca.po b/tryton/modules/project_plan/locale/ca.po
+index 474dcd57a4..3f8db28db3 100644
+--- a/tryton/modules/project_plan/locale/ca.po
++++ b/tryton/modules/project_plan/locale/ca.po
+@@ -114,12 +114,10 @@ msgctxt "model:ir.action,name:wizard_leveling"
+ msgid "Tasks Leveling"
+ msgstr "Anivellació de tasques"
+
+-#, fuzzy
+ msgctxt "model:project.allocation,string:"
+ msgid "Project Allocation"
+ msgstr "Assignació"
+
+-#, fuzzy
+ msgctxt "model:project.predecessor_successor,string:"
+ msgid "Project Predecessor Successor"
+ msgstr "Predecessor - Successor"
+diff --git a/tryton/modules/purchase/locale/ca.po b/tryton/modules/purchase/locale/ca.po
+index e3ef80484a..b009729f34 100644
+--- a/tryton/modules/purchase/locale/ca.po
++++ b/tryton/modules/purchase/locale/ca.po
+@@ -455,7 +455,6 @@ msgctxt "field:purchase.purchase,purchase_date:"
+ msgid "Purchase Date"
+ msgstr "Data compra"
+
+-#, fuzzy
+ msgctxt "field:purchase.purchase,quotation_expire:"
+ msgid "Quotation Expire"
+ msgstr "Pressupost"
+@@ -1096,127 +1095,102 @@ msgctxt "model:ir.ui.menu,name:menu_reporting_purchase"
+ msgid "Purchases"
+ msgstr "Compres"
+
+-#, fuzzy
+ msgctxt "model:party.party.customer_code,string:"
+ msgid "Party Customer Code"
+ msgstr "Codi client tercer"
+
+-#, fuzzy
+ msgctxt "model:party.party.supplier_currency,string:"
+ msgid "Party Supplier Currency"
+ msgstr "Tercer Moneda proveïdor"
+
+-#, fuzzy
+ msgctxt "model:party.party.supplier_lead_time,string:"
+ msgid "Party Supplier Lead Time"
+ msgstr "Temps d'espera del proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.configuration,string:"
+ msgid "Purchase Configuration"
+ msgstr "Configuració de les compres"
+
+-#, fuzzy
+ msgctxt "model:purchase.configuration.purchase_method,string:"
+ msgid "Purchase Configuration Purchase Method"
+ msgstr "Configuració dels mètodes de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.configuration.sequence,string:"
+ msgid "Purchase Configuration Sequence"
+ msgstr "Configuració de seqüencies de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.handle.invoice.exception.ask,string:"
+ msgid "Purchase Handle Invoice Exception Ask"
+ msgstr "Gestiona l'excepció de factura"
+
+-#, fuzzy
+ msgctxt "model:purchase.handle.shipment.exception.ask,string:"
+ msgid "Purchase Handle Shipment Exception Ask"
+ msgstr "Gestiona l'excepció d'enviament"
+
+-#, fuzzy
+ msgctxt "model:purchase.line,string:"
+ msgid "Purchase Line"
+ msgstr "Línia de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.line-account.tax,string:"
+ msgid "Purchase Line - Account Tax"
+ msgstr "Línia de compra - Impost"
+
+-#, fuzzy
+ msgctxt "model:purchase.line-ignored-stock.move,string:"
+ msgid "Purchase Line - Ignored - Stock Move"
+ msgstr "Línia de compra - Moviment ignorat"
+
+-#, fuzzy
+ msgctxt "model:purchase.line-recreated-stock.move,string:"
+ msgid "Purchase Line - Recreated - Stock Move"
+ msgstr "Compra - Factura recreada"
+
+-#, fuzzy
+ msgctxt "model:purchase.product_supplier,string:"
+ msgid "Purchase Product Supplier"
+ msgstr "Compres per proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.product_supplier.price,string:"
+ msgid "Purchase Product Supplier Price"
+ msgstr "Preu del proveïdor del producte"
+
+-#, fuzzy
+ msgctxt "model:purchase.purchase,string:"
+ msgid "Purchase"
+ msgstr "Compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.purchase-ignored-account.invoice,string:"
+ msgid "Purchase - Ignored - Account Invoice"
+ msgstr "Compra - Factura ignorada"
+
+-#, fuzzy
+ msgctxt "model:purchase.purchase-recreated-account.invoice,string:"
+ msgid "Purchase - Recreated - Account Invoice"
+ msgstr "Compra - Factura recreada"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.context,string:"
+ msgid "Purchase Reporting Context"
+ msgstr "Context informe de compres"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.main,string:"
+ msgid "Purchase Reporting Main"
+ msgstr "Informes de compres"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.main.time_series,string:"
+ msgid "Purchase Reporting Main Time Series"
+ msgstr "Informe de compres per Proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.product,string:"
+ msgid "Purchase Reporting Product"
+ msgstr "Informe de compres per Producte"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.product.time_series,string:"
+ msgid "Purchase Reporting Product Time Series"
+ msgstr "Informe de compres per Producte"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.supplier,string:"
+ msgid "Purchase Reporting Supplier"
+ msgstr "Informe de compres per Proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.reporting.supplier.time_series,string:"
+ msgid "Purchase Reporting Supplier Time Series"
+ msgstr "Informe de compres per Proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.return_purchase.start,string:"
+ msgid "Purchase Return Purchase Start"
+ msgstr "Configuració dels mètodes de compra"
+diff --git a/tryton/modules/purchase_amendment/locale/ca.po b/tryton/modules/purchase_amendment/locale/ca.po
+index c8398a483c..9232351a4d 100644
+--- a/tryton/modules/purchase_amendment/locale/ca.po
++++ b/tryton/modules/purchase_amendment/locale/ca.po
+@@ -140,12 +140,10 @@ msgctxt "model:ir.ui.menu,name:menu_purchase_amendment"
+ msgid "Amendments"
+ msgstr "Correccions"
+
+-#, fuzzy
+ msgctxt "model:purchase.amendment,string:"
+ msgid "Purchase Amendment"
+ msgstr "Correcció de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.amendment.line,string:"
+ msgid "Purchase Amendment Line"
+ msgstr "Línia de correcció de compra"
+diff --git a/tryton/modules/purchase_blanket_agreement/locale/ca.po b/tryton/modules/purchase_blanket_agreement/locale/ca.po
+index d4ef0d8992..46d1b6d98a 100644
+--- a/tryton/modules/purchase_blanket_agreement/locale/ca.po
++++ b/tryton/modules/purchase_blanket_agreement/locale/ca.po
+@@ -227,17 +227,14 @@ msgctxt "model:ir.ui.menu,name:menu_purchase_blanket_agreement"
+ msgid "Blanket Agreements"
+ msgstr "Acords generals"
+
+-#, fuzzy
+ msgctxt "model:purchase.blanket_agreement,string:"
+ msgid "Purchase Blanket Agreement"
+ msgstr "Acord general de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.blanket_agreement.create_purchase.start,string:"
+ msgid "Purchase Blanket Agreement Create Purchase Start"
+ msgstr "Línea d'acord general de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.blanket_agreement.line,string:"
+ msgid "Purchase Blanket Agreement Line"
+ msgstr "Línea d'acord general de compra"
+diff --git a/tryton/modules/purchase_invoice_line_standalone/locale/ca.po b/tryton/modules/purchase_invoice_line_standalone/locale/ca.po
+index 75264eb1d7..810bbfd930 100644
+--- a/tryton/modules/purchase_invoice_line_standalone/locale/ca.po
++++ b/tryton/modules/purchase_invoice_line_standalone/locale/ca.po
+@@ -39,12 +39,10 @@ msgctxt "model:ir.action,name:act_purchase_invoice_line_relate"
+ msgid "Invoice Lines"
+ msgstr "Línies de factura"
+
+-#, fuzzy
+ msgctxt "model:party.party.purchase_invoice_line_standalone,string:"
+ msgid "Party Purchase Invoice Line Standalone"
+ msgstr "Tercer línies de factura de compra per separat"
+
+-#, fuzzy
+ msgctxt "model:purchase.purchase-ignored-account.invoice.line,string:"
+ msgid "Purchase - Ignored - Account Invoice Line"
+ msgstr "Compra - Línia de factura ignorada"
+diff --git a/tryton/modules/purchase_price_list/locale/ca.po b/tryton/modules/purchase_price_list/locale/ca.po
+index b491d046e6..25d46b03f5 100644
+--- a/tryton/modules/purchase_price_list/locale/ca.po
++++ b/tryton/modules/purchase_price_list/locale/ca.po
+@@ -26,7 +26,6 @@ msgctxt "help:party.party,purchase_price_list:"
+ msgid "The price list for new purchases."
+ msgstr "La tarifa per les noves compres."
+
+-#, fuzzy
+ msgctxt "model:party.party.purchase_price_list,string:"
+ msgid "Party Purchase Price List"
+ msgstr "Tarifa de compra per tercer"
+diff --git a/tryton/modules/purchase_request/locale/ca.po b/tryton/modules/purchase_request/locale/ca.po
+index 421ec81a6f..f9193a4ed9 100644
+--- a/tryton/modules/purchase_request/locale/ca.po
++++ b/tryton/modules/purchase_request/locale/ca.po
+@@ -198,17 +198,14 @@ msgctxt "model:ir.ui.menu,name:menu_purchase_request_form"
+ msgid "Purchase Requests"
+ msgstr "Sol·licituds de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.request,string:"
+ msgid "Purchase Request"
+ msgstr "Sol·licitud de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.create_purchase.ask_party,string:"
+ msgid "Purchase Request Create Purchase Ask Party"
+ msgstr "Pregunta tercer al crear compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.handle.purchase.cancellation.start,string:"
+ msgid "Purchase Request Handle Purchase Cancellation Start"
+ msgstr "Gestiona cancel·lació de la compra"
+diff --git a/tryton/modules/purchase_request_quotation/locale/ca.po b/tryton/modules/purchase_request_quotation/locale/ca.po
+index cd72e410a4..0840121cbf 100644
+--- a/tryton/modules/purchase_request_quotation/locale/ca.po
++++ b/tryton/modules/purchase_request_quotation/locale/ca.po
+@@ -213,22 +213,18 @@ msgctxt "model:ir.ui.menu,name:menu_purchase_request_quotation_form"
+ msgid "Quotations"
+ msgstr "Pressupostos"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.quotation,string:"
+ msgid "Purchase Request Quotation"
+ msgstr "Pressupost de sol·licitud de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.quotation.create.ask_suppliers,string:"
+ msgid "Purchase Request Quotation Create Ask Suppliers"
+ msgstr "Introdueix proveïdors de pressupost de sol·licitud de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.quotation.create.succeed,string:"
+ msgid "Purchase Request Quotation Create Succeed"
+ msgstr "Pressupost de sol·licitud de compra creat amb éxit"
+
+-#, fuzzy
+ msgctxt "model:purchase.request.quotation.line,string:"
+ msgid "Purchase Request Quotation Line"
+ msgstr "Línia de pressupost de sol·licitud de compra"
+diff --git a/tryton/modules/purchase_requisition/locale/ca.po b/tryton/modules/purchase_requisition/locale/ca.po
+index 9488f46ff1..34345bf0dc 100644
+--- a/tryton/modules/purchase_requisition/locale/ca.po
++++ b/tryton/modules/purchase_requisition/locale/ca.po
+@@ -208,12 +208,10 @@ msgctxt "model:ir.ui.menu,name:menu_purchase_requisition_form"
+ msgid "Requisitions"
+ msgstr "Peticions"
+
+-#, fuzzy
+ msgctxt "model:purchase.requisition,string:"
+ msgid "Purchase Requisition"
+ msgstr "Petició de compra"
+
+-#, fuzzy
+ msgctxt "model:purchase.requisition.line,string:"
+ msgid "Purchase Requisition Line"
+ msgstr "Línia de petició de compra"
+diff --git a/tryton/modules/quality/locale/ca.po b/tryton/modules/quality/locale/ca.po
+index a987a2de0d..5bc0a3c061 100644
+--- a/tryton/modules/quality/locale/ca.po
++++ b/tryton/modules/quality/locale/ca.po
+@@ -368,37 +368,30 @@ msgctxt "model:ir.ui.menu,name:menu_quality_inspection_form"
+ msgid "Inspections"
+ msgstr "Inspecions"
+
+-#, fuzzy
+ msgctxt "model:quality.alert,string:"
+ msgid "Quality Alert"
+ msgstr "Alerta de qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.configuration,string:"
+ msgid "Quality Configuration"
+ msgstr "Configuració qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.configuration.sequence,string:"
+ msgid "Quality Configuration Sequence"
+ msgstr "Configuració Seqüencies qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.control,string:"
+ msgid "Quality Control"
+ msgstr "Control de qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.control.point,string:"
+ msgid "Quality Control Point"
+ msgstr "Punt de control de qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.inspect.store,string:"
+ msgid "Quality Inspect Store"
+ msgstr "Inspecció de qualitat"
+
+-#, fuzzy
+ msgctxt "model:quality.inspection,string:"
+ msgid "Quality Inspection"
+ msgstr "Inspecció de qualitat"
+diff --git a/tryton/modules/sale/locale/ca.po b/tryton/modules/sale/locale/ca.po
+index efb5dc3e3a..639887d975 100644
+--- a/tryton/modules/sale/locale/ca.po
++++ b/tryton/modules/sale/locale/ca.po
+@@ -574,17 +574,14 @@ msgctxt "field:sale.sale,payment_term:"
+ msgid "Payment Term"
+ msgstr "Termini de pagament"
+
+-#, fuzzy
+ msgctxt "field:sale.sale,quotation_date:"
+ msgid "Quotation Date"
+ msgstr "Pressupost"
+
+-#, fuzzy
+ msgctxt "field:sale.sale,quotation_expire:"
+ msgid "Quotation Expire"
+ msgstr "Pressupost"
+
+-#, fuzzy
+ msgctxt "field:sale.sale,quotation_validity:"
+ msgid "Quotation Validity"
+ msgstr "Pressupost"
+@@ -926,7 +923,6 @@ msgctxt "model:ir.action,name:wizard_return_sale"
+ msgid "Return Sale"
+ msgstr "Retorna la venda"
+
+-#, fuzzy
+ msgctxt "model:ir.action,name:wizard_sale_open_product"
+ msgid "Products"
+ msgstr "Productes"
+@@ -1288,27 +1284,22 @@ msgctxt "model:ir.ui.menu,name:menu_sale_form"
+ msgid "Sales"
+ msgstr "Vendes"
+
+-#, fuzzy
+ msgctxt "model:party.party.customer_currency,string:"
+ msgid "Party Customer Currency"
+ msgstr "Monedes de client per tercer"
+
+-#, fuzzy
+ msgctxt "model:party.party.sale_method,string:"
+ msgid "Party Sale Method"
+ msgstr "Mètode de venda del tercer"
+
+-#, fuzzy
+ msgctxt "model:product.configuration.default_lead_time,string:"
+ msgid "Product Configuration Default Lead Time"
+ msgstr "Temps d'enviament per defecte del producte"
+
+-#, fuzzy
+ msgctxt "model:product.lead_time,string:"
+ msgid "Product Lead Time"
+ msgstr "Temps d'enviament del producte"
+
+-#, fuzzy
+ msgctxt "model:product.sale.context,string:"
+ msgid "Product Sale Context"
+ msgstr "Context productes vendibles"
+@@ -1321,167 +1312,134 @@ msgctxt "model:res.group,name:group_sale_admin"
+ msgid "Sales Administrator"
+ msgstr "Administració de vendes"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration,string:"
+ msgid "Sale Configuration"
+ msgstr "Configuració de les vendes"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.quotation,string:"
+ msgid "Sale Configuration Quotation"
+ msgstr "Configuració de les vendes"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.sale_method,string:"
+ msgid "Sale Configuration Sale Method"
+ msgstr "Configuració del mètode de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.sequence,string:"
+ msgid "Sale Configuration Sequence"
+ msgstr "Configuració de les seqüencies de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.handle.invoice.exception.ask,string:"
+ msgid "Sale Handle Invoice Exception Ask"
+ msgstr "Gestiona l'excepció de factura"
+
+-#, fuzzy
+ msgctxt "model:sale.handle.shipment.exception.ask,string:"
+ msgid "Sale Handle Shipment Exception Ask"
+ msgstr "Gestiona l'excepció d'enviament"
+
+-#, fuzzy
+ msgctxt "model:sale.line,string:"
+ msgid "Sale Line"
+ msgstr "Línia de venta"
+
+-#, fuzzy
+ msgctxt "model:sale.line-account.tax,string:"
+ msgid "Sale Line - Account Tax"
+ msgstr "Línia de venda - Impost"
+
+-#, fuzzy
+ msgctxt "model:sale.line-ignored-stock.move,string:"
+ msgid "Sale Line - Ignored - Stock Move"
+ msgstr "Línia de venda - Moviment ignorat"
+
+-#, fuzzy
+ msgctxt "model:sale.line-recreated-stock.move,string:"
+ msgid "Sale Line - Recreated - Stock Move"
+ msgstr "Línia de venda - Moviment recreat"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.context,string:"
+ msgid "Sale Reporting Context"
+ msgstr "Context informe de vendes"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.country,string:"
+ msgid "Sale Reporting Country"
+ msgstr "Informe de vendes per país"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.country.subdivision,string:"
+ msgid "Sale Reporting Country Subdivision"
+ msgstr "Informe de vendes per subdivisió"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.country.subdivision.time_series,string:"
+ msgid "Sale Reporting Country Subdivision Time Series"
+ msgstr "Informe de vendes per subdivisió"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.country.time_series,string:"
+ msgid "Sale Reporting Country Time Series"
+ msgstr "Informe de vendes per país"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.country.tree,string:"
+ msgid "Sale Reporting Country Tree"
+ msgstr "Informe de vendes per país"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.customer,string:"
+ msgid "Sale Reporting Customer"
+ msgstr "Informe de vendes per client"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.customer.category,string:"
+ msgid "Sale Reporting Customer Category"
+ msgstr "Informe de vendes per categoria de client"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.customer.category.time_series,string:"
+ msgid "Sale Reporting Customer Category Time Series"
+ msgstr "Informe de vendes per categoria de client"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.customer.category.tree,string:"
+ msgid "Sale Reporting Customer Category Tree"
+ msgstr "Informe de vendes per categoria de client"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.customer.time_series,string:"
+ msgid "Sale Reporting Customer Time Series"
+ msgstr "Informe de vendes per client"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.main,string:"
+ msgid "Sale Reporting Main"
+ msgstr "Informes de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.main.time_series,string:"
+ msgid "Sale Reporting Main Time Series"
+ msgstr "Informe de vendes per regió"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.product,string:"
+ msgid "Sale Reporting Product"
+ msgstr "Informe de vendes per producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.product.category,string:"
+ msgid "Sale Reporting Product Category"
+ msgstr "Informe de vendes per categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.product.category.time_series,string:"
+ msgid "Sale Reporting Product Category Time Series"
+ msgstr "Informe de vendes per categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.product.category.tree,string:"
+ msgid "Sale Reporting Product Category Tree"
+ msgstr "Informe de vendes per categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.product.time_series,string:"
+ msgid "Sale Reporting Product Time Series"
+ msgstr "Informe de vendes per producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.region.tree,string:"
+ msgid "Sale Reporting Region Tree"
+ msgstr "Informe de vendes per regió"
+
+-#, fuzzy
+ msgctxt "model:sale.return_sale.start,string:"
+ msgid "Sale Return Sale Start"
+ msgstr "Retorna la venda"
+
+-#, fuzzy
+ msgctxt "model:sale.sale,string:"
+ msgid "Sale"
+ msgstr "Venda"
+
+-#, fuzzy
+ msgctxt "model:sale.sale-ignored-account.invoice,string:"
+ msgid "Sale - Ignored - Account Invoice"
+ msgstr "Venda - Factura ignorada"
+
+-#, fuzzy
+ msgctxt "model:sale.sale-recreated-account.invoice,string:"
+ msgid "Sale - Recreated - Account Invoice"
+ msgstr "Venda - Factura recreada"
+@@ -1514,7 +1472,6 @@ msgctxt "report:sale.sale:"
+ msgid "Draft Sale Order"
+ msgstr "Venda esborrany"
+
+-#, fuzzy
+ msgctxt "report:sale.sale:"
+ msgid "Expiration Date:"
+ msgstr "Estat d'excepció"
+diff --git a/tryton/modules/sale_advance_payment/locale/ca.po b/tryton/modules/sale_advance_payment/locale/ca.po
+index 49232363b8..6a0d01c991 100644
+--- a/tryton/modules/sale_advance_payment/locale/ca.po
++++ b/tryton/modules/sale_advance_payment/locale/ca.po
+@@ -189,22 +189,18 @@ msgctxt "model:ir.ui.menu,name:menu_advance_payment_term"
+ msgid "Advance Payment Terms"
+ msgstr "Terminis de pagament per avançat"
+
+-#, fuzzy
+ msgctxt "model:sale.advance_payment.condition,string:"
+ msgid "Sale Advance Payment Condition"
+ msgstr "Condicions de pagament per avançat"
+
+-#, fuzzy
+ msgctxt "model:sale.advance_payment_term,string:"
+ msgid "Sale Advance Payment Term"
+ msgstr "Termini de pagament per avançat"
+
+-#, fuzzy
+ msgctxt "model:sale.advance_payment_term.line,string:"
+ msgid "Sale Advance Payment Term Line"
+ msgstr "Línia de forma de pagament per avançat"
+
+-#, fuzzy
+ msgctxt "model:sale.advance_payment_term.line.account,string:"
+ msgid "Sale Advance Payment Term Line Account"
+ msgstr "Comptes de la línia de pagament per avançat"
+diff --git a/tryton/modules/sale_amendment/locale/ca.po b/tryton/modules/sale_amendment/locale/ca.po
+index 881589de19..63b4cfc9fc 100644
+--- a/tryton/modules/sale_amendment/locale/ca.po
++++ b/tryton/modules/sale_amendment/locale/ca.po
+@@ -148,12 +148,10 @@ msgctxt "model:res.group,name:group_sale_amendment"
+ msgid "Sale Amendment"
+ msgstr "Correcció de venta"
+
+-#, fuzzy
+ msgctxt "model:sale.amendment,string:"
+ msgid "Sale Amendment"
+ msgstr "Correcció de venta"
+
+-#, fuzzy
+ msgctxt "model:sale.amendment.line,string:"
+ msgid "Sale Amendment Line"
+ msgstr "Línia de correció de venta"
+diff --git a/tryton/modules/sale_blanket_agreement/locale/ca.po b/tryton/modules/sale_blanket_agreement/locale/ca.po
+index eafee81188..cdeadc44fd 100644
+--- a/tryton/modules/sale_blanket_agreement/locale/ca.po
++++ b/tryton/modules/sale_blanket_agreement/locale/ca.po
+@@ -223,17 +223,14 @@ msgctxt "model:res.group,name:group_sale_blanket_agreement"
+ msgid "Sale Blanket Agreement"
+ msgstr "Acord general de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.blanket_agreement,string:"
+ msgid "Sale Blanket Agreement"
+ msgstr "Acord general de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.blanket_agreement.create_sale.start,string:"
+ msgid "Sale Blanket Agreement Create Sale Start"
+ msgstr "Línia d'acord general de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.blanket_agreement.line,string:"
+ msgid "Sale Blanket Agreement Line"
+ msgstr "Línia d'acord general de venda"
+diff --git a/tryton/modules/sale_complaint/locale/ca.po b/tryton/modules/sale_complaint/locale/ca.po
+index fb8a1885ec..211c92f951 100644
+--- a/tryton/modules/sale_complaint/locale/ca.po
++++ b/tryton/modules/sale_complaint/locale/ca.po
+@@ -74,7 +74,6 @@ msgctxt "field:sale.complaint.action,amount:"
+ msgid "Amount"
+ msgstr "Import"
+
+-#, fuzzy
+ msgctxt "field:sale.complaint.action,company:"
+ msgid "Company"
+ msgstr "Empresa"
+@@ -99,12 +98,10 @@ msgctxt "field:sale.complaint.action,promotion_coupon:"
+ msgid "Promotion Coupon"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "field:sale.complaint.action,promotion_coupon_duration:"
+ msgid "Duration"
+ msgstr "Descripció"
+
+-#, fuzzy
+ msgctxt "field:sale.complaint.action,promotion_coupon_number:"
+ msgid "Number"
+ msgstr "Número"
+@@ -342,27 +339,22 @@ msgctxt "model:ir.ui.menu,name:menu_type"
+ msgid "Types"
+ msgstr "Tipus"
+
+-#, fuzzy
+ msgctxt "model:sale.complaint,string:"
+ msgid "Sale Complaint"
+ msgstr "Reclamació"
+
+-#, fuzzy
+ msgctxt "model:sale.complaint.action,string:"
+ msgid "Sale Complaint Action"
+ msgstr "Acció de reclamació de client"
+
+-#, fuzzy
+ msgctxt "model:sale.complaint.action-account.invoice.line,string:"
+ msgid "Sale Complaint Action - Account Invoice Line"
+ msgstr "Acció de reclamació de client - Línia de factura"
+
+-#, fuzzy
+ msgctxt "model:sale.complaint.action-sale.line,string:"
+ msgid "Sale Complaint Action - Sale Line"
+ msgstr "Acció de reclamació de client - Línia de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.complaint.type,string:"
+ msgid "Sale Complaint Type"
+ msgstr "Tipus de reclamació de client"
+diff --git a/tryton/modules/sale_extra/locale/ca.po b/tryton/modules/sale_extra/locale/ca.po
+index afd0039845..a730746923 100644
+--- a/tryton/modules/sale_extra/locale/ca.po
++++ b/tryton/modules/sale_extra/locale/ca.po
+@@ -86,12 +86,10 @@ msgctxt "model:ir.ui.menu,name:menu_extra"
+ msgid "Extras"
+ msgstr "Extres"
+
+-#, fuzzy
+ msgctxt "model:sale.extra,string:"
+ msgid "Sale Extra"
+ msgstr "Extra de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.extra.line,string:"
+ msgid "Sale Extra Line"
+ msgstr "Línia extra de venda"
+diff --git a/tryton/modules/sale_gift_card/locale/ca.po b/tryton/modules/sale_gift_card/locale/ca.po
+index 088c06a415..9f67fe313a 100644
+--- a/tryton/modules/sale_gift_card/locale/ca.po
++++ b/tryton/modules/sale_gift_card/locale/ca.po
+@@ -156,7 +156,6 @@ msgctxt "help:sale.point.sale.line,gift_card_email:"
+ msgid "Leave empty for the customer email."
+ msgstr "Deixeu-ho en blanc per al correu electrònic del client."
+
+-#, fuzzy
+ msgctxt "model:account.configuration.gift_card_account,string:"
+ msgid "Account Configuration Gift Card Account"
+ msgstr "Configuració de comptes comptables de targetes regal"
+@@ -229,17 +228,14 @@ msgctxt "model:res.group,name:group_gift_card_admin"
+ msgid "Gift Card Administration"
+ msgstr "Administració de targetes regal"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.gift_card.sequence,string:"
+ msgid "Sale Configuration Gift Card Sequence"
+ msgstr "Configuració de comptes comptables de targetes regal"
+
+-#, fuzzy
+ msgctxt "model:sale.gift_card,string:"
+ msgid "Sale Gift Card"
+ msgstr "Targeta regal"
+
+-#, fuzzy
+ msgctxt "model:sale.point.sale.pay.gift_card,string:"
+ msgid "Sale Point Sale Pay Gift Card"
+ msgstr "Pagament TPV - Targeta regal"
+diff --git a/tryton/modules/sale_invoice_date/locale/ca.po b/tryton/modules/sale_invoice_date/locale/ca.po
+index 91996d5e99..59c90e1279 100644
+--- a/tryton/modules/sale_invoice_date/locale/ca.po
++++ b/tryton/modules/sale_invoice_date/locale/ca.po
+@@ -78,12 +78,10 @@ msgctxt "model:ir.ui.menu,name:menu_invoice_term_form"
+ msgid "Invoice Terms"
+ msgstr "Terminis de facturació"
+
+-#, fuzzy
+ msgctxt "model:sale.invoice.term,string:"
+ msgid "Sale Invoice Term"
+ msgstr "Termini de facturació venta"
+
+-#, fuzzy
+ msgctxt "model:sale.invoice.term.relative_delta,string:"
+ msgid "Sale Invoice Term Relative Delta"
+ msgstr "Increment del termini de facturació"
+diff --git a/tryton/modules/sale_invoice_grouping/locale/ca.po b/tryton/modules/sale_invoice_grouping/locale/ca.po
+index 56d13ab76b..5c467f8276 100644
+--- a/tryton/modules/sale_invoice_grouping/locale/ca.po
++++ b/tryton/modules/sale_invoice_grouping/locale/ca.po
+@@ -35,7 +35,6 @@ msgctxt "help:sale.configuration.sale_method,sale_invoice_grouping_method:"
+ msgid "The default invoice grouping method for new customers."
+ msgstr "El mètode d'agrupació de factures per als nous clients."
+
+-#, fuzzy
+ msgctxt "model:party.party.sale_invoice_grouping_method,string:"
+ msgid "Party Sale Invoice Grouping Method"
+ msgstr "Mètode d'agrupació factures de venda"
+diff --git a/tryton/modules/sale_opportunity/locale/ca.po b/tryton/modules/sale_opportunity/locale/ca.po
+index 4b2036be44..ebe948c777 100644
+--- a/tryton/modules/sale_opportunity/locale/ca.po
++++ b/tryton/modules/sale_opportunity/locale/ca.po
+@@ -389,48 +389,39 @@ msgctxt "model:res.group,name:group_opportunity"
+ msgid "Sale Opportunity"
+ msgstr "Iniciatives i oportunitats"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity,string:"
+ msgid "Sale Opportunity"
+ msgstr "Oportunitat"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.line,string:"
+ msgid "Sale Opportunity Line"
+ msgstr "Línia d'oportunitat"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.context,string:"
+ msgid "Sale Opportunity Reporting Context"
+ msgstr "Context informe d'oportunitats"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion,string:"
+ msgid "Sale Opportunity Reporting Conversion"
+ msgstr "Informe de conversions d'oportunitats"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion.employee,string:"
+ msgid "Sale Opportunity Reporting Conversion Employee"
+ msgstr "Informe de conversions d'oportunitats per empleat"
+
+-#, fuzzy
+ msgctxt ""
+ "model:sale.opportunity.reporting.conversion.employee.time_series,string:"
+ msgid "Sale Opportunity Reporting Conversion Employee Time Series"
+ msgstr "Informe de conversions d'oportunitats per empleat"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion.time_series,string:"
+ msgid "Sale Opportunity Reporting Conversion Time Series"
+ msgstr "Informe de conversions d'oportunitats"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.main,string:"
+ msgid "Sale Opportunity Reporting Main"
+ msgstr "Informe d'oportunitats"
+
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.main.time_series,string:"
+ msgid "Sale Opportunity Reporting Main Time Series"
+ msgstr "Informe de conversions d'oportunitats"
+diff --git a/tryton/modules/sale_point/locale/ca.po b/tryton/modules/sale_point/locale/ca.po
+index d80c5e7f0f..84bbc77ced 100644
+--- a/tryton/modules/sale_point/locale/ca.po
++++ b/tryton/modules/sale_point/locale/ca.po
+@@ -578,7 +578,6 @@ msgctxt "model:ir.ui.menu,name:menu_sale_form"
+ msgid "POS Sales"
+ msgstr "Vendes TPV"
+
+-#, fuzzy
+ msgctxt "model:product.gross_price,string:"
+ msgid "Product Gross Price"
+ msgstr "Preu brut del producte"
+@@ -591,47 +590,38 @@ msgctxt "model:res.group,name:group_sale_point_posting"
+ msgid "POS Posting"
+ msgstr "Comptabilització de TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point,string:"
+ msgid "Sale Point"
+ msgstr "Punt"
+
+-#, fuzzy
+ msgctxt "model:sale.point.cash.session,string:"
+ msgid "Sale Point Cash Session"
+ msgstr "Tacament de caixa TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.cash.session.relation,string:"
+ msgid "Sale Point Cash Session Relation"
+ msgstr "Relació de sessió de TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.cash.transfer,string:"
+ msgid "Sale Point Cash Transfer"
+ msgstr "Trasnferència de diners TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.cash.transfer.type,string:"
+ msgid "Sale Point Cash Transfer Type"
+ msgstr "Tipus de transferència de diners TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.payment,string:"
+ msgid "Sale Point Payment"
+ msgstr "Pagament TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.payment.method,string:"
+ msgid "Sale Point Payment Method"
+ msgstr "Mètode de pagament TPV"
+
+-#, fuzzy
+ msgctxt "model:sale.point.sale,string:"
+ msgid "Sale Point Sale"
+ msgstr "Punts de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.point.sale.line,string:"
+ msgid "Sale Point Sale Line"
+ msgstr "Línia de venda TPV"
+diff --git a/tryton/modules/sale_price_list/locale/ca.po b/tryton/modules/sale_price_list/locale/ca.po
+index 2d2fa311b6..f01cc02c2e 100644
+--- a/tryton/modules/sale_price_list/locale/ca.po
++++ b/tryton/modules/sale_price_list/locale/ca.po
+@@ -54,12 +54,10 @@ msgctxt "help:sale.sale,price_list:"
+ msgid "Use to compute the unit price of lines."
+ msgstr "Utilitza per calcular el preu unitari de les línies."
+
+-#, fuzzy
+ msgctxt "model:party.party.sale_price_list,string:"
+ msgid "Party Sale Price List"
+ msgstr "Tarifa de venda per tercer"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.sale_price_list,string:"
+ msgid "Sale Configuration Sale Price List"
+ msgstr "Configuració de la tarifa de venda"
+diff --git a/tryton/modules/sale_product_customer/locale/ca.po b/tryton/modules/sale_product_customer/locale/ca.po
+index fbdeb59a5b..927e212d6c 100644
+--- a/tryton/modules/sale_product_customer/locale/ca.po
++++ b/tryton/modules/sale_product_customer/locale/ca.po
+@@ -50,7 +50,6 @@ msgctxt "model:ir.ui.menu,name:menu_product_customer"
+ msgid "Customers"
+ msgstr "Clients"
+
+-#, fuzzy
+ msgctxt "model:sale.product_customer,string:"
+ msgid "Sale Product Customer"
+ msgstr "Producte del client"
+diff --git a/tryton/modules/sale_product_recommendation/locale/ca.po b/tryton/modules/sale_product_recommendation/locale/ca.po
+index eb0077bd57..a456be47fe 100644
+--- a/tryton/modules/sale_product_recommendation/locale/ca.po
++++ b/tryton/modules/sale_product_recommendation/locale/ca.po
+@@ -36,7 +36,6 @@ msgctxt "field:sale.sale,recommended_products:"
+ msgid "Recommended Products"
+ msgstr "Productes recomanats"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.product_recommendation,string:"
+ msgid "Sale Configuration Product Recommendation"
+ msgstr "Recomanació de producte"
+diff --git a/tryton/modules/sale_product_recommendation_association_rule/locale/ca.po b/tryton/modules/sale_product_recommendation_association_rule/locale/ca.po
+index 5b974b72d1..4778f6dd9f 100644
+--- a/tryton/modules/sale_product_recommendation_association_rule/locale/ca.po
++++ b/tryton/modules/sale_product_recommendation_association_rule/locale/ca.po
+@@ -110,17 +110,14 @@ msgctxt "model:ir.ui.menu,name:menu_product_association_rule_form"
+ msgid "Sale Association Rules"
+ msgstr "Regles d'associació de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.product.association.rule,string:"
+ msgid "Sale Product Association Rule"
+ msgstr "Regles d'associació de productes"
+
+-#, fuzzy
+ msgctxt "model:sale.product.association.rule.antecedent,string:"
+ msgid "Sale Product Association Rule Antecedent"
+ msgstr "Antecedents de les regles d'assocació de productes"
+
+-#, fuzzy
+ msgctxt "model:sale.product.association.rule.consequent,string:"
+ msgid "Sale Product Association Rule Consequent"
+ msgstr "Conseqüents de les regles d'associació de productes"
+diff --git a/tryton/modules/sale_promotion/locale/ca.po b/tryton/modules/sale_promotion/locale/ca.po
+index 91a8493839..426569daf6 100644
+--- a/tryton/modules/sale_promotion/locale/ca.po
++++ b/tryton/modules/sale_promotion/locale/ca.po
+@@ -2,12 +2,10 @@
+ msgid ""
+ msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+-#, fuzzy
+ msgctxt "field:sale.line,original_amount:"
+ msgid "Original Amount"
+ msgstr "Base imponible"
+
+-#, fuzzy
+ msgctxt "field:sale.line,original_unit_price:"
+ msgid "Original Unit Price"
+ msgstr "Preu unitari esborrany"
+@@ -145,27 +143,22 @@ msgctxt "model:ir.ui.menu,name:menu_promotion"
+ msgid "Promotions"
+ msgstr "Promocions"
+
+-#, fuzzy
+ msgctxt "model:sale.promotion,string:"
+ msgid "Sale Promotion"
+ msgstr "Promoció de venda"
+
+-#, fuzzy
+ msgctxt "model:sale.promotion-product.category,string:"
+ msgid "Sale Promotion - Product Category"
+ msgstr "Promoció de venda - Categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:sale.promotion-product.product,string:"
+ msgid "Sale Promotion - Product"
+ msgstr "Promoció de venda - Producte"
+
+-#, fuzzy
+ msgctxt "model:sale.reporting.promotion,string:"
+ msgid "Sale Reporting Promotion"
+ msgstr "Informe de vendes per promoció"
+
+-#, fuzzy
+ msgctxt "view:sale.promotion:"
+ msgid "Products"
+ msgstr "Productes"
+diff --git a/tryton/modules/sale_promotion_coupon/locale/ca.po b/tryton/modules/sale_promotion_coupon/locale/ca.po
+index d39f393a57..84d0aa4c24 100644
+--- a/tryton/modules/sale_promotion_coupon/locale/ca.po
++++ b/tryton/modules/sale_promotion_coupon/locale/ca.po
+@@ -74,7 +74,6 @@ msgctxt "help:sale.promotion.coupon,per_party:"
+ msgid "Check to count usage per party."
+ msgstr "Marca per contar l'ús per tercer."
+
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_promotion_coupon_number_form"
+ msgid "Coupon Numbers"
+ msgstr "Número cupó promocional"
+@@ -110,22 +109,18 @@ msgctxt "model:ir.rule.group,name:rule_group_coupon_number_companies"
+ msgid "User in companies"
+ msgstr "Usuari a les empreses"
+
+-#, fuzzy
+ msgctxt "model:ir.ui.menu,name:menu_promotion_coupon_number"
+ msgid "Coupon Numbers"
+ msgstr "Número cupó promocional"
+
+-#, fuzzy
+ msgctxt "model:sale.promotion.coupon,string:"
+ msgid "Sale Promotion Coupon"
+ msgstr "Cupó promocional"
+
+-#, fuzzy
+ msgctxt "model:sale.promotion.coupon.number,string:"
+ msgid "Sale Promotion Coupon Number"
+ msgstr "Venda - Número de cupó promocional"
+
+-#, fuzzy
+ msgctxt "model:sale.sale-sale.promotion.coupon.number,string:"
+ msgid "Sale - Sale Promotion Coupon Number"
+ msgstr "Venda - Número de cupó promocional"
+diff --git a/tryton/modules/sale_shipment_cost/locale/ca.po b/tryton/modules/sale_shipment_cost/locale/ca.po
+index d72d90d020..83eace3293 100644
+--- a/tryton/modules/sale_shipment_cost/locale/ca.po
++++ b/tryton/modules/sale_shipment_cost/locale/ca.po
+@@ -126,7 +126,6 @@ msgstr ""
+ "Per facturar el cost de l'enviament \"%(shipment)s\" heu de definir un "
+ "compte d'ingressos pel producte \"%(product)s\"."
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.cost_sale,string:"
+ msgid "Stock Shipment Cost Sale"
+ msgstr "Cost de venda dels enviaments"
+diff --git a/tryton/modules/sale_shipment_grouping/locale/ca.po b/tryton/modules/sale_shipment_grouping/locale/ca.po
+index 512728dfde..b03ea6426b 100644
+--- a/tryton/modules/sale_shipment_grouping/locale/ca.po
++++ b/tryton/modules/sale_shipment_grouping/locale/ca.po
+@@ -35,7 +35,6 @@ msgctxt "help:sale.configuration.sale_method,sale_shipment_grouping_method:"
+ msgid "The default shipment grouping method for new customers."
+ msgstr "El mètode d'agrupació per defecte per als nous clients."
+
+-#, fuzzy
+ msgctxt "model:party.party.sale_shipment_grouping_method,string:"
+ msgid "Party Sale Shipment Grouping Method"
+ msgstr "Mètode d'agrupació albarans de venda"
+diff --git a/tryton/modules/sale_shipment_tolerance/locale/ca.po b/tryton/modules/sale_shipment_tolerance/locale/ca.po
+index 367d52f42f..622e5b80f0 100644
+--- a/tryton/modules/sale_shipment_tolerance/locale/ca.po
++++ b/tryton/modules/sale_shipment_tolerance/locale/ca.po
+@@ -47,7 +47,6 @@ msgstr ""
+ "La línia de venda \"%(line)s\" sobrepassa la tolerància d'enviament excessiu"
+ " (%(shipped)s enviat > %(maximal)s )."
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.shipment_tolerance,string:"
+ msgid "Sale Configuration Shipment Tolerance"
+ msgstr "Configuració de la tolerància d'enviament de venda"
+diff --git a/tryton/modules/sale_subscription/locale/ca.po b/tryton/modules/sale_subscription/locale/ca.po
+index 693fe10b2f..38a1daf024 100644
+--- a/tryton/modules/sale_subscription/locale/ca.po
++++ b/tryton/modules/sale_subscription/locale/ca.po
+@@ -523,54 +523,44 @@ msgctxt "model:ir.ui.menu,name:menu_subscription_form"
+ msgid "Subscriptions"
+ msgstr "Subscripcions"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription,string:"
+ msgid "Sale Subscription"
+ msgstr "Subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.create_invoice.start,string:"
+ msgid "Sale Subscription Create Invoice Start"
+ msgstr "Crea factures de subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.line,string:"
+ msgid "Sale Subscription Line"
+ msgstr "Línia de subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.line.consumption,string:"
+ msgid "Sale Subscription Line Consumption"
+ msgstr "Consum de Línia de subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.line.consumption.create.start,string:"
+ msgid "Sale Subscription Line Consumption Create Start"
+ msgstr "Crea els consums de subscripció fins la data"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.recurrence.rule,string:"
+ msgid "Sale Subscription Recurrence Rule"
+ msgstr "Regles de recurrència de les subscripcions"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.recurrence.rule.set,string:"
+ msgid "Sale Subscription Recurrence Rule Set"
+ msgstr "Conjunt de regles de recurrència de les subscripcions"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.recurrence.rule.set.test,string:"
+ msgid "Sale Subscription Recurrence Rule Set Test"
+ msgstr ""
+ "Resultat de la prova del conjunt de regles de recurrència de la subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.recurrence.rule.set.test.result,string:"
+ msgid "Sale Subscription Recurrence Rule Set Test Result"
+ msgstr ""
+ "Resultat de la prova del conjunt de regles de recurrència de la subscripció"
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.service,string:"
+ msgid "Sale Subscription Service"
+ msgstr "Serveis de subcripció"
+diff --git a/tryton/modules/sale_subscription_asset/locale/ca.po b/tryton/modules/sale_subscription_asset/locale/ca.po
+index 0fc1fe2fbc..29ebe8cf24 100644
+--- a/tryton/modules/sale_subscription_asset/locale/ca.po
++++ b/tryton/modules/sale_subscription_asset/locale/ca.po
+@@ -45,7 +45,6 @@ msgstr ""
+ "Les dates de les línies de subscripció amb el mateix lot d'actius no es "
+ "poden solapar."
+
+-#, fuzzy
+ msgctxt "model:sale.subscription.service-stock.lot.asset,string:"
+ msgid "Sale Subscription Service - Stock Lot Asset"
+ msgstr "Servei de subscripció - Lot del actiu"
+diff --git a/tryton/modules/sale_supply_drop_shipment/locale/ca.po b/tryton/modules/sale_supply_drop_shipment/locale/ca.po
+index 232bd4acb4..06eba0aefa 100644
+--- a/tryton/modules/sale_supply_drop_shipment/locale/ca.po
++++ b/tryton/modules/sale_supply_drop_shipment/locale/ca.po
+@@ -248,12 +248,10 @@ msgctxt "model:ir.ui.menu,name:menu_shipment_drop_form"
+ msgid "Drop Shipments"
+ msgstr "Enviaments directes"
+
+-#, fuzzy
+ msgctxt "model:purchase.configuration.purchase_drop_location,string:"
+ msgid "Purchase Configuration Purchase Drop Location"
+ msgstr "Configuració de la ubicació d'enviament directe per les compres"
+
+-#, fuzzy
+ msgctxt "model:sale.configuration.sale_drop_location,string:"
+ msgid "Sale Configuration Sale Drop Location"
+ msgstr "Configuració de la ubicació d'enviament directe per les vendes"
+@@ -262,7 +260,6 @@ msgctxt "model:stock.location,name:location_drop"
+ msgid "Drop"
+ msgstr "Enviament directe"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.drop,string:"
+ msgid "Stock Shipment Drop"
+ msgstr "Enviament directe"
+diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
+index 789fd92bf9..76cf2cfff9 100644
+--- a/tryton/modules/stock/locale/ca.po
++++ b/tryton/modules/stock/locale/ca.po
+@@ -870,7 +870,6 @@ msgctxt "field:stock.shipment.internal,incoming_moves:"
+ msgid "Incoming Moves"
+ msgstr "Moviments d'entrada"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,internal_transit_location:"
+ msgid "Internal Transit Location"
+ msgstr "Ubicació en tránsit"
+@@ -887,7 +886,6 @@ msgctxt "field:stock.shipment.internal,outgoing_moves:"
+ msgid "Outgoing Moves"
+ msgstr "Moviments de sortida"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,packed_by:"
+ msgid "Packed By"
+ msgstr "Empaquetat per"
+@@ -1309,7 +1307,6 @@ msgctxt "help:stock.location,type:"
+ msgid "Regroup storage locations under a logistics warehouse."
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "help:stock.location,type:"
+ msgid "Used as the destination for stock sent to customers."
+ msgstr ""
+@@ -1320,7 +1317,6 @@ msgid ""
+ "Used as the destination of components and the source of finished products."
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "help:stock.location,type:"
+ msgid "Used as the source of stock received from suppliers."
+ msgstr "La ubicació origen predeterminada per rebre productes del tercer."
+@@ -1678,7 +1674,6 @@ msgctxt "model:ir.action,name:act_location_lead_time_form"
+ msgid "Location Lead Times"
+ msgstr "Temps d'espera entre ubicacions"
+
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_location_list"
+ msgid "Locations"
+ msgstr "Ubicacions"
+@@ -1928,7 +1923,6 @@ msgctxt ""
+ msgid "Draft"
+ msgstr "Esborrany"
+
+-#, fuzzy
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_shipment_internal_form_domain_packed"
+ msgid "Packed"
+@@ -2445,7 +2439,6 @@ msgctxt "model:ir.model.button,string:shipment_internal_draft_button"
+ msgid "Draft"
+ msgstr "Esborrany"
+
+-#, fuzzy
+ msgctxt "model:ir.model.button,string:shipment_internal_pack_button"
+ msgid "Pack"
+ msgstr "Empaqueta"
+@@ -2646,7 +2639,6 @@ msgctxt "model:ir.ui.menu,name:menu_location_lead_time_form"
+ msgid "Location Lead Times"
+ msgstr "Temps d'espera entre ubicacions"
+
+-#, fuzzy
+ msgctxt "model:ir.ui.menu,name:menu_location_list"
+ msgid "Locations"
+ msgstr "Ubicacions"
+@@ -2707,32 +2699,26 @@ msgctxt "model:ir.ui.menu,name:menu_warehouse_list"
+ msgid "Warehouses"
+ msgstr "Magatzems"
+
+-#, fuzzy
+ msgctxt "model:party.party-delivered_to-stock.location,string:"
+ msgid "Party - Delivered To - Stock Location"
+ msgstr "Tercer entregat al magatzem"
+
+-#, fuzzy
+ msgctxt "model:party.party.location,string:"
+ msgid "Party Location"
+ msgstr "Ubicació del tercer"
+
+-#, fuzzy
+ msgctxt "model:product.by_location.context,string:"
+ msgid "Product By Location Context"
+ msgstr "Producte per ubicacions"
+
+-#, fuzzy
+ msgctxt "model:product.cost_price.revision,string:"
+ msgid "Product Cost Price Revision"
+ msgstr "Revisió de preu de cost"
+
+-#, fuzzy
+ msgctxt "model:product.modify_cost_price.start,string:"
+ msgid "Product Modify Cost Price Start"
+ msgstr "Preu de cost del producte"
+
+-#, fuzzy
+ msgctxt "model:product.recompute_cost_price.start,string:"
+ msgid "Product Recompute Cost Price Start"
+ msgstr "Recalcula preu de cost"
+@@ -2749,37 +2735,30 @@ msgctxt "model:res.group,name:group_stock_force_assignment"
+ msgid "Stock Force Assignment"
+ msgstr "Forçar reserves a logística"
+
+-#, fuzzy
+ msgctxt "model:stock.configuration,string:"
+ msgid "Stock Configuration"
+ msgstr "Configuració d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.configuration.location,string:"
+ msgid "Stock Configuration Location"
+ msgstr "Configuració d'ubicacions d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.configuration.sequence,string:"
+ msgid "Stock Configuration Sequence"
+ msgstr "Configuració de seqüencies d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.inventory,string:"
+ msgid "Stock Inventory"
+ msgstr "Inventari d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.inventory.count.quantity,string:"
+ msgid "Stock Inventory Count Quantity"
+ msgstr "Recompte d'inventari"
+
+-#, fuzzy
+ msgctxt "model:stock.inventory.count.search,string:"
+ msgid "Stock Inventory Count Search"
+ msgstr "Recompte d'inventari"
+
+-#, fuzzy
+ msgctxt "model:stock.inventory.line,string:"
+ msgid "Stock Inventory Line"
+ msgstr "Línia d'inventari d'existències"
+@@ -2816,97 +2795,78 @@ msgctxt "model:stock.location,name:location_warehouse"
+ msgid "Warehouse"
+ msgstr "Magatzem"
+
+-#, fuzzy
+ msgctxt "model:stock.location,string:"
+ msgid "Stock Location"
+ msgstr "Ubicació d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.location.lead_time,string:"
+ msgid "Stock Location Lead Time"
+ msgstr "Ubicació temps d'espera"
+
+-#, fuzzy
+ msgctxt "model:stock.location.waste,string:"
+ msgid "Stock Location Waste"
+ msgstr "Llista d'ubicacions d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.move,string:"
+ msgid "Stock Move"
+ msgstr "Moviment d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.period,string:"
+ msgid "Stock Period"
+ msgstr "Període d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.period.cache,string:"
+ msgid "Stock Period Cache"
+ msgstr "Període d'existències precalculat"
+
+-#, fuzzy
+ msgctxt "model:stock.product_quantities_warehouse,string:"
+ msgid "Stock Product Quantities Warehouse"
+ msgstr "Quantitats de producte per magatzem"
+
+-#, fuzzy
+ msgctxt "model:stock.product_quantities_warehouse.context,string:"
+ msgid "Stock Product Quantities Warehouse Context"
+ msgstr "Quantitats de producte per moviments de magatzem"
+
+-#, fuzzy
+ msgctxt "model:stock.product_quantities_warehouse.move,string:"
+ msgid "Stock Product Quantities Warehouse Move"
+ msgstr "Quantitats de producte per moviments de magatzem"
+
+-#, fuzzy
+ msgctxt "model:stock.products_by_locations,string:"
+ msgid "Stock Products By Locations"
+ msgstr "Productes per ubicacions"
+
+-#, fuzzy
+ msgctxt "model:stock.products_by_locations.context,string:"
+ msgid "Stock Products By Locations Context"
+ msgstr "Productes per ubicacions"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.category,string:"
+ msgid "Stock Reporting Margin Category"
+ msgstr "Informe de marges per categoria"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.category.time_series,string:"
+ msgid "Stock Reporting Margin Category Time Series"
+ msgstr "Informe de marges per categoria"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.category.tree,string:"
+ msgid "Stock Reporting Margin Category Tree"
+ msgstr "Informe de marges per categoria"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.context,string:"
+ msgid "Stock Reporting Margin Context"
+ msgstr "Contexte dels informes de marges"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.main,string:"
+ msgid "Stock Reporting Margin Main"
+ msgstr "Informe de marge d'estoc"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.main.time_series,string:"
+ msgid "Stock Reporting Margin Main Time Series"
+ msgstr "Informe de marges per categoria"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.product,string:"
+ msgid "Stock Reporting Margin Product"
+ msgstr "Informe de marges per producte"
+
+-#, fuzzy
+ msgctxt "model:stock.reporting.margin.product.time_series,string:"
+ msgid "Stock Reporting Margin Product Time Series"
+ msgstr "Informe de marges per producte"
+@@ -2915,22 +2875,18 @@ msgctxt "model:stock.shipment.assign.partial,string:"
+ msgid "Stock Shipment Assign Partial"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.in,string:"
+ msgid "Stock Shipment In"
+ msgstr "Albarà de client"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.in.return,string:"
+ msgid "Stock Shipment In Return"
+ msgstr "Reserva albarà intern"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.internal,string:"
+ msgid "Stock Shipment Internal"
+ msgstr "Reserva albarà intern"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.out,string:"
+ msgid "Stock Shipment Out"
+ msgstr "Albarà de client"
+@@ -3375,7 +3331,6 @@ msgctxt "selection:stock.shipment.internal,state:"
+ msgid "Draft"
+ msgstr "Esborrany"
+
+-#, fuzzy
+ msgctxt "selection:stock.shipment.internal,state:"
+ msgid "Packed"
+ msgstr "Empaquetat"
+diff --git a/tryton/modules/stock_assign_manual/locale/ca.po b/tryton/modules/stock_assign_manual/locale/ca.po
+index 8a5715939b..0f26bdbd75 100644
+--- a/tryton/modules/stock_assign_manual/locale/ca.po
++++ b/tryton/modules/stock_assign_manual/locale/ca.po
+@@ -125,12 +125,10 @@ msgctxt ""
+ msgid "Manual Assign"
+ msgstr "Reserva manual"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.assign.manual.show,string:"
+ msgid "Stock Shipment Assign Manual Show"
+ msgstr "Moviments de l'albarà reservats"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.assigned.move,string:"
+ msgid "Stock Shipment Assigned Move"
+ msgstr "Moviments de l'albarà reservats"
+diff --git a/tryton/modules/stock_forecast/locale/ca.po b/tryton/modules/stock_forecast/locale/ca.po
+index 52ef1781ea..3589ba5964 100644
+--- a/tryton/modules/stock_forecast/locale/ca.po
++++ b/tryton/modules/stock_forecast/locale/ca.po
+@@ -160,17 +160,14 @@ msgctxt "model:res.group,name:group_stock_forecast"
+ msgid "Stock Forecast"
+ msgstr "Previsió d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.forecast,string:"
+ msgid "Stock Forecast"
+ msgstr "Previsió d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.forecast.complete.ask,string:"
+ msgid "Stock Forecast Complete Ask"
+ msgstr "Línia de previsió d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.forecast.line,string:"
+ msgid "Stock Forecast Line"
+ msgstr "Línia de previsió d'existències"
+diff --git a/tryton/modules/stock_location_move/locale/ca.po b/tryton/modules/stock_location_move/locale/ca.po
+index 4d97a4a5a0..e2ab977de2 100644
+--- a/tryton/modules/stock_location_move/locale/ca.po
++++ b/tryton/modules/stock_location_move/locale/ca.po
+@@ -41,7 +41,6 @@ msgctxt "model:res.group,name:group_stock_location_movable"
+ msgid "Stock Location Movable"
+ msgstr "Ubicacions d'existències movibles"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.internal-location,string:"
+ msgid "Stock Shipment Internal - Location"
+ msgstr "Albarà intern - Ubicació"
+diff --git a/tryton/modules/stock_lot/locale/ca.po b/tryton/modules/stock_lot/locale/ca.po
+index 153893ca4f..622768e0e7 100644
+--- a/tryton/modules/stock_lot/locale/ca.po
++++ b/tryton/modules/stock_lot/locale/ca.po
+@@ -329,27 +329,22 @@ msgctxt "model:ir.ui.menu,name:menu_lot_form"
+ msgid "Lots"
+ msgstr "Lots"
+
+-#, fuzzy
+ msgctxt "model:product.configuration.default_lot_sequence,string:"
+ msgid "Product Configuration Default Lot Sequence"
+ msgstr "Configuració de les seqüències de lots"
+
+-#, fuzzy
+ msgctxt "model:stock.lot,string:"
+ msgid "Stock Lot"
+ msgstr "Lot"
+
+-#, fuzzy
+ msgctxt "model:stock.lot.trace,string:"
+ msgid "Stock Lot Trace"
+ msgstr "Lot"
+
+-#, fuzzy
+ msgctxt "model:stock.lots_by_location.context,string:"
+ msgid "Stock Lots By Location Context"
+ msgstr "Llista d'ubicacions d'existències"
+
+-#, fuzzy
+ msgctxt "model:stock.lots_by_locations,string:"
+ msgid "Stock Lots By Locations"
+ msgstr "Lots per ubicació"
+@@ -362,7 +357,6 @@ msgctxt "model:stock.move.add.lots.start.lot,string:"
+ msgid "Stock Move Add Lots Start Lot"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:stock.period.cache.lot,string:"
+ msgid "Stock Period Cache Lot"
+ msgstr "Període d'existències precalculat per lot"
+diff --git a/tryton/modules/stock_lot_sled/locale/ca.po b/tryton/modules/stock_lot_sled/locale/ca.po
+index 2d11a18b18..18481d5af1 100644
+--- a/tryton/modules/stock_lot_sled/locale/ca.po
++++ b/tryton/modules/stock_lot_sled/locale/ca.po
+@@ -127,7 +127,6 @@ msgctxt "model:res.group,name:group_stock_force_expiration"
+ msgid "Stock Force Expiration"
+ msgstr "Forçar caducitats a logística"
+
+-#, fuzzy
+ msgctxt "model:stock.location.lot.shelf_life,string:"
+ msgid "Stock Location Lot Shelf Life"
+ msgstr "Configuració del retard de la vida útil"
+diff --git a/tryton/modules/stock_package/locale/ca.po b/tryton/modules/stock_package/locale/ca.po
+index bc9ea954e5..926a1ca1a1 100644
+--- a/tryton/modules/stock_package/locale/ca.po
++++ b/tryton/modules/stock_package/locale/ca.po
+@@ -142,12 +142,10 @@ msgctxt "field:stock.shipment.in.return,root_packages:"
+ msgid "Packages"
+ msgstr "Paquets"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,packages:"
+ msgid "Packages"
+ msgstr "Paquets"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,root_packages:"
+ msgid "Packages"
+ msgstr "Paquets"
+@@ -276,12 +274,10 @@ msgctxt "model:ir.ui.menu,name:menu_package_form"
+ msgid "Package Types"
+ msgstr "Tipus de paquet"
+
+-#, fuzzy
+ msgctxt "model:stock.package,string:"
+ msgid "Stock Package"
+ msgstr "Paquet"
+
+-#, fuzzy
+ msgctxt "model:stock.package.type,string:"
+ msgid "Stock Package Type"
+ msgstr "Tipus de paquet"
+diff --git a/tryton/modules/stock_package_shipping/locale/ca.po b/tryton/modules/stock_package_shipping/locale/ca.po
+index 8feeb458b2..dde30ff3ac 100644
+--- a/tryton/modules/stock_package_shipping/locale/ca.po
++++ b/tryton/modules/stock_package_shipping/locale/ca.po
+@@ -46,22 +46,18 @@ msgctxt "field:stock.shipment.in.return,shipping_reference:"
+ msgid "Shipping Reference"
+ msgstr "Referència de l'enviament"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,carrier:"
+ msgid "Carrier"
+ msgstr "Transportista"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,has_shipping_service:"
+ msgid "Has Shipping Service"
+ msgstr "Té servei d'enviament"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,shipping_description:"
+ msgid "Shipping Description"
+ msgstr "Descripció de l'enviament"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,shipping_reference:"
+ msgid "Shipping Reference"
+ msgstr "Referència de l'enviament"
+@@ -111,7 +107,6 @@ msgctxt ""
+ msgid "Create Shipping for Packages"
+ msgstr "Crea enviament per paquets"
+
+-#, fuzzy
+ msgctxt ""
+ "model:ir.model.button,string:shipment_internal_create_shipping_button"
+ msgid "Create Shipping for Packages"
+diff --git a/tryton/modules/stock_package_shipping_dpd/locale/ca.po b/tryton/modules/stock_package_shipping_dpd/locale/ca.po
+index c25afc706b..edee008a65 100644
+--- a/tryton/modules/stock_package_shipping_dpd/locale/ca.po
++++ b/tryton/modules/stock_package_shipping_dpd/locale/ca.po
+@@ -50,7 +50,6 @@ msgstr ""
+ "El canal de notificació preferit. \n"
+ "Deixeu-ho en blanc per desactivar la notificació."
+
+-#, fuzzy
+ msgctxt "model:carrier.credential.dpd,string:"
+ msgid "Carrier Credential Dpd"
+ msgstr "Credencial DPD"
+diff --git a/tryton/modules/stock_package_shipping_sendcloud/locale/ca.po b/tryton/modules/stock_package_shipping_sendcloud/locale/ca.po
+index fb372547de..69f232e5f7 100644
+--- a/tryton/modules/stock_package_shipping_sendcloud/locale/ca.po
++++ b/tryton/modules/stock_package_shipping_sendcloud/locale/ca.po
+@@ -86,12 +86,10 @@ msgctxt "model:carrier.credential.sendcloud,string:"
+ msgid "Carrier Credential Sendcloud"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:carrier.sendcloud.address,string:"
+ msgid "Carrier Sendcloud Address"
+ msgstr "Adreça Sendcloud"
+
+-#, fuzzy
+ msgctxt "model:carrier.sendcloud.shipping_method,string:"
+ msgid "Carrier Sendcloud Shipping Method"
+ msgstr "Mètode d'enviament Sendcloud"
+diff --git a/tryton/modules/stock_package_shipping_ups/locale/ca.po b/tryton/modules/stock_package_shipping_ups/locale/ca.po
+index 271440bd9b..89f9d7f0fd 100644
+--- a/tryton/modules/stock_package_shipping_ups/locale/ca.po
++++ b/tryton/modules/stock_package_shipping_ups/locale/ca.po
+@@ -46,7 +46,6 @@ msgctxt "field:stock.package.type,ups_code:"
+ msgid "UPS Code"
+ msgstr "Codi UPS"
+
+-#, fuzzy
+ msgctxt "model:carrier.credential.ups,string:"
+ msgid "Carrier Credential Ups"
+ msgstr "Credencials UPS"
+diff --git a/tryton/modules/stock_product_location/locale/ca.po b/tryton/modules/stock_product_location/locale/ca.po
+index ad55f1c605..a65318b3d1 100644
+--- a/tryton/modules/stock_product_location/locale/ca.po
++++ b/tryton/modules/stock_product_location/locale/ca.po
+@@ -26,7 +26,6 @@ msgctxt "field:stock.product.location,warehouse:"
+ msgid "Warehouse"
+ msgstr "Magatzem"
+
+-#, fuzzy
+ msgctxt "model:stock.product.location,string:"
+ msgid "Stock Product Location"
+ msgstr "Ubicació de producte"
+diff --git a/tryton/modules/stock_product_location_place/locale/ca.po b/tryton/modules/stock_product_location_place/locale/ca.po
+index 01811b8f72..b0a9736f93 100644
+--- a/tryton/modules/stock_product_location_place/locale/ca.po
++++ b/tryton/modules/stock_product_location_place/locale/ca.po
+@@ -10,7 +10,6 @@ msgctxt "field:product.template,location_places:"
+ msgid "Places per Location"
+ msgstr "Llocs per ubicació"
+
+-#, fuzzy
+ msgctxt "field:stock.inventory.line,place:"
+ msgid "Place"
+ msgstr "Lloc"
+@@ -47,7 +46,6 @@ msgctxt "model:ir.message,text:msg_stock_product_location_unique"
+ msgid "Only one product place can be defined per location."
+ msgstr "Només es pot definir un lloc pel producte per cada ubicació."
+
+-#, fuzzy
+ msgctxt "model:stock.product.location.place,string:"
+ msgid "Stock Product Location Place"
+ msgstr "Lloc ubicació producte"
+diff --git a/tryton/modules/stock_quantity_early_planning/locale/ca.po b/tryton/modules/stock_quantity_early_planning/locale/ca.po
+index cdc2fb230a..c77c42d253 100644
+--- a/tryton/modules/stock_quantity_early_planning/locale/ca.po
++++ b/tryton/modules/stock_quantity_early_planning/locale/ca.po
+@@ -121,12 +121,10 @@ msgctxt "model:ir.ui.menu,name:menu_quantity_early_plan_generate"
+ msgid "Generate Stock Quantity Early Planning"
+ msgstr "Genera planificacions de disponiblitat anticipada"
+
+-#, fuzzy
+ msgctxt "model:stock.quantity.early_plan,string:"
+ msgid "Stock Quantity Early Plan"
+ msgstr "Planificació de disponiblitat anticipada"
+
+-#, fuzzy
+ msgctxt "model:stock.quantity.early_plan.generate.start,string:"
+ msgid "Stock Quantity Early Plan Generate Start"
+ msgstr "Genera planificació de disponiblitat anticipada"
+diff --git a/tryton/modules/stock_quantity_issue/locale/ca.po b/tryton/modules/stock_quantity_issue/locale/ca.po
+index 55afa33c3e..a860cbe8ed 100644
+--- a/tryton/modules/stock_quantity_issue/locale/ca.po
++++ b/tryton/modules/stock_quantity_issue/locale/ca.po
+@@ -135,17 +135,14 @@ msgctxt "model:ir.ui.menu,name:menu_quantity_issue_generate"
+ msgid "Generate Stock Quantity Issues"
+ msgstr "Genera incidències d'aprovisionament"
+
+-#, fuzzy
+ msgctxt "model:stock.quantity.issue,string:"
+ msgid "Stock Quantity Issue"
+ msgstr "Incidències d'aprovisionament"
+
+-#, fuzzy
+ msgctxt "model:stock.quantity.issue.generate.start,string:"
+ msgid "Stock Quantity Issue Generate Start"
+ msgstr "Incidències d'aprovisionament"
+
+-#, fuzzy
+ msgctxt "model:stock.quantity.issue.product,string:"
+ msgid "Stock Quantity Issue Product"
+ msgstr "Productes amb incidències d'aprovisionament"
+diff --git a/tryton/modules/stock_shipment_measurements/locale/ca.po b/tryton/modules/stock_shipment_measurements/locale/ca.po
+index b1513be16b..4f00c62e81 100644
+--- a/tryton/modules/stock_shipment_measurements/locale/ca.po
++++ b/tryton/modules/stock_shipment_measurements/locale/ca.po
+@@ -126,32 +126,26 @@ msgctxt "field:stock.shipment.in.return,weight_uom:"
+ msgid "Weight UoM"
+ msgstr "UdM del pes"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,internal_volume:"
+ msgid "Internal Volume"
+ msgstr "Volum intern"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,internal_weight:"
+ msgid "Internal Weight"
+ msgstr "Pes intern"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,volume:"
+ msgid "Volume"
+ msgstr "Volum"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,volume_uom:"
+ msgid "Volume UoM"
+ msgstr "UdM del volum"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,weight:"
+ msgid "Weight"
+ msgstr "Pes"
+
+-#, fuzzy
+ msgctxt "field:stock.shipment.internal,weight_uom:"
+ msgid "Weight UoM"
+ msgstr "UdM del pes"
+@@ -300,22 +294,18 @@ msgctxt "help:stock.shipment.in.return,weight_uom:"
+ msgid "The Unit of Measure of weight."
+ msgstr "La unitat de mesura del pes."
+
+-#, fuzzy
+ msgctxt "help:stock.shipment.internal,volume:"
+ msgid "The total volume of the record's moves."
+ msgstr "El volum total dels moviments del registre."
+
+-#, fuzzy
+ msgctxt "help:stock.shipment.internal,volume_uom:"
+ msgid "The Unit of Measure of volume."
+ msgstr "La unitat de mesura del volum."
+
+-#, fuzzy
+ msgctxt "help:stock.shipment.internal,weight:"
+ msgid "The total weight of the record's moves."
+ msgstr "El pes total dels moviments del registre."
+
+-#, fuzzy
+ msgctxt "help:stock.shipment.internal,weight_uom:"
+ msgid "The Unit of Measure of weight."
+ msgstr "La unitat de mesura del pes."
+@@ -360,7 +350,6 @@ msgctxt "help:stock.shipment.out.return,weight_uom:"
+ msgid "The Unit of Measure of weight."
+ msgstr "La unitat de mesura del pes."
+
+-#, fuzzy
+ msgctxt "model:stock.configuration.measurement,string:"
+ msgid "Stock Configuration Measurement"
+ msgstr "Configuració de les mesures de logística"
+@@ -389,7 +378,6 @@ msgctxt "view:stock.shipment.in:"
+ msgid "Measurements"
+ msgstr "Mesures"
+
+-#, fuzzy
+ msgctxt "view:stock.shipment.internal:"
+ msgid "Measurements"
+ msgstr "Mesures"
+diff --git a/tryton/modules/stock_supply/locale/ca.po b/tryton/modules/stock_supply/locale/ca.po
+index 165ddb2b5b..47d7a0834f 100644
+--- a/tryton/modules/stock_supply/locale/ca.po
++++ b/tryton/modules/stock_supply/locale/ca.po
+@@ -153,12 +153,10 @@ msgctxt "model:ir.ui.menu,name:menu_stock_supply"
+ msgid "Supply Stock"
+ msgstr "Aprovisiona existències"
+
+-#, fuzzy
+ msgctxt "model:purchase.configuration.supply_period,string:"
+ msgid "Purchase Configuration Supply Period"
+ msgstr "Configuració del període d'aprovisionament en compres"
+
+-#, fuzzy
+ msgctxt "model:stock.order_point,string:"
+ msgid "Stock Order Point"
+ msgstr "Regla de proveïment"
+diff --git a/tryton/modules/stock_supply_day/locale/ca.po b/tryton/modules/stock_supply_day/locale/ca.po
+index e0f19359f8..69afbb7688 100644
+--- a/tryton/modules/stock_supply_day/locale/ca.po
++++ b/tryton/modules/stock_supply_day/locale/ca.po
+@@ -14,7 +14,6 @@ msgctxt "field:purchase.product_supplier.day,product_supplier:"
+ msgid "Supplier"
+ msgstr "Proveïdor"
+
+-#, fuzzy
+ msgctxt "model:purchase.product_supplier.day,string:"
+ msgid "Purchase Product Supplier Day"
+ msgstr "Dia del proveïdor del producte"
+diff --git a/tryton/modules/stock_supply_production/locale/ca.po b/tryton/modules/stock_supply_production/locale/ca.po
+index 02281fd644..b21e54e11e 100644
+--- a/tryton/modules/stock_supply_production/locale/ca.po
++++ b/tryton/modules/stock_supply_production/locale/ca.po
+@@ -23,7 +23,6 @@ msgctxt "model:ir.message,text:msg_late_productions"
+ msgid "There are some productions that are late."
+ msgstr "Hi ha algunes produccions endarrerides."
+
+-#, fuzzy
+ msgctxt "model:production.configuration.supply_period,string:"
+ msgid "Production Configuration Supply Period"
+ msgstr "Configuració del període de subministre de la producció"
+diff --git a/tryton/modules/timesheet/locale/ca.po b/tryton/modules/timesheet/locale/ca.po
+index 911f6e9cec..133496c057 100644
+--- a/tryton/modules/timesheet/locale/ca.po
++++ b/tryton/modules/timesheet/locale/ca.po
+@@ -348,42 +348,34 @@ msgctxt "model:res.group,name:group_timesheet_admin"
+ msgid "Timesheet Administration"
+ msgstr "Administració de fulls de treball"
+
+-#, fuzzy
+ msgctxt "model:timesheet.hours_employee,string:"
+ msgid "Timesheet Hours Employee"
+ msgstr "Hores per empleat"
+
+-#, fuzzy
+ msgctxt "model:timesheet.hours_employee.context,string:"
+ msgid "Timesheet Hours Employee Context"
+ msgstr "Context hores per empleat"
+
+-#, fuzzy
+ msgctxt "model:timesheet.hours_employee_monthly,string:"
+ msgid "Timesheet Hours Employee Monthly"
+ msgstr "Hores per empleat i mes"
+
+-#, fuzzy
+ msgctxt "model:timesheet.hours_employee_weekly,string:"
+ msgid "Timesheet Hours Employee Weekly"
+ msgstr "Hores per empleat i setmana"
+
+-#, fuzzy
+ msgctxt "model:timesheet.line,string:"
+ msgid "Timesheet Line"
+ msgstr "Línia de full de treball"
+
+-#, fuzzy
+ msgctxt "model:timesheet.line.enter.start,string:"
+ msgid "Timesheet Line Enter Start"
+ msgstr "Inici del full de treball"
+
+-#, fuzzy
+ msgctxt "model:timesheet.work,string:"
+ msgid "Timesheet Work"
+ msgstr "Full de treball"
+
+-#, fuzzy
+ msgctxt "model:timesheet.work.context,string:"
+ msgid "Timesheet Work Context"
+ msgstr "Context treball"
+diff --git a/tryton/modules/timesheet_cost/locale/ca.po b/tryton/modules/timesheet_cost/locale/ca.po
+index 463cde6751..7e3dd6ce2f 100644
+--- a/tryton/modules/timesheet_cost/locale/ca.po
++++ b/tryton/modules/timesheet_cost/locale/ca.po
+@@ -38,7 +38,6 @@ msgctxt "help:company.employee_cost_price,cost_price:"
+ msgid "Hourly cost price."
+ msgstr "Preu de cost per hora."
+
+-#, fuzzy
+ msgctxt "model:company.employee_cost_price,string:"
+ msgid "Company Employee Cost Price"
+ msgstr "Preu de cost de l'empleat"
+diff --git a/tryton/modules/user_role/locale/ca.po b/tryton/modules/user_role/locale/ca.po
+index a9ae6a61f7..6b57c50cfe 100644
+--- a/tryton/modules/user_role/locale/ca.po
++++ b/tryton/modules/user_role/locale/ca.po
+@@ -46,17 +46,14 @@ msgctxt "model:ir.ui.menu,name:menu_role_form"
+ msgid "Roles"
+ msgstr "Rols"
+
+-#, fuzzy
+ msgctxt "model:res.role,string:"
+ msgid "Role"
+ msgstr "Rol"
+
+-#, fuzzy
+ msgctxt "model:res.role-res.group,string:"
+ msgid "Role - Group"
+ msgstr "Rol - Grup"
+
+-#, fuzzy
+ msgctxt "model:res.user.role,string:"
+ msgid "User Role"
+ msgstr "Rol d'usuari"
+diff --git a/tryton/modules/web_shop/locale/ca.po b/tryton/modules/web_shop/locale/ca.po
+index 48a6d7830b..103bf02a76 100644
+--- a/tryton/modules/web_shop/locale/ca.po
++++ b/tryton/modules/web_shop/locale/ca.po
+@@ -209,7 +209,6 @@ msgstr ""
+ "Per a processar la venda \"%(sale)s\" heu de seleccionar un tercer diferent "
+ "del invitat \"%(party)s\"."
+
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_web_shop_id_unique"
+ msgid "The web ID on the sale must be unique per shop."
+ msgstr "El ID de la botiga web ha de ser únic."
+@@ -226,32 +225,26 @@ msgctxt "model:ir.ui.menu,name:menu_shop"
+ msgid "Web Shops"
+ msgstr "Botigues web"
+
+-#, fuzzy
+ msgctxt "model:web.shop,string:"
+ msgid "Web Shop"
+ msgstr "Botiga Web"
+
+-#, fuzzy
+ msgctxt "model:web.shop-country.country,string:"
+ msgid "Web Shop - Country"
+ msgstr "Botiga web - País"
+
+-#, fuzzy
+ msgctxt "model:web.shop-product.attribute,string:"
+ msgid "Web Shop - Product Attribute"
+ msgstr "Botiga Web - Atribut"
+
+-#, fuzzy
+ msgctxt "model:web.shop-product.category,string:"
+ msgid "Web Shop - Product Category"
+ msgstr "Botiga web - Categoria de producte"
+
+-#, fuzzy
+ msgctxt "model:web.shop-product.product,string:"
+ msgid "Web Shop - Product"
+ msgstr "Botiga web - Producte"
+
+-#, fuzzy
+ msgctxt "model:web.shop-stock.location,string:"
+ msgid "Web Shop - Stock Location"
+ msgstr "Botiga web - Categoria de producte"
+diff --git a/tryton/modules/web_shop_product_data_feed/locale/ca.po b/tryton/modules/web_shop_product_data_feed/locale/ca.po
+index 4ca94823ef..6e396d6ed9 100644
+--- a/tryton/modules/web_shop_product_data_feed/locale/ca.po
++++ b/tryton/modules/web_shop_product_data_feed/locale/ca.po
+@@ -92,12 +92,10 @@ msgctxt "model:ir.ui.menu,name:menu_product_category_google_form"
+ msgid "Google Product Categories"
+ msgstr "Categories de productes de Google"
+
+-#, fuzzy
+ msgctxt "model:product.category.facebook,string:"
+ msgid "Product Category Facebook"
+ msgstr "Categoria de producte de Google"
+
+-#, fuzzy
+ msgctxt "model:product.category.google,string:"
+ msgid "Product Category Google"
+ msgstr "Categoria de producte de Google"
+diff --git a/tryton/modules/web_shop_shopify/locale/ca.po b/tryton/modules/web_shop_shopify/locale/ca.po
+index 2963796ddb..26b5ade8b7 100644
+--- a/tryton/modules/web_shop_shopify/locale/ca.po
++++ b/tryton/modules/web_shop_shopify/locale/ca.po
+@@ -298,22 +298,18 @@ msgctxt "model:ir.ui.menu,name:menu_stock_shipment_shopify_identifier_form"
+ msgid "Shipment Identifiers"
+ msgstr "Identificadors d'albarà"
+
+-#, fuzzy
+ msgctxt "model:product.shopify_inventory_item,string:"
+ msgid "Product Shopify Inventory Item"
+ msgstr "Article d’inventari de Shopify"
+
+-#, fuzzy
+ msgctxt "model:stock.shipment.shopify_identifier,string:"
+ msgid "Stock Shipment Shopify Identifier"
+ msgstr "Identificador d'albarà de Shopify"
+
+-#, fuzzy
+ msgctxt "model:web.shop.shopify_identifier,string:"
+ msgid "Web Shop Shopify Identifier"
+ msgstr "Identificador de Shopify"
+
+-#, fuzzy
+ msgctxt "model:web.shop.shopify_payment_journal,string:"
+ msgid "Web Shop Shopify Payment Journal"
+ msgstr "Diari de pagament de Shopify"
+diff --git a/tryton/modules/web_shop_vue_storefront/locale/ca.po b/tryton/modules/web_shop_vue_storefront/locale/ca.po
+index 667db26348..4b2fece3d0 100644
+--- a/tryton/modules/web_shop_vue_storefront/locale/ca.po
++++ b/tryton/modules/web_shop_vue_storefront/locale/ca.po
+@@ -66,7 +66,6 @@ msgctxt "model:ir.message,text:msg_vsf_identifier"
+ msgid "Vue Storefront Identifier"
+ msgstr "Identificador Vue Storefront"
+
+-#, fuzzy
+ msgctxt "model:web.shop.vsf_identifier,string:"
+ msgid "Web Shop Vsf Identifier"
+ msgstr "Identificador botiga web Vue Storefront"
+diff --git a/tryton/modules/web_shortener/locale/ca.po b/tryton/modules/web_shortener/locale/ca.po
+index 69019cf6b1..0268ee2332 100644
+--- a/tryton/modules/web_shortener/locale/ca.po
++++ b/tryton/modules/web_shortener/locale/ca.po
+@@ -34,12 +34,10 @@ msgctxt "model:ir.ui.menu,name:menu_shortened_url_form"
+ msgid "Shortened URLs"
+ msgstr "URLs escurçades"
+
+-#, fuzzy
+ msgctxt "model:web.shortened_url,string:"
+ msgid "Web Shortened Url"
+ msgstr "URL escurçada"
+
+-#, fuzzy
+ msgctxt "model:web.shortened_url.access,string:"
+ msgid "Web Shortened Url Access"
+ msgstr "URLs escurçades"
+diff --git a/tryton/modules/web_user/locale/ca.po b/tryton/modules/web_user/locale/ca.po
+index e99d67ce80..f7b0dea09c 100644
+--- a/tryton/modules/web_user/locale/ca.po
++++ b/tryton/modules/web_user/locale/ca.po
+@@ -111,12 +111,10 @@ msgctxt "model:ir.ui.menu,name:menu_user_form"
+ msgid "Web Users"
+ msgstr "Usuaris web"
+
+-#, fuzzy
+ msgctxt "model:web.user,string:"
+ msgid "Web User"
+ msgstr "Usuari web"
+
+-#, fuzzy
+ msgctxt "model:web.user-party.party.secondary,string:"
+ msgid "Web User - Party Secondary"
+ msgstr "Usuari Web - Tercers Secundaris"
+@@ -125,7 +123,6 @@ msgctxt "model:web.user.authenticate.attempt,string:"
+ msgid "User Login Attempt"
+ msgstr ""
+
+-#, fuzzy
+ msgctxt "model:web.user.session,string:"
+ msgid "Web User Session"
+ msgstr "Sessió usuari web"
