@@ -45,4 +45,3 @@ issue14308.diff # [account] Migration from 7.4: use strict sequence in account.p
 
 issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
 
-issue14314.diff # [sao] Incorrect charset handling in Sao.View.Form.Document for Binary Function fields with HTML content
