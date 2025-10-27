@@ -133,3 +133,5 @@ issue8873.diff # [production] Partially applied patch "Set planned dates in batc
 issue14250.diff # [sao] Hide buttons and links when there is no record
 
 issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
+
+issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
