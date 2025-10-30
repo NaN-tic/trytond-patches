@@ -848,10 +848,10 @@ index 05a369627d..7eb884089d 100644
  msgid "Account Invoice Chorus"
  msgstr "Factura Chorus"
 diff --git a/tryton/modules/account_invoice/locale/ca.po b/tryton/modules/account_invoice/locale/ca.po
-index 57ee8ba2c9..ca6559a03f 100644
+index 57ee8ba2c9..e97eba9621 100644
 --- a/tryton/modules/account_invoice/locale/ca.po
 +++ b/tryton/modules/account_invoice/locale/ca.po
-@@ -763,17 +763,14 @@ msgctxt "help:company.company,purchase_taxes_expense:"
+@@ -763,31 +763,26 @@ msgctxt "help:company.company,purchase_taxes_expense:"
  msgid "Check to book purchase taxes as expense."
  msgstr "Marca per comptabilitzar els impostos de compra com a despesa."
 
@@ -868,8 +868,10 @@ index 57ee8ba2c9..ca6559a03f 100644
 -#, fuzzy
  msgctxt "model:account.invoice,string:"
  msgid "Account Invoice"
- msgstr "Té un asentament comptable"
-@@ -782,12 +779,10 @@ msgctxt "model:account.invoice-account.move.line,string:"
+-msgstr "Té un asentament comptable"
++msgstr "Factura"
+
+ msgctxt "model:account.invoice-account.move.line,string:"
  msgid "Account Invoice - Account Move Line"
  msgstr ""
 
