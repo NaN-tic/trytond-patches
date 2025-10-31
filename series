@@ -135,3 +135,6 @@ issue14250.diff # [sao] Hide buttons and links when there is no record
 issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
 
 issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
+
+issue14327.diff # [sao] Use the view_ids attribute to open the Many2One target from tree view
+
