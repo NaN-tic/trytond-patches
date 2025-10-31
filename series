@@ -52,3 +52,6 @@ issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
 issue14306.diff # [sao] Use mouse events instead of drag/drop events to resize column
 
 issue14322.diff # [trytond] Use TRYTOND_TZ from env in case is defined
+
+issue14327.diff # [sao] Use the view_ids attribute to open the Many2One target from tree view
+
