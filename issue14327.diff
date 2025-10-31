@@ -1,7 +1,7 @@
-diff --git a/sao/src/view/tree.js b/sao/src/view/tree.js
+diff --git a/tryton/sao/src/view/tree.js b/tryton/sao/src/view/tree.js
 index 3ef65d4f1d..2dfb40451a 100644
---- a/sao/src/view/tree.js
-+++ b/sao/src/view/tree.js
+--- a/tryton/sao/src/view/tree.js
++++ b/tryton/sao/src/view/tree.js
 @@ -2572,12 +2572,18 @@
              cell = cell.children('a');
              cell.unbind('click');
