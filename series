@@ -41,8 +41,6 @@ issue14250.diff # [sao] Hide buttons and links when there is no record
 
 issue14261.diff # [trytond] Inheriting access rights from non required field yields puzzling behaviour
 
-issue14307.diff # [account_stock_eu] Test if production has warehouse before reading its address
-
 issue14296.diff # [trytond] Some translations are fuzzy
 
 issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
