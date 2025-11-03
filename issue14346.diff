@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+index 62fb176bd5..d194f4aea6 100644
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -700,6 +700,7 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin, InvoiceReportMixin):
+                 value = InvoiceTax.default_get(
+                     list(InvoiceTax._fields.keys()), with_rec_name=False)
+                 value.update(computed_taxes[key])
++                value['currency'] = self.currency
+                 invoice_tax = InvoiceTax(**value)
+                 if invoice_tax.tax:
+                     invoice_tax.sequence = invoice_tax.tax.sequence
