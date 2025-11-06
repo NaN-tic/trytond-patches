@@ -1,0 +1,21 @@
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+index d194f4aea6..09bfe1d7e4 100644
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -1280,6 +1280,7 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin, InvoiceReportMixin):
+         Lang = pool.get('ir.lang')
+ 
+         sequences = set()
++        _check_after_invoices = Transaction().context.get('_check_after_invoices', True)
+ 
+         for company, grouped_invoices in groupby(
+                 invoices, key=lambda i: i.company):
+@@ -1311,7 +1312,7 @@ class Invoice(Workflow, ModelSQL, ModelView, TaxableMixin, InvoiceReportMixin):
+                 invoice.sequence_type_cache = invoice._sequence_type
+                 sequence, sequence_date = invoice._number_sequence()
+                 to_number[(sequence, sequence_date)].append(invoice)
+-                if invoice.type == 'out' and sequence not in sequences:
++                if invoice.type == 'out' and sequence not in sequences and _check_after_invoices:
+                     date = invoice_date(invoice)
+                     # Do not need to lock the table
+                     # because sequence.get_many is sequential
