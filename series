@@ -60,3 +60,5 @@ issue14346.diff # [account_incoice] GTK client: Base and Amount Invoice tax with
 issue14106.diff # [sao] Add support to domain parser to search on empty relation field
 
 issue14301.diff # [account_payment_clearing] KeyError when loading a group without payments
+
+b2ck8279.diff # [trytond] assertValid does not show the offending view

@@ -1,0 +1,23 @@
+diff --git a/tryton/trytond/trytond/tests/test_tryton.py b/tryton/trytond/trytond/tests/test_tryton.py
+index 78f383c78e..958bc51955 100644
+--- a/tryton/trytond/trytond/tests/test_tryton.py
++++ b/tryton/trytond/trytond/tests/test_tryton.py
+@@ -465,7 +465,16 @@ class ModuleTestCase(_DBTestCase):
+                 tree = etree.fromstring(view['arch'])
+ 
+                 validator = etree.RelaxNG(etree=View.get_rng(view['type']))
+-                validator.assertValid(tree)
++                try:
++                    validator.assertValid(tree)
++                except etree.DocumentInvalid as e:
++                    self.fail(
++                        'Invalid architecture for view "%(name)s" '
++                        'of model "%(model)s": %(error)s' % {
++                            'name': name,
++                            'model': model,
++                            'error': e,
++                            })
+ 
+                 tree_root = tree.getroottree().getroot()
+ 
+
