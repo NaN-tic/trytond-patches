@@ -56,3 +56,6 @@ b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modif
 b2ck8277.diff # [res] User Application overwrites the key on write
 
 issue14346.diff # [account_incoice] GTK client: Base and Amount Invoice tax with 3 digits (currency is 2 digits)
+
+issue14106.diff # [sao] Add support to domain parser to search on empty relation field
+
