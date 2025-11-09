@@ -1,0 +1,121 @@
+diff --git a/tryton/sao/src/common.js b/tryton/sao/src/common.js
+index 3899ec3c773815dd78935e9c3471a7c54310d0af_c2FvL3NyYy9jb21tb24uanM=..a8fbe645bd85432ae26650e45e111b9f7f118226_c2FvL3NyYy9jb21tb24uanM= 100644
+--- a/tryton/sao/src/common.js
++++ b/tryton/sao/src/common.js
+@@ -3944,7 +3944,6 @@
+ 
+     Sao.common.Paned = Sao.class_(Object, {
+         init: function(orientation) {
+-            var row;
+             this._orientation = orientation;
+             this.el = jQuery('<div/>');
+             if (orientation == 'horizontal') {
+@@ -3948,7 +3947,7 @@
+             this._orientation = orientation;
+             this.el = jQuery('<div/>');
+             if (orientation == 'horizontal') {
+-                row = jQuery('<div/>', {
+-                    'class': 'row'
++                var hpaned = jQuery('<div/>', {
++                    'class': 'hpaned'
+                 }).appendTo(this.el);
+                 this.child1 = jQuery('<div/>', {
+@@ -3953,5 +3952,5 @@
+                 }).appendTo(this.el);
+                 this.child1 = jQuery('<div/>', {
+-                    'class': 'col-md-6'
+-                }).appendTo(row);
++                    'class': 'hchild hchild-left',
++                }).appendTo(hpaned);
+                 this.child2 = jQuery('<div/>', {
+@@ -3957,4 +3956,4 @@
+                 this.child2 = jQuery('<div/>', {
+-                    'class': 'col-md-6'
+-                }).appendTo(row);
++                    'class': 'hchild hchild-right'
++                }).appendTo(hpaned);
+             } else if (orientation == 'vertical') {
+@@ -3960,4 +3959,4 @@
+             } else if (orientation == 'vertical') {
+-                this.child1 = jQuery('<div/>', {
+-                    'class': 'row'
++                var vpaned = jQuery('<div/>', {
++                    'class': 'vpaned'
+                 }).appendTo(this.el);
+@@ -3963,2 +3962,5 @@
+                 }).appendTo(this.el);
++                this.child1 = jQuery('<div/>', {
++                    'class': 'vchild vchild-top',
++                }).appendTo(vpaned);
+                 this.child2 = jQuery('<div/>', {
+@@ -3964,6 +3966,6 @@
+                 this.child2 = jQuery('<div/>', {
+-                    'class': 'row'
+-                }).appendTo(this.el);
++                    'class': 'vchild vchild-bottom'
++                }).appendTo(vpaned);
+             }
+         },
+         get_child1: function() {
+diff --git a/tryton/sao/src/sao.less b/tryton/sao/src/sao.less
+index 3899ec3c773815dd78935e9c3471a7c54310d0af_c2FvL3NyYy9zYW8ubGVzcw==..a8fbe645bd85432ae26650e45e111b9f7f118226_c2FvL3NyYy9zYW8ubGVzcw== 100644
+--- a/tryton/sao/src/sao.less
++++ b/tryton/sao/src/sao.less
+@@ -1259,6 +1259,43 @@
+     .yfill {
+         align-self: stretch;
+     }
++
++    .hpaned {
++        display: flex;
++    }
++
++    .hchild {
++        overflow: auto;
++        width: 50%;
++    }
++
++    .hchild-left {
++        resize: horizontal;
++        border-right: .5rem solid @panel-default-border;
++    }
++
++    .hchild-right {
++        flex: 1;
++    }
++
++    .vpaned {
++        display: flex;
++        flex-direction: column;
++    }
++
++    .vchild {
++        overflow: auto;
++        height: 50%;
++    }
++
++    .vchild-top {
++        resize: vertical;
++        border-bottom: .5rem solid @panel-default-border;
++    }
++
++    .vchild-bottom {
++        flex: 1;
++    }
+ }
+ 
+ .form-binary, .editabletree-binary {
+diff --git a/tryton/sao/src/view/form.js b/tryton/sao/src/view/form.js
+index 3899ec3c773815dd78935e9c3471a7c54310d0af_c2FvL3NyYy92aWV3L2Zvcm0uanM=..a8fbe645bd85432ae26650e45e111b9f7f118226_c2FvL3NyYy92aWV3L2Zvcm0uanM= 100644
+--- a/tryton/sao/src/view/form.js
++++ b/tryton/sao/src/view/form.js
+@@ -272,7 +272,8 @@
+         },
+         _parse_paned: function(node, attributes, orientation) {
+             var paned = new Sao.common.Paned(orientation);
+-            // TODO position
++            Sao.setdefault(attributes, 'yexpand', true);
++            Sao.setdefault(attributes, 'yfill', true);
+             this.container.add(paned, attributes);
+             this.parse_child(node, paned);
+         },
