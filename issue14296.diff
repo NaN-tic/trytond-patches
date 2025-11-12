@@ -2715,9 +2715,18 @@ index 8c27da4a5c..7e69ccf80f 100644
  msgid "Product Price List Cache"
  msgstr "Actualitza la cache de tarifes"
 diff --git a/tryton/modules/production/locale/ca.po b/tryton/modules/production/locale/ca.po
-index 6d52d7fef0..c1e49dabd9 100644
+index 6d52d7fef0..3462224711 100644
 --- a/tryton/modules/production/locale/ca.po
 +++ b/tryton/modules/production/locale/ca.po
+@@ -52,7 +52,7 @@ msgstr "Data d'inici efectiva"
+
+ msgctxt "field:production,inputs:"
+ msgid "Input Materials"
+-msgstr ""
++msgstr "Entrades"
+
+ msgctxt "field:production,location:"
+ msgid "Location"
 @@ -66,7 +66,6 @@ msgctxt "field:production,origin:"
  msgid "Origin"
  msgstr "Origen"
@@ -2726,6 +2735,15 @@ index 6d52d7fef0..c1e49dabd9 100644
  msgctxt "field:production,outputs:"
  msgid "Output Materials"
  msgstr "Sortides"
+@@ -121,7 +120,7 @@ msgstr "Codi només lectura"
+
+ msgctxt "field:production.bom,inputs:"
+ msgid "Input Materials"
+-msgstr ""
++msgstr "Entrades"
+
+ msgctxt "field:production.bom,name:"
+ msgid "Name"
 @@ -131,7 +130,6 @@ msgctxt "field:production.bom,output_products:"
  msgid "Output Products"
  msgstr "Productes de sortida"
