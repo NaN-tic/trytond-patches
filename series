@@ -58,3 +58,5 @@ issue14346.diff # [account_invoice] GTK client: Base and Amount Invoice tax with
 issue14106.diff # [sao] Add support to domain parser to search on empty relation field
 
 issue14301.diff # [account_payment_clearing] KeyError when loading a group without payments
+
+b2ck8282.diff # [trytond] Remove COMMENT ON
