@@ -141,3 +141,5 @@ issue14327.diff # [sao] Use the view_ids attribute to open the Many2One target f
 b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modified
 
 issue14301.diff # [account_payment_clearing] KeyError when loading a group without payments
+
+b2ck8282.diff # [trytond] Remove COMMENT ON
