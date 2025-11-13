@@ -1,0 +1,16 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/table.py b/tryton/trytond/trytond/backend/postgresql/table.py
+index e264dacc97..acf455935f 100644
+--- a/tryton/trytond/trytond/backend/postgresql/table.py
++++ b/tryton/trytond/trytond/backend/postgresql/table.py
+@@ -41,11 +41,6 @@ class TableHandler(TableHandlerInterface):
+             (self.table_name, self.table_schema))
+         self.is_owner, = cursor.fetchone()
+ 
+-        if model.__doc__ and self.is_owner:
+-            cursor.execute(SQL('COMMENT ON TABLE {} IS %s').format(
+-                        Identifier(self.table_name)),
+-                (model.__doc__,))
+-
+         def migrate_to_identity(table, column):
+             previous_seq_name = f"{table}_{column}_seq"
+             cursor.execute(
