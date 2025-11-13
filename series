@@ -30,3 +30,5 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
 
 issue14059.diff # [sao] Resizing on hpaned/vpaned
+
+b2ck8282.diff # [trytond] Remove COMMENT ON
