@@ -47,8 +47,6 @@ issue14250.diff # [sao] Hide buttons and links when there is no record
 
 issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
 
-issue14327.diff # [sao] Use the view_ids attribute to open the Many2One target from tree view
-
 b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modified
 
 issue14346.diff # [account_invoice] GTK client: Base and Amount Invoice tax with 3 digits (currency is 2 digits)
@@ -56,7 +54,5 @@ issue14346.diff # [account_invoice] GTK client: Base and Amount Invoice tax with
 182148.diff # [account_invoice] Workaround: allows post invoices without checking date and sequence
 
 issue14106.diff # [sao] Add support to domain parser to search on empty relation field
-
-issue14301.diff # [account_payment_clearing] KeyError when loading a group without payments
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
