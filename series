@@ -60,3 +60,5 @@ b2ck8279.diff # [trytond] assertValid does not show the offending view
 issue14059.diff # [sao] Resizing on hpaned/vpaned
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
+
+issue14386.diff # [purchase] purchase._get_shipped_quantity(): rounding the sum of move quantities
