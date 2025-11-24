@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
+index 3cbd5c3645..8a701ba046 100644
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
+@@ -2017,7 +2017,7 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
+             if move not in skip:
+                 quantity += Uom.compute_qty(
+                     move.unit, move.quantity, self.unit)
+-        return quantity
++        return self.unit.round(quantity)
+ 
+     def check_move_quantity(self):
+         pool = Pool()
