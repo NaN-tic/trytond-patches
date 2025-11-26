@@ -64,3 +64,5 @@ b2ck8282.diff # [trytond] Remove COMMENT ON
 issue14386.diff # [sale] [purchase] Round moved quantity before compare to 0
 
 issue14371.diff # [sao] Improve Arrow keys navigation in SAO client in editable views
+
+issue14393.diff # [sao]  Limit editable tree click event to the tab
