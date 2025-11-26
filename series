@@ -143,3 +143,5 @@ b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modif
 issue14301.diff # [account_payment_clearing] KeyError when loading a group without payments
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
+
+issue14393.diff # [sao]  Limit editable tree click event to the tab
