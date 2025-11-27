@@ -1,0 +1,175 @@
+diff --git a/tryton/trytond/trytond/analyzer.py b/trytond/trytond/analyzer.py
+new file mode 100644
+index 0000000000..d88a499d6e
+--- /dev/null
++++ b/trytond/trytond/analyzer.py
+@@ -0,0 +1,5 @@
++import os
++
++ANALYZING = bool(os.environ.get('TRYTON_ANALYZER_RUNNING', False))
++Record = list
++Records = list
+\ No newline at end of file
+diff --git a/tryton/trytond/trytond/model/modelsql.py b/trytond/trytond/model/modelsql.py
+index bb3af40f66..c64bd425e4 100644
+--- a/trytond/trytond/model/modelsql.py
++++ b/trytond/trytond/model/modelsql.py
+@@ -34,6 +34,8 @@ from .modelstorage import (
+     ValidationError, is_leaf)
+ from .modelview import ModelView
+ 
++from trytond.analyzer import ANALYZING
++
+ 
+ class ForeignKeyError(ValidationError):
+     pass
+@@ -230,7 +232,7 @@ class Index:
+         def expression(self):
+             expression = self._expression
+             database = Transaction().database
+-            if database.has_unaccent_indexable():
++            if not ANALYZING and database.has_unaccent_indexable():
+                 expression = database.unaccent(expression)
+             return expression
+ 
+@@ -379,6 +381,8 @@ class ModelSQL(ModelStorage):
+                 else:
+                     Targets.extend(t for _, t in pool.iterobject())
+             for Target in Targets:
++                if ANALYZING:
++                    continue
+                 for tfield in Target._fields.values():
+                     if (isinstance(tfield, fields.One2Many)
+                             and tfield.get_target() == cls):
+diff --git a/tryton/trytond/trytond/modules/__init__.py b/trytond/trytond/modules/__init__.py
+index 3291d25a14..c7e2dbd844 100644
+--- a/trytond/trytond/modules/__init__.py
++++ b/trytond/trytond/modules/__init__.py
+@@ -333,6 +333,25 @@ def register_classes(with_test=False):
+             module.register()
+         MODULES.append(module_name)
+ 
++def raw_load_modules(module_list, pool):
++    '''
++    Setup the pool with the provided module list
++    '''
++    module_list = set(module_list)
++    graph = None
++    update = set()
++    while graph is None:
++        module_list.update(update)
++        try:
++            graph = create_graph(module_list)
++        except MissingDependenciesException as e:
++            update.update(e.missings)
++
++    for node in graph:
++        module = node.name
++        pool.fill(module, module_list)
++    pool.setup()
++    pool.setup_mixin()
+ 
+ def load_modules(
+         database_name, pool, update=None, lang=None, indexes=None,
+diff --git a/tryton/trytond/trytond/pool.py b/trytond/trytond/pool.py
+index 9d8ab63780..e055202a5c 100644
+--- a/trytond/trytond/pool.py
++++ b/trytond/trytond/pool.py
+@@ -6,7 +6,7 @@ from collections import OrderedDict, defaultdict
+ from threading import RLock, local
+ from weakref import WeakSet
+ 
+-from trytond.modules import load_modules, register_classes
++from trytond.modules import load_modules, register_classes, raw_load_modules
+ from trytond.transaction import Transaction
+ 
+ __all__ = ['Pool', 'PoolMeta', 'PoolBase', 'isregisteredby']
+@@ -58,10 +58,16 @@ class Pool(object):
+     _pool_modules = defaultdict(list)
+     _pool_instances = WeakSet()
+     test = False
++    _current = None
+ 
+-    def __new__(cls, database_name=None):
++    def __new__(cls, database_name=None, module_list=None):
+         if database_name is None:
+-            database_name = Transaction().database.name
++            if cls._current is not None:
++                database_name = cls._current
++            elif not module_list:
++                database_name = Transaction().database.name
++            else:
++                database_name = tuple(sorted(module_list))
+         instances = cls._local.__dict__.setdefault('instances', {})
+         if (instance := instances.get(database_name)) is None:
+             instances[database_name] = instance = super().__new__(cls)
+@@ -72,9 +78,14 @@ class Pool(object):
+                 cls._pool_instances.add(instance)
+         return instance
+ 
+-    def __init__(self, database_name=None):
++    def __init__(self, database_name=None, module_list=None):
+         if database_name is None:
+-            database_name = Transaction().database.name
++            if self._current is not None:
++                database_name = self._current
++            elif not module_list:
++                database_name = Transaction().database.name
++            else:
++                database_name = tuple(sorted(module_list))
+         self.database_name = database_name
+ 
+     @staticmethod
+@@ -140,15 +151,19 @@ class Pool(object):
+             # Clear before loading modules
+             self._pool = defaultdict(dict)
+             self._modules = []
+-            restart = not load_modules(
+-                self.database_name, self, update=update, lang=lang,
+-                activatedeps=activatedeps, indexes=indexes)
+-            self._pools[self.database_name] = self._pool
+-            self._pool_modules[self.database_name] = self._modules
+-            self._pool_instances.clear()
+-            self._pool_instances.add(self)
+-            if restart:
+-                self.init()
++            if isinstance(self.database_name, tuple):
++                Pool._current = self.database_name
++                raw_load_modules(self.database_name, self)
++            else:
++                restart = not load_modules(
++                        self.database_name, self, update=update, lang=lang,
++                        activatedeps=activatedeps, indexes=indexes)
++                self._pools[self.database_name] = self._pool
++                self._pool_modules[self.database_name] = self._modules
++                self._pool_instances.clear()
++                self._pool_instances.add(self)
++                if restart:
++                    self.init()
+ 
+     def get(self, name, type='model'):
+         '''
+diff --git a/tryton/trytond/trytond/url.py b/trytond/trytond/url.py
+index f05ef397cd..9c1c57610c 100644
+--- a/trytond/trytond/url.py
++++ b/trytond/trytond/url.py
+@@ -7,6 +7,7 @@ import urllib.parse
+ 
+ from trytond.config import config
+ from trytond.transaction import Transaction
++from trytond.analyzer import ANALYZING
+ 
+ __all__ = ['URLMixin', 'is_secure', 'host', 'http_host']
+ 
+@@ -76,7 +77,10 @@ class URLAccessor(object):
+             raise NotImplementedError
+ 
+         url_part['name'] = cls.__name__
+-        url_part['database'] = Transaction().database.name
++        if ANALYZING:
++            url_part['database'] = 'TEMP NOT RELEVANT IN SETUP'
++        else:
++            url_part['database'] = Transaction().database.name
+ 
+         local_part = urllib.parse.quote(
+             '%(database)s/%(type)s/%(name)s' % url_part)
