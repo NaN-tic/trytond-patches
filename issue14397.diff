@@ -1,0 +1,14 @@
+diff --git a/tryton/modules/account_payment_sepa/payment.py b/tryton/modules/account_payment_sepa/payment.py
+index 3af2c2abcb..2aa3a552d9 100644
+--- a/tryton/modules/account_payment_sepa/payment.py
++++ b/tryton/modules/account_payment_sepa/payment.py
+@@ -220,7 +220,8 @@ class Group(metaclass=PoolMeta):
+         if self.kind == 'receivable':
+             payments = sorted(self.payments, key=attrgetter('date', 'id'))
+             mandates = Payment.get_sepa_mandates(payments)
+-            Mandate.lock(list(filter(None, mandates)))
++            Mandate.lock(
++                [m for m in mandates if m and m.sequence_type == 'FRST'])
+             sequence_types = {}
+             for payment, mandate in zip(payments, mandates):
+                 if not mandate:
