@@ -68,3 +68,5 @@ issue14371.diff # [sao] Improve Arrow keys navigation in SAO client in editable 
 issue14393.diff # [sao]  Limit editable tree click event to the tab
 
 dbless_pool.diff # [trytond] Enable construction of pool without database interaction
+
+issue14397.diff # [account_payment_sepa] Lock only FRST SEPA mandates when processing payment group
