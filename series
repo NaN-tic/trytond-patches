@@ -35,4 +35,3 @@ b2ck8282.diff # [trytond] Remove COMMENT ON
 
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
 
-issue14380.diff # [account_invoice] Test if field_names is None instead of empty in ModelStorage hooks
