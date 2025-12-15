@@ -7,7 +7,7 @@ index c40c1c4348..7812dd92d9 100644
          },
          get width() {
 -            var digits = this.digits;
--            if (digits) {
+-            if (digits && digits.every(d => d !== null)) {
 -                return digits.reduce(function(acc, cur) {
 -                    return acc + cur;
 -                });
@@ -25,21 +25,3 @@ index c40c1c4348..7812dd92d9 100644
          },
          display: function() {
              var record = this.record;
-diff --git a/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py b/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
-index 5ac2c41538..0807ec6dfc 100644
---- a/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
-+++ b/tryton/tryton/tryton/gui/window/view_form/view/form_gtk/float.py
-@@ -13,11 +13,8 @@ class Float(Integer):
-
-     @property
-     def width(self):
--        digits = self.digits
--        if digits and all(digits):
--            return sum(digits)
--        else:
--            return self.attrs.get('width', 18)
-+        digits = self.digits or [None, None]
-+        return sum(v if v is not None else d for v, d in zip(digits, [16, 2]))
-
-     def display(self):
-         self.entry.digits = self.digits
