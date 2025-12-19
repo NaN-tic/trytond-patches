@@ -1,0 +1,12 @@
+diff --git a/tryton/modules/account_statement/journal.py b/tryton/modules/account_statement/journal.py
+index 7db8e3a24a..edfc977a61 100644
+--- a/tryton/modules/account_statement/journal.py
++++ b/tryton/modules/account_statement/journal.py
+@@ -99,6 +99,6 @@ class Journal(DeactivableMixin, ModelSQL, ModelView):
+                     ('currency.numeric_code', '=', currency),
+                     ])
+         journals = cls.search(domain)
+-        if journals:
++        if len(journals) == 1:
+             journal, = journals
+             return journal

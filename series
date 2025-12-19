@@ -57,14 +57,14 @@ issue14106.diff # [sao] Add support to domain parser to search on empty relation
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
 
-issue14386.diff # [sale] [purchase] Round moved quantity before compare to 0
-
-issue14371.diff # [sao] Improve Arrow keys navigation in SAO client in editable views
-
-issue14393.diff # [sao]  Limit editable tree click event to the tab
-
 db_less_pool.diff # [trytond] Enable construction of pool without database interaction
 
-tiquet183840.diff # [trytond] retry sendmail when SMTPServerDisconnected
+issue14397.diff # [account_payment_sepa] Lock only FRST SEPA mandates when processing payment group
+
+issue14429.diff # [trytond] Compare element to replace new view tree from inherit application against None
 
 issue14397.diff # [account_payment_sepa] Lock only FRST SEPA mandates when processing payment group
+
+issue14422.diff # [account_statement] Return the journal for a bank account if only one journal matches
+
+tiquet183840.diff # [trytond] retry sendmail when SMTPServerDisconnected
