@@ -48,9 +48,9 @@ index 4739d0da70..67ea7298f7 100644
                  this.buttons[menu_action[0]] = button;
                  dropdown
 @@ -1534,7 +1529,7 @@
-             const view_type = this.screen.current_view.view_type;
-             var next_view_type = this.screen.next_view_type;
-             const has_views = this.screen.number_of_views > 1;
+             let sensitive = (
+                 record_id >= 0 ? record_id !== null && record_id !== undefined :
+                 false);
 -            var buttons = ['print', 'relate', 'email', 'attach', 'chat'];
 +            var buttons = ['print', 'relate', 'attach', 'chat'];
              for (const button_id of buttons) {
