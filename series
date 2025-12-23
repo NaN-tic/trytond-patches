@@ -61,6 +61,4 @@ db_less_pool.diff # [trytond] Enable construction of pool without database inter
 
 issue14397.diff # [account_payment_sepa] Lock only FRST SEPA mandates when processing payment group
 
-issue14422.diff # [account_statement] Return the journal for a bank account if only one journal matches
-
 tiquet183840.diff # [trytond] retry sendmail when SMTPServerDisconnected
