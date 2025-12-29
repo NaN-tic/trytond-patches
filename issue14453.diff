@@ -1,0 +1,12 @@
+diff --git a/sao/src/view/tree.js b/sao/src/view/tree.js
+index 31d4f20754856f3eb799e922e3a148ea676bf9a4_c2FvL3NyYy92aWV3L3RyZWUuanM=..9099966d97bde44a95e27ec9fd3c4ddfdc3e4d5a_c2FvL3NyYy92aWV3L3RyZWUuanM= 100644
+--- a/sao/src/view/tree.js
++++ b/sao/src/view/tree.js
+@@ -2782,6 +2782,7 @@
+                 view_ids.shift();
+             }
+             cell.click(event => {
++                event.preventDefault();
+                 event.stopPropagation();
+                 var params = {};
+                 params.model = this.attributes.relation;
