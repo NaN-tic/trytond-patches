@@ -51,8 +51,6 @@ b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modif
 
 issue14346.diff # [account_invoice] GTK client: Base and Amount Invoice tax with 3 digits (currency is 2 digits)
 
-182148.diff # [account_invoice] Workaround: allows post invoices without checking date and sequence
-
 issue14106.diff # [sao] Add support to domain parser to search on empty relation field
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
