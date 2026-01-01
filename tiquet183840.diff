@@ -1,0 +1,33 @@
+diff --git a/tryton/trytond/trytond/sendmail.py b/tryton/trytond/trytond/sendmail.py
+index e64ee39d58..a4873c439a 100644
+--- a/tryton/trytond/trytond/sendmail.py
++++ b/tryton/trytond/trytond/sendmail.py
+@@ -116,13 +116,21 @@ def get_smtp_server(uri=None, strict=False):
+         extra['context'] = ssl.create_default_context()
+     else:
+         connector = smtplib.SMTP
+-    try:
+-        server = connector(uri.hostname, uri.port, **extra)
+-    except Exception:
+-        if strict:
+-            raise
+-        logger.error('fail to connect to %s', uri, exc_info=True)
+-        return
++    for count in range(retry, -1, -1):
++        if count != retry:
++            time.sleep(0.02 * (retry - count))
++        try:
++            server = connector(uri.hostname, uri.port, **extra)
++        except smtplib.SMTPServerDisconnected:
++            if strict:
++                raise
++            if count:
++                continue
++        except Exception:
++            if strict:
++                raise
++            logger.error('fail to connect to %s', uri, exc_info=True)
++            return
+ 
+     if 'tls' in uri.scheme:
+         server.starttls(context=ssl.create_default_context())
