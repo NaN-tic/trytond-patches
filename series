@@ -147,3 +147,5 @@ b2ck8282.diff # [trytond] Remove COMMENT ON
 issue14393.diff # [sao]  Limit editable tree click event to the tab
 
 issue14453.diff # [sao] Missing url location when clicking on Many2One in a list
+
+supplier_invoice_line_compute.diff # [account_invoice] Solv problem when try to calcualte amount in a supplier invoice line without invoice related
