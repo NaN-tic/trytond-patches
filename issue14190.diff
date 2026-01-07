@@ -1,0 +1,38 @@
+diff --git a/tryton/modules/production_split/production.py b/tryton/modules/production_split/production.py
+index 18fee34996..e58137b8b6 100644
+--- a/tryton/modules/production_split/production.py
++++ b/tryton/modules/production_split/production.py
+@@ -48,6 +48,7 @@ class Production(metaclass=PoolMeta):
+         while (remainder > quantity
+                 and (count or count is None)):
+             productions.extend(self.copy([self], {
++                        'reference': lambda data: data['reference'],
+                         'quantity': quantity,
+                         'unit': unit.id,
+                         'inputs': None,
+@@ -60,6 +61,7 @@ class Production(metaclass=PoolMeta):
+         assert remainder >= 0
+         if remainder:
+             productions.extend(self.copy([self], {
++                        'reference': lambda data: data['reference'],
+                         'quantity': remainder,
+                         'unit': unit.id,
+                         }))
+diff --git a/tryton/modules/stock_split/stock.py b/tryton/modules/stock_split/stock.py
+index 69eb004660..6c90f9003c 100644
+--- a/tryton/modules/stock_split/stock.py
++++ b/tryton/modules/stock_split/stock.py
+@@ -230,7 +230,12 @@ class SplitShipment(Wizard):
+             Move.delete(
+                 [m for m in shipment.inventory_moves if m.state == 'draft'])
+ 
+-        shipment, = Shipment.copy([shipment], default={'moves': None})
++        shipment, = Shipment.copy(
++            [shipment],
++            default={
++                'reference': lambda data: data['reference'],
++                'moves': None,
++                })
+         Move.write(list(self.start.moves), {'shipment': str(shipment)})
+         return 'end'
+ 
