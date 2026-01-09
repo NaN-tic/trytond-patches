@@ -1,0 +1,108 @@
+diff --git a/tryton/modules/sale_opportunity/__init__.py b/tryton/modules/sale_opportunity/__init__.py
+index d202bb38a5..7245b75277 100644
+--- a/tryton/modules/sale_opportunity/__init__.py
++++ b/tryton/modules/sale_opportunity/__init__.py
+@@ -3,9 +3,7 @@
+ 
+ from trytond.pool import Pool
+ 
+-from . import (
+-    account, company, configuration, opportunity, opportunity_reporting, party,
+-    product, sale)
++from . import configuration, opportunity, opportunity_reporting, party, sale
+ 
+ 
+ def register():
+@@ -22,14 +20,6 @@ def register():
+         configuration.Configuration,
+         configuration.ConfigurationSequence,
+         sale.Sale,
+-        party.Party,
+-        party.Address,
+-        account.PaymentTerm,
+-        account.PaymentTermLine,
+-        product.Template,
+-        product.Product,
+-        company.Company,
+-        company.Employee,
+         module='sale_opportunity', type_='model')
+     Pool.register(
+         party.Replace,
+diff --git a/tryton/modules/sale_opportunity/account.py b/tryton/modules/sale_opportunity/account.py
+deleted file mode 100644
+index 8ff01ebb95..0000000000
+--- a/tryton/modules/sale_opportunity/account.py
++++ /dev/null
+@@ -1,13 +0,0 @@
+-# This file is part of Tryton.  The COPYRIGHT file at the top level of
+-# this repository contains the full copyright notices and license terms.
+-from trytond.pool import PoolMeta
+-
+-
+-class PaymentTerm(metaclass=PoolMeta):
+-    __name__ = 'account.invoice.payment_term'
+-    _history = True
+-
+-
+-class PaymentTermLine(metaclass=PoolMeta):
+-    __name__ = 'account.invoice.payment_term.line'
+-    _history = True
+diff --git a/tryton/modules/sale_opportunity/company.py b/tryton/modules/sale_opportunity/company.py
+deleted file mode 100644
+index 5136f7e242..0000000000
+--- a/tryton/modules/sale_opportunity/company.py
++++ /dev/null
+@@ -1,13 +0,0 @@
+-# This file is part of Tryton.  The COPYRIGHT file at the top level of
+-# this repository contains the full copyright notices and license terms.
+-from trytond.pool import PoolMeta
+-
+-
+-class Company(metaclass=PoolMeta):
+-    __name__ = 'company.company'
+-    _history = True
+-
+-
+-class Employee(metaclass=PoolMeta):
+-    __name__ = 'company.employee'
+-    _history = True
+diff --git a/tryton/modules/sale_opportunity/party.py b/tryton/modules/sale_opportunity/party.py
+index 9dc7b79729..efb3d865c9 100644
+--- a/tryton/modules/sale_opportunity/party.py
++++ b/tryton/modules/sale_opportunity/party.py
+@@ -3,16 +3,6 @@
+ from trytond.pool import PoolMeta
+ 
+ 
+-class Party(metaclass=PoolMeta):
+-    __name__ = 'party.party'
+-    _history = True
+-
+-
+-class Address(metaclass=PoolMeta):
+-    __name__ = 'party.address'
+-    _history = True
+-
+-
+ class Replace(metaclass=PoolMeta):
+     __name__ = 'party.replace'
+ 
+diff --git a/tryton/modules/sale_opportunity/product.py b/tryton/modules/sale_opportunity/product.py
+deleted file mode 100644
+index c04a2848c3..0000000000
+--- a/tryton/modules/sale_opportunity/product.py
++++ /dev/null
+@@ -1,13 +0,0 @@
+-# This file is part of Tryton.  The COPYRIGHT file at the top level of
+-# this repository contains the full copyright notices and license terms.
+-from trytond.pool import PoolMeta
+-
+-
+-class Template(metaclass=PoolMeta):
+-    __name__ = 'product.template'
+-    _history = True
+-
+-
+-class Product(metaclass=PoolMeta):
+-    __name__ = 'product.product'
+-    _history = True
