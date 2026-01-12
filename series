@@ -148,4 +148,4 @@ issue14393.diff # [sao]  Limit editable tree click event to the tab
 
 issue14453.diff # [sao] Missing url location when clicking on Many2One in a list
 
-supplier_invoice_line_compute.diff # [account_invoice] Solv problem when try to calcualte amount in a supplier invoice line without invoice related
+issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
