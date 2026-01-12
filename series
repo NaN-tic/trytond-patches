@@ -42,3 +42,5 @@ issue14448.diff # [sale_point] Allow the sale point group to view the main sales
 trytond-binary-logging-error.diff # [trytond] Log exception when retrieve file ID from the filestore for Binary field
 
 issue14190.diff # [production_split] Maintain the original reference when splitting shipments and productions
+
+issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
