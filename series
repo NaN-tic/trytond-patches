@@ -68,3 +68,5 @@ issue14190.diff # [production_split] Maintain the original reference when splitt
 issue13768.diff # [sale_opportunity] Do not add history to unnecessary model
 
 issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
+
+b2ck8310.diff # [sao] Sort favorites alphabeticallly
