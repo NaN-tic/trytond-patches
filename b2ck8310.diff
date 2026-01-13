@@ -1,0 +1,21 @@
+diff --git a/tryton/sao/src/sao.js b/tryton/sao/src/sao.js
+index da1a3a5ce7..cb149d1efb 100644
+--- a/tryton/sao/src/sao.js
++++ b/tryton/sao/src/sao.js
+@@ -755,6 +755,16 @@ var Sao = {
+             });
+             jQuery('#user-favorites').append(menu);
+             Sao.rpc(args, session).then(function(fav) {
++                // sort fav based on the second element (name)
++                fav.sort(function(a, b) {
++                    if (a[1] < b[1]) {
++                        return -1;
++                    }
++                    if (a[1] > b[1]) {
++                        return 1;
++                    }
++                    return 0;
++                });
+                 fav.forEach(function(menu_item) {
+                     var a = jQuery('<a/>', {
+                         'href': '#'
