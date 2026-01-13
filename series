@@ -44,3 +44,5 @@ trytond-binary-logging-error.diff # [trytond] Log exception when retrieve file I
 issue14190.diff # [production_split] Maintain the original reference when splitting shipments and productions
 
 issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
+
+b2ck8310.diff # [sao] Sort favorites alphabeticallly
