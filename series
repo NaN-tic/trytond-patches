@@ -61,8 +61,6 @@ issue14397.diff # [account_payment_sepa] Lock only FRST SEPA mandates when proce
 
 tiquet183840.diff # [trytond] retry sendmail when SMTPServerDisconnected
 
-issue14453.diff # [sao] Missing url location when clicking on Many2One in a list
-
 issue14190.diff # [production_split] Maintain the original reference when splitting shipments and productions
 
 issue13768.diff # [sale_opportunity] Do not add history to unnecessary model
