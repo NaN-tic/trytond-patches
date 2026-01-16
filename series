@@ -68,3 +68,5 @@ issue13768.diff # [sale_opportunity] Do not add history to unnecessary model
 issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
 
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
+
+issue14507.diff # [party] Add a menu entry for party identifiers
