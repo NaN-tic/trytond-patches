@@ -1,22 +1,33 @@
-diff --git a/tryton/modules/account/tax.py b/tryton/modules/account/tax.py
-index 4d671b052d..179de4c6b0 100644
---- a/tryton/modules/account/tax.py
-+++ b/tryton/modules/account/tax.py
-@@ -1281,6 +1281,8 @@ class TaxableMixin(object):
-         pool = Pool()
-         Tax = pool.get('account.tax')
-         Configuration = pool.get('account.configuration')
-+        Date = pool.get('ir.date')
-+        today = Date.today()
-         context = Transaction().context
+diff --git a/tryton/modules/account_invoice/invoice.py b/tryton/modules/account_invoice/invoice.py
+--- a/tryton/modules/account_invoice/invoice.py
++++ b/tryton/modules/account_invoice/invoice.py
+@@ -2749,6 +2749,8 @@
+             return self.taxes_date
+         elif hasattr(self, 'invoice') and hasattr(self.invoice, 'tax_date'):
+             return self.invoice.tax_date
++        else:
++            return super().tax_date
  
-         all_taxes = {}
-@@ -1300,7 +1302,7 @@ class TaxableMixin(object):
-                     assert all(t.company == self.company for t in line.taxes)
-                     l_taxes = Tax.compute(
-                         Tax.browse(line.taxes), line.unit_price,
--                        line.quantity, line.tax_date or self.tax_date)
-+                        line.quantity, line.tax_date or self.tax_date or today)
-                     current_taxes = {}
-                     for tax in l_taxes:
-                         taxline = self._compute_tax_line(**tax)
+     def _get_tax_context(self):
+         if self.invoice:
+diff --git a/tryton/modules/sale_point/sale.py b/tryton/modules/sale_point/sale.py
+--- a/tryton/modules/sale_point/sale.py
++++ b/tryton/modules/sale_point/sale.py
+@@ -446,7 +446,7 @@
+ 
+     @property
+     def tax_date(self):
+-        return self.date
++        return self.date or super().tax_date
+ 
+ 
+ class POSSaleLine(ModelSQL, ModelView, TaxableMixin):
+@@ -719,7 +719,7 @@
+ 
+     @property
+     def tax_date(self):
+-        return self.sale.date
++        return self.sale.date or super().tax_date
+ 
+ 
+ class POSCashSession(Workflow, ModelSQL, ModelView):
