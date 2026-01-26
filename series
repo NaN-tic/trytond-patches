@@ -45,4 +45,5 @@ b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 issue14507.diff # [party] Add a menu entry for party identifiers
 
+issue14213.diff # [sao] Make the user menu favorites unique
 issue14527.diff # [sao] Scroll into view within scrollable ancestors

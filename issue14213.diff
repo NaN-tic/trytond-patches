@@ -1,0 +1,22 @@
+diff --git a/tryton/trytond/trytond/ir/ui/menu.py b/tryton/trytond/trytond/ir/ui/menu.py
+index be8361417ecfb09800c06a41f91fcaa609a82d76_dHJ5dG9uZC90cnl0b25kL2lyL3VpL21lbnUucHk=..47972067b970273575080edde741299e36a2f1cd_dHJ5dG9uZC90cnl0b25kL2lyL3VpL21lbnUucHk= 100644
+--- a/tryton/trytond/trytond/ir/ui/menu.py
++++ b/tryton/trytond/trytond/ir/ui/menu.py
+@@ -1,6 +1,6 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
+-from collections import defaultdict
++from collections import OrderedDict, defaultdict
+ from itertools import groupby
+ 
+ from trytond.model import (
+@@ -306,7 +306,8 @@
+                 ('user', '=', user),
+                 ],
+             order=[('id', 'DESC')])
+-        return [(f.menu.id, f.menu.rec_name, f.menu.icon) for f in favorites]
++        return list(OrderedDict.fromkeys(
++                (f.menu.id, f.menu.rec_name, f.menu.icon) for f in favorites))
+ 
+     @classmethod
+     def set(cls, menu_id):
