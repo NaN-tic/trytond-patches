@@ -68,3 +68,5 @@ issue14486.diff # [account] Tax._unit_compute() '<=' not supported between insta
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 issue14507.diff # [party] Add a menu entry for party identifiers
+
+issue14213.diff # [sao] Make the user menu favorites unique
