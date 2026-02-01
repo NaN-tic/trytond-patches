@@ -39,8 +39,6 @@ issue14448.diff # [sale_point] Allow the sale point group to view the main sales
 
 trytond-binary-logging-error.diff # [trytond] Log exception when retrieve file ID from the filestore for Binary field
 
-issue14486.diff # [account] Tax._unit_compute() '<=' not supported between instances of 'datetime.date' and 'NoneType'
-
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 issue14507.diff # [party] Add a menu entry for party identifiers
