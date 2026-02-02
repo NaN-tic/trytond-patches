@@ -2249,7 +2249,7 @@ index fad6ae44cb..255107a1e6 100644
  msgid "Notification Email Attachment"
  msgstr "Adjunts notificacions per correu electrònic"
 diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.po
-index 24e5549fb7..e9cac084b3 100644
+index 24e5549fb7..2fc1e6c65c 100644
 --- a/tryton/modules/party/locale/ca.po
 +++ b/tryton/modules/party/locale/ca.po
 @@ -6,12 +6,10 @@ msgctxt "field:ir.email.template,contact_mechanism:"
@@ -2342,7 +2342,7 @@ index 24e5549fb7..e9cac084b3 100644
  msgctxt "help:party.address.format,street_format:"
  msgid ""
  "Available variables (also in upper case):\n"
-@@ -691,7 +679,7 @@ msgctxt "model:ir.message,text:msg_party_code_unique"
+@@ -691,10 +679,10 @@ msgctxt "model:ir.message,text:msg_party_code_unique"
  msgid "The code on party must be unique."
  msgstr "El codi del tercer ha de ser únic."
 
@@ -2350,7 +2350,11 @@ index 24e5549fb7..e9cac084b3 100644
 +#, python-format
  msgctxt "model:ir.message,text:msg_party_contact_mechanism_duplicate"
  msgid "The party \"%(party)s\" has the same %(type)s \"%(value)s\"."
- msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
+-msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
++msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(value)s\"."
+
+ #, python-format
+ msgctxt "model:ir.message,text:msg_party_identifier_duplicate"
 @@ -762,22 +750,18 @@ msgctxt "model:ir.ui.menu,name:menu_party_form"
  msgid "Parties"
  msgstr "Tercers"
