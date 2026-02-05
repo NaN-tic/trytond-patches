@@ -70,3 +70,5 @@ issue14507.diff # [party] Add a menu entry for party identifiers
 issue14213.diff # [sao] Make the user menu favorites unique
 
 issue14527.diff # [sao] Scroll into view within scrollable ancestors
+
+issue14580.diff # [account] Missing company and incorrect number_next_internal after migration from post_number_sequence (non-strict) to move_sequence (strict) in case database "has_sequence"
