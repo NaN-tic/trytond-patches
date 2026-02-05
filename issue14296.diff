@@ -4027,13 +4027,13 @@ index 232bd4acb4..06eba0aefa 100644
  msgid "Stock Shipment Drop"
  msgstr "Enviament directe"
 diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
-index 789fd92bf9..76cf2cfff9 100644
+index 789fd92bf9..8317913444 100644
 --- a/tryton/modules/stock/locale/ca.po
 +++ b/tryton/modules/stock/locale/ca.po
 @@ -870,7 +870,6 @@ msgctxt "field:stock.shipment.internal,incoming_moves:"
  msgid "Incoming Moves"
  msgstr "Moviments d'entrada"
-
+ 
 -#, fuzzy
  msgctxt "field:stock.shipment.internal,internal_transit_location:"
  msgid "Internal Transit Location"
@@ -4041,7 +4041,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -887,7 +886,6 @@ msgctxt "field:stock.shipment.internal,outgoing_moves:"
  msgid "Outgoing Moves"
  msgstr "Moviments de sortida"
-
+ 
 -#, fuzzy
  msgctxt "field:stock.shipment.internal,packed_by:"
  msgid "Packed By"
@@ -4049,7 +4049,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -1309,7 +1307,6 @@ msgctxt "help:stock.location,type:"
  msgid "Regroup storage locations under a logistics warehouse."
  msgstr ""
-
+ 
 -#, fuzzy
  msgctxt "help:stock.location,type:"
  msgid "Used as the destination for stock sent to customers."
@@ -4057,7 +4057,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -1320,7 +1317,6 @@ msgid ""
  "Used as the destination of components and the source of finished products."
  msgstr ""
-
+ 
 -#, fuzzy
  msgctxt "help:stock.location,type:"
  msgid "Used as the source of stock received from suppliers."
@@ -4065,7 +4065,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -1678,7 +1674,6 @@ msgctxt "model:ir.action,name:act_location_lead_time_form"
  msgid "Location Lead Times"
  msgstr "Temps d'espera entre ubicacions"
-
+ 
 -#, fuzzy
  msgctxt "model:ir.action,name:act_location_list"
  msgid "Locations"
@@ -4073,7 +4073,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -1928,7 +1923,6 @@ msgctxt ""
  msgid "Draft"
  msgstr "Esborrany"
-
+ 
 -#, fuzzy
  msgctxt ""
  "model:ir.action.act_window.domain,name:act_shipment_internal_form_domain_packed"
@@ -4081,7 +4081,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2445,7 +2439,6 @@ msgctxt "model:ir.model.button,string:shipment_internal_draft_button"
  msgid "Draft"
  msgstr "Esborrany"
-
+ 
 -#, fuzzy
  msgctxt "model:ir.model.button,string:shipment_internal_pack_button"
  msgid "Pack"
@@ -4089,7 +4089,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2646,7 +2639,6 @@ msgctxt "model:ir.ui.menu,name:menu_location_lead_time_form"
  msgid "Location Lead Times"
  msgstr "Temps d'espera entre ubicacions"
-
+ 
 -#, fuzzy
  msgctxt "model:ir.ui.menu,name:menu_location_list"
  msgid "Locations"
@@ -4097,32 +4097,32 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2707,32 +2699,26 @@ msgctxt "model:ir.ui.menu,name:menu_warehouse_list"
  msgid "Warehouses"
  msgstr "Magatzems"
-
+ 
 -#, fuzzy
  msgctxt "model:party.party-delivered_to-stock.location,string:"
  msgid "Party - Delivered To - Stock Location"
  msgstr "Tercer entregat al magatzem"
-
+ 
 -#, fuzzy
  msgctxt "model:party.party.location,string:"
  msgid "Party Location"
  msgstr "Ubicació del tercer"
-
+ 
 -#, fuzzy
  msgctxt "model:product.by_location.context,string:"
  msgid "Product By Location Context"
  msgstr "Producte per ubicacions"
-
+ 
 -#, fuzzy
  msgctxt "model:product.cost_price.revision,string:"
  msgid "Product Cost Price Revision"
  msgstr "Revisió de preu de cost"
-
+ 
 -#, fuzzy
  msgctxt "model:product.modify_cost_price.start,string:"
  msgid "Product Modify Cost Price Start"
  msgstr "Preu de cost del producte"
-
+ 
 -#, fuzzy
  msgctxt "model:product.recompute_cost_price.start,string:"
  msgid "Product Recompute Cost Price Start"
@@ -4130,37 +4130,37 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2749,37 +2735,30 @@ msgctxt "model:res.group,name:group_stock_force_assignment"
  msgid "Stock Force Assignment"
  msgstr "Forçar reserves a logística"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.configuration,string:"
  msgid "Stock Configuration"
  msgstr "Configuració d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.configuration.location,string:"
  msgid "Stock Configuration Location"
  msgstr "Configuració d'ubicacions d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.configuration.sequence,string:"
  msgid "Stock Configuration Sequence"
  msgstr "Configuració de seqüencies d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.inventory,string:"
  msgid "Stock Inventory"
  msgstr "Inventari d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.inventory.count.quantity,string:"
  msgid "Stock Inventory Count Quantity"
  msgstr "Recompte d'inventari"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.inventory.count.search,string:"
  msgid "Stock Inventory Count Search"
  msgstr "Recompte d'inventari"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.inventory.line,string:"
  msgid "Stock Inventory Line"
@@ -4168,97 +4168,97 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2816,97 +2795,78 @@ msgctxt "model:stock.location,name:location_warehouse"
  msgid "Warehouse"
  msgstr "Magatzem"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.location,string:"
  msgid "Stock Location"
  msgstr "Ubicació d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.location.lead_time,string:"
  msgid "Stock Location Lead Time"
  msgstr "Ubicació temps d'espera"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.location.waste,string:"
  msgid "Stock Location Waste"
  msgstr "Llista d'ubicacions d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.move,string:"
  msgid "Stock Move"
  msgstr "Moviment d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.period,string:"
  msgid "Stock Period"
  msgstr "Període d'existències"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.period.cache,string:"
  msgid "Stock Period Cache"
  msgstr "Període d'existències precalculat"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.product_quantities_warehouse,string:"
  msgid "Stock Product Quantities Warehouse"
  msgstr "Quantitats de producte per magatzem"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.product_quantities_warehouse.context,string:"
  msgid "Stock Product Quantities Warehouse Context"
  msgstr "Quantitats de producte per moviments de magatzem"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.product_quantities_warehouse.move,string:"
  msgid "Stock Product Quantities Warehouse Move"
  msgstr "Quantitats de producte per moviments de magatzem"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.products_by_locations,string:"
  msgid "Stock Products By Locations"
  msgstr "Productes per ubicacions"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.products_by_locations.context,string:"
  msgid "Stock Products By Locations Context"
  msgstr "Productes per ubicacions"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.category,string:"
  msgid "Stock Reporting Margin Category"
  msgstr "Informe de marges per categoria"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.category.time_series,string:"
  msgid "Stock Reporting Margin Category Time Series"
  msgstr "Informe de marges per categoria"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.category.tree,string:"
  msgid "Stock Reporting Margin Category Tree"
  msgstr "Informe de marges per categoria"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.context,string:"
  msgid "Stock Reporting Margin Context"
  msgstr "Contexte dels informes de marges"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.main,string:"
  msgid "Stock Reporting Margin Main"
  msgstr "Informe de marge d'estoc"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.main.time_series,string:"
  msgid "Stock Reporting Margin Main Time Series"
  msgstr "Informe de marges per categoria"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.product,string:"
  msgid "Stock Reporting Margin Product"
  msgstr "Informe de marges per producte"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.reporting.margin.product.time_series,string:"
  msgid "Stock Reporting Margin Product Time Series"
@@ -4266,22 +4266,23 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -2915,22 +2875,18 @@ msgctxt "model:stock.shipment.assign.partial,string:"
  msgid "Stock Shipment Assign Partial"
  msgstr ""
-
+ 
 -#, fuzzy
  msgctxt "model:stock.shipment.in,string:"
  msgid "Stock Shipment In"
- msgstr "Albarà de client"
-
+-msgstr "Albarà de client"
++msgstr "Albarà de proveïdor"
+ 
 -#, fuzzy
  msgctxt "model:stock.shipment.in.return,string:"
  msgid "Stock Shipment In Return"
  msgstr "Reserva albarà intern"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.shipment.internal,string:"
  msgid "Stock Shipment Internal"
  msgstr "Reserva albarà intern"
-
+ 
 -#, fuzzy
  msgctxt "model:stock.shipment.out,string:"
  msgid "Stock Shipment Out"
@@ -4289,7 +4290,7 @@ index 789fd92bf9..76cf2cfff9 100644
 @@ -3375,7 +3331,6 @@ msgctxt "selection:stock.shipment.internal,state:"
  msgid "Draft"
  msgstr "Esborrany"
-
+ 
 -#, fuzzy
  msgctxt "selection:stock.shipment.internal,state:"
  msgid "Packed"
