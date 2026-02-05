@@ -1,0 +1,16 @@
+diff --git a/tryton/modules/authentication_sms/res.py b/tryton/modules/authentication_sms/res.py
+index db675b1b5e..7710e304ef 100644
+--- a/tryton/modules/authentication_sms/res.py
++++ b/tryton/modules/authentication_sms/res.py
+@@ -39,7 +39,10 @@ class User(metaclass=PoolMeta):
+         SMSCode = pool.get('res.user.login.sms_code')
+         user_id = cls._get_login(login)[0]
+         if user_id:
+-            SMSCode.send(user_id)
++            if cls(user_id).mobile:
++                SMSCode.send(user_id)
++            else:
++                return res_id
+         if 'sms_code' in parameters:
+             code = parameters['sms_code']
+             if not code:
