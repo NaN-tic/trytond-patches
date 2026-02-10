@@ -46,3 +46,4 @@ issue14507.diff # [party] Add a menu entry for party identifiers
 
 issue14213.diff # [sao] Make the user menu favorites unique
 issue14527.diff # [sao] Scroll into view within scrollable ancestors
+issue14556.diff # [sao] Make always sensitive reload button for view other than form

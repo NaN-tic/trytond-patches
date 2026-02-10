@@ -1,0 +1,16 @@
+diff --git a/tryton/sao/src/tab.js b/tryton/sao/src/tab.js
+index 570fb9667bf30526cdf28bc15d8db86aa3ce15b7_c2FvL3NyYy90YWIuanM=..ff65228cc2a0d0273823a6f45e4c3ce384535689_c2FvL3NyYy90YWIuanM= 100644
+--- a/tryton/sao/src/tab.js
++++ b/tryton/sao/src/tab.js
+@@ -1569,9 +1569,8 @@
+                 }
+                 set_sensitive(button_id, sensitive && can_be_sensitive);
+             }
+-            for (let button_id of ['reload', 'action']) {
+-                set_sensitive(button_id, sensitive);
+-            }
++            set_sensitive('action', sensitive);
++            set_sensitive('reload', sensitive || (view_type != 'form'))
+             set_sensitive(
+                 'switch_',
+                 (position || (view_type == 'form') || (next_view_type != 'form')) &&
