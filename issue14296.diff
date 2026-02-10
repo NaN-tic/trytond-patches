@@ -2252,176 +2252,116 @@ diff --git a/tryton/modules/party/locale/ca.po b/tryton/modules/party/locale/ca.
 index 24e5549fb7..2fc1e6c65c 100644
 --- a/tryton/modules/party/locale/ca.po
 +++ b/tryton/modules/party/locale/ca.po
-@@ -6,15 +6,13 @@
- msgid "Contact Mechanism"
- msgstr "Mitjà de contacte"
+@@ -9 +8,0 @@
 -#, fuzzy
- msgctxt "field:party.address,building_name:"
- msgid "Building Name"
- msgstr "Nom de l'edifici"
+@@ -14 +12,0 @@
 -#, fuzzy
- msgctxt "field:party.address,building_number:"
- msgid "Building Number"
+@@ -17 +15 @@
 -msgstr "Nom de l'edifici"
 +msgstr "Número d'edifici"
- msgctxt "field:party.address,city:"
- msgid "City"
-@@ -28,10 +26,9 @@
- msgid "Country"
- msgstr "País"
+@@ -31 +28,0 @@
 -#, fuzzy
- msgctxt "field:party.address,floor_number:"
- msgid "Floor Number"
+@@ -34 +31 @@
 -msgstr "Número de naixement Eslovac"
 +msgstr "Número de pis"
- msgctxt "field:party.address,full_address:"
- msgid "Full Address"
-@@ -49,14 +46,13 @@
- msgid "Party Name"
- msgstr "Nom del tercer"
+@@ -52 +48,0 @@
 -#, fuzzy
- msgctxt "field:party.address,post_box:"
- msgid "Post Box"
+@@ -55 +51 @@
 -msgstr "Codi postal"
 +msgstr "Bústia de correus"
- msgctxt "field:party.address,post_office:"
- msgid "Post Office"
+@@ -59 +55 @@
 -msgstr ""
 +msgstr "Oficina de Correus"
- msgctxt "field:party.address,postal_code:"
- msgid "Postal Code"
-@@ -64,27 +60,24 @@
- msgctxt "field:party.address,private_bag:"
- msgid "Private Bag"
+@@ -67 +63 @@
 -msgstr ""
 +msgstr "Bossa privada"
+@@ -69 +64,0 @@
 -#, fuzzy
- msgctxt "field:party.address,room_number:"
- msgid "Room Number"
+@@ -72 +67 @@
 -msgstr "Identificador fiscal Romanès"
 +msgstr "Número d'habitació"
- msgctxt "field:party.address,street:"
- msgid "Street"
- msgstr "Carrer"
+@@ -78 +72,0 @@
 -#, fuzzy
- msgctxt "field:party.address,street_name:"
- msgid "Street Name"
+@@ -81 +75 @@
 -msgstr "Carrer"
 +msgstr "Nom del carrer"
- msgctxt "field:party.address,street_single_line:"
- msgid "Street"
- msgstr "Carrer"
+@@ -87 +80,0 @@
 -#, fuzzy
- msgctxt "field:party.address,street_unstructured:"
- msgid "Street"
- msgstr "Carrer"
-@@ -97,15 +90,13 @@
- msgid "Subdivision Types"
- msgstr "Tipus de subdivisió"
+@@ -100 +92,0 @@
 -#, fuzzy
- msgctxt "field:party.address,unit_number:"
- msgid "Unit Number"
+@@ -103 +95 @@
 -msgstr "Identificador fiscal Danès"
 +msgstr "Número d'unitat"
+@@ -105 +96,0 @@
 -#, fuzzy
- msgctxt "field:party.address.format,building_number_format:"
- msgid "Building Number Format"
+@@ -108 +99 @@
 -msgstr "Nom de l'edifici"
 +msgstr "Format de número d'edifici"
- msgctxt "field:party.address.format,country_code:"
- msgid "Country Code"
-@@ -113,7 +104,7 @@
- msgctxt "field:party.address.format,floor_number_format:"
- msgid "Floor Number Format"
+@@ -116 +107 @@
 -msgstr ""
 +msgstr "Format de número de pis"
- msgctxt "field:party.address.format,format_:"
- msgid "Format"
-@@ -125,28 +116,27 @@
- msgctxt "field:party.address.format,post_box_format:"
- msgid "Post Box Format"
+@@ -128 +119 @@
 -msgstr ""
 +msgstr "Format de bústia de correu"
- msgctxt "field:party.address.format,post_office_format:"
+@@ -131,2 +122,2 @@
 -msgid "Post Box Format"
 -msgstr ""
 +msgid "Post Office Format"
 +msgstr "Format d'oficina de correus"
- msgctxt "field:party.address.format,private_bag_format:"
+@@ -135,2 +126,2 @@
 -msgid "Post Box Format"
 -msgstr ""
 +msgid "Private Bag Format"
 +msgstr "Format de bossa privada"
- msgctxt "field:party.address.format,room_number_format:"
- msgid "Room Number Format"
+@@ -140 +131 @@
 -msgstr ""
 +msgstr "Format del número d'habitació"
+@@ -142 +132,0 @@
 -#, fuzzy
- msgctxt "field:party.address.format,street_format:"
- msgid "Street Format"
+@@ -145 +135 @@
 -msgstr "Formats de les adreces"
 +msgstr "Format de carrer"
- msgctxt "field:party.address.format,unit_number_format:"
- msgid "Unit Number Format"
+@@ -149 +139 @@
 -msgstr ""
 +msgstr "Format del número d'unitat"
- msgctxt "field:party.address.subdivision_type,country_code:"
- msgid "Country Code"
-@@ -396,14 +386,13 @@
- "Si s'emplena, es substituirà el nom del tercer en el format de l'adreça"
- msgctxt "help:party.address.format,building_number_format:"
+@@ -399,2 +389,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the building number."
 +msgstr "Feu servir {} com a marcador de posició per al número d'edifici."
- msgctxt "help:party.address.format,floor_number_format:"
+@@ -403,2 +393,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the floor number."
 +msgstr "Feu servir {} com a marcador de posició per al número de pis."
+@@ -406 +395,0 @@
 -#, fuzzy
- msgctxt "help:party.address.format,format_:"
- msgid ""
- "Available variables (also in upper case and street variables):\n"
-@@ -417,7 +406,7 @@
- "- ${country}\n"
- "- ${country_code}"
- msgstr ""
+@@ -420 +409 @@
 -"Variables disponibles (també en majúscules):\n"
 +"Variables disponibles (també en majúscules i variables de carrer):\n"
- "- ${party_name}\n"
- "- ${name}\n"
- "- ${attn}\n"
-@@ -430,22 +419,21 @@
- "- ${country_code}"
- msgctxt "help:party.address.format,post_box_format:"
+@@ -433,2 +422,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the post box."
 +msgstr "Feu servir {} com a marcador de posició per a la bústia."
- msgctxt "help:party.address.format,post_office_format:"
+@@ -437,2 +426,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the post office."
 +msgstr "Feu servir {} com a marcador de posició per a l'oficina de correus."
- msgctxt "help:party.address.format,private_bag_format:"
+@@ -441,2 +430,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the private bag."
 +msgstr "Feu servir {} com a marcador de posició per a la bossa privada."
- msgctxt "help:party.address.format,room_number_format:"
+@@ -445,2 +434,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the room number."
 +msgstr "Feu servir {} com a marcador de posició per al número d'habitació."
+@@ -448 +436,0 @@
 -#, fuzzy
- msgctxt "help:party.address.format,street_format:"
- msgid ""
- "Available variables (also in upper case):\n"
-@@ -460,20 +448,19 @@
- "- ${post_office}\n"
- msgstr ""
- "Variables disponibles (també en majúscules):\n"
+@@ -463,10 +451,9 @@
 -"- ${party_name}\n"
 -"- ${name}\n"
 -"- ${attn}\n"
@@ -2441,110 +2381,63 @@ index 24e5549fb7..2fc1e6c65c 100644
 +"- ${post_box}\n"
 +"- ${private_bag}\n"
 +"- ${post_office}\n"
- msgctxt "help:party.address.format,unit_number_format:"
+@@ -475,2 +462,2 @@
 -msgid "Use {} as placeholder for the number."
 -msgstr ""
 +msgid "Use {} as placeholder for the unit number."
 +msgstr "Feu servir {} com a marcador de posició per al número d'unitat."
- msgctxt "help:party.category,childs:"
- msgid "Add children below the category."
-@@ -691,10 +678,10 @@
- msgid "The code on party must be unique."
- msgstr "El codi del tercer ha de ser únic."
+@@ -694 +681 @@
 -#, fuzzy, python-format
 +#, python-format
- msgctxt "model:ir.message,text:msg_party_contact_mechanism_duplicate"
- msgid "The party \"%(party)s\" has the same %(type)s \"%(value)s\"."
+@@ -697 +684 @@
 -msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(code)s\"."
 +msgstr "El tercer \"%(party)s\" té el mateix \"%(type)s\" \"%(value)s\"."
- #, python-format
- msgctxt "model:ir.message,text:msg_party_identifier_duplicate"
-@@ -762,36 +749,30 @@
- msgid "Parties"
- msgstr "Tercers"
+@@ -765 +751,0 @@
 -#, fuzzy
- msgctxt "model:party.address,string:"
- msgid "Party Address"
- msgstr "Adreça"
+@@ -770 +755,0 @@
 -#, fuzzy
- msgctxt "model:party.address.format,string:"
- msgid "Party Address Format"
- msgstr "Format de les adreces"
+@@ -775 +759,0 @@
 -#, fuzzy
- msgctxt "model:party.address.subdivision_type,string:"
- msgid "Party Address Subdivision Type"
- msgstr "Tipus de subdivisió per adreça"
+@@ -780 +763,0 @@
 -#, fuzzy
- msgctxt "model:party.category,string:"
- msgid "Party Category"
+@@ -783 +766 @@
 -msgstr "Tercer - Categoria"
 +msgstr "Categoria de tercer"
- msgctxt "model:party.check_vies.result,string:"
- msgid "Party Check Vies Result"
+@@ -787 +770 @@
 -msgstr ""
 +msgstr "Resultat comprovaió VIES"
+@@ -789 +771,0 @@
 -#, fuzzy
- msgctxt "model:party.configuration,string:"
- msgid "Party Configuration"
- msgstr "Configuració de tercers"
+@@ -794 +775,0 @@
 -#, fuzzy
- msgctxt "model:party.configuration.party_lang,string:"
- msgid "Party Configuration Party Lang"
- msgstr "Configuració de l'idioma dels tercers"
-@@ -800,44 +781,37 @@
- msgid "Party Configuration Party Sequence"
- msgstr "Configuració de la seqüència de tercers"
+@@ -803 +783,0 @@
 -#, fuzzy
- msgctxt "model:party.contact_mechanism,string:"
- msgid "Party Contact Mechanism"
- msgstr "Mitjà de contacte"
+@@ -808 +787,0 @@
 -#, fuzzy
- msgctxt "model:party.contact_mechanism.language,string:"
- msgid "Party Contact Mechanism Language"
- msgstr "Idioma del mitjà de contacte"
+@@ -813 +791,0 @@
 -#, fuzzy
- msgctxt "model:party.erase.ask,string:"
- msgid "Party Erase Ask"
+@@ -816 +794 @@
 -msgstr "Nom del tercer"
 +msgstr "Inici eliminar tercer"
+@@ -818 +795,0 @@
 -#, fuzzy
- msgctxt "model:party.identifier,string:"
- msgid "Party Identifier"
- msgstr "Identificador del tercer"
+@@ -823 +799,0 @@
 -#, fuzzy
- msgctxt "model:party.party,string:"
- msgid "Party"
- msgstr "Tercer"
+@@ -828 +803,0 @@
 -#, fuzzy
- msgctxt "model:party.party-party.category,string:"
- msgid "Party - Party Category"
- msgstr "Tercer - Categoria"
+@@ -833 +807,0 @@
 -#, fuzzy
- msgctxt "model:party.party.lang,string:"
- msgid "Party Lang"
- msgstr "Idioma del tercer"
- msgctxt "model:party.replace.ask,string:"
- msgid "Party Replace Ask"
+@@ -840 +814 @@
 -msgstr ""
 +msgstr "Inici substituïr tercer"
- msgctxt "model:res.group,name:group_party_admin"
- msgid "Party Administration"
-@@ -900,8 +874,8 @@
- msgstr "Número BIS Belga"
- msgctxt "selection:party.configuration,identifier_types:"
+@@ -903,2 +877,2 @@
 -msgid "Belgian Enterprise Number"
 -msgstr "Número d'empresa Belga"
 +msgid "Belgian Company Number"
 +msgstr "Número d'empresa belga"
- msgctxt "selection:party.configuration,identifier_types:"
- msgid "Belgian National Number"
-@@ -1153,7 +1127,7 @@
- msgctxt "selection:party.configuration,identifier_types:"
- msgid "Indian Income Tax Identifier"
+@@ -1156 +1130 @@
 -msgstr "Identificador fiscal Indi"
 +msgstr "Identificador fiscal sobre la renda Indi"
- msgctxt "selection:party.configuration,identifier_types:"
- msgid "Indian VAT number"
 diff --git a/tryton/modules/party_relationship/locale/ca.po b/tryton/modules/party_relationship/locale/ca.po
 index d4ecd050e4..c1a6d6a6a7 100644
 --- a/tryton/modules/party_relationship/locale/ca.po
@@ -4146,226 +4039,99 @@ diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.
 index 789fd92bf9..8317913444 100644
 --- a/tryton/modules/stock/locale/ca.po
 +++ b/tryton/modules/stock/locale/ca.po
-@@ -870,7 +870,6 @@ msgctxt "field:stock.shipment.internal,incoming_moves:"
- msgid "Incoming Moves"
- msgstr "Moviments d'entrada"
+@@ -873 +872,0 @@
 -#, fuzzy
- msgctxt "field:stock.shipment.internal,internal_transit_location:"
- msgid "Internal Transit Location"
- msgstr "Ubicació en tránsit"
-@@ -887,7 +886,6 @@ msgctxt "field:stock.shipment.internal,outgoing_moves:"
- msgid "Outgoing Moves"
- msgstr "Moviments de sortida"
+@@ -890 +888,0 @@
 -#, fuzzy
- msgctxt "field:stock.shipment.internal,packed_by:"
- msgid "Packed By"
- msgstr "Empaquetat per"
-@@ -1309,7 +1307,6 @@ msgctxt "help:stock.location,type:"
- msgid "Regroup storage locations under a logistics warehouse."
- msgstr ""
+@@ -1312 +1309,0 @@
 -#, fuzzy
- msgctxt "help:stock.location,type:"
- msgid "Used as the destination for stock sent to customers."
- msgstr ""
-@@ -1320,7 +1317,6 @@ msgid ""
- "Used as the destination of components and the source of finished products."
- msgstr ""
+@@ -1323 +1319,0 @@
 -#, fuzzy
- msgctxt "help:stock.location,type:"
- msgid "Used as the source of stock received from suppliers."
- msgstr "La ubicació origen predeterminada per rebre productes del tercer."
-@@ -1678,7 +1674,6 @@ msgctxt "model:ir.action,name:act_location_lead_time_form"
- msgid "Location Lead Times"
- msgstr "Temps d'espera entre ubicacions"
+@@ -1681 +1676,0 @@
 -#, fuzzy
- msgctxt "model:ir.action,name:act_location_list"
- msgid "Locations"
- msgstr "Ubicacions"
-@@ -1928,7 +1923,6 @@ msgctxt ""
- msgid "Draft"
- msgstr "Esborrany"
+@@ -1931 +1925,0 @@
 -#, fuzzy
- msgctxt ""
- "model:ir.action.act_window.domain,name:act_shipment_internal_form_domain_packed"
- msgid "Packed"
-@@ -2445,7 +2439,6 @@ msgctxt "model:ir.model.button,string:shipment_internal_draft_button"
- msgid "Draft"
- msgstr "Esborrany"
+@@ -2448 +2441,0 @@
 -#, fuzzy
- msgctxt "model:ir.model.button,string:shipment_internal_pack_button"
- msgid "Pack"
- msgstr "Empaqueta"
-@@ -2646,7 +2639,6 @@ msgctxt "model:ir.ui.menu,name:menu_location_lead_time_form"
- msgid "Location Lead Times"
- msgstr "Temps d'espera entre ubicacions"
+@@ -2649 +2641,0 @@
 -#, fuzzy
- msgctxt "model:ir.ui.menu,name:menu_location_list"
- msgid "Locations"
- msgstr "Ubicacions"
-@@ -2707,32 +2699,26 @@ msgctxt "model:ir.ui.menu,name:menu_warehouse_list"
- msgid "Warehouses"
- msgstr "Magatzems"
+@@ -2710 +2701,0 @@
 -#, fuzzy
- msgctxt "model:party.party-delivered_to-stock.location,string:"
- msgid "Party - Delivered To - Stock Location"
- msgstr "Tercer entregat al magatzem"
+@@ -2715 +2705,0 @@
 -#, fuzzy
- msgctxt "model:party.party.location,string:"
- msgid "Party Location"
- msgstr "Ubicació del tercer"
+@@ -2720 +2709,0 @@
 -#, fuzzy
- msgctxt "model:product.by_location.context,string:"
- msgid "Product By Location Context"
- msgstr "Producte per ubicacions"
+@@ -2725 +2713,0 @@
 -#, fuzzy
- msgctxt "model:product.cost_price.revision,string:"
- msgid "Product Cost Price Revision"
- msgstr "Revisió de preu de cost"
+@@ -2730 +2717,0 @@
 -#, fuzzy
- msgctxt "model:product.modify_cost_price.start,string:"
- msgid "Product Modify Cost Price Start"
- msgstr "Preu de cost del producte"
+@@ -2735 +2721,0 @@
 -#, fuzzy
- msgctxt "model:product.recompute_cost_price.start,string:"
- msgid "Product Recompute Cost Price Start"
- msgstr "Recalcula preu de cost"
-@@ -2749,37 +2735,30 @@ msgctxt "model:res.group,name:group_stock_force_assignment"
- msgid "Stock Force Assignment"
- msgstr "Forçar reserves a logística"
+@@ -2752 +2737,0 @@
 -#, fuzzy
- msgctxt "model:stock.configuration,string:"
- msgid "Stock Configuration"
- msgstr "Configuració d'existències"
+@@ -2757 +2741,0 @@
 -#, fuzzy
- msgctxt "model:stock.configuration.location,string:"
- msgid "Stock Configuration Location"
- msgstr "Configuració d'ubicacions d'existències"
+@@ -2762 +2745,0 @@
 -#, fuzzy
- msgctxt "model:stock.configuration.sequence,string:"
- msgid "Stock Configuration Sequence"
- msgstr "Configuració de seqüencies d'existències"
+@@ -2767 +2749,0 @@
 -#, fuzzy
- msgctxt "model:stock.inventory,string:"
- msgid "Stock Inventory"
- msgstr "Inventari d'existències"
+@@ -2772 +2753,0 @@
 -#, fuzzy
- msgctxt "model:stock.inventory.count.quantity,string:"
- msgid "Stock Inventory Count Quantity"
- msgstr "Recompte d'inventari"
+@@ -2777 +2757,0 @@
 -#, fuzzy
- msgctxt "model:stock.inventory.count.search,string:"
- msgid "Stock Inventory Count Search"
- msgstr "Recompte d'inventari"
+@@ -2782 +2761,0 @@
 -#, fuzzy
- msgctxt "model:stock.inventory.line,string:"
- msgid "Stock Inventory Line"
- msgstr "Línia d'inventari d'existències"
-@@ -2816,97 +2795,78 @@ msgctxt "model:stock.location,name:location_warehouse"
- msgid "Warehouse"
- msgstr "Magatzem"
+@@ -2819 +2797,0 @@
 -#, fuzzy
- msgctxt "model:stock.location,string:"
- msgid "Stock Location"
- msgstr "Ubicació d'existències"
+@@ -2824 +2801,0 @@
 -#, fuzzy
- msgctxt "model:stock.location.lead_time,string:"
- msgid "Stock Location Lead Time"
- msgstr "Ubicació temps d'espera"
+@@ -2829 +2805,0 @@
 -#, fuzzy
- msgctxt "model:stock.location.waste,string:"
- msgid "Stock Location Waste"
- msgstr "Llista d'ubicacions d'existències"
+@@ -2834 +2809,0 @@
 -#, fuzzy
- msgctxt "model:stock.move,string:"
- msgid "Stock Move"
- msgstr "Moviment d'existències"
+@@ -2839 +2813,0 @@
 -#, fuzzy
- msgctxt "model:stock.period,string:"
- msgid "Stock Period"
- msgstr "Període d'existències"
+@@ -2844 +2817,0 @@
 -#, fuzzy
- msgctxt "model:stock.period.cache,string:"
- msgid "Stock Period Cache"
- msgstr "Període d'existències precalculat"
+@@ -2849 +2821,0 @@
 -#, fuzzy
- msgctxt "model:stock.product_quantities_warehouse,string:"
- msgid "Stock Product Quantities Warehouse"
- msgstr "Quantitats de producte per magatzem"
+@@ -2854 +2825,0 @@
 -#, fuzzy
- msgctxt "model:stock.product_quantities_warehouse.context,string:"
- msgid "Stock Product Quantities Warehouse Context"
- msgstr "Quantitats de producte per moviments de magatzem"
+@@ -2859 +2829,0 @@
 -#, fuzzy
- msgctxt "model:stock.product_quantities_warehouse.move,string:"
- msgid "Stock Product Quantities Warehouse Move"
- msgstr "Quantitats de producte per moviments de magatzem"
+@@ -2864 +2833,0 @@
 -#, fuzzy
- msgctxt "model:stock.products_by_locations,string:"
- msgid "Stock Products By Locations"
- msgstr "Productes per ubicacions"
+@@ -2869 +2837,0 @@
 -#, fuzzy
- msgctxt "model:stock.products_by_locations.context,string:"
- msgid "Stock Products By Locations Context"
- msgstr "Productes per ubicacions"
+@@ -2874 +2841,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.category,string:"
- msgid "Stock Reporting Margin Category"
- msgstr "Informe de marges per categoria"
+@@ -2879 +2845,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.category.time_series,string:"
- msgid "Stock Reporting Margin Category Time Series"
- msgstr "Informe de marges per categoria"
+@@ -2884 +2849,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.category.tree,string:"
- msgid "Stock Reporting Margin Category Tree"
- msgstr "Informe de marges per categoria"
+@@ -2889 +2853,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.context,string:"
- msgid "Stock Reporting Margin Context"
- msgstr "Contexte dels informes de marges"
+@@ -2894 +2857,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.main,string:"
- msgid "Stock Reporting Margin Main"
- msgstr "Informe de marge d'estoc"
+@@ -2899 +2861,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.main.time_series,string:"
- msgid "Stock Reporting Margin Main Time Series"
- msgstr "Informe de marges per categoria"
+@@ -2904 +2865,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.product,string:"
- msgid "Stock Reporting Margin Product"
- msgstr "Informe de marges per producte"
+@@ -2909 +2869,0 @@
 -#, fuzzy
- msgctxt "model:stock.reporting.margin.product.time_series,string:"
- msgid "Stock Reporting Margin Product Time Series"
- msgstr "Informe de marges per producte"
-@@ -2915,22 +2875,18 @@ msgctxt "model:stock.shipment.assign.partial,string:"
- msgid "Stock Shipment Assign Partial"
- msgstr ""
+@@ -2918 +2877,0 @@
 -#, fuzzy
- msgctxt "model:stock.shipment.in,string:"
- msgid "Stock Shipment In"
+@@ -2921 +2880 @@
 -msgstr "Albarà de client"
 +msgstr "Albarà de proveïdor"
+@@ -2923 +2881,0 @@
 -#, fuzzy
- msgctxt "model:stock.shipment.in.return,string:"
- msgid "Stock Shipment In Return"
- msgstr "Reserva albarà intern"
+@@ -2928 +2885,0 @@
 -#, fuzzy
- msgctxt "model:stock.shipment.internal,string:"
- msgid "Stock Shipment Internal"
- msgstr "Reserva albarà intern"
+@@ -2933 +2889,0 @@
 -#, fuzzy
- msgctxt "model:stock.shipment.out,string:"
- msgid "Stock Shipment Out"
- msgstr "Albarà de client"
-@@ -3375,7 +3331,6 @@ msgctxt "selection:stock.shipment.internal,state:"
- msgid "Draft"
- msgstr "Esborrany"
+@@ -3378 +3333,0 @@
 -#, fuzzy
- msgctxt "selection:stock.shipment.internal,state:"
- msgid "Packed"
- msgstr "Empaquetat"
 diff --git a/tryton/modules/stock_assign_manual/locale/ca.po b/tryton/modules/stock_assign_manual/locale/ca.po
 index 8a5715939b..0f26bdbd75 100644
 --- a/tryton/modules/stock_assign_manual/locale/ca.po
