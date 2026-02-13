@@ -38,8 +38,6 @@ dbless_pool.diff # [trytond] Enable pool construction without database interacti
 
 issue14448.diff # [sale_point] Allow the sale point group to view the main sales menu
 
-trytond-binary-logging-error.diff # [trytond] Log exception when retrieve file ID from the filestore for Binary field
-
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 issue14507.diff # [party] Add a menu entry for party identifiers
