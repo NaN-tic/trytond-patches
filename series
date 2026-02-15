@@ -48,8 +48,6 @@ issue8250.diff # [sao] Load sub-fields of xxx2Many only for lazy loading
 
 issue14306.diff # [sao] Use mouse events instead of drag/drop events to resize column
 
-b2ck8275.diff # [production_work] Crash on do() if work cycle has not been modified
-
 issue14346.diff # [account_incoice] GTK client: Base and Amount Invoice tax with 3 digits (currency is 2 digits)
 
 b2ck8279.diff # [trytond] assertValid does not show the offending view
