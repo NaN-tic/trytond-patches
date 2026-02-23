@@ -1,0 +1,140 @@
+diff --git a/trytond/doc/ref/tools/misc.rst b/trytond/doc/ref/tools/misc.rst
+--- a/trytond/doc/ref/tools/misc.rst
++++ b/trytond/doc/ref/tools/misc.rst
+@@ -64,6 +64,14 @@ Miscellaneous
+ 
+    Return an SQL expression that pairs SQL integers x and y.
+ 
++.. function:: pair(x, y)
++
++   Returns z as a pair of x and y.
++
++.. function:: unpair(z)
++
++   Returns the x and y pair associated with z.
++
+ .. function:: sqlite_apply_types(select, types)
+ 
+    Apply in place the SQLite types to column names of the select query.
+diff --git a/trytond/trytond/tests/test_tools.py b/trytond/trytond/tests/test_tools.py
+--- a/trytond/trytond/tests/test_tools.py
++++ b/trytond/trytond/tests/test_tools.py
+@@ -28,9 +28,9 @@ from trytond.tests.test_tryton import TestCase
+ from trytond.tools import (
+     cached_property, decimal_, email_, escape_wildcard, file_open, firstline,
+     grouped_slice, is_full_text, is_instance_method, likify, lstrip_wildcard,
+-    pairwise_longest, reduce_domain, reduce_ids, remove_forbidden_chars,
++    pair, pairwise_longest, reduce_domain, reduce_ids, remove_forbidden_chars,
+     rstrip_wildcard, slugify, sortable_values, sqlite_apply_types,
+-    strip_wildcard, timezone, unescape_wildcard)
++    strip_wildcard, timezone, unescape_wildcard, unpair)
+ from trytond.tools.chart import sparkline
+ from trytond.tools.domain_inversion import (
+     canonicalize, concat, domain_inversion, eval_domain,
+@@ -337,6 +337,33 @@ class ToolsTestCase(TestCase):
+                 (1, None),
+                 ])
+ 
++    def test_pair_unpair(self):
++        "Test pair/unpair"
++        for x, y, z in [
++                (0, 0, 0),
++                (0, 1, 1),
++                (1, 0, 2),
++                (1, 1, 3),
++                (0, 2, 4),
++                (1, 2, 5),
++                (2, 0, 6),
++                (2, 1, 7),
++                (2, 2, 8),
++                (6, 0, 42),
++                ]:
++            with self.subTest(x=x, y=y, z=z):
++                self.assertEqual(pair(x, y), z)
++                self.assertEqual(unpair(z), (x, y))
++
++        with self.assertRaises(ValueError):
++            pair(-1, 1)
++
++        with self.assertRaises(ValueError):
++            pair(1, -1)
++
++        with self.assertRaises(ValueError):
++            unpair(-1)
++
+     def test_sqlite_apply_types(self):
+         "test sqlite_apply_types"
+         table = sql.Table('t')
+diff --git a/trytond/trytond/tools/__init__.py b/trytond/trytond/tools/__init__.py
+--- a/trytond/trytond/tools/__init__.py
++++ b/trytond/trytond/tools/__init__.py
+@@ -13,9 +13,9 @@ from .decimal_ import decistmt
+ from .misc import (
+     entry_points, escape_wildcard, file_open, find_dir, find_path, firstline,
+     get_smtp_server, grouped_slice, import_module, is_full_text,
+-    is_instance_method, likify, lstrip_wildcard, pairwise_longest,
++    is_instance_method, likify, lstrip_wildcard, pair, pairwise_longest,
+     reduce_domain, reduce_ids, remove_forbidden_chars, resolve,
+     rstrip_wildcard, slugify, sortable_values, sql_pairing, sqlite_apply_types,
+-    strip_wildcard, unescape_wildcard)
++    strip_wildcard, unescape_wildcard, unpair)
+ 
+ _NOT_FOUND = object()
+@@ -82,6 +82,7 @@ __all__ = [
+     is_instance_method,
+     likify,
+     lstrip_wildcard,
++    pair,
+     pairwise_longest,
+     reduce_domain,
+     reduce_ids,
+@@ -95,4 +96,5 @@ __all__ = [
+     sqlite_apply_types,
+     strip_wildcard,
+     unescape_wildcard,
++    unpair,
+     ]
+diff --git a/trytond/trytond/tools/misc.py b/trytond/trytond/tools/misc.py
+--- a/trytond/trytond/tools/misc.py
++++ b/trytond/trytond/tools/misc.py
+@@ -6,6 +6,7 @@ Miscelleanous tools used by tryton
+ """
+ import importlib
+ import io
++import math
+ import os
+ import re
+ import types
+@@ -306,6 +307,32 @@ def sql_pairing(x, y):
+         else_=(x * x) + x + y)
+ 
+ 
++def pair(x, y):
++    "Returns z as a pair of x and y"
++    if x < 0 or y < 0:
++        raise ValueError("x and y must be non-negative")
++    if x < y:
++        z = y ** 2 + x
++    else:
++        z = x ** 2 + x + y
++    return z
++
++
++def unpair(z):
++    "Returns the x and y pair associated with z"
++    if z < 0:
++        raise ValueError("z must be non-negative")
++    sqrtz = math.isqrt(z)
++    sq = sqrtz ** 2
++    if z - sq < sqrtz:
++        x = z - sq
++        y = sqrtz
++    else:
++        x = sqrtz
++        y = z - sq - sqrtz
++    return x, y
++
++
+ def sqlite_apply_types(select, types):
+     "Apply SQLite types to column names of the select query"
+     assert isinstance(select, Select)

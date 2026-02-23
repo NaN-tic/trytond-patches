@@ -1,0 +1,116 @@
+diff --git a/tryton/modules/purchase/purchase_reporting.py b/tryton/modules/purchase/purchase_reporting.py
+--- a/tryton/modules/purchase/purchase_reporting.py
++++ b/tryton/modules/purchase/purchase_reporting.py
+@@ -12,7 +12,7 @@
+ from trytond.modules.currency.fields import Monetary
+ from trytond.pool import Pool
+ from trytond.pyson import Eval, If
+-from trytond.tools import pairwise_longest
++from trytond.tools import pairwise_longest, sql_pairing, unpair
+ from trytond.tools.chart import sparkline
+ from trytond.transaction import Transaction
+ 
+@@ -290,13 +290,23 @@
+     @classmethod
+     def _column_id(cls, tables):
+         purchase = tables['line.purchase']
+-        return purchase.party
++        return sql_pairing(purchase.party, purchase.currency)
+ 
+ 
+ class SupplierTimeseries(SupplierMixin, AbstractTimeseries, ModelView):
+     "Purchase Reporting per Supplier"
+     __name__ = 'purchase.reporting.supplier.time_series'
+ 
++    supplier_currency = fields.Integer("Supplier - Currency")
++
++    @classmethod
++    def _columns(cls, tables):
++        purchase = tables['line.purchase']
++        return super()._columns(tables) + [
++            sql_pairing(
++                purchase.party, purchase.currency).as_('supplier_currency'),
++            ]
++
+ 
+ class ProductMixin(object):
+     __slots__ = ()
+@@ -330,7 +340,13 @@
+         purchase = tables['line.purchase']
+         where = super()._where(tables)
+         where &= line.product != Null
+-        where &= purchase.party == context.get('supplier')
++        if context.get('supplier_currency') is not None:
++            supplier, currency = unpair(context['supplier_currency'])
++        else:
++            supplier = context.get('supplier')
++            currency = context.get('currency')
++        where &= purchase.party == supplier
++        where &= purchase.currency == currency
+         return where
+ 
+     def get_rec_name(self, name):
+@@ -365,9 +381,21 @@
+     @classmethod
+     def _column_id(cls, tables):
+         line = tables['line']
+-        return line.product
++        purchase = tables['line.purchase']
++        return sql_pairing(line.product, purchase.currency)
+ 
+ 
+ class ProductTimeseries(ProductMixin, AbstractTimeseries, ModelView):
+     "Purchase Reporting per Product"
+     __name__ = 'purchase.reporting.product.time_series'
++
++    product_currency = fields.Integer("Product - Currency")
++
++    @classmethod
++    def _columns(cls, tables):
++        line = tables['line']
++        purchase = tables['line.purchase']
++        return super()._columns(tables) + [
++            sql_pairing(
++                line.product, purchase.currency).as_('product_currency'),
++            ]
+diff --git a/tryton/modules/purchase/purchase_reporting.xml b/tryton/modules/purchase/purchase_reporting.xml
+--- a/tryton/modules/purchase/purchase_reporting.xml
++++ b/tryton/modules/purchase/purchase_reporting.xml
+@@ -249,7 +249,7 @@
+             <field name="context_model">purchase.reporting.context</field>
+             <field
+                 name="domain"
+-                eval="[('supplier', '=', Eval('active_id', -1))]"
++                eval="[('supplier_currency', '=', Eval('active_id', -1))]"
+                 pyson="1"/>
+             <field name="order" eval="[('date', 'DESC')]" pyson="1"/>
+         </record>
+@@ -326,7 +326,7 @@
+             <field name="name">Purchases per Product</field>
+             <field name="res_model">purchase.reporting.product</field>
+             <field name="context_model">purchase.reporting.context</field>
+-            <field name="context" eval="{'supplier': Eval('active_id')}" pyson="1"/>
++            <field name="context" eval="{'supplier_currency': Eval('active_id')}" pyson="1"/>
+         </record>
+         <record model="ir.action.act_window.view" id="act_reporting_product_view1">
+             <field name="sequence" eval="10"/>
+@@ -400,7 +400,7 @@
+             <field name="res_model">purchase.reporting.product.time_series</field>
+             <field name="context_model">purchase.reporting.context</field>
+             <field name="domain"
+-                eval="[('product', '=', Eval('active_id', -1))]"
++                eval="[('product_currency', '=', Eval('active_id', -1))]"
+                 pyson="1"/>
+             <field name="order" eval="[('date', 'DESC')]" pyson="1"/>
+         </record>
+diff --git a/tryton/modules/purchase/tests/scenario_purchase_reporting.rst b/tryton/modules/purchase/tests/scenario_purchase_reporting.rst
+--- a/tryton/modules/purchase/tests/scenario_purchase_reporting.rst
++++ b/tryton/modules/purchase/tests/scenario_purchase_reporting.rst
+@@ -126,6 +126,7 @@
+ Check purchase reporting per product with supplier::
+ 
+     >>> context['supplier'] = supplier1.id
++    >>> context['currency'] = purchase1.currency.id
+     >>> with config.set_context(context=context):
+     ...     reports = Product.find([])
+     ...     time_series = ProductTimeseries.find([])
