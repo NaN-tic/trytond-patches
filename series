@@ -68,3 +68,4 @@ issue14213.diff # [sao] Make the user menu favorites unique
 
 301982d6f2f.diff
 issue13743.diff
+issue14309.diff # [sao] Set column width only when the tree view is initialized
