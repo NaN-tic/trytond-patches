@@ -1,0 +1,29 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/table.py b/tryton/trytond/trytond/backend/postgresql/table.py
+index 85c4ff440f..e224d2ea16 100644
+--- a/tryton/trytond/trytond/backend/postgresql/table.py
++++ b/tryton/trytond/trytond/backend/postgresql/table.py
+@@ -390,8 +377,22 @@ def add_comment():
+                         self.alter_size(column_name, base_type)
+                 elif from_size == field_size:
+                     pass
+-                elif from_size and from_size < field_size:
+-                    self.alter_size(column_name, column_type[1])
++                elif from_size:
++                    cursor.execute(
++                        SQL(
++                            'SELECT id FROM {} WHERE length({}) > %s LIMIT 1')
++                        .format(
++                            Identifier(self.table_name),
++                            Identifier(column_name)),
++                        (field_size,))
++                    if not cursor.rowcount:
++                        self.alter_size(column_name, column_type[1])
++                    else:
++                        logger.warning(
++                            'Unable to migrate column %s on table %s '
++                            'from varchar(%s) to varchar(%s) because at least '
++                            'one record has a length greater than the new size.',
++                            column_name, self.table_name, from_size, field_size)
+                 else:
+                     logger.warning(
+                         'Unable to migrate column %s on table %s '

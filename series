@@ -34,6 +34,8 @@ avoid-create-index.diff # [trytond] Avoid creating index if it already exists
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
 
+varchar-resize.diff # [trytond] Allow resizing varchars as long as there's no record with larger length
+
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
 
 issue14448.diff # [sale_point] Allow the sale point group to view the main sales menu
