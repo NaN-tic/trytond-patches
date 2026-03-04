@@ -1,0 +1,34 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/table.py b/tryton/trytond/trytond/backend/postgresql/table.py
+index 85c4ff440f..1959ace1c8 100644
+--- a/tryton/trytond/trytond/backend/postgresql/table.py
++++ b/tryton/trytond/trytond/backend/postgresql/table.py
+@@ -567,17 +562,20 @@ def set_indexes(self, indexes, concurrently=False):
+                     'JOIN pg_class cls ON cls.oid = idx.indexrelid '
+                     'WHERE cls.relname = %s',
+                     (name,))
+-                if (idx_valid := cursor.fetchone()) and not idx_valid[0]:
++                record = cursor.fetchone()
++                if record and not record[0]:
+                     cursor.execute(
+                         SQL("DROP INDEX {}").format(Identifier(name)))
+-                cursor.execute(
+-                    SQL('CREATE INDEX {} IF NOT EXISTS {} ON {} USING {}')
+-                    .format(
+-                        SQL('CONCURRENTLY' if concurrently else ''),
+-                        Identifier(name),
+-                        Identifier(self.table_name),
+-                        query),
+-                    params)
++                if not record:
++                    logger.warning(f'Creating index {name} on table {self.table_name}.')
++                    cursor.execute(
++                        SQL('CREATE INDEX {} IF NOT EXISTS {} ON {} USING {}')
++                        .format(
++                            SQL('CONCURRENTLY' if concurrently else ''),
++                            Identifier(name),
++                            Identifier(self.table_name),
++                            query),
++                        params)
+                 old.discard(name)
+         for name in old:
+             if name.startswith('idx_') or name.endswith('_index'):
