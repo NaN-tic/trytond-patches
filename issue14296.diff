@@ -4124,9 +4124,19 @@ index 789fd92bf9..8317913444 100644
 @@ -2921 +2880 @@
 -msgstr "Albarà de client"
 +msgstr "Albarà de proveïdor"
-@@ -2923 +2881,0 @@
+ 
 -#, fuzzy
-@@ -2928 +2885,0 @@
+ msgctxt "model:stock.shipment.in.return,string:"
+ msgid "Stock Shipment In Return"
+-msgstr "Reserva albarà intern"
++msgstr "Albarà intern"
+ 
+-#, fuzzy
+ msgctxt "model:stock.shipment.internal,string:"
+ msgid "Stock Shipment Internal"
+-msgstr "Reserva albarà intern"
++msgstr "Albarà intern"
+ 
 -#, fuzzy
 @@ -2933 +2889,0 @@
 -#, fuzzy

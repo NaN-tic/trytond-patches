@@ -1,5 +1,7 @@
---- a/sao/src/view/tree.js
-+++ b/sao/src/view/tree.js
+Index: nan76/sao/src/view/tree.js
+===================================================================
+--- nan76.orig/sao/src/view/tree.js
++++ nan76/sao/src/view/tree.js
 @@ -293,6 +293,7 @@
                      sum_row.append(total_cell);
                      column.footers.push(total_cell);
