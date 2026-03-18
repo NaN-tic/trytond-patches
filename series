@@ -46,3 +46,4 @@ issue14507.diff # [party] Add a menu entry for party identifiers
 
 issue14213.diff # [sao] Make the user menu favorites unique
 
+account_invoice_type.diff # [account_invoice] Set the invoice type field to invoice customer and supplier context menus. Revert change https://github.com/tryton/tryton/commit/9bd8739978239e119037670b59eb19c3d1ff8aa5
