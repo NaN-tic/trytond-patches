@@ -1,3 +1,9 @@
+sao_remove_email.diff # [sao] Removes the email button from the toolbar
+issue14059.diff # [sao] Resizing on hpaned/vpaned
+b2ck8310.diff # [sao] Sort favorites alphabeticallly
+issue14213.diff # [sao] Make the user menu favorites unique
+issue14576.diff # [sao] Clear _chat attribute and unregister when closing chat or tab
+
 auth_mobile.diff # [authentication_sms] allow auth without mobile
 issue3932.diff # [account] rule account move and account move line by company
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
@@ -9,8 +15,6 @@ issue8479.diff # [account_invoice] missing invoice payment method rule by compan
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
-
-sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
 
@@ -28,8 +32,6 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 
 issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
 
-issue14059.diff # [sao] Resizing on hpaned/vpaned
-
 avoid-create-index.diff # [trytond] Avoid creating index if it already exists
 
 b2ck8282.diff # [trytond] Remove COMMENT ON
@@ -40,10 +42,6 @@ dbless_pool.diff # [trytond] Enable pool construction without database interacti
 
 issue14448.diff # [sale_point] Allow the sale point group to view the main sales menu
 
-b2ck8310.diff # [sao] Sort favorites alphabeticallly
-
 issue14507.diff # [party] Add a menu entry for party identifiers
-
-issue14213.diff # [sao] Make the user menu favorites unique
 
 account_invoice_type.diff # [account_invoice] Set the invoice type field to invoice customer and supplier context menus. Revert change https://github.com/tryton/tryton/commit/9bd8739978239e119037670b59eb19c3d1ff8aa5
