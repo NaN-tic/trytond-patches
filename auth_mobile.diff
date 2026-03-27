@@ -10,7 +10,7 @@ index db675b1b5e..7710e304ef 100644
 +            if cls(user_id).mobile:
 +                SMSCode.send(user_id)
 +            else:
-+                return res_id
++                return user_id
          if 'sms_code' in parameters:
              code = parameters['sms_code']
              if not code:
