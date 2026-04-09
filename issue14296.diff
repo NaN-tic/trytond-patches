@@ -4272,7 +4272,7 @@ index 789fd92bf9..8317913444 100644
  msgctxt "model:stock.reporting.margin.product.time_series,string:"
  msgid "Stock Reporting Margin Product Time Series"
  msgstr "Informe de marges per producte"
-@@ -2915,22 +2875,18 @@
+@@ -2915,29 +2875,25 @@ msgctxt "model:stock.shipment.assign.partial,string:"
  msgid "Stock Shipment Assign Partial"
  msgstr ""
  
@@ -4295,6 +4295,14 @@ index 789fd92bf9..8317913444 100644
  msgctxt "model:stock.shipment.out,string:"
  msgid "Stock Shipment Out"
  msgstr "Albarà de client"
+ 
+ msgctxt "model:stock.shipment.out.return,string:"
+ msgid "Stock Shipment Out Return"
+-msgstr ""
++msgstr "Albarà de client devolució"
+ 
+ msgctxt "report:stock.shipment.in.restocking_list:"
+ msgid "/"
 @@ -3375,7 +3331,6 @@
  msgid "Draft"
  msgstr "Esborrany"
