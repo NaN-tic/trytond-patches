@@ -45,3 +45,5 @@ issue14448.diff # [sale_point] Allow the sale point group to view the main sales
 issue14507.diff # [party] Add a menu entry for party identifiers
 
 account_invoice_type.diff # [account_invoice] Set the invoice type field to invoice customer and supplier context menus. Revert change https://github.com/tryton/tryton/commit/9bd8739978239e119037670b59eb19c3d1ff8aa5
+
+issue13304.diff # [production_work] [production_work_timesheet] Include timesheet costs as production work cost
