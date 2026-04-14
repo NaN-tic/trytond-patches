@@ -4279,7 +4279,8 @@ index 789fd92bf9..8317913444 100644
 -#, fuzzy
  msgctxt "model:stock.shipment.in,string:"
  msgid "Stock Shipment In"
- msgstr "Albarà de client"
+-msgstr "Albarà de client"
++msgstr "Albarà de proveïdor"
  
 -#, fuzzy
  msgctxt "model:stock.shipment.in.return,string:"
