@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/stock/locale/ca.po b/tryton/modules/stock/locale/ca.po
+index d4bccad527..f75dfffbba 100644
+--- a/tryton/modules/stock/locale/ca.po
++++ b/tryton/modules/stock/locale/ca.po
+@@ -3134,7 +3134,7 @@ msgstr "Albarà de proveïdor"
+ 
+ msgctxt "model:stock.shipment.in.return,string:"
+ msgid "Stock Shipment In Return"
+-msgstr "Reserva de devolució de proveïdor"
++msgstr "Devolució de proveïdor"
+ 
+ msgctxt "model:stock.shipment.internal,string:"
+ msgid "Stock Shipment Internal"
