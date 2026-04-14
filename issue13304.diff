@@ -2,7 +2,7 @@ diff --git a/tryton/modules/production_work/work.py b/tryton/modules/production_
 index 5a80c52311..2cf28e8a94 100644
 --- a/tryton/modules/production_work/work.py
 +++ b/tryton/modules/production_work/work.py
-@@ -242,25 +242,27 @@ class Work(sequence_ordered(), ModelSQL, ModelView, ChatMixin):
+@@ -242,7 +242,7 @@ class Work(sequence_ordered(), ModelSQL, ModelView, ChatMixin):
              ]
 
      @classmethod
@@ -11,30 +11,13 @@ index 5a80c52311..2cf28e8a94 100644
          pool = Pool()
          Cycle = pool.get('production.work.cycle')
          cycle = Cycle.__table__()
-         cursor = Transaction().connection.cursor()
--        costs = defaultdict(Decimal)
-
--        for sub_works in grouped_slice(works):
--            red_sql = reduce_ids(cycle.work, [w.id for w in sub_works])
--            query = cycle.select(
--                cycle.work, Sum(Coalesce(cycle.cost, 0)).as_('cost'),
--                where=red_sql & (cycle.state == 'done'),
--                group_by=cycle.work)
--            if backend.name == 'sqlite':
--                sqlite_apply_types(query, [None, 'NUMERIC'])
--            cursor.execute(*query)
--            costs.update(cursor)
+@@ -259,8 +259,13 @@ class Work(sequence_ordered(), ModelSQL, ModelView, ChatMixin):
+                 sqlite_apply_types(query, [None, 'NUMERIC'])
+             cursor.execute(*query)
+             costs.update(cursor)
 -        for cost in costs:
 -            costs[cost] = round_price(costs[cost])
-+        query = cycle.select(
-+            cycle.work, Sum(Coalesce(cycle.cost, 0)).as_('cost'),
-+            where=fields.SQL_OPERATORS['in'](cycle.work, map(int, works))
-+            & (cycle.state == 'done'),
-+            group_by=cycle.work)
-+        if backend.name == 'sqlite':
-+            sqlite_apply_types(query, [None, 'NUMERIC'])
-+        cursor.execute(*query)
-+        return defaultdict(Decimal, cursor)
++        return costs
 +
 +    @classmethod
 +    def get_cost(cls, works, name):
@@ -94,7 +77,7 @@ index d9bd6ca7bd..755c8f253c 100644
  from trytond.model import fields
  from trytond.pool import Pool, PoolMeta
  from trytond.pyson import Eval
-+from trytond.tools import sqlite_apply_types
++from trytond.tools import grouped_slice, reduce_ids, sqlite_apply_types
  from trytond.transaction import Transaction
 
 
@@ -113,7 +96,7 @@ index d9bd6ca7bd..755c8f253c 100644
  class Work(metaclass=PoolMeta):
      __name__ = 'production.work'
 
-@@ -110,3 +129,39 @@ class Work(metaclass=PoolMeta):
+@@ -110,3 +129,43 @@ class Work(metaclass=PoolMeta):
              Timesheet.write(timesheets, {
                      'timesheet_end_date': date,
                      })
@@ -125,35 +108,39 @@ index d9bd6ca7bd..755c8f253c 100644
 +        TimesheetWork = pool.get('timesheet.work')
 +        Work = pool.get('production.work')
 +        WorkCenter = pool.get('production.work.center')
++        costs = super()._get_cost(works)
++        if (not hasattr(Line, 'cost_price')
++                or not hasattr(WorkCenter, 'include_timesheet_cost')):
++            return costs
++
 +        line = Line.__table__()
 +        t_work = TimesheetWork.__table__()
 +        work = Work.__table__()
 +        center = WorkCenter.__table__()
-+
 +        cursor = Transaction().connection.cursor()
-+
-+        costs = super()._get_cost(works)
 +
 +        cost = line.cost_price * Extract('EPOCH', line.duration) / (60 * 60)
 +        work_origin = TimesheetWork.origin.sql_id(t_work.origin, TimesheetWork)
 +        work_ids = [w.id for w in works]
-+        query = line.join(
-+            t_work, condition=(t_work.id == line.work)).join(
-+            work, condition=(work.id == work_origin)).join(
-+            center, condition=(
-+                (center.id == work.work_center)
-+                & (center.include_timesheet_cost == Literal(True)))
-+            ).select(work.id, Sum(Coalesce(cost, 0)).as_('cost'),
-+            where=(
-+                fields.SQL_OPERATORS['in'](work_origin, work_ids)
-+                & (t_work.origin.like(cls.__name__ + ',%'))),
-+            group_by=work.id)
-+        if backend.name == 'sqlite':
-+            sqlite_apply_types(query, [None, 'NUMERIC'])
-+        cursor.execute(*query)
-+        for work_id, cost in cursor:
-+            costs[work_id] += cost
++        for sub_work_ids in grouped_slice(work_ids):
++            query = line.join(
++                t_work, condition=(t_work.id == line.work)).join(
++                work, condition=(work.id == work_origin)).join(
++                center, condition=(
++                    (center.id == work.work_center)
++                    & (center.include_timesheet_cost == Literal(True)))
++                ).select(work.id, Sum(Coalesce(cost, 0)).as_('cost'),
++                where=(
++                    reduce_ids(work_origin, sub_work_ids)
++                    & (t_work.origin.like(cls.__name__ + ',%'))),
++                group_by=work.id)
++            if backend.name == 'sqlite':
++                sqlite_apply_types(query, [None, 'NUMERIC'])
++            cursor.execute(*query)
++            for work_id, cost in cursor:
++                costs[work_id] += cost
 +        return costs
+
 diff --git a/tryton/modules/production_work_timesheet/work.xml b/tryton/modules/production_work_timesheet/work.xml
 index f21445f89d..6f754e9ade 100644
 --- a/tryton/modules/production_work_timesheet/work.xml
