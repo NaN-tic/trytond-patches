@@ -2,7 +2,6 @@ sao_remove_email.diff # [sao] Removes the email button from the toolbar
 issue14059.diff # [sao] Resizing on hpaned/vpaned
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 issue14213.diff # [sao] Make the user menu favorites unique
-issue14576.diff # [sao] Clear _chat attribute and unregister when closing chat or tab
 
 auth_mobile.diff # [authentication_sms] allow auth without mobile
 issue3932.diff # [account] rule account move and account move line by company
