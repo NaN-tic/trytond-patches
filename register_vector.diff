@@ -1,16 +1,16 @@
 diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
-index ce73dcdcad..5bc4177465 100644
+index ce73dcdcad..b8c95eb411 100644
 --- a/tryton/trytond/trytond/backend/postgresql/database.py
 +++ b/tryton/trytond/trytond/backend/postgresql/database.py
 @@ -278,6 +278,13 @@ def get_connection(
              with conn.cursor() as cur:
                  cur.execute('SET statement_timeout=%s' %
                      (statement_timeout * 1000))
-+                from pgvector.psycopg2 import register_vector
-+                from psycopg2 import ProgrammingError
++                from pgvector.psycopg import register_vector
++                from psycopg import ProgrammingError
 +                try:
 +                    register_vector(conn)
-+                except  ProgrammingError as e:
++                except ProgrammingError as e:
 +                    logger.warning('Failed to register pgvector type, '
 +                        'pgvector extension may not be installed: "%s"', e)
          return conn
