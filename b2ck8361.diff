@@ -1,8 +1,8 @@
 diff --git a/tryton/modules/web_shop/sale.py b/tryton/modules/web_shop/sale.py
-index 2180d4f6fe..fcbeeb979e 100644
+index 9136f68131..7ea2cefa99 100644
 --- a/tryton/modules/web_shop/sale.py
 +++ b/tryton/modules/web_shop/sale.py
-@@ -49,17 +49,21 @@ class Sale(metaclass=PoolMeta):
+@@ -79,20 +79,24 @@ class Sale(metaclass=PoolMeta):
  
      @classmethod
      def validate_fields(cls, sales, field_names):
@@ -35,3 +35,6 @@ index 2180d4f6fe..fcbeeb979e 100644
 +                    gettext('web_shop.msg_sale_invalid_party',
 +                        sale=sale.rec_name,
 +                        party=sale.party.rec_name))
+ 
+     @classmethod
+     @ModelView.button
