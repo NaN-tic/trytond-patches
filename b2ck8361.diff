@@ -1,0 +1,37 @@
+diff --git a/tryton/modules/web_shop/sale.py b/tryton/modules/web_shop/sale.py
+index 2180d4f6fe..fcbeeb979e 100644
+--- a/tryton/modules/web_shop/sale.py
++++ b/tryton/modules/web_shop/sale.py
+@@ -49,17 +49,21 @@ class Sale(metaclass=PoolMeta):
+ 
+     @classmethod
+     def validate_fields(cls, sales, field_names):
++        super().validate_fields(sales, field_names)
++        if field_names & {'state', 'party'}:
++            cls.check_party_no_guest(sales)
++
++    @classmethod
++    def check_party_no_guest(cls, sales):
+         pool = Pool()
+         WebShop = pool.get('web.shop')
+-        super().validate_fields(sales, field_names)
+ 
+-        if field_names & {'state', 'party'}:
+-            web_shops = WebShop.search([])
+-            guests = {s.guest_party for s in web_shops}
+-            for sale in sales:
+-                if (sale.state not in {'draft', 'cancelled'}
+-                        and sale.party in guests):
+-                    raise SaleValidationError(
+-                        gettext('web_shop.msg_sale_invalid_party',
+-                            sale=sale.rec_name,
+-                            party=sale.party.rec_name))
++        web_shops = WebShop.search([])
++        guests = {s.guest_party for s in web_shops}
++        for sale in sales:
++            if (sale.state not in {'draft', 'cancelled'}
++                    and sale.party in guests):
++                raise SaleValidationError(
++                    gettext('web_shop.msg_sale_invalid_party',
++                        sale=sale.rec_name,
++                        party=sale.party.rec_name))
