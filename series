@@ -66,10 +66,12 @@ issue14507.diff # [party] Add a menu entry for party identifiers
 
 issue14213.diff # [sao] Make the user menu favorites unique
 
-301982d6f2f.diff
-issue13743.diff
+301982d6f2f.diff # [trytond] Add pair/unpair tools (from 7.9/main)
+issue13743.diff # [purchase] Use supplier/product + currency pairing
 issue14309.diff # [sao] Set column width only when the tree view is initialized
 
 account_invoice_type.diff # [account_invoice] Set the invoice type field to invoice customer and supplier context menus. Revert change https://github.com/tryton/tryton/commit/9bd8739978239e119037670b59eb19c3d1ff8aa5
 
 issue14147.diff # [stock] Include reference in shipment record name and fallback to id when empty
+
+b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
