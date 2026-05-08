@@ -72,3 +72,5 @@ issue14213.diff # [sao] Make the user menu favorites unique
 
 301982d6f2f.diff # [trytond] Add pair/unpair tools (from 7.9/main)
 issue13743.diff # [purchase] Use supplier/product + currency pairing
+
+b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
