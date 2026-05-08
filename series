@@ -37,3 +37,5 @@ varchar-resize.diff # [trytond] Allow resizing varchars as long as there's no re
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
 
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
+
+b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
