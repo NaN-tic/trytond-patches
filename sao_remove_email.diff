@@ -17,10 +17,10 @@ diff --git a/tryton/sao/src/tab.js b/tryton/sao/src/tab.js
 index 4739d0da70..67ea7298f7 100644
 --- a/tryton/sao/src/tab.js
 +++ b/tryton/sao/src/tab.js
-@@ -103,11 +103,6 @@
+@@ -104,11 +104,6 @@
                      id: 'print',
                      icon: 'tryton-print',
-                     label: Sao.i18n.gettext('Print'),
+                     label: Sao.i18n.gettext("Print..."),
 -                }, {
 -                    id: 'email',
 -                    icon: 'tryton-email',
@@ -29,7 +29,7 @@ index 4739d0da70..67ea7298f7 100644
                  }, null, {
                      id: 'export',
                      icon: 'tryton-export',
-@@ -591,7 +586,7 @@
+@@ -599,7 +594,7 @@
                      Sao.i18n.gettext('Open related records')],
                  ['print', 'tryton-print',
                      Sao.i18n.gettext('Print report')]
@@ -38,7 +38,7 @@ index 4739d0da70..67ea7298f7 100644
                  var dropdown = jQuery('<div/>', {
                      'class': 'btn-group dropdown',
                      'role': 'group'
-@@ -617,7 +612,7 @@
+@@ -625,7 +620,7 @@
                          'role': 'menu',
                          'aria-labelledby': menu_action[0]
                      }))
@@ -47,7 +47,7 @@ index 4739d0da70..67ea7298f7 100644
                  var button = dropdown.find('button');
                  this.buttons[menu_action[0]] = button;
                  dropdown
-@@ -1534,7 +1529,7 @@
+@@ -1571,7 +1566,7 @@
              let sensitive = (
                  record_id >= 0 ? record_id !== null && record_id !== undefined :
                  false);
