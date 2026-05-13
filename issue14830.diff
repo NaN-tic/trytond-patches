@@ -1,0 +1,24 @@
+diff --git a/tryton/modules/production_work_timesheet/tryton.cfg b/tryton/modules/production_work_timesheet/tryton.cfg
+index 341616d566..b70039ea12 100644
+--- a/tryton/modules/production_work_timesheet/tryton.cfg
++++ b/tryton/modules/production_work_timesheet/tryton.cfg
+@@ -20,3 +20,4 @@ model:
+ [register timesheet_cost]
+ model:
+     work.WorkCenter
++    work.Work_TimesheetCost
+diff --git a/tryton/modules/production_work_timesheet/work.py b/tryton/modules/production_work_timesheet/work.py
+index 755c8f253c..3c2ef8d083 100644
+--- a/tryton/modules/production_work_timesheet/work.py
++++ b/tryton/modules/production_work_timesheet/work.py
+@@ -130,6 +130,10 @@ class Work(metaclass=PoolMeta):
+                     'timesheet_end_date': date,
+                     })
+ 
++
++class Work_TimesheetCost(metaclass=PoolMeta):
++    __name__ = 'production.work'
++
+     @classmethod
+     def _get_cost(cls, works):
+         pool = Pool()

@@ -39,3 +39,5 @@ dbless_pool.diff # [trytond] Enable pool construction without database interacti
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
+
+issue14830.diff # [production_work_timesheet] Include timesheet cost in production work only if timesheet cost module is activated
