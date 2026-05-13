@@ -75,3 +75,5 @@ account_invoice_type.diff # [account_invoice] Set the invoice type field to invo
 issue14147.diff # [stock] Include reference in shipment record name and fallback to id when empty
 
 b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
+
+issue14824.diff # [account_stock_eu] Calcule stock move weight on done when required for intrastat
