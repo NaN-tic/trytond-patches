@@ -49,3 +49,5 @@ account_invoice_type.diff # [account_invoice] Set the invoice type field to invo
 issue13304.diff # [production_work] [production_work_timesheet] Include timesheet costs as production work cost
 
 b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
+
+issue14824.diff # [account_stock_eu] Calcule stock move weight on done when required for intrastat
