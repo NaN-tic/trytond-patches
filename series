@@ -45,3 +45,5 @@ issue14830.diff # [production_work_timesheet] Include timesheet cost in producti
 issue14824.diff # [account_stock_eu] Calcule stock move weight on done when required for intrastat
 
 spawn.diff
+
+worker.diff
