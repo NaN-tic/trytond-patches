@@ -1,0 +1,21 @@
+diff --git a/tryton/modules/project/work.py b/tryton/modules/project/work.py
+index 1318739fb1..c6e4e517e4 100644
+--- a/tryton/modules/project/work.py
++++ b/tryton/modules/project/work.py
+@@ -487,14 +487,11 @@ class Work(
+             bool_op = 'AND'
+         else:
+             bool_op = 'OR'
++        domain = super().search_rec_name(name, clause)
+         code_value = value
+         if operator.endswith('like') and is_full_text(value):
+             code_value = lstrip_wildcard(value)
+-        domain = [bool_op,
+-            ('number', operator, code_value),
+-            ('name', operator, value),
+-            ]
+-        return domain
++        return [bool_op, domain, ('number', operator, code_value)]
+ 
+     @classmethod
+     def _number_sequence(cls, **pattern):
