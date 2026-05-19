@@ -44,5 +44,7 @@ issue14824.diff # [account_stock_eu] Calcule stock move weight on done when requ
 
 issue14834.diff # [project] not found records by search_rec_name and "parent"
 
-spawn.diff
+issue14843.diff # [trytond] trytond-cron workers do not emit log records when started with --max
+
+spawn.diff # [trytond] --max cron and worker 
 

@@ -1,0 +1,46 @@
+diff --git a/tryton/trytond/trytond/cron.py b/tryton/trytond/trytond/cron.py
+index 5405218bad..56020596f9 100644
+--- a/tryton/trytond/trytond/cron.py
++++ b/tryton/trytond/trytond/cron.py
+@@ -7,7 +7,10 @@ import sys
+ import time
+ from concurrent import futures
+ from multiprocessing import cpu_count
++from types import SimpleNamespace
+ 
++import trytond.commandline as commandline
++import trytond.config as config
+ from trytond.pool import Pool
+ from trytond.transaction import Transaction
+ 
+@@ -25,7 +28,12 @@ def run(options):
+         max_workers=processes,
+         mp_context=None,
+         initializer=initializer,
+-        initargs=(options.database_names,),
++        initargs=(
++            options.database_names,
++            options.configfile,
++            options.logconf,
++            options.verbose,
++            ),
+         max_tasks_per_child=options.maxtasksperchild or None,
+         )
+     if sys.version_info < (3, 11):
+@@ -42,7 +50,15 @@ def run(options):
+                 time.sleep(60 - (now.second + now.microsecond / 10**6))
+ 
+ 
+-def initializer(database_names, worker=True):
++def initializer(
++        database_names, configfile=None, logconf=None, verbose=0, worker=True):
++    # Configure logging explicitly for spawned cron workers.
++    if configfile:
++        config.update_etc(configfile)
++    commandline.config_log(SimpleNamespace(
++            logconf=logconf,
++            verbose=verbose,
++            ))
+     if worker:
+         signal.signal(signal.SIGINT, signal.SIG_IGN)
+     pools = []
