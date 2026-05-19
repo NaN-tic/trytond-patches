@@ -1,8 +1,21 @@
 diff --git a/tryton/modules/project/work.py b/tryton/modules/project/work.py
-index 1318739fb1..c6e4e517e4 100644
+index 1318739fb1..dcd310e13d 100644
 --- a/tryton/modules/project/work.py
 +++ b/tryton/modules/project/work.py
-@@ -487,14 +487,11 @@ class Work(
+@@ -480,6 +480,12 @@ class Work(
+             language = party.lang.code if party and party.lang else None
+         return language
+ 
++    def get_rec_name(self, name):
++        if self.number:
++            return '[' + self.number + '] ' + self.name
++        else:
++            return self.name
++
+     @classmethod
+     def search_rec_name(cls, name, clause):
+         _, operator, value = clause
+@@ -487,14 +493,11 @@ class Work(
              bool_op = 'AND'
          else:
              bool_op = 'OR'
