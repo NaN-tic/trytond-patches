@@ -46,5 +46,7 @@ issue14834.diff # [project] not found records by search_rec_name and "parent"
 
 issue14843.diff # [trytond] trytond-cron workers do not emit log records when started with --max
 
+issue14840.diff # [sao] Use relative max height for treeview
+
 spawn.diff # [trytond] --max cron and worker 
 

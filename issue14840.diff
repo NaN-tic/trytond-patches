@@ -1,0 +1,41 @@
+diff --git a/tryton/sao/src/sao.less b/tryton/sao/src/sao.less
+index 3c7103539f52640379094ac99ffc5c65f4953943_c2FvL3NyYy9zYW8ubGVzcw==..c98e559ea7dd9d4fab3430f57ed924c59fd3d6d6_c2FvL3NyYy9zYW8ubGVzcw== 100644
+--- a/tryton/sao/src/sao.less
++++ b/tryton/sao/src/sao.less
+@@ -1189,8 +1189,10 @@
+         border-color: @panel-default-border;
+         border-style: solid;
+         border-width: 1px;
++        display: flex;
++        flex-direction: column;
+ 
+         .nav-tabs {
+             background: @navbar-default-bg;
+             margin-bottom: 5px;
+         }
+@@ -1192,8 +1194,16 @@
+ 
+         .nav-tabs {
+             background: @navbar-default-bg;
+             margin-bottom: 5px;
+         }
++
++        > .tab-content {
++            flex: 1;
++
++            > .tab-pane {
++                height: 100%;
++            }
++        }
+     }
+     .form-label {
+         white-space: pre-wrap;
+@@ -1301,7 +1311,7 @@
+         .treeview, .list-form {
+             height: auto;
+             min-height: 150px;
+-            max-height: 300px;
++            max-height: 60vh;
+         }
+     }
+     .form-text, .form-richtext {
