@@ -1,0 +1,22 @@
+diff --git a/tryton/trytond/trytond/tools/misc.py b/tryton/trytond/trytond/tools/misc.py
+index b7735874f4..846279277f 100644
+--- a/tryton/trytond/trytond/tools/misc.py
++++ b/tryton/trytond/trytond/tools/misc.py
+@@ -17,7 +17,7 @@ from collections.abc import Iterable, Sized
+ from functools import cache, wraps
+ from itertools import chain, islice, tee, zip_longest
+ 
+-from sql import As, Literal, Select
++from sql import As, Cast, Literal, Select
+ from sql.conditionals import Case
+ from sql.operators import Or
+ 
+@@ -304,6 +304,8 @@ def sortable_values(func):
+ def sql_pairing(x, y):
+     """Return SQL expression to pair x and y
+     Pairing function from http://szudzik.com/ElegantPairing.pdf"""
++    x = Cast(x, 'BIGINT')
++    y = Cast(y, 'BIGINT')
+     return Case(
+         (x < y, (y * y) + x),
+         else_=(x * x) + x + y)

@@ -51,3 +51,5 @@ issue13304.diff # [production_work] [production_work_timesheet] Include timeshee
 b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
 
 issue14824.diff # [account_stock_eu] Calcule stock move weight on done when required for intrastat
+
+sql_pairing.diff # psycopg2.errors.NumericValueOutOfRange: integer out of range
