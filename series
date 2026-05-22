@@ -52,3 +52,4 @@ issue14849.diff # [trytond] Starting WSGI application with TRYTOND_DATABASE_NAME
 
 spawn.diff # [trytond] --max cron and worker 
 
+b2ck8380.diff # [trytond] worker and cron jobs logs are buffered
