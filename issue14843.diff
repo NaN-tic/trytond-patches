@@ -1,46 +1,139 @@
+diff --git a/tryton/trytond/bin/trytond-cron b/tryton/trytond/bin/trytond-cron
+index 3c7103539f52640379094ac99ffc5c65f4953943_dHJ5dG9uZC9iaW4vdHJ5dG9uZC1jcm9u..a9840639f77383b58fac6e44d72111ed6348ce21_dHJ5dG9uZC9iaW4vdHJ5dG9uZC1jcm9u 100755
+--- a/tryton/trytond/bin/trytond-cron
++++ b/tryton/trytond/bin/trytond-cron
+@@ -13,4 +13,6 @@
+ 
+ from trytond.cli.cron import main  # noqa: E402
+ 
+-main()
++# Ensure main module can be safely imported by a new interpreter
++if __name__ == '__main__':
++    main()
+diff --git a/tryton/trytond/bin/trytond-worker b/tryton/trytond/bin/trytond-worker
+index 3c7103539f52640379094ac99ffc5c65f4953943_dHJ5dG9uZC9iaW4vdHJ5dG9uZC13b3JrZXI=..a9840639f77383b58fac6e44d72111ed6348ce21_dHJ5dG9uZC9iaW4vdHJ5dG9uZC13b3JrZXI= 100755
+--- a/tryton/trytond/bin/trytond-worker
++++ b/tryton/trytond/bin/trytond-worker
+@@ -12,4 +12,6 @@
+ 
+ from trytond.cli.worker import main  # noqa: E402
+ 
+-main()
++# Ensure main module can be safely imported by a new interpreter
++if __name__ == '__main__':
++    main()
 diff --git a/tryton/trytond/trytond/cron.py b/tryton/trytond/trytond/cron.py
-index 5405218bad..56020596f9 100644
+index 3c7103539f52640379094ac99ffc5c65f4953943_dHJ5dG9uZC90cnl0b25kL2Nyb24ucHk=..a9840639f77383b58fac6e44d72111ed6348ce21_dHJ5dG9uZC90cnl0b25kL2Nyb24ucHk= 100644
 --- a/tryton/trytond/trytond/cron.py
 +++ b/tryton/trytond/trytond/cron.py
-@@ -7,7 +7,10 @@ import sys
- import time
+@@ -8,6 +8,8 @@
  from concurrent import futures
  from multiprocessing import cpu_count
-+from types import SimpleNamespace
  
 +import trytond.commandline as commandline
 +import trytond.config as config
  from trytond.pool import Pool
  from trytond.transaction import Transaction
  
-@@ -25,7 +28,12 @@ def run(options):
+@@ -25,7 +27,7 @@
          max_workers=processes,
          mp_context=None,
          initializer=initializer,
 -        initargs=(options.database_names,),
-+        initargs=(
-+            options.database_names,
-+            options.configfile,
-+            options.logconf,
-+            options.verbose,
-+            ),
++        initargs=(options,),
          max_tasks_per_child=options.maxtasksperchild or None,
          )
      if sys.version_info < (3, 11):
-@@ -42,7 +50,15 @@ def run(options):
+@@ -42,8 +44,11 @@
                  time.sleep(60 - (now.second + now.microsecond / 10**6))
  
  
 -def initializer(database_names, worker=True):
-+def initializer(
-+        database_names, configfile=None, logconf=None, verbose=0, worker=True):
-+    # Configure logging explicitly for spawned cron workers.
-+    if configfile:
-+        config.update_etc(configfile)
-+    commandline.config_log(SimpleNamespace(
-+            logconf=logconf,
-+            verbose=verbose,
-+            ))
++def initializer(options, worker=True):
++    # restore configuration when mp context is spawn
++    config.update_etc(options.configfile)
++    commandline.config_log(options)
      if worker:
          signal.signal(signal.SIGINT, signal.SIG_IGN)
      pools = []
+     database_list = Pool.database_list()
+@@ -46,8 +51,8 @@
+     if worker:
+         signal.signal(signal.SIGINT, signal.SIG_IGN)
+     pools = []
+     database_list = Pool.database_list()
+-    for database_name in database_names:
++    for database_name in options.database_names:
+         pool = Pool(database_name)
+         if database_name not in database_list:
+             with Transaction().start(database_name, 0, readonly=True):
+diff --git a/tryton/trytond/trytond/worker.py b/tryton/trytond/trytond/worker.py
+index 3c7103539f52640379094ac99ffc5c65f4953943_dHJ5dG9uZC90cnl0b25kL3dvcmtlci5weQ==..a9840639f77383b58fac6e44d72111ed6348ce21_dHJ5dG9uZC90cnl0b25kL3dvcmtlci5weQ== 100644
+--- a/tryton/trytond/trytond/worker.py
++++ b/tryton/trytond/trytond/worker.py
+@@ -12,7 +12,8 @@
+ 
+ from sql import Flavor
+ 
+-from trytond import backend, config
++import trytond.commandline as commandline
++import trytond.config as config
+ from trytond.exceptions import UserError, UserWarning
+ from trytond.pool import Pool
+ from trytond.status import processing
+@@ -24,6 +25,7 @@
+ 
+ class Queue(object):
+     def __init__(self, database_name, executor):
++        from trytond import backend
+         self.database = backend.Database(database_name).connect()
+         self.connection = self.database.get_connection(autocommit=True)
+         self.executor = executor
+@@ -57,6 +59,7 @@
+ 
+ 
+ def work(options):
++    from trytond import backend
+     Flavor.set(backend.Database.flavor)
+     if not config.getboolean('queue', 'worker', default=False):
+         return
+@@ -69,7 +72,7 @@
+         max_workers=processes,
+         mp_context=None,
+         initializer=initializer,
+-        initargs=(options.database_names,),
++        initargs=(options,),
+         max_tasks_per_child=options.maxtasksperchild or None,
+         )
+     if sys.version_info < (3, 11):
+@@ -112,8 +115,11 @@
+                     queue.get_notifications()
+ 
+ 
+-def initializer(database_names, worker=True):
++def initializer(options, worker=True):
++    # restore configuration when mp context is spawn
++    config.update_etc(options.configfile)
++    commandline.config_log(options)
+     if worker:
+         signal.signal(signal.SIGINT, signal.SIG_IGN)
+     pools = []
+     database_list = Pool.database_list()
+@@ -116,8 +122,8 @@
+     if worker:
+         signal.signal(signal.SIGINT, signal.SIG_IGN)
+     pools = []
+     database_list = Pool.database_list()
+-    for database_name in database_names:
++    for database_name in options.database_names:
+         pool = Pool(database_name)
+         if database_name not in database_list:
+             with Transaction().start(database_name, 0, readonly=True):
+@@ -127,6 +133,7 @@
+ 
+ 
+ def run_task(pool, task_id):
++    from trytond import backend
+     if not isinstance(pool, Pool):
+         database_list = Pool.database_list()
+         pool = Pool(pool)
