@@ -44,10 +44,6 @@ issue14824.diff # [account_stock_eu] Calcule stock move weight on done when requ
 
 issue14834.diff # [project] not found records by search_rec_name and "parent"
 
-issue14843.diff # [trytond] trytond-cron workers do not emit log records when started with --max
-
 issue14840.diff # [sao] Use relative max height for treeview
 
 issue14849.diff # [trytond] Starting WSGI application with TRYTOND_DATABASE_NAMES fails
-
-b2ck8380.diff # [trytond] worker and cron jobs logs are buffered
