@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/stock/product.py b/tryton/modules/stock/product.py
+index a049e053e5..ebb4285c24 100644
+--- a/tryton/modules/stock/product.py
++++ b/tryton/modules/stock/product.py
+@@ -274,7 +274,7 @@ def deactivate_replaced(cls, products=None):
+         Move = pool.get('stock.move')
+         deactivated = super().deactivate_replaced(products=products)
+         moves = Move.search([
+-                ('product', 'in', list(map(int, products))),
++                ('product', 'in', list(map(int, deactivated))),
+                 ('state', 'in', ['staging', 'draft']),
+                 ])
+         Move.delete(moves)
