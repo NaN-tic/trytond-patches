@@ -49,3 +49,5 @@ issue14840.diff # [sao] Use relative max height for treeview
 issue14849.diff # [trytond] Starting WSGI application with TRYTOND_DATABASE_NAMES fails
 
 b2ck8383.diff # [stock] Crash on deactivate_replaced
+
+issue14621.diff # [account_statement] Raise a generic user error message when failing to parse statement

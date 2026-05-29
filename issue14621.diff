@@ -1,0 +1,44 @@
+diff --git a/tryton/modules/account_statement/message.xml b/tryton/modules/account_statement/message.xml
+index 8337403b5d2ef92e60baaf8d094beb75efc9957b_bW9kdWxlcy9hY2NvdW50X3N0YXRlbWVudC9tZXNzYWdlLnhtbA==..1d788729c663d95c3c6e5cd03cca7f11d655be0f_bW9kdWxlcy9hY2NvdW50X3N0YXRlbWVudC9tZXNzYWdlLnhtbA== 100644
+--- a/tryton/modules/account_statement/message.xml
++++ b/tryton/modules/account_statement/message.xml
+@@ -49,5 +49,8 @@
+         <record model="ir.message" id="msg_post_statement_move">
+             <field name="text">To post the move "%(move)s" you must post the statement "%(statement)s".</field>
+         </record>
++        <record model="ir.message" id="msg_statement_import_error">
++            <field name="text">The statement file could not be parsed with the following exception: "%(exception)s".</field>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/account_statement/statement.py b/tryton/modules/account_statement/statement.py
+index 8337403b5d2ef92e60baaf8d094beb75efc9957b_bW9kdWxlcy9hY2NvdW50X3N0YXRlbWVudC9zdGF0ZW1lbnQucHk=..1d788729c663d95c3c6e5cd03cca7f11d655be0f_bW9kdWxlcy9hY2NvdW50X3N0YXRlbWVudC9zdGF0ZW1lbnQucHk= 100644
+--- a/tryton/modules/account_statement/statement.py
++++ b/tryton/modules/account_statement/statement.py
+@@ -25,7 +25,8 @@
+ from trytond.wizard import Button, StateAction, StateView, Wizard
+ 
+ from .exceptions import (
+-    StatementPostError, StatementValidateError, StatementValidateWarning)
++    ImportStatementError, StatementPostError, StatementValidateError,
++    StatementValidateWarning)
+ 
+ if config.getboolean('account_statement', 'filestore', default=False):
+     file_id = 'origin_file_id'
+@@ -1281,7 +1282,15 @@
+     def do_import_(self, action):
+         pool = Pool()
+         Statement = pool.get('account.statement')
+-        statements = list(getattr(self, 'parse_%s' % self.start.file_format)())
++        try:
++            statements = list(
++                getattr(self, 'parse_%s' % self.start.file_format)())
++        except ImportStatementError:
++            raise
++        except Exception as exception:
++            raise ImportStatementError(gettext(
++                    'account_statement.msg_statement_import_error',
++                    exception=exception)) from exception
+         for statement in statements:
+             statement.origin_file = fields.Binary.cast(self.start.file_)
+         Statement.save(statements)
