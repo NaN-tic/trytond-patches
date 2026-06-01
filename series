@@ -42,6 +42,4 @@ b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "
 
 issue14840.diff # [sao] Use relative max height for treeview
 
-b2ck8383.diff # [stock] Crash on deactivate_replaced
-
 issue14621.diff # [account_statement] Raise a generic user error message when failing to parse statement
