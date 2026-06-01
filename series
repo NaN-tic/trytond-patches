@@ -40,8 +40,6 @@ b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "sale.sale" with an overwritable method.
 
-issue14824.diff # [account_stock_eu] Calcule stock move weight on done when required for intrastat
-
 issue14834.diff # [project] not found records by search_rec_name and "parent"
 
 issue14840.diff # [sao] Use relative max height for treeview
