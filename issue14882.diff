@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/project/work.py b/tryton/modules/project/work.py
+index 885e027452..ddcbce2e82 100644
+--- a/tryton/modules/project/work.py
++++ b/tryton/modules/project/work.py
+@@ -488,8 +488,6 @@ class Work(
+         else:
+             bool_op = 'OR'
+         code_value = value
+-        if operator.endswith('like') and is_full_text(value):
+-            code_value = lstrip_wildcard(value)
+         domain = [bool_op,
+             ('number', operator, code_value),
+             super().search_rec_name(name, clause),
