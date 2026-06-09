@@ -59,3 +59,5 @@ issue14621.diff # [account_statement] Raise a generic user error message when fa
 issue14862.diff # [account_product]  Do not copy accounting templates when copying product category for accounting 
 
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
+
+issue14881.diff # [account] Convert toolbar into mutable objects before modification
