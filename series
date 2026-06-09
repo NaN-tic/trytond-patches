@@ -47,3 +47,5 @@ issue14621.diff # [account_statement] Raise a generic user error message when fa
 issue14882.diff # [project] search_rec_name not found records with prefix
 
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
+
+issue14881.diff # [account] Convert toolbar into mutable objects before modification
