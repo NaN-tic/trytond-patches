@@ -1,0 +1,35 @@
+diff --git a/tryton/sao/src/view/list_form.js b/tryton/sao/src/view/list_form.js
+index 3c7103539f52640379094ac99ffc5c65f4953943_c2FvL3NyYy92aWV3L2xpc3RfZm9ybS5qcw==..cc4ef283c620c6bd48d166e29f0153fb8c152d25_c2FvL3NyYy92aWV3L2xpc3RfZm9ybS5qcw== 100644
+--- a/tryton/sao/src/view/list_form.js
++++ b/tryton/sao/src/view/list_form.js
+@@ -114,6 +114,12 @@
+             return this.group.slice();
+         },
+         set_cursor: function(new_, reset_view) {
++            if (!this.record) {
++                return;
++            }
++            if (reset_view) {
++                this.display([this.record.id]);
++            }
+             if (new_) {
+                 this.el.animate({
+                     scrollTop: this.el[0].scrollHeight
+diff --git a/tryton/sao/src/view/tree.js b/tryton/sao/src/view/tree.js
+index 3c7103539f52640379094ac99ffc5c65f4953943_c2FvL3NyYy92aWV3L3RyZWUuanM=..cc4ef283c620c6bd48d166e29f0153fb8c152d25_c2FvL3NyYy92aWV3L3RyZWUuanM= 100644
+--- a/tryton/sao/src/view/tree.js
++++ b/tryton/sao/src/view/tree.js
+@@ -1560,6 +1560,13 @@
+                 this.display_size = this.group.length;
+                 this.display();
+             }
++            if (reset_view) {
++                let current_path = this.record.get_path(this.group);
++                current_path = current_path.map(function(e) {
++                    return e[1];
++                });
++                this.display([current_path]);
++            }
+             if (path.length > 1) {
+                 prm = this.rows[path[0]].expand_to_path(
+                     path.slice(1),
