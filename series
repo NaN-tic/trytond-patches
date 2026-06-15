@@ -53,3 +53,5 @@ issue14881.diff # [account] Convert toolbar into mutable objects before modifica
 issue14889.diff # [trytond] Domain conversion fails on Many2One with where operator and UNION query
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
+
+issue14887.diff # [stock] Aggregate product by locations before applying filter when searching by quantity
