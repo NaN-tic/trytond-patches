@@ -60,8 +60,6 @@ issue14862.diff # [account_product]  Do not copy accounting templates when copyi
 
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
 
-issue14881.diff # [account] Convert toolbar into mutable objects before modification
-
 issue14889.diff # [trytond] Domain conversion fails on Many2One with where operator and UNION query
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
