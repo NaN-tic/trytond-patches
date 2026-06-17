@@ -48,8 +48,6 @@ issue14882.diff # [project] search_rec_name not found records with prefix
 
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
 
-issue14889.diff # [trytond] Domain conversion fails on Many2One with where operator and UNION query
-
 b2ck8399.diff # [trytond] Showing backtraces for route errors
 
 issue14887.diff # [stock] Aggregate product by locations before applying filter when searching by quantity
