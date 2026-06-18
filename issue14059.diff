@@ -58,10 +58,19 @@ index 3899ec3c773815dd78935e9c3471a7c54310d0af_c2FvL3NyYy9jb21tb24uanM=..a8fbe64
          },
          get_child1: function() {
 diff --git a/tryton/sao/src/sao.less b/tryton/sao/src/sao.less
-index 3899ec3c773815dd78935e9c3471a7c54310d0af_c2FvL3NyYy9zYW8ubGVzcw==..a8fbe645bd85432ae26650e45e111b9f7f118226_c2FvL3NyYy9zYW8ubGVzcw== 100644
+index 70b44ad90e..11bb0441bd 100644
 --- a/tryton/sao/src/sao.less
 +++ b/tryton/sao/src/sao.less
-@@ -1259,6 +1259,43 @@
+@@ -1254,7 +1254,7 @@ img.icon {
+         .treeview, .list-form {
+             height: auto;
+             min-height: 150px;
+-            max-height: 300px;
++            max-height: 60vh;
+         }
+     }
+     .form-text, .form-richtext {
+@@ -1392,6 +1392,43 @@ img.icon {
      .yfill {
          align-self: stretch;
      }

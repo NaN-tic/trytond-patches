@@ -1,5 +1,5 @@
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
-issue14059.diff # [sao] Resizing on hpaned/vpaned
+issue14059.diff # [sao] Resizing on hpaned/vpaned + issue14897
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 issue14213.diff # [sao] Make the user menu favorites unique
 
