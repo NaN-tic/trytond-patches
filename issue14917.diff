@@ -1,0 +1,75 @@
+diff --git a/tryton/sao/src/common.js b/tryton/sao/src/common.js
+index bb96325e829df570aac1f7624c862a660c0be286_c2FvL3NyYy9jb21tb24uanM=..2848a31e18584870b675f1d028851de395b294cb_c2FvL3NyYy9jb21tb24uanM= 100644
+--- a/tryton/sao/src/common.js
++++ b/tryton/sao/src/common.js
+@@ -1717,7 +1717,8 @@
+         },
+         group: function(tokens) {
+             var result = [];
++            let clausify = this._clausify;
+ 
+             const _group = parts => {
+                 var result = [];
+                 var push_result = function(part) {
+@@ -1720,9 +1721,8 @@
+ 
+             const _group = parts => {
+                 var result = [];
+                 var push_result = function(part) {
+-                    var clause = [part];
+-                    clause.clause = true;
++                    var clause = clausify([part]);
+                     result.push(clause);
+                 };
+                 var i = parts.indexOf(':');
+@@ -1738,7 +1738,6 @@
+                                 if (part[0] !== null) {
+                                     lvalue.push(part[0]);
+                                 }
+-                                clause = name.concat([lvalue]);
+-                                clause.clause = true;
++                                clause = clausify(name.concat([lvalue]));
+                                 result.push(clause);
+                             } else {
+@@ -1743,7 +1742,6 @@
+                                 result.push(clause);
+                             } else {
+-                                clause = name.concat(part);
+-                                clause.clause = true;
++                                clause = clausify(name.concat(part));
+                                 result.push(clause);
+                             }
+                             name.splice(0, name.length);
+@@ -1784,7 +1782,6 @@
+                         if (!jQuery.isEmptyObject(name)) {
+                             var clause;
+                             if (!jQuery.isEmptyObject(lvalue)) {
+-                                clause = name.concat([lvalue]);
+-                                clause.clause = true;
++                                clause = clausify(name.concat([lvalue]));
+                                 result.push(clause);
+                             } else {
+@@ -1789,7 +1786,6 @@
+                                 result.push(clause);
+                             } else {
+-                                clause = name.concat([null]);
+-                                clause.clause = true;
++                                clause = clausify(name.concat([null]));
+                                 result.push(clause);
+                             }
+                         }
+@@ -1975,10 +1971,10 @@
+                                     date.hour(), date.minute(), date.second(),
+                                     date.millisecond())
+                                 next_day.add(1, 'day');
+-                                result.push(this._clausify([
+-                                    [field_name, '>=', date],
+-                                    [field_name, '<', next_day]
+-                                ]));
++                                result.push([
++                                    this._clausify([field_name, '>=', date]),
++                                    this._clausify([field_name, '<', next_day]),
++                                ]);
+                                 return;
+                             }
+                         }
