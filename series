@@ -59,3 +59,5 @@ issue14621.diff # [account_statement] Raise a generic user error message when fa
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
+
+issue14917.diff # [sao] Completion fails on date/time equality
