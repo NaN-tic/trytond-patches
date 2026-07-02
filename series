@@ -40,8 +40,6 @@ b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "
 
 issue14621.diff # [account_statement] Raise a generic user error message when failing to parse statement
 
-issue14882.diff # [project] search_rec_name not found records with prefix
-
 issue14879.diff # [account] Skip second update of chart of account when template is overridden
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
