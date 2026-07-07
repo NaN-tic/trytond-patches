@@ -40,3 +40,5 @@ b2ck8361.diff # [web_shop] Replace non-overwritable code on validate_fields of "
 issue14621.diff # [account_statement] Raise a generic user error message when failing to parse statement
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
+
+issue14935.diff # [trytond] Database listing left again pending connection to template1
