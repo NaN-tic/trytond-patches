@@ -1,0 +1,76 @@
+diff --git a/tryton/sao/src/wizard.js b/tryton/sao/src/wizard.js
+index 6c5c86fc24..ff18f03f61 100644
+--- a/tryton/sao/src/wizard.js
++++ b/tryton/sao/src/wizard.js
+@@ -55,6 +55,10 @@
+             if (this.__processing || this.__waiting_response) {
+                 return jQuery.when();
+             }
++            this.__processing = true;
++            if (this.screen) {
++                this.update_buttons();
++            }
+             var process = function() {
+                 if (this.state == this.end_state) {
+                     return this.end();
+@@ -75,7 +79,7 @@
+                         this.update(view.fields_view, view.buttons);
+ 
+                         prms.push(this.screen.new_(false).then(() => {
+-                            this.screen.current_record.set_default(
++                            return this.screen.current_record.set_default(
+                                 view.defaults || {})
+                                 .then(() => {
+                                     this.screen.current_record.set(
+@@ -113,17 +117,20 @@
+                     } else {
+                         prms.push(execute_actions());
+                     }
+-                    this.__processing = false;
+                     return jQuery.when.apply(jQuery, prms);
+                 }, result => {
+                     if (!result || !this.screen) {
+                         this.state = this.end_state;
+                         this.end();
+                     }
+-                    this.__processing = false;
+                 });
+             };
+-            return process.call(this);
++            return process.call(this).always(() => {
++                this.__processing = false;
++                if (this.screen) {
++                    this.update_buttons();
++                }
++            });
+         },
+         destroy: function(action) {
+             // TODO
+@@ -148,6 +155,9 @@
+             this.states = {};
+         },
+         response: function(definition) {
++            if (this.__processing) {
++                return;
++            }
+             this.__waiting_response = false;
+             this.screen.current_view.set_value();
+             if (definition.validate && !this.screen.current_record.validate(
+@@ -169,6 +179,7 @@
+             }
+             var button = new Sao.common.Button(
+                 definition, undefined, undefined, style);
++            button.el.prop('disabled', true);
+             this.states[definition.state] = button;
+             return button;
+         },
+@@ -181,6 +192,9 @@
+             for (var state in this.states) {
+                 var button = this.states[state];
+                 button.set_state(record);
++                button.el.prop(
++                    'disabled', this.__processing ||
++                    button.el.prop('disabled'));
+             }
+         },
+         update: function(view, buttons) {
