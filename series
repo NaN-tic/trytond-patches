@@ -55,3 +55,5 @@ sql_pairing.diff # psycopg2.errors.NumericValueOutOfRange: integer out of range
 issue14621.diff # [account_statement] Raise a generic user error message when failing to parse statement
 
 b2ck8399.diff # [trytond] Showing backtraces for route errors
+
+b2ck8417.diff # [sale] Prevent crash confirming a sale with no warehouse
