@@ -1,0 +1,13 @@
+diff --git a/tryton/sao/src/tab.js b/tryton/sao/src/tab.js
+index ed6d59c14b77d4b130fea09bbb49c511c239a0ef_c2FvL3NyYy90YWIuanM=..2cd28af6362571a00f3c11d40553733919dd5099_c2FvL3NyYy90YWIuanM= 100644
+--- a/tryton/sao/src/tab.js
++++ b/tryton/sao/src/tab.js
+@@ -827,7 +827,7 @@
+             }
+             var compare = Sao.common.compare;
+             return (
+-                (this.screen.view_index === 0) &&
++                (this.screen.view_index <= 0) &&
+                 (this.screen.model_name === attributes.model) &&
+                 (this.attributes.res_id === attributes.res_id) &&
+                 (compare(
