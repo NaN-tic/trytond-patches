@@ -45,3 +45,5 @@ b2ck8417.diff # [sale] Prevent crash confirming a sale with no warehouse
 
 issue14956.diff # [stock] Optimize stock quantity computation for only warehouses
 
+issue14961.diff # [sao] Wrong view index when comparing tab not yet displayed
+
