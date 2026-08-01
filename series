@@ -58,5 +58,3 @@ b2ck8399.diff # [trytond] Showing backtraces for route errors
 
 issue14956.diff # [stock] Optimize stock quantity computation for only warehouses
 
-issue14961.diff # [sao] Wrong view index when comparing tab not yet displayed
-
