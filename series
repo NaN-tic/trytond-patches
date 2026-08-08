@@ -28,8 +28,6 @@ issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
 
 issue14059.diff # [sao] Resizing on hpaned/vpaned
 
-avoid-create-index.diff # [trytond] Avoid creating index if it already exists
-
 varchar-resize.diff # [trytond] Allow resizing varchars as long as there's no record with larger length
 
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
