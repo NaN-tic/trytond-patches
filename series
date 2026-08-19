@@ -16,8 +16,6 @@ issue14013.diff # [analitic_account] Can not browse list or dict of None values
 
 issue14059.diff # [sao] Resizing on hpaned/vpaned
 
-varchar-resize.diff # [trytond] Allow resizing varchars as long as there's no record with larger length
-
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
 
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
