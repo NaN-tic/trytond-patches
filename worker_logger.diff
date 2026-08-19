@@ -1,21 +1,24 @@
-diff --git a/tryton/trytond/trytond/worker.py b/trytond/trytond/worker.py
-index b0d751fb..16070d9b 100644
+diff --git a/tryton/trytond/trytond/worker.py b/tryton/trytond/trytond/worker.py
+index 8f64fab60d..a849f64fd9 100644
 --- a/tryton/trytond/trytond/worker.py
 +++ b/tryton/trytond/trytond/worker.py
-@@ -143,6 +143,9 @@ def run_task(pool, task_id):
+@@ -184,6 +184,10 @@ def duration():
                  except (UserError, UserWarning) as e:
-                     Error.log(task, e)
+                     Error.report(task, e)
                      raise
 +                except Exception:
-+                    logger.critical('%s failed', name, exc_info=True)
-+                    return
++                    logger.critical(
++                        "%s failed after %i ms", name, duration(), exc_info=True)
++                    raise
          logger.info("%s in %i ms", name, duration())
      except backend.DatabaseOperationalError:
          logger.info(
-@@ -170,6 +173,3 @@ def run_task(pool, task_id):
-         logger.info(
+@@ -223,8 +227,6 @@ def duration():
              "%s failed after %i ms", name, duration(),
              exc_info=logger.isEnabledFor(logging.DEBUG))
--    except Exception:
+     except Exception:
 -        logger.critical(
 -            "%s failed after %i ms", name, duration(), exc_info=True)
+         transaction_extras = {
+                 '_lock_records': {
+                     Queue._table: [task_id],
