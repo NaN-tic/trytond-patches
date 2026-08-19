@@ -20,8 +20,6 @@ issue11731.diff # [currency] currency test don't pass when Currency Rates Source
 
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
 
-b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_purchase make invoicing extremely slow
-
 issue14013.diff # [analitic_account] Can not browse list or dict of None values
 
 issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
