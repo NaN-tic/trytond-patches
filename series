@@ -14,8 +14,6 @@ register_vector.diff # [trytond] Add register_vector postgreSQL extension
 
 issue14013.diff # [analitic_account] Can not browse list or dict of None values
 
-issue14121.diff # [trytond] dissable test buttons (allow raise UserError)
-
 issue14059.diff # [sao] Resizing on hpaned/vpaned
 
 varchar-resize.diff # [trytond] Allow resizing varchars as long as there's no record with larger length
