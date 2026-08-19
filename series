@@ -1,7 +1,5 @@
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
 
-issue8479.diff # [account_invoice] missing invoice payment method rule by company
-
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
