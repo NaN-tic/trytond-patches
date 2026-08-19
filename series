@@ -10,8 +10,6 @@ worker_logger.diff #[trytond] Move exception handling into transaction to keep t
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
-issue11731.diff # [currency] currency test don't pass when Currency Rates Source Not Ready (forex)
-
 register_vector.diff # [trytond] Add register_vector postgreSQL extension
 
 b2ck8006.diff # [analytic_sale] [analytic_purchase] analytic_sale and analytic_purchase make invoicing extremely slow
