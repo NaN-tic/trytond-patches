@@ -6,7 +6,7 @@ model.diff # [trytond] Allows dynamic fields in Model as required by the wizard 
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
-worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
+issue8429.diff #[trytond] Move exception handling into transaction to keep the database name
 
 statement_of_account.diff # [account] Cumulate balance of previous fiscal years
 
