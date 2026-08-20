@@ -1,0 +1,75 @@
+diff --git a/tryton/sao/src/wizard.js b/tryton/sao/src/wizard.js
+index aa43fd55ce..9b131ec2da 100644
+--- a/tryton/sao/src/wizard.js
++++ b/tryton/sao/src/wizard.js
+@@ -56,6 +56,9 @@
+                 return jQuery.when();
+             }
+             this.__processing = true;
++            if (this.screen) {
++                this.update_buttons();
++            }
+             var process = function() {
+                 let current_state = this.state;
+                 this.state = state;
+@@ -80,5 +83,5 @@
+                         prms.push(this.screen.new_(false).then(() => {
+-                            this.screen.current_record.set_default(
++                            return this.screen.current_record.set_default(
+                                 view.defaults || {})
+                                 .then(() => {
+                                     this.screen.current_record.set(
+@@ -116,18 +119,21 @@
+                     } else {
+                         prms.push(execute_actions());
+                     }
+-                    return jQuery.when.apply(jQuery, prms).then(
+-                        () => this.__processing = false);
++                    return jQuery.when.apply(jQuery, prms);
+                 }, result => {
+                     if (!result || !this.screen) {
+                         this.state = this.end_state;
+                         this.end();
+                     }
+                     this.state = current_state;
+-                    this.__processing = false;
+                 });
+             };
+-            return process.call(this);
++            return process.call(this).always(() => {
++                this.__processing = false;
++                if (this.screen) {
++                    this.update_buttons();
++                }
++            });
+         },
+         destroy: function(action) {
+             // TODO
+@@ -152,6 +158,9 @@
+             this.states = {};
+         },
+         response: function(definition) {
++            if (this.__processing) {
++                return;
++            }
+             this.__waiting_response = false;
+             this.screen.current_view.set_value();
+             if (definition.validate && !this.screen.current_record.validate(
+@@ -172,6 +181,7 @@
+             }
+             var button = new Sao.common.Button(
+                 definition, undefined, undefined, style);
++            button.el.prop('disabled', true);
+             this.states[definition.state] = button;
+             return button;
+         },
+@@ -184,6 +194,9 @@
+             for (var state in this.states) {
+                 var button = this.states[state];
+                 button.set_state(record);
++                button.el.prop(
++                    'disabled', this.__processing ||
++                    button.el.prop('disabled'));
+             }
+         },
+         update: function(view, buttons) {
