@@ -1,0 +1,39 @@
+diff --git a/tryton/trytond/trytond/protocols/wrappers.py b/tryton/trytond/trytond/protocols/wrappers.py
+--- a/tryton/trytond/trytond/protocols/wrappers.py
++++ b/tryton/trytond/trytond/protocols/wrappers.py
+@@ -14,7 +14,7 @@
+ 
+ from werkzeug import exceptions
+ from werkzeug.datastructures import Authorization
+-from werkzeug.exceptions import abort
++from werkzeug.exceptions import BadRequest, abort
+ from werkzeug.utils import redirect, send_file
+ from werkzeug.wrappers import Request as _Request
+ from werkzeug.wrappers import Response
+@@ -62,7 +62,11 @@
+                 args.append(self.remote_addr)
+             args.append("'%s'" % url)
+             args.append("[%s]" % self.method)
+-            if self.view_args:
++            try:
++                rpc_method = self.rpc_method
++            except BadRequest:
++                rpc_method = None
++            if self.view_args and rpc_method is not None:
+                 args.append("%s" % (self.rpc_method or ''))
+         except Exception:
+             args.append("(invalid WSGI environ)")
+@@ -85,11 +89,11 @@
+ 
+     @property
+     def rpc_method(self):
+-        return
++        raise BadRequest("Not a RPC request")
+ 
+     @property
+     def rpc_params(self):
+-        return
++        raise BadRequest("Not a RPC request")
+ 
+     @cached_property
+     def authorization(self):
