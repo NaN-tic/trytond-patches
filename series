@@ -36,3 +36,6 @@ issue14956.diff # [stock] Optimize stock quantity computation for only warehouse
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
 
 issue15053.diff # [trytond] SQL foreign key constraints are recreated unecessary
+
+issue15061.diff # [trytond] Button state not reset after confirmation is rejected
+

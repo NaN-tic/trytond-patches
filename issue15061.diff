@@ -1,0 +1,13 @@
+diff --git a/tryton/sao/src/screen.js b/tryton/sao/src/screen.js
+index cfd1ae749fc277e3fe2aae8ff52be2d1877fc77b_c2FvL3NyYy9zY3JlZW4uanM=..b9af05f38768c3ea4672601e38b49d6d07d13d03_c2FvL3NyYy9zY3JlZW4uanM= 100644
+--- a/tryton/sao/src/screen.js
++++ b/tryton/sao/src/screen.js
+@@ -2148,6 +2148,8 @@
+                             .fail(() => this.reload(ids, true));
+                     });
+                 }
++            }, () => {
++                this.display();
+             });
+         },
+         client_action: function(action) {
