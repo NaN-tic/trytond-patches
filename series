@@ -38,4 +38,4 @@ issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from 
 issue15053.diff # [trytond] SQL foreign key constraints are recreated unecessary
 
 issue15061.diff # [trytond] Button state not reset after confirmation is rejected
-
+issue15062.diff # [account_invoice] Generate a valid domain for the origin invoices via the searcher on the invoice
