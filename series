@@ -4,6 +4,8 @@ sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field 
 
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
+sao_wizard_processing.diff # [sao] Wait for wizard view initialization before enabling buttons
+
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
 
 worker_logger.diff #[trytond] Move exception handling into transaction to keep the database name
