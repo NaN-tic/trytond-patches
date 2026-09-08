@@ -41,3 +41,5 @@ issue15061.diff # [trytond] Button state not reset after confirmation is rejecte
 issue15062.diff # [account_invoice] Generate a valid domain for the origin invoices via the searcher on the invoice
 
 issue15073.diff # [account_payment_sepa] SEPA message requires to have a message
+
+issue15072.diff # [account_invoice] Test if the line's origin is an instance of ModelStorage before accessing the record name
