@@ -39,3 +39,5 @@ issue15053.diff # [trytond] SQL foreign key constraints are recreated unecessary
 
 issue15061.diff # [trytond] Button state not reset after confirmation is rejected
 issue15062.diff # [account_invoice] Generate a valid domain for the origin invoices via the searcher on the invoice
+
+issue15073.diff # [account_payment_sepa] SEPA message requires to have a message
