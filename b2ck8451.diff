@@ -1,0 +1,13 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
+index 2dec0f9c10..02010a3db1 100644
+--- a/tryton/trytond/trytond/backend/postgresql/database.py
++++ b/tryton/trytond/trytond/backend/postgresql/database.py
+@@ -480,7 +487,7 @@ def notify(self, connection, channel, payload):
+         cursor.execute('SELECT pg_notify(%s, %s)', (channel, payload))
+ 
+     def get_notifications(self, connection):
+-        return list(connection.notifies(timeout=2))
++        return list(connection.notifies(timeout=config.getint('database', 'notification_timeout')))
+ 
+     def lock(self, connection, table):
+         cursor = connection.cursor()
