@@ -7,7 +7,7 @@ index 2dec0f9c10..02010a3db1 100644
  
      def get_notifications(self, connection):
 -        return list(connection.notifies(timeout=2))
-+        return list(connection.notifies(timeout=config.getint('database', 'notification_timeout')))
++        return list(connection.notifies(timeout=config.getint('database', 'notification_timeout', default=2)))
  
      def lock(self, connection, table):
          cursor = connection.cursor()
