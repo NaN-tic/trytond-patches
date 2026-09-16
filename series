@@ -35,11 +35,4 @@ b2ck8399.diff # [trytond] Showing backtraces for route errors
 issue14956.diff # [stock] Optimize stock quantity computation for only warehouses
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
 
-issue15061.diff # [trytond] Button state not reset after confirmation is rejected
-issue15062.diff # [account_invoice] Generate a valid domain for the origin invoices via the searcher on the invoice
-
-issue15073.diff # [account_payment_sepa] SEPA message requires to have a message
-
-issue15072.diff # [account_invoice] Test if the line's origin is an instance of ModelStorage before accessing the record name
-
 b2ck8451.diff # [trytond] Make get_notifications() timeout configurable
