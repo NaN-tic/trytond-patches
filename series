@@ -55,3 +55,5 @@ b2ck8399.diff # [trytond] Showing backtraces for route errors
 
 issue14956.diff # [stock] Optimize stock quantity computation for only warehouses
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
+
+issue15104.diff # [sao] Reference fields fail to display in list views after selection mixin changes

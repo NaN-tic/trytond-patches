@@ -1,0 +1,129 @@
+diff --git a/sao/src/view/tree.js b/sao/src/view/tree.js
+index 682360bc1b..7c775be41c 100644
+--- a/sao/src/view/tree.js
++++ b/sao/src/view/tree.js
+@@ -2938,6 +2938,7 @@
+             Sao.View.Tree.ReferenceColumn._super.init.call(this, model,
+                 attributes);
+             Sao.common.selection_mixin.init.call(this);
++            this._record_selections = new WeakMap();
+             this.init_selection();
+         },
+         init_selection: function(key) {
+@@ -2967,7 +2968,8 @@
+                 name = value[1];
+             }
+             if (model) {
+-                for (const option of this.selection) {
++                var selection = this._record_selections.get(record) || [];
++                for (const option of selection) {
+                     if (option[0] === model) {
+                         model = option[1];
+                         break;
+@@ -2982,7 +2984,8 @@
+         update_text: function(cell, record) {
+             cell = cell.children('a');
+             cell.unbind('click');
+-            this.update_selection(record, () => {
++            this.update_selection(record, selection => {
++                this._record_selections.set(record, selection);
+                 var text = this.get_textual_value(record);
+                 cell.text(text).attr('title', text);
+                 cell.click(event => {
+diff --git a/sao/tests/sao.js b/sao/tests/sao.js
+index 84e32c0217..c34bf5e6ff 100644
+--- a/sao/tests/sao.js
++++ b/sao/tests/sao.js
+@@ -3392,6 +3392,92 @@
+             Sao.Time(10, 30, 42, 123).toString(), '10:30:42.123000');
+     });
+ 
++    QUnit.test('Reference column selection', function(assert) {
++        var field = {
++            name: 'origin',
++            get_client: record => record.value,
++            get_domain: () => [],
++        };
++        var model = {fields: {origin: field}};
++        var column = new Sao.View.Tree.ReferenceColumn(model, {
++            name: 'origin',
++            selection: [['sale.sale', 'Sale']],
++        });
++        var record = {
++            value: ['sale.sale', 'S001'],
++            _get_on_change_args: () => ({}),
++        };
++        var cell = column.get_cell();
++        column.update_text(cell, record);
++        assert.strictEqual(cell.children('a').text(), 'Sale,S001');
++        assert.strictEqual(cell.children('a').attr('title'), 'Sale,S001');
++        assert.strictEqual(column.get_textual_value(record), 'Sale,S001');
++
++        record.value = ['unknown.model', 'Unknown'];
++        column.update_text(cell, record);
++        assert.strictEqual(cell.children('a').text(), 'unknown.model,Unknown');
++        record.value = ['', 'Free text'];
++        column.update_text(cell, record);
++        assert.strictEqual(cell.children('a').text(), 'Free text');
++        record.value = null;
++        column.update_text(cell, record);
++        assert.strictEqual(cell.children('a').text(), '');
++    });
++
++    QUnit.test('Reference column asynchronous selections per record',
++        function(assert) {
++            var done = assert.async();
++            var field = {
++                name: 'origin',
++                get_client: record => record.value,
++                get_domain: () => [],
++            };
++            var requests = {};
++            var model = {
++                fields: {origin: field},
++                execute: (method, args) => {
++                    var prm = jQuery.Deferred();
++                    requests[args[0].kind] = prm;
++                    return prm.promise();
++                },
++            };
++            var column = new Sao.View.Tree.ReferenceColumn(model, {
++                name: 'origin',
++                selection: 'get_origin',
++                selection_change_with: ['kind'],
++            });
++            var first = {
++                value: ['sale.sale', 'S001'],
++                _get_on_change_args: () => ({kind: 'first'}),
++            };
++            var second = {
++                value: ['sale.sale', 'S002'],
++                _get_on_change_args: () => ({kind: 'second'}),
++            };
++            var first_cell = column.get_cell();
++            var second_cell = column.get_cell();
++            requests.null.resolve([]);
++            column._selection_prm.then(() => {
++                column.update_text(first_cell, first);
++                requests.first.resolve([['sale.sale', 'First sale']]);
++                return column._selection_prm;
++            }).then(() => {
++                column.update_text(second_cell, second);
++                requests.second.resolve([['sale.sale', 'Second sale']]);
++                return column._selection_prm;
++            }).then(() => {
++                assert.strictEqual(first_cell.children('a').text(),
++                    'First sale,S001');
++                assert.strictEqual(second_cell.children('a').text(),
++                    'Second sale,S002');
++                assert.strictEqual(column.get_textual_value(first),
++                    'First sale,S001');
++                assert.strictEqual(column.get_textual_value(second),
++                    'Second sale,S002');
++                done();
++            });
++        });
++
+     QUnit.test('HTML Sanitization', function() {
+         var examples = [
+             ["Test", "Test"],
