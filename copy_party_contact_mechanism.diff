@@ -1,0 +1,61 @@
+diff --git a/modules/party/party.py b/modules/party/party.py
+index fc1b3a5bc2..45c4fd8b50 100644
+--- a/tryton/modules/party/party.py
++++ b/tryton/modules/party/party.py
+@@ -314,12 +314,55 @@ class Party(
+ 
+     @classmethod
+     def copy(cls, parties, default=None):
++        pool = Pool()
++        Address = pool.get('party.address')
++        ContactMechanism = pool.get('party.contact_mechanism')
+         if default is None:
+             default = {}
+         else:
+             default = default.copy()
+         default.setdefault('code', None)
+-        return super().copy(parties, default=default)
++        relation_defaults = {}
++        for name in ['addresses', 'contact_mechanisms']:
++            if name in default:
++                relation_defaults[name] = default[name]
++            default[name] = None
++
++        def get_records(party, name, Model):
++            if name not in relation_defaults:
++                return getattr(party, name)
++            value = relation_defaults[name]
++            if callable(value):
++                origin, = cls.read([party.id], list(cls._fields))
++                value = value(origin)
++            return Model.browse(value or [])
++
++        address_default = {
++            name[len('addresses.'):]: value
++            for name, value in default.items()
++            if name.startswith('addresses.')}
++        address_default.setdefault('contact_mechanisms', None)
++        contact_default = {
++            name[len('contact_mechanisms.'):]: value
++            for name, value in default.items()
++            if name.startswith('contact_mechanisms.')}
++
++        copies = super().copy(parties, default=default)
++        for party, copied in zip(parties, copies):
++            addresses = get_records(party, 'addresses', Address)
++            new_addresses = Address.copy(
++                addresses, default=dict(address_default, party=copied.id))
++            address_map = {a.id: b.id
++                for a, b in zip(addresses, new_addresses)}
++
++            # Copy contacts only once, after their new addresses exist.
++            mechanism_default = dict(contact_default, party=copied.id)
++            mechanism_default.setdefault(
++                'address', lambda data: address_map.get(data['address']))
++            ContactMechanism.copy(
++                get_records(party, 'contact_mechanisms', ContactMechanism),
++                default=mechanism_default)
++        return copies
+ 
+     @classmethod
+     def search_global(cls, text):
