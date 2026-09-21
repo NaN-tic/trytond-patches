@@ -57,3 +57,5 @@ issue14956.diff # [stock] Optimize stock quantity computation for only warehouse
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
 
 copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism related to an address
+
+selection_fields.diff # [sao] Fix bug when editing models with selection field when it's not saved yet, not change the value set
