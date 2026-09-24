@@ -1,0 +1,95 @@
+diff --git a/tryton/modules/authentication_sms/res.py b/tryton/modules/authentication_sms/res.py
+--- a/tryton/modules/authentication_sms/res.py
++++ b/tryton/modules/authentication_sms/res.py
+@@ -43,7 +43,7 @@
+             else:
+                 return user_id
+         if 'sms_code' in parameters:
+-            code = parameters['sms_code']
++            code = str(parameters['sms_code'])
+             if not code:
+                 return
+             if SMSCode.check(user_id, code):
+diff --git a/tryton/modules/ldap_authentication/res.py b/tryton/modules/ldap_authentication/res.py
+--- a/tryton/modules/ldap_authentication/res.py
++++ b/tryton/modules/ldap_authentication/res.py
+@@ -135,7 +135,7 @@
+         if 'password' not in parameters:
+             msg = gettext('res.msg_user_password', login=login)
+             raise LoginException('password', msg, type='password')
+-        password = parameters['password']
++        password = str(parameters['password'])
+         try:
+             server = ldap_server()
+             if server:
+diff --git a/tryton/trytond/trytond/protocols/dispatcher.py b/tryton/trytond/trytond/protocols/dispatcher.py
+--- a/tryton/trytond/trytond/protocols/dispatcher.py
++++ b/tryton/trytond/trytond/protocols/dispatcher.py
+@@ -49,6 +49,8 @@
+         'language': language,
+         '_request': request.context,
+         }
++    if not isinstance(user, str):
++        abort(HTTPStatus.BAD_REQUEST, "user argument must be a string")
+     try:
+         session = security.login(
+             database_name, user, parameters, context=context)
+@@ -84,6 +86,8 @@
+         'language': language,
+         '_request': request.context,
+         }
++    if not isinstance(user, str):
++        abort(HTTPStatus.BAD_REQUEST, "user argument must be a string")
+     try:
+         security.reset_password(database_name, user, context=context)
+     except backend.DatabaseOperationalError:
+diff --git a/tryton/trytond/trytond/res/user.py b/tryton/trytond/trytond/res/user.py
+--- a/tryton/trytond/trytond/res/user.py
++++ b/tryton/trytond/trytond/res/user.py
+@@ -738,21 +738,22 @@
+             msg = gettext('res.msg_user_password', login=login)
+             raise LoginException('password', msg, type='password')
+         user_id, password_hash, password_reset = cls._get_login(login)
+-        if user_id and password_hash:
+-            password = parameters['password']
+-            valid, new_hash = cls.check_password(password, password_hash)
+-            if valid:
+-                if new_hash:
+-                    logger.info("Update password hash for %s", user_id)
+-                    with Transaction().new_transaction():
+-                        with without_check_access():
+-                            cls.write([cls(user_id)], {
+-                                    'password_hash': new_hash,
+-                                    })
+-                return user_id
+-        if user_id and password_reset:
+-            if password_reset == parameters['password']:
+-                return user_id
++        if user_id:
++            password = str(parameters['password'])
++            if password_hash:
++                valid, new_hash = cls.check_password(password, password_hash)
++                if valid:
++                    if new_hash:
++                        logger.info("Update password hash for %s", user_id)
++                        with Transaction().new_transaction():
++                            with without_check_access():
++                                cls.write([cls(user_id)], {
++                                        'password_hash': new_hash,
++                                        })
++                    return user_id
++            if password_reset:
++                if password_reset == password:
++                    return user_id
+ 
+     @classmethod
+     def hash_password(cls, password):
+@@ -857,7 +858,7 @@
+         try:
+             device, = cls.search([
+                     ('login', '=', login),
+-                    ('cookie', '=', cookie),
++                    ('cookie', '=', str(cookie)),
+                     ], limit=1)
+         except ValueError:
+             return None
