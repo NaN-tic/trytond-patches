@@ -38,3 +38,7 @@ issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from 
 b2ck8451.diff # [trytond] Make get_notifications() timeout configurable
 
 issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Validate authentication input types
+
+copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism related to an address
+
+selection_fields.diff # [sao] Fix bug when editing models with selection field when it's not saved yet, not change the value set
