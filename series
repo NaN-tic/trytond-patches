@@ -36,3 +36,5 @@ issue14956.diff # [stock] Optimize stock quantity computation for only warehouse
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
 
 b2ck8451.diff # [trytond] Make get_notifications() timeout configurable
+
+issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Validate authentication input types
