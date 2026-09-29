@@ -1,0 +1,168 @@
+diff --git a/tryton/modules/account/account.py b/tryton/modules/account/account.py
+--- a/tryton/modules/account/account.py
++++ b/tryton/modules/account/account.py
+@@ -1071,7 +1071,6 @@
+             col_type = int if name == 'line_count' else Decimal
+             result[name] = defaultdict(col_type)
+ 
+-        table = cls.__table__()
+         line = MoveLine.__table__()
+ 
+         for company, c_accounts in groupby(accounts, key=lambda a: a.company):
+@@ -1079,7 +1078,7 @@
+             ids = [a.id for a in c_accounts]
+             with transaction.set_context(company=company.id):
+                 line_query, fiscalyear_ids = MoveLine.query_get(line)
+-            columns = [table.id]
++            columns = [line.account]
+             types = [None]
+             for name in names:
+                 if name == 'line_count':
+@@ -1089,12 +1088,11 @@
+                     columns.append(
+                         Sum(Coalesce(Column(line, name), 0)).as_(name))
+                     types.append('NUMERIC')
+-            where = fields.SQL_OPERATORS['in'](table.id, ids)
+-            query = (table.join(line, 'LEFT',
+-                    condition=line.account == table.id
+-                    ).select(*columns,
+-                    where=where & line_query,
+-                    group_by=table.id))
++            where = fields.SQL_OPERATORS['in'](line.account, ids)
++            query = line.select(
++                *columns,
++                where=where & line_query,
++                group_by=line.account)
+             if backend.name == 'sqlite':
+                 sqlite_apply_types(query, types)
+             cursor.execute(*query)
+@@ -1578,9 +1576,8 @@
+             column_type = int if name == 'line_count' else Decimal
+             result[name] = defaultdict(column_type)
+ 
+-        table = Account.__table__()
+         line = MoveLine.__table__()
+-        columns = [line.party, table.id]
++        columns = [line.party, line.account]
+         types = [None, None]
+         for name in names:
+             if name == 'line_count':
+@@ -1598,13 +1595,12 @@
+             with transaction.set_context(company=company.id):
+                 line_query, fiscalyear_ids = MoveLine.query_get(line)
+ 
+-            account_sql = fields.SQL_OPERATORS['in'](table.id, account_ids)
++            account_sql = fields.SQL_OPERATORS['in'](line.account, account_ids)
+             party_sql = fields.SQL_OPERATORS['in'](line.party, party_ids)
+-            query = (table.join(line, 'LEFT',
+-                    condition=line.account == table.id
+-                    ).select(*columns,
+-                    where=account_sql & party_sql & line_query,
+-                    group_by=[table.id, line.party]))
++            query = line.select(
++                *columns,
++                where=account_sql & party_sql & line_query,
++                group_by=[line.account, line.party])
+             if backend.name == 'sqlite':
+                 sqlite_apply_types(query, types)
+             cursor.execute(*query)
+diff --git a/tryton/modules/analytic_account/account.py b/tryton/modules/analytic_account/account.py
+--- a/tryton/modules/analytic_account/account.py
++++ b/tryton/modules/analytic_account/account.py
+@@ -3,7 +3,7 @@
+ from collections import defaultdict
+ from decimal import Decimal
+ 
+-from sql import Column, Literal
++from sql import Column
+ from sql.aggregate import Sum
+ from sql.conditionals import Coalesce
+ 
+@@ -168,11 +168,8 @@
+     def get_balance(cls, accounts, name):
+         pool = Pool()
+         Line = pool.get('analytic_account.line')
+-        MoveLine = pool.get('account.move.line')
+         cursor = Transaction().connection.cursor()
+-        table = cls.__table__()
+         line = Line.__table__()
+-        move_line = MoveLine.__table__()
+ 
+         ids = [a.id for a in accounts]
+         childs = cls.search([('parent', 'child_of', ids)])
+@@ -184,17 +181,13 @@
+             id2account[account.id] = account
+ 
+         line_query = Line.query_get(line)
+-        query = (table.join(line, 'LEFT',
+-                condition=table.id == line.account
+-                ).join(move_line, 'LEFT',
+-                condition=move_line.id == line.move_line
+-                ).select(table.id,
+-                Sum(Coalesce(line.credit, 0) - Coalesce(line.debit, 0)
+-                    ).as_('balance'),
+-                where=(table.type != 'view')
+-                & table.id.in_(all_ids)
+-                & (table.active == Literal(True)) & line_query,
+-                group_by=table.id))
++        where = fields.SQL_OPERATORS['in'](line.account, all_ids)
++        query = line.select(
++            line.account,
++            Sum(Coalesce(line.credit, 0) - Coalesce(line.debit, 0)
++                ).as_('balance'),
++            where=where & line_query,
++            group_by=line.account)
+         if backend.name == 'sqlite':
+             sqlite_apply_types(query, [None, 'NUMERIC'])
+         cursor.execute(*query)
+@@ -203,18 +196,19 @@
+ 
+         balances = sum_tree(childs, values)
+         for account in accounts:
+-            balances[account.id] = account.currency.round(balances[account.id])
++            if not account.active:
++                balances[account.id] = None
++            else:
++                balances[account.id] = account.currency.round(
++                    balances[account.id])
+         return balances
+ 
+     @classmethod
+     def get_credit_debit(cls, accounts, names):
+         pool = Pool()
+         Line = pool.get('analytic_account.line')
+-        MoveLine = pool.get('account.move.line')
+         cursor = Transaction().connection.cursor()
+-        table = cls.__table__()
+         line = Line.__table__()
+-        move_line = MoveLine.__table__()
+ 
+         result = {}
+         ids = [a.id for a in accounts]
+@@ -228,20 +222,16 @@
+             id2account[account.id] = account
+ 
+         line_query = Line.query_get(line)
+-        columns = [table.id]
++        columns = [line.account]
+         types = [None]
+         for name in names:
+             columns.append(Sum(Coalesce(Column(line, name), 0)).as_(name))
+             types.append('NUMERIC')
+-        query = (table.join(line, 'LEFT',
+-                condition=table.id == line.account
+-                ).join(move_line, 'LEFT',
+-                condition=move_line.id == line.move_line
+-                ).select(*columns,
+-                where=(table.type != 'view')
+-                & table.id.in_(ids)
+-                & (table.active == Literal(True)) & line_query,
+-                group_by=table.id))
++        where = fields.SQL_OPERATORS['in'](line.account, ids)
++        query = line.select(
++            *columns,
++            where=where & line_query,
++            group_by=line.account)
+         if backend.name == 'sqlite':
+             sqlite_apply_types(query, types)
+         cursor.execute(*query)
