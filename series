@@ -39,6 +39,4 @@ issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Validate 
 
 copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism related to an address
 
-selection_fields.diff # [sao] Fix bug when editing models with selection field when it's not saved yet, not change the value set
-
 issue15126.diff # [account] [analytic_account] Unecessary join with account table when calculating debit/credit/balance
