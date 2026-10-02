@@ -40,3 +40,5 @@ issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Validate 
 copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism related to an address
 
 issue15126.diff # [account] [analytic_account] Unecessary join with account table when calculating debit/credit/balance
+
+fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
