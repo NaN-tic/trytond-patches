@@ -2,6 +2,8 @@ tax_update_unit_price.diff # [account] Add the update_unit_price control on pare
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
 
+issue15146.diff # [sale_promotion] Allow internal updates of original_unit_price
+
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
