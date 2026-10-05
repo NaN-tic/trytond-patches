@@ -1,0 +1,13 @@
+diff --git a/tryton/modules/purchase/purchase.py b/tryton/modules/purchase/purchase.py
+index d0d0c49ed4..7f2ac5e966 100644
+--- a/tryton/modules/purchase/purchase.py
++++ b/tryton/modules/purchase/purchase.py
+@@ -774,7 +774,7 @@ class Purchase(
+         default.setdefault('number', None)
+         default.setdefault('reference')
+         default.setdefault('invoice_state', 'none')
+-        default.setdefault('to_invoice')
++        default.setdefault('to_invoice', False)
+         default.setdefault('invoices_ignored', None)
+         default.setdefault('shipment_state', 'none')
+         default.setdefault('purchase_date', None)
