@@ -4,12 +4,6 @@ sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field 
 
 issue15146.diff # [sale_promotion] Allow internal updates of original_unit_price
 
-issue15147.diff # [purchase] Reset readonly to_invoice when duplicating a purchase
-
-issue15148.diff # [production] Reset readonly production_cost_price_updated when copying a move
-
-isuse15149.diff # [trytond] Avoid writing readonly action type twice
-
 model.diff # [trytond] Allows dynamic fields in Model as required by the wizard in sale_pos_template_quantities
 
 sao_remove_email.diff # [sao] Removes the email button from the toolbar
