@@ -42,3 +42,5 @@ copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism re
 issue15126.diff # [account] [analytic_account] Unecessary join with account table when calculating debit/credit/balance
 
 fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
+
+issue15138.diff # [production] Fallback to 0 when cost price is empty for product of production

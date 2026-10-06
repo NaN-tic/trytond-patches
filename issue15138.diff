@@ -1,0 +1,31 @@
+diff --git a/tryton/modules/production/production.py b/tryton/modules/production/production.py
+index ed5fc0ff2cf3a191335821306d91349285393bb7_bW9kdWxlcy9wcm9kdWN0aW9uL3Byb2R1Y3Rpb24ucHk=..5ec92213da3f26ab80238a21a42f576fd732586a_bW9kdWxlcy9wcm9kdWN0aW9uL3Byb2R1Y3Rpb24ucHk= 100644
+--- a/tryton/modules/production/production.py
++++ b/tryton/modules/production/production.py
+@@ -478,7 +478,7 @@
+         for input_ in self.inputs:
+             if input_.state == 'cancelled':
+                 continue
+-            cost_price = input_.get_cost_price()
++            cost_price = input_.get_cost_price() or 0
+             cost += (Decimal(str(input_.internal_quantity)) * cost_price)
+         return round_price(cost)
+ 
+@@ -499,7 +499,7 @@
+             product = input_.product
+             quantity = Uom.compute_qty(
+                 input_.unit, input_.quantity, product.default_uom)
+-            cost += Decimal(str(quantity)) * product.cost_price
++            cost += Decimal(str(quantity)) * (product.cost_price or 0)
+         return cost
+ 
+     @dualmethod
+@@ -571,7 +571,7 @@
+             for input_ in production.inputs:
+                 if input_.state == 'cancelled':
+                     continue
+-                cost_price = input_.get_cost_price()
++                cost_price = input_.get_cost_price() or 0
+                 input_quantities[input_.product] += (
+                     Decimal(str(input_.internal_quantity)))
+                 input_costs[input_.product] += (
