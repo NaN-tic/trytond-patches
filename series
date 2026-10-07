@@ -58,8 +58,8 @@ issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from 
 
 copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism related to an address
 
-selection_fields.diff # [sao] Fix bug when editing models with selection field when it's not saved yet, not change the value set
-
 issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Check if the user argument is a string on login and reset password
+
+fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
 
 update_validate_move_message.diff # [account] Improve the reconciliation error message with the move line ID and description.

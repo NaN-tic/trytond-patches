@@ -1,0 +1,38 @@
+diff --git a/modules/production/bom.py b/modules/production/bom.py
+index 659b0c46a6..d37cf4833a 100644
+--- a/tryton/modules/production/bom.py
++++ b/tryton/modules/production/bom.py
+@@ -1,5 +1,6 @@
+ # This file is part of Tryton.  The COPYRIGHT file at the top level of
+ # this repository contains the full copyright notices and license terms.
++from math import isclose, ulp
+ 
+ from sql.functions import CharLength
+ 
+@@ -294,7 +295,16 @@ class BOMInput(ModelSQL, ModelView):
+                             bom=bom.rec_name))
+ 
+     def compute_quantity(self, factor):
+-        return self.unit.ceil(self.quantity * factor)
++        return self._compute_quantity(factor, self.unit.ceil)
++
++    def _compute_quantity(self, factor, rounding):
++        quantity = self.quantity * factor
++        rounded = self.unit.round(quantity)
++        # Ignore floating-point noise at a unit rounding boundary before
++        # applying the directional rounding for inputs or outputs.
++        if isclose(quantity, rounded, rel_tol=0, abs_tol=2 * ulp(quantity)):
++            return rounded
++        return rounding(quantity)
+ 
+     def prepare_move(self, production, move):
+         "Update stock move for the production"
+@@ -332,7 +342,7 @@ class BOMOutput(BOMInput):
+             ]
+ 
+     def compute_quantity(self, factor):
+-        return self.unit.floor(self.quantity * factor)
++        return self._compute_quantity(factor, self.unit.floor)
+ 
+     @property
+     def _phantom_lines(self):
