@@ -44,3 +44,5 @@ issue15126.diff # [account] [analytic_account] Unecessary join with account tabl
 fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
 
 issue15138.diff # [production] Fallback to 0 when cost price is empty for product of production
+
+update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
