@@ -17,3 +17,5 @@ issue14059.diff # [sao] Resizing on hpaned/vpaned
 dbless_pool.diff # [trytond] Enable pool construction without database interaction
 
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
+
+update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
