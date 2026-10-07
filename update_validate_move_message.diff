@@ -1,0 +1,18 @@
+diff --git a/modules/account/move.py b/modules/account/move.py
+index 1a98cda9e2..2d169cf0e7 100644
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -653,9 +653,12 @@ class Reconciliation(ModelSQL, ModelView):
+                 party = reconciliation.lines[0].party
+             for line in reconciliation.lines:
+                 if line.state != 'valid':
++                    line_name = f'{line.rec_name} [ID: {line.id}]'
++                    if line.description:
++                        line_name += f' - {line.description}'
+                     raise ReconciliationError(
+                         gettext('account.msg_reconciliation_line_not_valid',
+-                            line=line.rec_name))
++                            line=line_name))
+                 debit += line.debit
+                 credit += line.credit
+                 if not account:
