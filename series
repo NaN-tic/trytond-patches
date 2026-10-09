@@ -46,3 +46,5 @@ fix_round_in_out_productions.diff # [production] Fix bug when round in input and
 issue15138.diff # [production] Fallback to 0 when cost price is empty for product of production
 
 update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
+
+tiquet191794.diff # [account] Validate move balance after saving line changes. Task: #191794
