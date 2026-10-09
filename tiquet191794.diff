@@ -1,0 +1,51 @@
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -1446,9 +1446,6 @@ class Line(DescriptionOriginMixin, MoveLineMixin, ModelSQL, ModelView):
+ 
+     @classmethod
+     def check_modification(cls, mode, lines, values=None, external=False):
+-        pool = Pool()
+-        Move = pool.get('account.move')
+-
+         super().check_modification(
+             mode, lines, values=values, external=external)
+ 
+@@ -1482,6 +1479,13 @@ class Line(DescriptionOriginMixin, MoveLineMixin, ModelSQL, ModelView):
+                             'account.msg_modify_line_reconciled',
+                             line=line.rec_name))
+ 
++    @classmethod
++    def on_modification(cls, mode, lines, field_names=None):
++        pool = Pool()
++        Move = pool.get('account.move')
++
++        super().on_modification(mode, lines, field_names=field_names)
++
+         if mode in {'create', 'write'}:
+             moves = Move.browse({l.move for l in lines})
+             Move.validate_move(moves)
+diff --git a/modules/account_statement_enable_banking/account.py b/modules/account_statement_enable_banking/account.py
+--- a/modules/account_statement_enable_banking/account.py
++++ b/modules/account_statement_enable_banking/account.py
+@@ -37,14 +37,14 @@ class MoveLine(metaclass=PoolMeta):
+         'get_debit_credit_balance')
+ 
+     @classmethod
+-    def check_modification(cls, mode, lines, values=None, external=False):
++    def on_modification(cls, mode, lines, field_names=None):
+         if (mode == 'write'
+-                and not values.keys() & {'credit', 'debit', 'move'}):
++                and field_names is not None
++                and not set(field_names) & {'credit', 'debit', 'move'}):
+             with Transaction().set_context(skip_move_validation=True):
+-                return super().check_modification(
+-                    mode, lines, values=values, external=external)
+-        return super().check_modification(
+-            mode, lines, values=values, external=external)
++                return super().on_modification(
++                    mode, lines, field_names=field_names)
++        return super().on_modification(mode, lines, field_names=field_names)
+ 
+     @classmethod
+     def get_payment_fields(cls, lines, name):

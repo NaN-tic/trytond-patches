@@ -63,3 +63,4 @@ issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Check if 
 fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
 
 update_validate_move_message.diff # [account] Improve the reconciliation error message with the move line ID and description.
+tiquet191794.diff # [account] Validate move lines after modification and adapt the enable banking validation hook.
