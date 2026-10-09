@@ -1,0 +1,27 @@
+diff --git a/tryton/modules/account/move.py b/tryton/modules/account/move.py
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -1433,9 +1433,6 @@ class Line(DescriptionOriginMixin, MoveLineMixin, ModelSQL, ModelView):
+ 
+     @classmethod
+     def check_modification(cls, mode, lines, values=None, external=False):
+-        pool = Pool()
+-        Move = pool.get('account.move')
+-
+         super().check_modification(
+             mode, lines, values=values, external=external)
+ 
+@@ -1464,6 +1461,13 @@ class Line(DescriptionOriginMixin, MoveLineMixin, ModelSQL, ModelView):
+                             'account.msg_modify_line_reconciled',
+                             line=line.rec_name))
+ 
++    @classmethod
++    def on_modification(cls, mode, lines, field_names=None):
++        pool = Pool()
++        Move = pool.get('account.move')
++
++        super().on_modification(mode, lines, field_names=field_names)
++
+         if mode in {'create', 'write'}:
+             moves = Move.browse({l.move for l in lines})
+             Move.validate_move(moves)
