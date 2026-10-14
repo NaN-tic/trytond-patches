@@ -48,3 +48,5 @@ issue15138.diff # [production] Fallback to 0 when cost price is empty for produc
 update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
 
 tiquet191794.diff # [account] Validate move balance after saving line changes. Task: #191794
+
+issue15017.diff # [party] Validate stdnum code before compacting and formatting it
