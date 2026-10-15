@@ -1,3 +1,5 @@
+auth_mobile.diff # [authentication_sms] allow auth without mobile
+
 tax_update_unit_price.diff # [account] Add the update_unit_price control on parent tax
 
 sale_supply_supply_on_sale_multivalue.diff # [sale_supply] supply_on_sale field multvalue #035100
