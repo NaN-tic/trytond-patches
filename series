@@ -19,5 +19,3 @@ dbless_pool.diff # [trytond] Enable pool construction without database interacti
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
 update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
-
-issue15156.diff # [trytond] Set a default value for the readonly fields that are copied under check access
