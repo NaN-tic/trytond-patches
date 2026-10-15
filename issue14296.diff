@@ -4934,3 +4934,25 @@ index e99d67ce80..f7b0dea09c 100644
  msgctxt "model:web.user.session,string:"
  msgid "Web User Session"
  msgstr "Sessió usuari web"
+diff --git a/tryton/trytond/trytond/ir/locale/ca.po b/tryton/trytond/trytond/ir/locale/ca.po
+index 54e7cb3122..80973b67df 100644
+--- a/tryton/trytond/trytond/ir/locale/ca.po
++++ b/tryton/trytond/trytond/ir/locale/ca.po
+@@ -3174,7 +3174,7 @@ msgctxt "model:ir.message,text:msg_dict_yes"
+ msgid "Yes"
+ msgstr "Si"
+ 
+-#, fuzzy, python-format
++#, python-format
+ msgctxt "model:ir.message,text:msg_digits_validation_record"
+ msgid ""
+ "The number of digits in the value \"%(value)r\" for field \"%(field)s\" in "
+@@ -3181,7 +3181,7 @@ msgid ""
+ msgstr ""
+ "El nombre de dígits en el valor \"%(value)r\" del camp \"%(field)s\" del "
+ "registre \"%(record)s\" de \"%(model)s\" excedeix el seu límit de "
+-"\"%(digits)i\"."
++"\"%(digits)r\"."
+ 
+ #, python-format
+ msgctxt "model:ir.message,text:msg_domain_validation_record"
