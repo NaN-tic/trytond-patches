@@ -46,3 +46,5 @@ issue15126.diff # [account] [analytic_account] Unecessary join with account tabl
 fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
 
 update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
+
+b2ck8478.diff # [account] Allow switching move lines directly between debit and credit

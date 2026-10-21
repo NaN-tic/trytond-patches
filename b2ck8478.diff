@@ -1,0 +1,24 @@
+Allow switching account move lines directly between debit and credit.
+
+Remove the zero-only domains that make the client mark the opposite field
+readonly. Existing on-change methods clear the opposite amount, while the
+SQL constraint still prevents nonzero debit and credit on the same line.
+--- a/tryton/modules/account/move.py
++++ b/tryton/modules/account/move.py
+@@ -910,16 +910,10 @@ class Line(DescriptionOriginMixin, MoveL
+     debit = Monetary(
+         "Debit", currency='currency', digits='currency', required=True,
+         states=_states,
+-        domain=[
+-            If(Eval('credit', 0), ('debit', '=', 0), ()),
+-            ],
+         depends={'credit', 'tax_lines', 'journal'})
+     credit = Monetary(
+         "Credit", currency='currency', digits='currency', required=True,
+         states=_states,
+-        domain=[
+-            If(Eval('debit', 0), ('credit', '=', 0), ()),
+-            ],
+         depends={'debit', 'tax_lines', 'journal'})
+     account = fields.Many2One('account.account', 'Account', required=True,
+         domain=[
