@@ -1,0 +1,21 @@
+diff --git a/tryton/modules/product/product.py b/tryton/modules/product/product.py
+--- a/tryton/modules/product/product.py
++++ b/tryton/modules/product/product.py
+@@ -136,7 +136,7 @@ class Template(
+     code = fields.Char(
+         "Code", strip='leading',
+         states={
+-            'readonly': Eval('code_readonly', False),
++            'editable': ~Eval('code_readonly', False),
+             })
+     type = fields.Selection(TYPES, "Type", required=True)
+     consumable = fields.Boolean('Consumable',
+@@ -500,7 +500,7 @@ class Product(
+     suffix_code = fields.Char(
+         "Suffix Code", strip='trailing',
+         states={
+-            'readonly': Eval('code_readonly', False),
++            'editable': ~Eval('code_readonly', False),
+             },
+         help="The unique identifier for the product (aka SKU).")
+     code = fields.Char(

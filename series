@@ -25,3 +25,5 @@ update_validate_move_message.diff # [account] Include line ID and description in
 b2ck8478.diff # [account] Allow switching move lines directly between debit and credit
 
 issue15183.diff # [trytond] Wrong database list from Pool
+
+issue15201.diff # [product] Make product code non editable instead of readonly when sequence is defined
