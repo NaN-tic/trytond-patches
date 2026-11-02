@@ -65,3 +65,4 @@ fix_round_in_out_productions.diff # [production] Fix bug when round in input and
 update_validate_move_message.diff # [account] Improve the reconciliation error message with the move line ID and description.
 
 issue15183.diff # [trytond] Wrong database list from Pool
+issue14949.diff # [trytond] Retry unfinished queued tasks

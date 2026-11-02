@@ -1,0 +1,238 @@
+Index: nan78/tryton/trytond/trytond/ir/cron.py
+===================================================================
+--- nan78.orig/tryton/trytond/trytond/ir/cron.py
++++ nan78/tryton/trytond/trytond/ir/cron.py
+@@ -93,6 +93,7 @@ class Cron(DeactivableMixin, ModelSQL, M
+         fields.Boolean("Running"), 'get_running')
+     method = fields.Selection([
+             ('ir.trigger|trigger_time', "Run On Time Triggers"),
++            ('ir.queue|retry', "Retry Queued Tasks"),
+             ('ir.queue|clean', "Clean Task Queue"),
+             ('ir.error|clean', "Clean Errors"),
+             ('ir.cron.log|clean', "Clean Cron Logs"),
+Index: nan78/tryton/trytond/trytond/ir/error.py
+===================================================================
+--- nan78.orig/tryton/trytond/trytond/ir/error.py
++++ nan78/tryton/trytond/trytond/ir/error.py
+@@ -81,11 +81,15 @@ class Error(Workflow, ModelView, ModelSQ
+         super().__setup__()
+         table = cls.__table__()
+ 
+-        cls._sql_indexes.add(
+-            Index(
+-                table,
+-                (table.state, Index.Equality(cardinality='low')),
+-                where=table.state.in_(['open', 'processing'])))
++        cls._sql_indexes.update({
++                Index(
++                    table,
++                    (table.state, Index.Equality(cardinality='low')),
++                    where=table.state.in_(['open', 'processing'])),
++                Index(
++                    table,
++                    (table.origin, Index.Equality(cardinality='high'))),
++                })
+         cls._order = [('id', 'DESC')]
+         cls._transitions |= {
+             ('open', 'processing'),
+@@ -191,4 +195,6 @@ class Error(Workflow, ModelView, ModelSQ
+                 Cron.__queue__.run_once([error.origin])
+             elif isinstance(error.origin, Queue):
+                 task = error.origin
++                task.finished_at = dt.datetime.now()
++                task.save()
+                 Queue.push(task.name, task.data)
+Index: nan78/tryton/trytond/trytond/ir/queue.xml
+===================================================================
+--- nan78.orig/tryton/trytond/trytond/ir/queue.xml
++++ nan78/tryton/trytond/trytond/ir/queue.xml
+@@ -3,6 +3,12 @@
+ this repository contains the full copyright notices and license terms. -->
+ <tryton>
+     <data noupdate="1">
++        <record model="ir.cron" id="cron_queue_retry">
++            <field name="method">ir.queue|retry</field>
++            <field name="interval_number" eval="1"/>
++            <field name="interval_type">hours</field>
++        </record>
++
+         <record model="ir.cron" id="cron_queue_clean">
+             <field name="method">ir.queue|clean</field>
+             <field name="interval_number" eval="1"/>
+Index: nan78/tryton/trytond/trytond/ir/queue_.py
+===================================================================
+--- nan78.orig/tryton/trytond/trytond/ir/queue_.py
++++ nan78/tryton/trytond/trytond/ir/queue_.py
+@@ -2,9 +2,10 @@
+ # this repository contains the full copyright notices and license terms.
+ import datetime
+ 
+-from sql import Literal, Null, With
++from sql import Literal, Null, Table, With
+ from sql.aggregate import Min
+ from sql.functions import CurrentTimestamp, Extract
++from sql.operators import Concat, Exists
+ 
+ import trytond.config as config
+ from trytond.model import Index, ModelSQL, fields
+@@ -43,6 +44,35 @@ class Queue(ModelSQL):
+                 (table.name, Index.Equality())))
+ 
+     @classmethod
++    def __register__(cls, module_name):
++        transaction = Transaction()
++        cursor = transaction.connection.cursor()
++        table_h = cls.__table_handler__(module_name)
++
++        migrate_queue = False
++        if (table_h.table_exist(cls._table)
++                and table_h.table_exist('ir_model_data')):
++            model_data = Table('ir_model_data')
++            cursor.execute(*model_data.select(
++                    model_data.id,
++                    where=(model_data.module == 'ir')
++                    & (model_data.fs_id == 'cron_queue_retry'),
++                    limit=1))
++            migrate_queue = not cursor.fetchone()
++
++        super().__register__(module_name)
++
++        # Finish tasks dequeued before automatic retries were introduced.
++        # The cron XML identifier acts as the one-time migration marker.
++        if migrate_queue:
++            queue = cls.__table__()
++            cursor.execute(*queue.update(
++                    [queue.finished_at],
++                    [CurrentTimestamp()],
++                    where=(queue.dequeued_at != Null)
++                    & (queue.finished_at == Null)))
++
++    @classmethod
+     def default_enqueued_at(cls):
+         return datetime.datetime.now()
+ 
+@@ -147,6 +177,7 @@ class Queue(ModelSQL):
+     def run(self):
+         transaction = Transaction()
+         Model = Pool().get(self.data['model'])
++        self.lock()
+         with transaction.set_user(self.data['user']), \
+                 transaction.set_context(
+                     self.data['context'], _skip_warnings=True):
+@@ -178,6 +209,41 @@ class Queue(ModelSQL):
+         self.save()
+ 
+     @classmethod
++    def retry(cls):
++        pool = Pool()
++        Error = pool.get('ir.error')
++        queue = cls.__table__()
++        queue_s = cls.__table__()
++        error = Error.__table__()
++        transaction = Transaction()
++        database = transaction.database
++        cursor = transaction.connection.cursor()
++
++        selected = queue_s.select(
++            queue_s.id,
++            where=(queue_s.dequeued_at != Null)
++            & (queue_s.finished_at == Null)
++            & ~Exists(error.select(
++                    error.origin,
++                    where=error.origin == Concat('ir.queue,', queue_s.id))))
++        if database.has_select_for():
++            For = database.get_select_for_skip_locked()
++            selected.for_ = For('UPDATE')
++        update = queue.update(
++            [queue.dequeued_at],
++            [None],
++            where=queue.id.in_(selected))
++        if database.has_returning():
++            update.returning = [queue.id]
++        cursor.execute(*update)
++        if database.has_returning():
++            task_updated = bool(cursor.fetchone())
++        else:
++            task_updated = True
++        if task_updated and database.has_channel():
++            cursor.execute('NOTIFY "%s"', (cls.__name__,))
++
++    @classmethod
+     def clean(cls, date=None):
+         if date is None:
+             date = (
+Index: nan78/tryton/trytond/trytond/worker.py
+===================================================================
+--- nan78.orig/tryton/trytond/trytond/worker.py
++++ nan78/tryton/trytond/trytond/worker.py
+@@ -141,7 +141,11 @@ def run_task(pool, task_id):
+     retry = config.getint('database', 'retry')
+     try:
+         count = 0
+-        transaction_extras = {}
++        transaction_extras = {
++            '_lock_records': {
++                Queue._table: [task_id],
++                }
++            }
+         while True:
+             if count:
+                 time.sleep(0.02 * count)
+@@ -173,7 +177,7 @@ def run_task(pool, task_id):
+                     raise
+                 except Exception:
+                     logger.critical('%s failed', name, exc_info=True)
+-                    return
++                    raise
+         logger.info("%s in %i ms", name, duration())
+     except backend.DatabaseOperationalError:
+         logger.info(
+@@ -182,11 +186,21 @@ def run_task(pool, task_id):
+         if not config.getboolean('queue', 'worker', default=False):
+             time.sleep(0.02 * retry)
+         try:
+-            with Transaction().start(pool.database_name, 0) as transaction:
++            transaction_extras = {
++                '_lock_records': {
++                    Queue._table: [task_id],
++                    }
++                }
++            with Transaction().start(
++                    pool.database_name, 0,
++                    **transaction_extras) as transaction:
+                 if not transaction.database.has_channel():
+                     logger.critical('%s failed', name, exc_info=True)
+                     return
+                 task = Queue(task_id)
++                task.lock()
++                task.finished_at = dt.datetime.now()
++                task.save()
+                 if task.scheduled_at and task.enqueued_at < task.scheduled_at:
+                     duration = (task.scheduled_at - task.enqueued_at) * 2
+                 else:
+@@ -195,9 +209,23 @@ def run_task(pool, task_id):
+                 scheduled_at = dt.datetime.now() + duration * random.random()
+                 Queue.push(task.name, task.data, scheduled_at=scheduled_at)
+         except Exception:
+-            logger.critical(
+-                "rescheduling %s failed", name, exc_info=True)
++            logger.info(
++                "rescheduling %s failed", name,
++                exc_info=logger.isEnabledFor(logging.DEBUG))
+     except (UserError, UserWarning):
+         logger.info(
+             "%s failed after %i ms", name, duration(),
+             exc_info=logger.isEnabledFor(logging.DEBUG))
++    except Exception:
++        transaction_extras = {
++                '_lock_records': {
++                    Queue._table: [task_id],
++                    }
++                }
++        with Transaction().start(
++                pool.database_name, 0,
++                **transaction_extras) as transaction:
++            task = Queue(task_id)
++            task.lock()
++            # Avoid retrying tasks that fail unexpectedly
++            task.finished_at = dt.datetime.now()
