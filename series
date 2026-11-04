@@ -51,3 +51,4 @@ b2ck8478.diff # [account] Allow switching move lines directly between debit and 
 
 issue15183.diff # [trytond] Wrong database list from Pool
 issue14949.diff # [trytond] Retry unfinished queued tasks
+zh_CN.diff
