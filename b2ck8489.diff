@@ -1,0 +1,22 @@
+diff --git a/tryton/sao/src/session.js b/tryton/sao/src/session.js
+index 4e2a1de155..f8e69d38bf 100644
+--- a/tryton/sao/src/session.js
++++ b/tryton/sao/src/session.js
+@@ -470,7 +470,7 @@
+                     } else if (data.error[0].startsWith('429')) {
+                         Sao.common.message.run(
+                             Sao.i18n.gettext('Too many requests. Try again later.'),
+-                            'tryton-error').always(dfd.resolve);
++                            'tryton-error').always(dfd.reject);
+                     } else if (data.error[0].startsWith('404')) {
+                         Sao.common.message.run(
+                             Sao.i18n.gettext("Not found."),
+@@ -500,7 +500,7 @@
+                 } else if (query.status == 429) {
+                     Sao.common.message.run(
+                         Sao.i18n.gettext('Too many requests. Try again later.'),
+-                        'tryton-error').always(dfd.resolve);
++                        'tryton-error').always(dfd.reject);
+                 } else if (query.status == 404) {
+                     Sao.common.message.run(
+                         Sao.i18n.gettext("Not found."),
