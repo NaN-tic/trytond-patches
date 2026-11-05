@@ -43,13 +43,12 @@ copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism re
 
 issue15126.diff # [account] [analytic_account] Unecessary join with account table when calculating debit/credit/balance
 
-fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
+fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production.
 
 update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
 
 b2ck8478.diff # [account] Allow switching move lines directly between debit and credit
 
-issue15183.diff # [trytond] Wrong database list from Pool
 issue14949.diff # [trytond] Retry unfinished queued tasks
 zh_CN.diff # [tryton] Chinese translations
 
