@@ -1,0 +1,20 @@
+diff --git a/tryton/modules/party/party.py b/tryton/modules/party/party.py
+--- a/tryton/modules/party/party.py
++++ b/tryton/modules/party/party.py
+@@ -1117,6 +1117,7 @@ class Identifier(sequence_ordered(), DeactivableMixin, ModelSQL, ModelView):
+                             now - config.identifier_eu_vat_validation_period),
+                         ],
+                     ],
++                limit=20,
+                 order=[])
+         if not identifiers:
+             return
+@@ -1142,7 +1143,7 @@ class Identifier(sequence_ordered(), DeactivableMixin, ModelSQL, ModelView):
+                             'SERVICE_UNAVAILABLE',
+                             'MS_UNAVAILABLE',
+                             'MS_MAX_CONCURRENT_REQ',
+-                            'GLOBAL_MS_MAX_CONCURRENT_REQ',
++                            'GLOBAL_MAX_CONCURRENT_REQ',
+                             'TIMEOUT',
+                             'SERVER_BUSY',
+                             }:
