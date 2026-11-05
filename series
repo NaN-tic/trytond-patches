@@ -20,4 +20,4 @@ dbless_pool.diff # [trytond] Enable pool construction without database interacti
 
 b2ck8310.diff # [sao] Sort favorites alphabeticallly
 
-update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors
+update_validate_move_message.diff # [account] Include line ID and description in reconciliation validation errors (b2ck8491)
