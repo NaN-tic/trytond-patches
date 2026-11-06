@@ -60,9 +60,10 @@ copy_party_contact_mechanism.diff # [party] Allow duplicate contact mechanism re
 
 issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Check if the user argument is a string on login and reset password
 
-fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production. 
+fix_round_in_out_productions.diff # [production] Fix bug when round in input and output production.
 
 update_validate_move_message.diff # [account] Improve the reconciliation error message with the move line ID and description.
 
 issue15183.diff # [trytond] Wrong database list from Pool
 issue14949.diff # [trytond] Retry unfinished queued tasks
+issue15220.diff # [trytond] Do not check access when creating wizard session
