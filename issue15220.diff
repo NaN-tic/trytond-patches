@@ -2,7 +2,7 @@ diff --git a/tryton/trytond/trytond/tests/test_wizard.py b/tryton/trytond/tryton
 index 65a06a30be..bf41ba1e0c 100644
 --- a/tryton/trytond/trytond/tests/test_wizard.py
 +++ b/tryton/trytond/trytond/tests/test_wizard.py
-@@ -87,25 +87,6 @@ class WizardTestCase(TestCase):
+@@ -82,29 +82,6 @@ class WizardTestCase(DBTestCase):
          self.assertEqual(group_a.name, 'Group A')
          self.assertEqual(group_b.name, 'Group B')
 
@@ -13,7 +13,10 @@ index 65a06a30be..bf41ba1e0c 100644
 -        ActionWizard = pool.get('ir.action.wizard')
 -        Group = pool.get('res.group')
 -        Wizard = pool.get('test.test_wizard', type='wizard')
+-        User = pool.get('res.user')
 -
+-        user = User(login='foo')
+-        user.save()
 -        group = Group(name="Test")
 -        group.save()
 -        action_wizard, = ActionWizard.search([
@@ -22,8 +25,9 @@ index 65a06a30be..bf41ba1e0c 100644
 -        action_wizard.groups = [group]
 -        action_wizard.save()
 -
--        with self.assertRaises(AccessError):
--            session_id, start_state, end_state = Wizard.create()
+-        with Transaction().set_user(user.id):
+-            with self.assertRaises(AccessError):
+-                session_id, start_state, end_state = Wizard.create()
 -
      @with_transaction()
      def test_session_different_user(self):
@@ -33,7 +37,7 @@ diff --git a/tryton/trytond/trytond/wizard/wizard.py b/tryton/trytond/trytond/wi
 index 9051ef9b74..622732074d 100644
 --- a/tryton/trytond/trytond/wizard/wizard.py
 +++ b/tryton/trytond/trytond/wizard/wizard.py
-@@ -313,7 +313,7 @@ class Wizard(URLMixin, PoolBase):
+@@ -312,7 +312,7 @@ class Wizard(URLMixin, PoolBase):
      def create(cls):
          "Create a session"
          Session = Pool().get('ir.session.wizard')
