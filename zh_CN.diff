@@ -23778,3 +23778,640 @@ Index: root-8.0/tryton/trytond/trytond/res/locale/zh_CN.po
 +msgctxt "model:res.user,name:"
 +msgid "User"
 +msgstr "用户"
+Index: root-8.0/tryton/modules/sale_opportunity/locale/zh_CN.po
+===================================================================
+--- root-8.0.orig/tryton/modules/sale_opportunity/locale/zh_CN.po
++++ root-8.0/tryton/modules/sale_opportunity/locale/zh_CN.po
+@@ -1,224 +1,217 @@
+ #
+ msgid ""
+-msgstr "Content-Type: text/plain; charset=utf-8\n"
++msgstr ""
++"Language: zh_CN\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=utf-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=1; plural=0;\n"
+ 
+ msgctxt "field:sale.configuration,sale_opportunity_sequence:"
+ msgid "Opportunity Sequence"
+-msgstr ""
++msgstr "商机编号序列"
+ 
+ msgctxt "field:sale.configuration.sequence,sale_opportunity_sequence:"
+ msgid "Opportunity Sequence"
+-msgstr ""
++msgstr "商机编号序列"
+ 
+ msgctxt "field:sale.opportunity,address:"
+ msgid "Address"
+-msgstr ""
++msgstr "地址"
+ 
+ msgctxt "field:sale.opportunity,amount:"
+ msgid "Amount"
+-msgstr ""
++msgstr "数额"
+ 
+ msgctxt "field:sale.opportunity,comment:"
+ msgid "Comment"
+-msgstr ""
++msgstr "备注"
+ 
+ msgctxt "field:sale.opportunity,company:"
+ msgid "Company"
+-msgstr ""
++msgstr "公司"
+ 
+ msgctxt "field:sale.opportunity,contact:"
+ msgid "Contact"
+-msgstr ""
++msgstr "联系方式"
+ 
+ msgctxt "field:sale.opportunity,conversion_probability:"
+ msgid "Conversion Probability"
+-msgstr ""
++msgstr "转化概率"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity,converted_by:"
+ msgid "Converted By"
+-msgstr "Converted"
++msgstr "转化人"
+ 
+ msgctxt "field:sale.opportunity,currency:"
+ msgid "Currency"
+-msgstr ""
++msgstr "货币"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity,description:"
+ msgid "Description"
+ msgstr "描述"
+ 
+ msgctxt "field:sale.opportunity,employee:"
+ msgid "Employee"
+-msgstr ""
++msgstr "雇员"
+ 
+ msgctxt "field:sale.opportunity,end_date:"
+ msgid "End Date"
+-msgstr ""
++msgstr "结账日期"
+ 
+ msgctxt "field:sale.opportunity,lines:"
+ msgid "Lines"
+-msgstr ""
++msgstr "明细"
+ 
+ msgctxt "field:sale.opportunity,lost_reason:"
+ msgid "Reason for loss"
+-msgstr ""
++msgstr "丢失原因"
+ 
+ msgctxt "field:sale.opportunity,number:"
+ msgid "Number"
+-msgstr ""
++msgstr "批次号"
+ 
+ msgctxt "field:sale.opportunity,party:"
+ msgid "Party"
+-msgstr ""
++msgstr "参与者"
+ 
+ msgctxt "field:sale.opportunity,payment_term:"
+ msgid "Payment Term"
+-msgstr ""
++msgstr "支付方式"
+ 
+ msgctxt "field:sale.opportunity,reference:"
+ msgid "Reference"
+-msgstr ""
++msgstr "参考"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity,sales:"
+ msgid "Sales"
+-msgstr "Sales"
++msgstr "销售"
+ 
+ msgctxt "field:sale.opportunity,start_date:"
+ msgid "Start Date"
+-msgstr ""
++msgstr "启用日期"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity,state:"
+ msgid "State"
+ msgstr "状态"
+ 
+ msgctxt "field:sale.opportunity.line,company:"
+ msgid "Company"
+-msgstr ""
++msgstr "公司"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity.line,description:"
+ msgid "Description"
+ msgstr "描述"
+ 
+ msgctxt "field:sale.opportunity.line,note:"
+ msgid "Note"
+-msgstr ""
++msgstr "备注"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity.line,opportunity:"
+ msgid "Opportunity"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+ msgctxt "field:sale.opportunity.line,opportunity_state:"
+ msgid "Opportunity State"
+-msgstr ""
++msgstr "商机状态"
+ 
+ msgctxt "field:sale.opportunity.line,product:"
+ msgid "Product"
+-msgstr ""
++msgstr "产品"
+ 
+ msgctxt "field:sale.opportunity.line,product_uom_category:"
+ msgid "Product UoM Category"
+-msgstr ""
++msgstr "产品计量单位类别"
+ 
+ msgctxt "field:sale.opportunity.line,quantity:"
+ msgid "Quantity"
+-msgstr ""
++msgstr "数量"
+ 
+ msgctxt "field:sale.opportunity.line,summary:"
+ msgid "Summary"
+-msgstr ""
++msgstr "摘要"
+ 
+ msgctxt "field:sale.opportunity.line,unit:"
+ msgid "Unit"
+-msgstr ""
++msgstr "单位"
+ 
+ msgctxt "field:sale.opportunity.reporting.context,company:"
+ msgid "Company"
+-msgstr ""
++msgstr "公司"
+ 
+-#, fuzzy
+ msgctxt "field:sale.opportunity.reporting.context,from_date:"
+ msgid "From Date"
+-msgstr "写入日期"
++msgstr "从日期"
+ 
+ msgctxt "field:sale.opportunity.reporting.context,period:"
+ msgid "Period"
+-msgstr ""
++msgstr "周期"
+ 
+ msgctxt "field:sale.opportunity.reporting.context,to_date:"
+ msgid "To Date"
+-msgstr ""
++msgstr "到日期"
+ 
+ msgctxt "field:sale.opportunity.reporting.conversion.employee,employee:"
+ msgid "Employee"
+-msgstr ""
++msgstr "雇员"
+ 
+ msgctxt ""
+ "field:sale.opportunity.reporting.conversion.employee.time_series,employee:"
+ msgid "Employee"
+-msgstr ""
++msgstr "雇员"
+ 
+ msgctxt "help:sale.opportunity,address:"
+ msgid ""
+ "The default address for the invoice and shipment.\n"
+ "Leave empty to use the default values."
+ msgstr ""
++"发票和发货的默认地址。\n"
++"留空则使用默认值。"
+ 
+ msgctxt "help:sale.opportunity,amount:"
+ msgid "Estimated revenue amount."
+-msgstr ""
++msgstr "预计收入金额。"
+ 
+ msgctxt "help:sale.opportunity,conversion_probability:"
+ msgid "Percentage between 0 and 100."
+-msgstr ""
++msgstr "介于 0 和 100 之间的百分比。"
+ 
+ msgctxt "model:ir.action,name:act_open_sale_form"
+ msgid "Sales"
+-msgstr "Sales"
++msgstr "销售"
+ 
+ msgctxt "model:ir.action,name:act_opportunity_form"
+ msgid "Leads and Opportunities"
+-msgstr "Leads and Opportunities"
++msgstr "销售线索与商机"
+ 
+ msgctxt "model:ir.action,name:act_opportunity_form2"
+ msgid "Sales Leads/Opportunities"
+-msgstr "Sales Leads/Opportunities"
++msgstr "销售线索/商机"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_conversion"
+ msgid "Opportunity Conversions"
+-msgstr "Opportunities"
++msgstr "商机转化"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_conversion_employee"
+ msgid "Opportunity Conversions per Employee"
+-msgstr "Opportunities per Employee"
++msgstr "按员工统计商机转化"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_conversion_employee_time_series"
+ msgid "Opportunity Conversions per Employee"
+-msgstr "Opportunities per Employee"
++msgstr "按员工统计商机转化"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_conversion_time_series"
+ msgid "Opportunity Conversions"
+-msgstr "Opportunities"
++msgstr "商机转化"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_main"
+ msgid "Opportunities"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+-#, fuzzy
+ msgctxt "model:ir.action,name:act_reporting_main_time_series"
+ msgid "Opportunities"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+-#, fuzzy
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_all"
+ msgid "All"
+@@ -227,157 +220,149 @@ msgstr "全部"
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_cancelled"
+ msgid "Cancelled"
+-msgstr "Cancelled"
++msgstr "已取消"
+ 
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_converted"
+ msgid "Converted"
+-msgstr "Converted"
++msgstr "已转化"
+ 
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_leads"
+ msgid "Leads"
+-msgstr "Leads"
++msgstr "销售线索"
+ 
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_lost"
+ msgid "Lost"
+-msgstr "Lost"
++msgstr "已丢失"
+ 
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_opportunities"
+ msgid "Opportunities"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+-#, fuzzy
+ msgctxt ""
+ "model:ir.action.act_window.domain,name:act_opportunity_form_domain_won"
+ msgid "Won"
+-msgstr "圆"
++msgstr "已赢单"
+ 
+ #, python-format
+ msgctxt "model:ir.message,text:msg_modify_origin_opportunity"
+ msgid "You cannot modify the opportunity origin of the sale \"%(sale)s\"."
+-msgstr ""
++msgstr "无法修改销售单“%(sale)s”的来源商机。"
+ 
+ #, python-format
+ msgctxt "model:ir.message,text:msg_opportunity_delete_cancel"
+ msgid "To delete opportunity \"%(opportunity)s\", you must cancel it."
+-msgstr ""
++msgstr "要删除商机“%(opportunity)s”，必须先将其取消。"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_amount"
+ msgid "Amount"
+-msgstr ""
++msgstr "数额"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_amount_trend"
+ msgid "Amount Trend"
+-msgstr ""
++msgstr "金额趋势"
+ 
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_conversion_rate"
+ msgid "Conversion Rate"
+-msgstr "Converted"
++msgstr "转化率"
+ 
+-#, fuzzy
+ msgctxt ""
+ "model:ir.message,text:msg_sale_opportunity_reporting_conversion_trend"
+ msgid "Conversion Trend"
+-msgstr "Converted"
++msgstr "转化趋势"
+ 
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_converted"
+ msgid "Converted"
+-msgstr "Converted"
++msgstr "已转化"
+ 
+-#, fuzzy
+ msgctxt ""
+ "model:ir.message,text:msg_sale_opportunity_reporting_converted_amount"
+ msgid "Converted Amount"
+-msgstr "Converted"
++msgstr "已转化金额"
+ 
+ msgctxt ""
+ "model:ir.message,text:msg_sale_opportunity_reporting_converted_amount_trend"
+ msgid "Converted Amount Trend"
+-msgstr ""
++msgstr "已转化金额趋势"
+ 
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_lost"
+ msgid "Lost"
+-msgstr "Lost"
++msgstr "已丢失"
+ 
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_number_help"
+ msgid "Number of opportunities"
+-msgstr "Opportunities"
++msgstr "商机数量"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_number_trend"
+ msgid "Number Trend"
+-msgstr ""
++msgstr "数量趋势"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_winning_rate"
+ msgid "Winning Rate"
+-msgstr ""
++msgstr "赢单率"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_winning_trend"
+ msgid "Winning Trend"
+-msgstr ""
++msgstr "赢单趋势"
+ 
+-#, fuzzy
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_won"
+ msgid "Won"
+-msgstr "圆"
++msgstr "已赢单"
+ 
+ msgctxt "model:ir.message,text:msg_sale_opportunity_reporting_won_amount"
+ msgid "Won Amount"
+-msgstr ""
++msgstr "已赢单金额"
+ 
+ msgctxt ""
+ "model:ir.message,text:msg_sale_opportunity_reporting_won_amount_trend"
+ msgid "Won Amount Trend"
+-msgstr ""
++msgstr "已赢单金额趋势"
+ 
+ msgctxt "model:ir.model.button,string:opportunity_cancel_button"
+ msgid "Cancel"
+-msgstr "Cancel"
++msgstr "取消"
+ 
+ msgctxt "model:ir.model.button,string:opportunity_convert_button"
+ msgid "Convert to Sale"
+-msgstr "Convert to Sale"
++msgstr "转为销售单"
+ 
+ msgctxt "model:ir.model.button,string:opportunity_lead_button"
+ msgid "Set as Lead"
+-msgstr "Set as Lead"
++msgstr "设为销售线索"
+ 
+ msgctxt "model:ir.model.button,string:opportunity_lost_button"
+ msgid "Mark as Lost"
+-msgstr "Mark as Lost"
++msgstr "标记为丢失"
+ 
+ msgctxt "model:ir.model.button,string:opportunity_opportunity_button"
+ msgid "Convert to Opportunity"
+-msgstr "Convert to Opportunity"
++msgstr "转为商机"
+ 
+ msgctxt "model:ir.rule.group,name:rule_group_opportunity_companies"
+ msgid "User in companies"
+-msgstr ""
++msgstr "公司中的用户"
+ 
+ msgctxt "model:ir.rule.group,name:rule_group_reporting_conversion_companies"
+ msgid "User in companies"
+-msgstr ""
++msgstr "公司中的用户"
+ 
+ msgctxt ""
+ "model:ir.rule.group,name:rule_group_reporting_conversion_employee_companies"
+ msgid "User in companies"
+-msgstr ""
++msgstr "公司中的用户"
+ 
+ msgctxt ""
+ "model:ir.rule.group,name:rule_group_reporting_conversion_employee_time_series_companies"
+ msgid "User in companies"
+-msgstr ""
++msgstr "公司中的用户"
+ 
+ msgctxt ""
+ "model:ir.rule.group,name:rule_group_reporting_conversion_time_series_companies"
+ msgid "User in companies"
+-msgstr ""
++msgstr "公司中的用户"
+ 
+ msgctxt "model:ir.rule.group,name:rule_group_reporting_main_companies"
+ msgid "User in companies"
+@@ -390,136 +375,117 @@ msgstr "公司中的用户"
+ 
+ msgctxt "model:ir.sequence,name:sequence_sale_opportunity"
+ msgid "Sale Opportunity"
+-msgstr "Sale Opportunity"
++msgstr "销售商机"
+ 
+ msgctxt "model:ir.sequence.type,name:sequence_type_sale_opportunity"
+ msgid "Sale Opportunity"
+-msgstr "Sale Opportunity"
++msgstr "销售商机"
+ 
+ msgctxt "model:ir.ui.menu,name:menu_opportunity_form"
+ msgid "Leads and Opportunities"
+-msgstr "Leads and Opportunities"
++msgstr "销售线索与商机"
+ 
+-#, fuzzy
+ msgctxt "model:ir.ui.menu,name:menu_reporting_opportunity"
+ msgid "Opportunities"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+ msgctxt "model:res.group,name:group_opportunity"
+ msgid "Sale Opportunity"
+-msgstr "Sale Opportunity"
++msgstr "销售商机"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity,string:"
+ msgid "Sale Opportunity"
+-msgstr "Sale Opportunity"
++msgstr "销售商机"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.line,string:"
+ msgid "Sale Opportunity Line"
+-msgstr "Sale Opportunity"
++msgstr "销售商机明细"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.context,string:"
+ msgid "Sale Opportunity Reporting Context"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机报表上下文"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion,string:"
+ msgid "Sale Opportunity Reporting Conversion"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机转化报表"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion.employee,string:"
+ msgid "Sale Opportunity Reporting Conversion Employee"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机员工转化报表"
+ 
+-#, fuzzy
+ msgctxt ""
+ "model:sale.opportunity.reporting.conversion.employee.time_series,string:"
+ msgid "Sale Opportunity Reporting Conversion Employee Time Series"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机员工转化时间序列"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.conversion.time_series,string:"
+ msgid "Sale Opportunity Reporting Conversion Time Series"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机转化时间序列"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.main,string:"
+ msgid "Sale Opportunity Reporting Main"
+-msgstr "Sale Opportunity"
++msgstr "销售商机主报表"
+ 
+-#, fuzzy
+ msgctxt "model:sale.opportunity.reporting.main.time_series,string:"
+ msgid "Sale Opportunity Reporting Main Time Series"
+-msgstr "Opportunities per Employee per Month"
++msgstr "销售商机主报表时间序列"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Cancelled"
+-msgstr "Cancelled"
++msgstr "已取消"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Converted"
+-msgstr "Converted"
++msgstr "已转化"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Lead"
+-msgstr "Leads"
++msgstr "销售线索"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Lost"
+-msgstr "Lost"
++msgstr "已丢失"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Opportunity"
+-msgstr "Opportunities"
++msgstr "商机"
+ 
+-#, fuzzy
+ msgctxt "selection:sale.opportunity,state:"
+ msgid "Won"
+-msgstr "圆"
++msgstr "已赢单"
+ 
+ msgctxt "selection:sale.opportunity.reporting.context,period:"
+ msgid "Day"
+-msgstr ""
++msgstr "日"
+ 
+ msgctxt "selection:sale.opportunity.reporting.context,period:"
+ msgid "Month"
+-msgstr ""
++msgstr "月"
+ 
+ msgctxt "selection:sale.opportunity.reporting.context,period:"
+ msgid "Year"
+-msgstr ""
++msgstr "年"
+ 
+ msgctxt "view:sale.opportunity.line:"
+ msgid "General"
+-msgstr ""
++msgstr "普通"
+ 
+ msgctxt "view:sale.opportunity.line:"
+ msgid "Notes"
+-msgstr ""
++msgstr "注释"
+ 
+-#, fuzzy
+ msgctxt "view:sale.opportunity.reporting.conversion:"
+ msgid "%"
+ msgstr "%"
+ 
+-#, fuzzy
+ msgctxt "view:sale.opportunity.reporting.main:"
+ msgid "%"
+ msgstr "%"
+ 
+-#, fuzzy
+ msgctxt "view:sale.opportunity:"
+ msgid "%"
+ msgstr "%"
+ 
+ msgctxt "view:sale.opportunity:"
+ msgid "Lead/Opportunity"
+-msgstr ""
++msgstr "销售线索/商机"
