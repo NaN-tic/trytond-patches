@@ -66,4 +66,3 @@ update_validate_move_message.diff # [account] Improve the reconciliation error m
 
 issue15183.diff # [trytond] Wrong database list from Pool
 issue14949.diff # [trytond] Retry unfinished queued tasks
-issue15220.diff # [trytond] Do not check access when creating wizard session
