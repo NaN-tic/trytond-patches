@@ -54,3 +54,5 @@ zh_CN.diff # [tryton] Chinese translations
 
 b2ck8489.diff # [sao] HTTP/RPC 429 during login corrupts the stored user ID
 hu.diff
+
+b2ck8497.diff # [trytond] Reuse connections for custom default databases
