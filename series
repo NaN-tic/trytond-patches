@@ -25,3 +25,5 @@ update_validate_move_message.diff # [account] Include line ID and description in
 b2ck8478.diff # [account] Allow switching move lines directly between debit and credit
 
 issue15188.diff # [party] Limit check VIES per cron to 20 identifiers
+
+b2ck8497.diff # [trytond] Reuse connections for custom default databases

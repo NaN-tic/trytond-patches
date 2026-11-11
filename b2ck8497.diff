@@ -1,0 +1,23 @@
+diff --git a/tryton/trytond/trytond/backend/postgresql/database.py b/tryton/trytond/trytond/backend/postgresql/database.py
+--- a/tryton/trytond/trytond/backend/postgresql/database.py
++++ b/tryton/trytond/trytond/backend/postgresql/database.py
+@@ -221,7 +221,9 @@
+ 
+         minconn = config.getint('database', 'minconn', default=1)
+         maxconn = config.getint('database', 'maxconn', default=64)
+-        if name == _default_name:
++        # Template databases must remain available for CREATE DATABASE.
++        # A custom default_name may also be a working database.
++        if name == 'template1':
+             minconn = 0
+         timeout = config.getint('database', 'timeout')
+         last_clean = (now - cls._clean_last).total_seconds()
+@@ -238,7 +240,7 @@
+                     kwargs = cls._connection_params(name)
+                     kwargs['cursor_factory'] = LoggingCursor
+                     conninfo = kwargs.pop('conninfo')
+-                    if name == _default_name:
++                    if name == 'template1':
+                         Pool = NullConnectionPool
+                     else:
+                         Pool = ConnectionPool
