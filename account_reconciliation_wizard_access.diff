@@ -1,0 +1,49 @@
+diff --git a/modules/account/move.xml b/modules/account/move.xml
+index b9945f8bdf..886a33b8be 100644
+--- a/tryton/modules/account/move.xml
++++ b/tryton/modules/account/move.xml
+@@ -314,6 +314,14 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="wiz_name">account.move.reconcile_lines</field>
+             <field name="model" eval="None"/>
+         </record>
++        <record model="ir.action-res.group" id="act_reconcile_lines_group_account">
++            <field name="action" ref="act_reconcile_lines"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_reconcile_lines_group_account_admin">
++            <field name="action" ref="act_reconcile_lines"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <record model="ir.action.keyword" id="act_reconcile_lines_keyword">
+             <field name="keyword">form_action</field>
+             <field name="model">account.move.line,-1</field>
+@@ -330,6 +338,14 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="wiz_name">account.move.unreconcile_lines</field>
+             <field name="model" eval="None"/>
+         </record>
++        <record model="ir.action-res.group" id="act_unreconcile_lines_group_account">
++            <field name="action" ref="act_unreconcile_lines"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_unreconcile_lines_group_account_admin">
++            <field name="action" ref="act_unreconcile_lines"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <record model="ir.action.keyword" id="act_unreconcile_lines_keyword">
+             <field name="keyword">form_action</field>
+             <field name="model">account.move.line,-1</field>
+@@ -346,6 +362,14 @@ this repository contains the full copyright notices and license terms. -->
+             <field name="wiz_name">account.reconcile</field>
+             <field name="window" eval="True"/>
+         </record>
++        <record model="ir.action-res.group" id="act_reconcile_group_account">
++            <field name="action" ref="act_reconcile"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_reconcile_group_account_admin">
++            <field name="action" ref="act_reconcile"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <menuitem
+             parent="menu_processing"
+             action="act_reconcile"

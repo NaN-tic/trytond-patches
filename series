@@ -27,3 +27,5 @@ b2ck8478.diff # [account] Allow switching move lines directly between debit and 
 issue15188.diff # [party] Limit check VIES per cron to 20 identifiers
 
 b2ck8497.diff # [trytond] Reuse connections for custom default databases
+
+account_reconciliation_wizard_access.diff # [account] For the new wqizard permission, add missing permission on reconcile and unreconcile wizards
