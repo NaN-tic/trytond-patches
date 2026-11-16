@@ -54,7 +54,7 @@ Index: root-7.8/tryton/modules/stock/move.py
          return quantities
  
      @classmethod
-@@ -120,19 +129,27 @@ class StockMixin(object):
+@@ -120,22 +129,30 @@ class StockMixin(object):
          Product = pool.get('product.product')
          Move = pool.get('stock.move')
          Uom = pool.get('product.uom')
@@ -73,6 +73,9 @@ Index: root-7.8/tryton/modules/stock/move.py
 +        with_childs = context.get(
 +            'with_childs', len(location_ids) == 1 or warehouse_only)
          _, operator_, operand = domain
+ 
+         if operand is None:
+             return [('id', '=', -1)]
  
 -        with Transaction().set_context(cls._quantity_context(name)):
 -            if (len(location_ids) == 1
