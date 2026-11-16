@@ -35,6 +35,7 @@ issue14621.diff # [account_statement] Raise a generic user error message when fa
 b2ck8399.diff # [trytond] Showing backtraces for route errors
 
 issue14956.diff # [stock] Optimize stock quantity computation for only warehouses
+issue14936.diff # [trytond] Add cache on import_module tool
 issue15039.diff # [trytond] Raise BadRequest when accessing rpc properties from non RPC request
 
 issue15048.diff # [trytond] [authentication_sms] [ldap_authentication] Validate authentication input types
