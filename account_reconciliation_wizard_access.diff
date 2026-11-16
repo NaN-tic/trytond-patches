@@ -1,3 +1,14 @@
+diff --git a/modules/account/account.xml b/modules/account/account.xml
+--- a/tryton/modules/account/account.xml
++++ b/tryton/modules/account/account.xml
+@@ -704,6 +704,7 @@
+         <record model="ir.action.wizard" id="act_general_ledger_account_party_open">
+             <field name="name">Open General Ledger Account Parties</field>
+             <field name="wiz_name">account.general_ledger.account.party.open</field>
++            <field name="model">account.general_ledger.account.party</field>
+         </record>
+         <record model="ir.action.keyword" id="act_general_ledger_account_party_open_keyword1">
+             <field name="keyword">tree_open</field>
 diff --git a/modules/account/move.xml b/modules/account/move.xml
 index b9945f8bdf..886a33b8be 100644
 --- a/tryton/modules/account/move.xml
