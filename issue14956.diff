@@ -50,7 +50,7 @@ diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
          return quantities
  
      @classmethod
-@@ -118,19 +127,27 @@
+@@ -118,22 +127,30 @@
          Product = pool.get('product.product')
          Move = pool.get('stock.move')
          Uom = pool.get('product.uom')
@@ -69,7 +69,10 @@ diff --git a/tryton/modules/stock/move.py b/tryton/modules/stock/move.py
 +        with_childs = context.get(
 +            'with_childs', len(location_ids) == 1 or warehouse_only)
          _, operator_, operand = domain
- 
+
+         if operand is None:
+             return [('id', '=', -1)]
+
 -        with Transaction().set_context(cls._quantity_context(name)):
 -            if (len(location_ids) == 1
 -                    and not Transaction().context.get('stock_skip_warehouse')):
