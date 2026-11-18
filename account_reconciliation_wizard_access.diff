@@ -10,10 +10,24 @@ diff --git a/modules/account/account.xml b/modules/account/account.xml
          <record model="ir.action.keyword" id="act_general_ledger_account_party_open_keyword1">
              <field name="keyword">tree_open</field>
 diff --git a/modules/account/move.xml b/modules/account/move.xml
-index b9945f8bdf..886a33b8be 100644
 --- a/tryton/modules/account/move.xml
 +++ b/tryton/modules/account/move.xml
-@@ -314,6 +314,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -292,6 +292,14 @@
+             <field name="name">Open Journal</field>
+             <field name="wiz_name">account.move.open_journal</field>
+         </record>
++        <record model="ir.action-res.group" id="act_open_journal_group_account">
++            <field name="action" ref="act_open_journal"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_open_journal_group_account_admin">
++            <field name="action" ref="act_open_journal"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <record model="ir.action.keyword" id="act_open_journal_keyword">
+             <field name="keyword">tree_open</field>
+             <field name="model">account.journal.period,-1</field>
+@@ -314,6 +322,14 @@ this repository contains the full copyright notices and license terms. -->
              <field name="wiz_name">account.move.reconcile_lines</field>
              <field name="model" eval="None"/>
          </record>
@@ -28,7 +42,7 @@ index b9945f8bdf..886a33b8be 100644
          <record model="ir.action.keyword" id="act_reconcile_lines_keyword">
              <field name="keyword">form_action</field>
              <field name="model">account.move.line,-1</field>
-@@ -330,6 +338,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -330,6 +346,14 @@ this repository contains the full copyright notices and license terms. -->
              <field name="wiz_name">account.move.unreconcile_lines</field>
              <field name="model" eval="None"/>
          </record>
@@ -43,7 +57,7 @@ index b9945f8bdf..886a33b8be 100644
          <record model="ir.action.keyword" id="act_unreconcile_lines_keyword">
              <field name="keyword">form_action</field>
              <field name="model">account.move.line,-1</field>
-@@ -346,6 +362,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -346,6 +370,14 @@ this repository contains the full copyright notices and license terms. -->
              <field name="wiz_name">account.reconcile</field>
              <field name="window" eval="True"/>
          </record>
