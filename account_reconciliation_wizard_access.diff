@@ -248,17 +248,13 @@ diff --git a/tryton/modules/analytic_budget/analytic_account.xml b/tryton/module
 diff --git a/tryton/modules/company/company.xml b/tryton/modules/company/company.xml
 --- a/tryton/modules/company/company.xml
 +++ b/tryton/modules/company/company.xml
-@@ -121,6 +121,14 @@
+@@ -121,6 +121,10 @@
              <field name="wiz_name">company.company.config</field>
              <field name="window" eval="True"/>
          </record>
 +        <record model="ir.action-res.group" id="act_company_config_group_company_admin">
 +            <field name="action" ref="act_company_config"/>
 +            <field name="group" ref="group_company_admin"/>
-+        </record>
-+        <record model="ir.action-res.group" id="act_company_config_group_admin">
-+            <field name="action" ref="act_company_config"/>
-+            <field name="group" ref="res.group_admin"/>
 +        </record>
  
          <record model="ir.module.config_wizard.item"
