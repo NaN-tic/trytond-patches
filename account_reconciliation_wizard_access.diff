@@ -1,7 +1,29 @@
-diff --git a/modules/account/account.xml b/modules/account/account.xml
+diff --git a/tryton/modules/account/account.xml b/tryton/modules/account/account.xml
 --- a/tryton/modules/account/account.xml
 +++ b/tryton/modules/account/account.xml
-@@ -704,6 +704,7 @@
+@@ -329,6 +329,10 @@
+             <field name="name">Create Chart of Accounts from Template</field>
+             <field name="wiz_name">account.create_chart</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_create_chart_group_account_admin">
++            <field name="action" ref="wizard_create_chart"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <menuitem
+             parent="menu_templates"
+             action="wizard_create_chart"
+@@ -355,6 +359,10 @@
+             <field name="name">Update Chart of Accounts from Template</field>
+             <field name="wiz_name">account.update_chart</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_update_chart_group_account_admin">
++            <field name="action" ref="wizard_update_chart"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <menuitem
+             parent="menu_templates"
+             action="wizard_update_chart"
+@@ -696,6 +704,7 @@
          <record model="ir.action.wizard" id="act_general_ledger_account_party_open">
              <field name="name">Open General Ledger Account Parties</field>
              <field name="wiz_name">account.general_ledger.account.party.open</field>
@@ -9,11 +31,32 @@ diff --git a/modules/account/account.xml b/modules/account/account.xml
          </record>
          <record model="ir.action.keyword" id="act_general_ledger_account_party_open_keyword1">
              <field name="keyword">tree_open</field>
-diff --git a/modules/account/move.xml b/modules/account/move.xml
-index b9945f8bdf..886a33b8be 100644
+diff --git a/tryton/modules/account/fiscalyear.xml b/tryton/modules/account/fiscalyear.xml
+--- a/tryton/modules/account/fiscalyear.xml
++++ b/tryton/modules/account/fiscalyear.xml
+@@ -122,6 +122,7 @@
+         <record model="ir.action.wizard" id="act_create_periods">
+             <field name="name">Create Periods</field>
+             <field name="wiz_name">account.fiscalyear.create_periods</field>
++            <field name="model">account.fiscalyear</field>
+         </record>
+ 
+         <record model="ir.ui.view"
+@@ -137,6 +138,10 @@
+             <field name="name">Balance Non-Deferral</field>
+             <field
+                 name="wiz_name">account.fiscalyear.balance_non_deferral</field>
++        </record>
++        <record model="ir.action-res.group" id="act_balance_non_deferral_group_account_admin">
++            <field name="action" ref="act_balance_non_deferral"/>
++            <field name="group" ref="group_account_admin"/>
+         </record>
+         <menuitem
+             parent="menu_processing"
+diff --git a/tryton/modules/account/move.xml b/tryton/modules/account/move.xml
 --- a/tryton/modules/account/move.xml
 +++ b/tryton/modules/account/move.xml
-@@ -314,6 +314,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -320,6 +320,14 @@
              <field name="wiz_name">account.move.reconcile_lines</field>
              <field name="model" eval="None"/>
          </record>
@@ -28,7 +71,7 @@ index b9945f8bdf..886a33b8be 100644
          <record model="ir.action.keyword" id="act_reconcile_lines_keyword">
              <field name="keyword">form_action</field>
              <field name="model">account.move.line,-1</field>
-@@ -330,6 +338,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -336,6 +344,14 @@
              <field name="wiz_name">account.move.unreconcile_lines</field>
              <field name="model" eval="None"/>
          </record>
@@ -43,10 +86,11 @@ index b9945f8bdf..886a33b8be 100644
          <record model="ir.action.keyword" id="act_unreconcile_lines_keyword">
              <field name="keyword">form_action</field>
              <field name="model">account.move.line,-1</field>
-@@ -346,6 +362,14 @@ this repository contains the full copyright notices and license terms. -->
+@@ -351,6 +367,14 @@
+             <field name="name">Reconcile Accounts</field>
              <field name="wiz_name">account.reconcile</field>
              <field name="window" eval="True"/>
-         </record>
++        </record>
 +        <record model="ir.action-res.group" id="act_reconcile_group_account">
 +            <field name="action" ref="act_reconcile"/>
 +            <field name="group" ref="group_account"/>
@@ -54,7 +98,354 @@ index b9945f8bdf..886a33b8be 100644
 +        <record model="ir.action-res.group" id="act_reconcile_group_account_admin">
 +            <field name="action" ref="act_reconcile"/>
 +            <field name="group" ref="group_account_admin"/>
-+        </record>
+         </record>
          <menuitem
              parent="menu_processing"
-             action="act_reconcile"
+@@ -373,6 +397,7 @@
+         <record model="ir.action.wizard" id="act_cancel_moves">
+             <field name="name">Cancel Moves</field>
+             <field name="wiz_name">account.move.cancel</field>
++            <field name="model">account.move</field>
+         </record>
+         <record model="ir.action.keyword" id="act_cancel_moves_keyword1">
+             <field name="keyword">form_action</field>
+@@ -447,6 +472,7 @@
+         <record model="ir.action.wizard" id="act_group_lines_wizard">
+             <field name="name">Group Lines</field>
+             <field name="wiz_name">account.move.line.group</field>
++            <field name="model">account.move.line</field>
+         </record>
+         <record model="ir.action.keyword" id="act_group_lines_keyword1">
+             <field name="keyword">form_action</field>
+diff --git a/tryton/modules/account/move_template.xml b/tryton/modules/account/move_template.xml
+--- a/tryton/modules/account/move_template.xml
++++ b/tryton/modules/account/move_template.xml
+@@ -123,6 +123,14 @@
+             <field name="name">Create Move from Template</field>
+             <field name="wiz_name">account.move.template.create</field>
+         </record>
++        <record model="ir.action-res.group" id="act_move_template_create_group_account">
++            <field name="action" ref="act_move_template_create"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_move_template_create_group_account_admin">
++            <field name="action" ref="act_move_template_create"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <menuitem
+             parent="menu_entries"
+             action="act_move_template_create"
+diff --git a/tryton/modules/account/tax.xml b/tryton/modules/account/tax.xml
+--- a/tryton/modules/account/tax.xml
++++ b/tryton/modules/account/tax.xml
+@@ -341,6 +341,14 @@
+             <field name="name">Test Tax</field>
+             <field name="wiz_name">account.tax.test</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_tax_test_group_account">
++            <field name="action" ref="wizard_tax_test"/>
++            <field name="group" ref="group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="wizard_tax_test_group_account_admin">
++            <field name="action" ref="wizard_tax_test"/>
++            <field name="group" ref="group_account_admin"/>
++        </record>
+         <record model="ir.action.keyword" id="wizard_tax_test_keyword1">
+             <field name="keyword">form_action</field>
+             <field name="model">account.tax,-1</field>
+diff --git a/tryton/modules/account_budget/account.xml b/tryton/modules/account_budget/account.xml
+--- a/tryton/modules/account_budget/account.xml
++++ b/tryton/modules/account_budget/account.xml
+@@ -213,6 +213,7 @@
+ 
+         <record model="ir.action.wizard" id="wizard_budget_copy">
+             <field name="wiz_name">account.budget.copy</field>
++            <field name="model">account.budget</field>
+             <field name="name">Copy Budget</field>
+         </record>
+ 
+@@ -224,6 +225,7 @@
+ 
+         <record model="ir.action.wizard" id="wizard_budget_line_create_periods">
+             <field name="wiz_name">account.budget.line.create_periods</field>
++            <field name="model">account.budget.line</field>
+             <field name="name">Create Periods</field>
+         </record>
+ 
+diff --git a/tryton/modules/account_fr/account.xml b/tryton/modules/account_fr/account.xml
+--- a/tryton/modules/account_fr/account.xml
++++ b/tryton/modules/account_fr/account.xml
+@@ -6,6 +6,14 @@
+         <record model="ir.action.wizard" id="act_fec">
+             <field name="name">Generate FEC</field>
+             <field name="wiz_name">account.fr.fec</field>
++        </record>
++        <record model="ir.action-res.group" id="act_fec_group_account">
++            <field name="action" ref="act_fec"/>
++            <field name="group" ref="account.group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="act_fec_group_account_admin">
++            <field name="action" ref="act_fec"/>
++            <field name="group" ref="account.group_account_admin"/>
+         </record>
+         <menuitem
+             parent="account.menu_reporting"
+diff --git a/tryton/modules/account_invoice/payment_term.xml b/tryton/modules/account_invoice/payment_term.xml
+--- a/tryton/modules/account_invoice/payment_term.xml
++++ b/tryton/modules/account_invoice/payment_term.xml
+@@ -94,6 +94,14 @@
+             <field name="name">Test Payment Term</field>
+             <field name="wiz_name">account.invoice.payment_term.test</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_payment_term_test_group_account">
++            <field name="action" ref="wizard_payment_term_test"/>
++            <field name="group" ref="account.group_account"/>
++        </record>
++        <record model="ir.action-res.group" id="wizard_payment_term_test_group_account_admin">
++            <field name="action" ref="wizard_payment_term_test"/>
++            <field name="group" ref="account.group_account_admin"/>
++        </record>
+         <record model="ir.action.keyword"
+             id="wizard_payment_term_test_keyword1">
+             <field name="keyword">form_action</field>
+diff --git a/tryton/modules/account_statement/statement.xml b/tryton/modules/account_statement/statement.xml
+--- a/tryton/modules/account_statement/statement.xml
++++ b/tryton/modules/account_statement/statement.xml
+@@ -399,6 +399,11 @@
+         <record model="ir.action.wizard" id="act_reconcile">
+             <field name="name">Reconcile Statements</field>
+             <field name="wiz_name">account.statement.reconcile</field>
++            <field name="model">account.statement</field>
++        </record>
++        <record model="ir.action-res.group" id="act_account_reconcile_group_statement">
++            <field name="action" ref="account.act_reconcile"/>
++            <field name="group" ref="group_statement"/>
+         </record>
+ 
+         <record model="ir.action.act_window" id="act_move_lines_form">
+diff --git a/tryton/modules/account_stock_eu/account_stock_eu.xml b/tryton/modules/account_stock_eu/account_stock_eu.xml
+--- a/tryton/modules/account_stock_eu/account_stock_eu.xml
++++ b/tryton/modules/account_stock_eu/account_stock_eu.xml
+@@ -178,6 +178,7 @@
+         <record model="ir.action.wizard" id="wizard_intrastat_declaration_export">
+             <field name="name">Export Intrastat Declaration</field>
+             <field name="wiz_name">account.stock.eu.intrastat.declaration.export</field>
++            <field name="model">account.stock.eu.intrastat.declaration</field>
+         </record>
+ 
+         <record model="ir.ui.view" id="intrastat_declaration_export_result_view_form">
+diff --git a/tryton/modules/analytic_budget/analytic_account.xml b/tryton/modules/analytic_budget/analytic_account.xml
+--- a/tryton/modules/analytic_budget/analytic_account.xml
++++ b/tryton/modules/analytic_budget/analytic_account.xml
+@@ -168,6 +168,7 @@
+ 
+         <record model="ir.action.wizard" id="wizard_budget_copy">
+             <field name="wiz_name">analytic_account.budget.copy</field>
++            <field name="model">analytic_account.budget</field>
+             <field name="name">Copy Budget</field>
+         </record>
+ 
+diff --git a/tryton/modules/company/company.xml b/tryton/modules/company/company.xml
+--- a/tryton/modules/company/company.xml
++++ b/tryton/modules/company/company.xml
+@@ -121,6 +121,14 @@
+             <field name="wiz_name">company.company.config</field>
+             <field name="window" eval="True"/>
+         </record>
++        <record model="ir.action-res.group" id="act_company_config_group_company_admin">
++            <field name="action" ref="act_company_config"/>
++            <field name="group" ref="group_company_admin"/>
++        </record>
++        <record model="ir.action-res.group" id="act_company_config_group_admin">
++            <field name="action" ref="act_company_config"/>
++            <field name="group" ref="res.group_admin"/>
++        </record>
+ 
+         <record model="ir.module.config_wizard.item"
+             id="config_wizard_item_company">
+diff --git a/tryton/modules/production/stock.xml b/tryton/modules/production/stock.xml
+--- a/tryton/modules/production/stock.xml
++++ b/tryton/modules/production/stock.xml
+@@ -24,6 +24,10 @@
+             <field name="model">production,-1</field>
+             <field name="action" ref="stock.wizard_open_product_quantities_by_warehouse"/>
+         </record>
++        <record model="ir.action-res.group" id="wizard_open_product_quantities_by_warehouse_group_production">
++            <field name="action" ref="stock.wizard_open_product_quantities_by_warehouse"/>
++            <field name="group" ref="group_production"/>
++        </record>
+ 
+         <record model="ir.ui.view" id="stock_move_view_form">
+             <field name="model">stock.move</field>
+diff --git a/tryton/modules/sale_subscription/recurrence.xml b/tryton/modules/sale_subscription/recurrence.xml
+--- a/tryton/modules/sale_subscription/recurrence.xml
++++ b/tryton/modules/sale_subscription/recurrence.xml
+@@ -69,6 +69,10 @@
+             <field name="name">Test Recurrence Rule</field>
+             <field name="wiz_name">sale.subscription.recurrence.rule.set.test</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_recurrence_test_group_product_admin">
++            <field name="action" ref="wizard_recurrence_test"/>
++            <field name="group" ref="product.group_product_admin"/>
++        </record>
+         <record model="ir.action.keyword"
+             id="wizard_recurrence_test_keyword1">
+             <field name="keyword">form_action</field>
+diff --git a/tryton/modules/stock/product.xml b/tryton/modules/stock/product.xml
+--- a/tryton/modules/stock/product.xml
++++ b/tryton/modules/stock/product.xml
+@@ -232,6 +232,10 @@
+             <field name="name">Products Quantities By Warehouse</field>
+             <field name="wiz_name">stock.product_quantities_warehouse.open</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_open_product_quantities_by_warehouse_group_stock">
++            <field name="action" ref="wizard_open_product_quantities_by_warehouse"/>
++            <field name="group" ref="group_stock"/>
++        </record>
+         <record model="ir.action.keyword" id="wizard_open_product_quantities_by_warehouse_keyword_shipment_in_return">
+             <field name="keyword">form_relate</field>
+             <field name="model">stock.shipment.in.return,-1</field>
+@@ -340,6 +344,7 @@
+         <record model="ir.action.wizard" id="wizard_open_product_quantities_by_warehouse_move">
+             <field name="name">Stock Moves</field>
+             <field name="wiz_name">stock.product_quantities_warehouse.move.open</field>
++            <field name="model">stock.product_quantities_warehouse</field>
+         </record>
+         <record model="ir.action.keyword" id="wizard_open_product_quantities_by_warehouse_move_keyword1">
+             <field name="keyword">tree_open</field>
+diff --git a/tryton/modules/stock_assign_manual/stock.xml b/tryton/modules/stock_assign_manual/stock.xml
+--- a/tryton/modules/stock_assign_manual/stock.xml
++++ b/tryton/modules/stock_assign_manual/stock.xml
+@@ -65,6 +65,10 @@
+             <field name="name">Manually Unassign Shipment</field>
+             <field name="wiz_name">stock.shipment.unassign.manual</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_shipment_unassign_manual_group_stock">
++            <field name="action" ref="wizard_shipment_unassign_manual"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+         <record model="ir.action.keyword" id="shipment_in_return_unassign_manual_keyword">
+             <field name="keyword">form_action</field>
+             <field name="model">stock.shipment.in.return,-1</field>
+diff --git a/tryton/modules/stock_package_shipping/stock.xml b/tryton/modules/stock_package_shipping/stock.xml
+--- a/tryton/modules/stock_package_shipping/stock.xml
++++ b/tryton/modules/stock_package_shipping/stock.xml
+@@ -80,6 +80,10 @@
+             <field name="name">Create Shipping</field>
+             <field name="wiz_name">stock.shipment.create_shipping</field>
+         </record>
++        <record model="ir.action-res.group" id="act_create_shipping_wizard_group_stock">
++            <field name="action" ref="act_create_shipping_wizard"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+ 
+         <record model="ir.action.report" id="report_shipping_label">
+             <field name="name">Shipping Label</field>
+@@ -98,6 +102,10 @@
+             <field name="name">Shipping Labels</field>
+             <field name="wiz_name">stock.shipment.print_shipping_label</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_print_shipping_label_group_stock">
++            <field name="action" ref="wizard_print_shipping_label"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+         <record model="ir.action.keyword" id="wizard_print_shipping_label_keyword_shipment_out">
+             <field name="keyword">form_print</field>
+             <field name="model">stock.shipment.out,-1</field>
+diff --git a/tryton/modules/stock_package_shipping_dpd/stock.xml b/tryton/modules/stock_package_shipping_dpd/stock.xml
+--- a/tryton/modules/stock_package_shipping_dpd/stock.xml
++++ b/tryton/modules/stock_package_shipping_dpd/stock.xml
+@@ -7,5 +7,9 @@
+             <field name="name">Create DPD Shipping for Packages</field>
+             <field name="wiz_name">stock.shipment.create_shipping.dpd</field>
+         </record>
++        <record model="ir.action-res.group" id="act_create_shipping_dpd_wizard_group_stock">
++            <field name="action" ref="act_create_shipping_dpd_wizard"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/stock_package_shipping_mygls/stock.xml b/tryton/modules/stock_package_shipping_mygls/stock.xml
+--- a/tryton/modules/stock_package_shipping_mygls/stock.xml
++++ b/tryton/modules/stock_package_shipping_mygls/stock.xml
+@@ -7,5 +7,9 @@
+             <field name="name">Create MyGLS Shipping for Packages</field>
+             <field name="wiz_name">stock.shipment.create_shipping.mygls</field>
+         </record>
++        <record model="ir.action-res.group" id="act_create_shipping_mygls_wizard_group_stock">
++            <field name="action" ref="act_create_shipping_mygls_wizard"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/stock_package_shipping_sendcloud/stock.xml b/tryton/modules/stock_package_shipping_sendcloud/stock.xml
+--- a/tryton/modules/stock_package_shipping_sendcloud/stock.xml
++++ b/tryton/modules/stock_package_shipping_sendcloud/stock.xml
+@@ -7,5 +7,9 @@
+             <field name="name">Create Sendcloud Shipping for Packages</field>
+             <field name="wiz_name">stock.shipment.create_shipping.sendcloud</field>
+         </record>
++        <record model="ir.action-res.group" id="act_create_shipping_wizard_group_stock">
++            <field name="action" ref="act_create_shipping_wizard"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/stock_package_shipping_ups/stock.xml b/tryton/modules/stock_package_shipping_ups/stock.xml
+--- a/tryton/modules/stock_package_shipping_ups/stock.xml
++++ b/tryton/modules/stock_package_shipping_ups/stock.xml
+@@ -13,5 +13,9 @@
+             <field name="name">Create UPS Shipping for Packages</field>
+             <field name="wiz_name">stock.shipment.create_shipping.ups</field>
+         </record>
++        <record model="ir.action-res.group" id="act_create_shipping_ups_wizard_group_stock">
++            <field name="action" ref="act_create_shipping_ups_wizard"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+     </data>
+ </tryton>
+diff --git a/tryton/modules/stock_split/stock.xml b/tryton/modules/stock_split/stock.xml
+--- a/tryton/modules/stock_split/stock.xml
++++ b/tryton/modules/stock_split/stock.xml
+@@ -95,6 +95,10 @@
+             <field name="name">Split Shipment</field>
+             <field name="wiz_name">stock.shipment.split</field>
+         </record>
++        <record model="ir.action-res.group" id="wizard_split_shipment_group_stock">
++            <field name="action" ref="wizard_split_shipment"/>
++            <field name="group" ref="stock.group_stock"/>
++        </record>
+ 
+         <record model="ir.ui.view" id="shipment_split_start_view_form">
+             <field name="model">stock.shipment.split.start</field>
+diff --git a/tryton/modules/timesheet/line.xml b/tryton/modules/timesheet/line.xml
+--- a/tryton/modules/timesheet/line.xml
++++ b/tryton/modules/timesheet/line.xml
+@@ -107,6 +107,14 @@
+             <field name="name">Enter Timesheet</field>
+             <field name="wiz_name">timesheet.line.enter</field>
+         </record>
++        <record model="ir.action-res.group" id="act_line_enter_group_timesheet">
++            <field name="action" ref="act_line_enter"/>
++            <field name="group" ref="group_timesheet"/>
++        </record>
++        <record model="ir.action-res.group" id="act_line_enter_group_timesheet_admin">
++            <field name="action" ref="act_line_enter"/>
++            <field name="group" ref="group_timesheet_admin"/>
++        </record>
+         <menuitem
+             parent="menu_timesheet"
+             sequence="10"
+diff --git a/tryton/modules/timesheet/timesheet.xml b/tryton/modules/timesheet/timesheet.xml
+--- a/tryton/modules/timesheet/timesheet.xml
++++ b/tryton/modules/timesheet/timesheet.xml
+@@ -3,6 +3,9 @@
+ this repository contains the full copyright notices and license terms. -->
+ <tryton>
+     <data>
++        <record model="res.group" id="group_timesheet">
++            <field name="name">Timesheet</field>
++        </record>
+         <record model="res.group" id="group_timesheet_admin">
+             <field name="name">Timesheet Administration</field>
+         </record>
