@@ -66,4 +66,4 @@ update_validate_move_message.diff # [account] Improve the reconciliation error m
 
 issue14949.diff # [trytond] Retry unfinished queued tasks
 
-account_reconciliation_wizard_access.diff # [account] Fix access to reconciliation and general ledger party wizards
+account_reconciliation_wizard_access.diff # [core modules] Define model or group access for wizard actions
