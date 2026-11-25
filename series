@@ -57,3 +57,5 @@ hu.diff
 b2ck8497.diff # [trytond] Reuse connections for custom default databases
 
 account_reconciliation_wizard_access.diff # [core modules] Define model or group access for wizard actions
+
+km.diff
