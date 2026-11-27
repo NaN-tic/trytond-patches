@@ -5,8 +5,8 @@ diff --git a/tryton/trytond/trytond/protocols/wrappers.py b/tryton/trytond/tryto
  
  from werkzeug import exceptions
  from werkzeug.datastructures import Authorization
--from werkzeug.exceptions import abort
-+from werkzeug.exceptions import BadRequest, abort
+-from werkzeug.exceptions import RequestEntityTooLarge, abort
++from werkzeug.exceptions import BadRequest, RequestEntityTooLarge, abort
  from werkzeug.utils import redirect, send_file
  from werkzeug.wrappers import Request as _Request
  from werkzeug.wrappers import Response
