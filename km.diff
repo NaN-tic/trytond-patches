@@ -31893,7 +31893,7 @@ Index: root-8.0/tryton/modules/product/locale/km.po
 +
 +msgctxt "model:product.uom,symbol:uom_meter"
 +msgid "m"
-+msgstr "នាទី"
++msgstr "m"
 +
 +msgctxt "model:product.uom,symbol:uom_mile"
 +msgid "mi"
